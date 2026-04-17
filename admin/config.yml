@@ -1,0 +1,64 @@
+backend:
+  name: github
+  repo: ajarkan/ngaji # SAYA SUDAH SESUAIKAN DENGAN REPO KAMU
+  branch: main # Ganti dengan 'master' jika branch utamamu bernama master
+
+media_folder: "assets/uploads" # Folder penyimpanan gambar saat diupload via CMS
+public_folder: "/assets/uploads" # URL publik untuk memanggil gambar di HTML
+
+collections:
+  - name: "konten_halaman"
+    label: "Konten Halaman Web"
+    editor:
+      preview: false
+    files:
+      - label: "Program Kelas"
+        name: "classes"
+        file: "data/classes.json"
+        extension: "json"
+        format: "json"
+        fields:
+          - label: "Daftar Program Kelas"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "ID Kelas (Huruf kecil, misal: quran)", name: "id", widget: "string"}
+              - {label: "Nama Kelas", name: "title", widget: "string"}
+              - {label: "Kelas Sedang Dibuka?", name: "isOpen", widget: "boolean", default: true}
+              - {label: "Label Badge (misal: Online / Offline)", name: "badge", widget: "string"}
+              - {label: "Gambar Cover", name: "img", widget: "image"}
+              - {label: "Deskripsi Singkat (HTML diizinkan)", name: "desc", widget: "text"}
+              - {label: "Biaya / Infaq", name: "price", widget: "string"}
+              - {label: "Link Brosur", name: "brosurLink", widget: "string"}
+              - {label: "Link Form Pendaftaran", name: "formLink", widget: "string"}
+              - label: "Silabus / Materi"
+                name: "syllabus"
+                widget: "list"
+                field: {label: "Nama Materi", name: "item", widget: "string"}
+
+      - label: "Galeri Foto"
+        name: "gallery"
+        file: "data/gallery.json"
+        extension: "json"
+        format: "json"
+        fields:
+          - label: "Daftar Dokumentasi"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Judul Foto", name: "label", widget: "string"}
+              - {label: "Upload Foto", name: "image", widget: "image"}
+              - {label: "Teks Alternatif (Alt)", name: "alt", widget: "string"}
+
+      - label: "Tanya Jawab (FAQ)"
+        name: "faq"
+        file: "data/faq.json"
+        extension: "json"
+        format: "json"
+        fields:
+          - label: "Daftar FAQ"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Pertanyaan", name: "question", widget: "string"}
+              - {label: "Jawaban", name: "answer", widget: "text"}
