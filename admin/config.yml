@@ -4,7 +4,7 @@ backend:
   branch: main # Ganti dengan 'master' jika branch utamamu bernama master
 
 media_folder: "assets/uploads" # Folder penyimpanan gambar saat diupload via CMS
-public_folder: "assets/uploads" # URL publik untuk memanggil gambar di HTML (Saya sudah menghapus garis miring '/' di depannya)
+public_folder: "/ngaji/assets/uploads" # SOLUSI: Menambahkan /ngaji agar gambar tidak nyasar ke luar repo!
 
 collections:
   - name: "konten_halaman"
