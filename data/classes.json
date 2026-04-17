@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "id": "desain",
+      "title": "Kelas Desain",
+      "isOpen": true,
+      "badge": "Offline",
+      "img": "/assets/uploads/photo-1519817650390-64a93db51149.jpg",
+      "desc": "Belajar Canva dari dasar tanpa perlu cape-cape mikir langsung bisa dengan transfer ilmu laduni dari Jin hehe.. ini cuma tes.",
+      "price": "Rp 75.000 / bulan",
+      "brosurLink": "https://ajarkan.github.io/tahsin/",
+      "formLink": "https://ajarkan.github.io/form/",
+      "syllabus": [
+        "Bercocok Tanam Dengan Menggunakan Sekop",
+        "Makan Combro Lima Buah Setiap Hari",
+        "Makan Asinan Gak Pernah Habis"
+      ]
+    }
+  ]
+}
