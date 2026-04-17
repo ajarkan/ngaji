@@ -4,106 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin - Kelas Mengaji</title>
-  <script>
-    // Set manual initialization untuk mencegah CMS melakukan fetch ke config.yml
-    window.CMS_MANUAL_INIT = true;
-  </script>
+  <!-- Baris ini memanggil "Otak" config.yml yang baru saja kamu buat -->
+  <link href="config.yml" type="text/yaml" rel="cms-config-url">
 </head>
 <body>
-  <!-- Script Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
-  
-  <script>
-    // Konfigurasi langsung disematkan di sini (menggantikan file config.yml)
-    // Hal ini menghindari error CORS atau gagal Fetch di mode preview
-    CMS.init({
-      config: {
-        backend: {
-          name: "github",
-          repo: "ajarkan/ngaji", // PENTING: Ganti dengan repo kamu!
-          branch: "main"
-        },
-        media_folder: "assets/uploads",
-        public_folder: "/assets/uploads",
-        collections: [
-          {
-            name: "konten_halaman",
-            label: "Konten Halaman Web",
-            editor: { preview: false },
-            files: [
-              {
-                label: "Program Kelas",
-                name: "classes",
-                file: "data/classes.json",
-                extension: "json",
-                format: "json",
-                fields: [
-                  {
-                    label: "Daftar Program Kelas",
-                    name: "items",
-                    widget: "list",
-                    fields: [
-                      { label: "ID Kelas (Huruf kecil)", name: "id", widget: "string" },
-                      { label: "Nama Kelas", name: "title", widget: "string" },
-                      { label: "Kelas Sedang Dibuka?", name: "isOpen", widget: "boolean", default: true },
-                      { label: "Label Badge", name: "badge", widget: "string" },
-                      { label: "Gambar Cover", name: "img", widget: "image" },
-                      { label: "Deskripsi Singkat", name: "desc", widget: "text" },
-                      { label: "Biaya / Infaq", name: "price", widget: "string" },
-                      { label: "Link Brosur", name: "brosurLink", widget: "string" },
-                      { label: "Link Form Pendaftaran", name: "formLink", widget: "string" },
-                      {
-                        label: "Silabus / Materi",
-                        name: "syllabus",
-                        widget: "list",
-                        field: { label: "Nama Materi", name: "item", widget: "string" }
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                label: "Galeri Foto",
-                name: "gallery",
-                file: "data/gallery.json",
-                extension: "json",
-                format: "json",
-                fields: [
-                  {
-                    label: "Daftar Dokumentasi",
-                    name: "items",
-                    widget: "list",
-                    fields: [
-                      { label: "Judul Foto", name: "label", widget: "string" },
-                      { label: "Upload Foto", name: "image", widget: "image" },
-                      { label: "Teks Alternatif (Alt)", name: "alt", widget: "string" }
-                    ]
-                  }
-                ]
-              },
-              {
-                label: "Tanya Jawab (FAQ)",
-                name: "faq",
-                file: "data/faq.json",
-                extension: "json",
-                format: "json",
-                fields: [
-                  {
-                    label: "Daftar FAQ",
-                    name: "items",
-                    widget: "list",
-                    fields: [
-                      { label: "Pertanyaan", name: "question", widget: "string" },
-                      { label: "Jawaban", "name": "answer", "widget": "text" }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    });
-  </script>
+  <!-- Baris ini adalah mesin baru kita: Sveltia CMS -->
+  <script type="module" src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
 </body>
 </html>
