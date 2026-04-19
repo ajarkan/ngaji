@@ -22,11 +22,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <script>
+        // Konfigurasi CSS Canggih: Otomatis menghitung warna hover dan bayangan!
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Merriweather', 'serif'] },
-                    colors: { emerald: { 850: '#064e3b', 900: '#022c22' }, gold: { 400: '#fbbf24', 500: '#f59e0b' } }
+                    colors: {
+                        emerald: {
+                            50: 'var(--c-light, #ecfdf5)',
+                            100: 'color-mix(in srgb, var(--c-light, #ecfdf5) 95%, black)',
+                            200: 'color-mix(in srgb, var(--c-light, #ecfdf5) 90%, black)',
+                            500: 'color-mix(in srgb, var(--c-primary, #059669) 80%, white)',
+                            600: 'var(--c-primary, #059669)',
+                            700: 'color-mix(in srgb, var(--c-primary, #059669) 80%, black)',
+                            800: 'color-mix(in srgb, var(--c-dark, #022c22) 80%, white)',
+                            850: 'color-mix(in srgb, var(--c-dark, #022c22) 90%, white)',
+                            900: 'var(--c-dark, #022c22)',
+                        },
+                        gold: {
+                            400: 'color-mix(in srgb, var(--c-accent, #f59e0b) 80%, white)',
+                            500: 'var(--c-accent, #f59e0b)'
+                        }
+                    }
                 }
             }
         }
@@ -42,7 +59,7 @@
         @keyframes pulse-gold { 0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); } 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); } }
         .custom-scrollbar::-webkit-scrollbar { width: 8px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #10b981; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--c-primary, #10b981); border-radius: 4px; }
         .accordion-arrow { transition: transform 0.3s ease; }
         .accordion-open .accordion-arrow { transform: rotate(180deg); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -70,7 +87,7 @@
                     <a href="#classes" onclick="showLandingPage()" class="text-gray-600 hover:text-emerald-600 font-medium transition">Program Kelas</a>
                     <a href="#gallery" onclick="showLandingPage()" class="text-gray-600 hover:text-emerald-600 font-medium transition">Galeri</a>
                     <a href="#testimonials" onclick="showLandingPage()" class="text-gray-600 hover:text-emerald-600 font-medium transition">Testimoni</a>
-                    <a href="https://ajarkan.github.io/form/" target="_blank" rel="noopener noreferrer" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-full font-medium transition shadow-lg shadow-emerald-600/20 transform hover:-translate-y-0.5">
+                    <a href="https://ajarkan.github.io/form/" target="_blank" rel="noopener noreferrer" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-full font-medium transition shadow-lg transform hover:-translate-y-0.5">
                         Daftar Sekarang
                     </a>
                 </div>
@@ -110,7 +127,7 @@
                             Platform belajar Islam terstruktur dengan kurikulum bersanad. Tersedia kelas online dan offline untuk semua usia dan tingkatan.
                         </p>
                         <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-                            <button onclick="scrollToSection('classes')" class="bg-emerald-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-emerald-600/30 hover:bg-emerald-700 transition transform hover:-translate-y-1">
+                            <button onclick="scrollToSection('classes')" class="bg-emerald-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-emerald-700 transition transform hover:-translate-y-1">
                                 Lihat Pilihan Kelas
                             </button>
                             <button onclick="openVideoModal()" class="flex items-center justify-center space-x-3 px-8 py-4 rounded-xl border-2 border-gray-200 hover:border-emerald-600 hover:text-emerald-600 transition font-medium text-gray-700 group">
@@ -156,21 +173,21 @@
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-8">
-                    <div class="bg-emerald-800/50 p-8 rounded-2xl border border-emerald-700 hover:bg-emerald-800 transition">
+                    <div class="bg-emerald-800 bg-opacity-50 p-8 rounded-2xl border border-emerald-700 hover:bg-opacity-100 transition">
                         <div class="w-14 h-14 bg-gold-500 rounded-lg flex items-center justify-center mb-6 text-emerald-900 text-2xl">
                             <i class="fas fa-certificate"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-3">Pengajar Berkualitas</h3>
                         <p class="text-emerald-200 leading-relaxed">Pengajar berpengalaman dalam bidangnya.</p>
                     </div>
-                    <div class="bg-emerald-800/50 p-8 rounded-2xl border border-emerald-700 hover:bg-emerald-800 transition">
+                    <div class="bg-emerald-800 bg-opacity-50 p-8 rounded-2xl border border-emerald-700 hover:bg-opacity-100 transition">
                         <div class="w-14 h-14 bg-gold-500 rounded-lg flex items-center justify-center mb-6 text-emerald-900 text-2xl">
                             <i class="fas fa-clock"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-3">Waktu Fleksibel</h3>
                         <p class="text-emerald-200 leading-relaxed">Pilih jadwal belajar Online (Gmeet Premium) atau Offline sesuai dengan kesibukan Anda.</p>
                     </div>
-                    <div class="bg-emerald-800/50 p-8 rounded-2xl border border-emerald-700 hover:bg-emerald-800 transition">
+                    <div class="bg-emerald-800 bg-opacity-50 p-8 rounded-2xl border border-emerald-700 hover:bg-opacity-100 transition">
                         <div class="w-14 h-14 bg-gold-500 rounded-lg flex items-center justify-center mb-6 text-emerald-900 text-2xl">
                             <i class="fas fa-book-open"></i>
                         </div>
@@ -188,9 +205,7 @@
                     <h2 class="text-3xl lg:text-4xl font-serif font-bold text-gray-900 mt-2">Pilihan Kelas Terbaik</h2>
                 </div>
 
-                <!-- Kontainer ini sekarang akan diisi secara otomatis oleh JavaScript dari Data CMS -->
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="class-grid">
-                    <!-- Loading State -->
                     <div class="col-span-full text-center text-gray-500 py-10">Memuat data program kelas...</div>
                 </div>
             </div>
@@ -212,7 +227,6 @@
                         <i class="fas fa-chevron-right text-lg"></i>
                     </button>
 
-                    <!-- Kontainer Galeri diisi via JavaScript -->
                     <div id="gallery-container" class="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-10 pt-4 scrollbar-hide px-2" style="scrollbar-width: none; -ms-overflow-style: none;">
                     </div>
                 </div>
@@ -277,7 +291,6 @@
                 <div class="text-center mb-12">
                     <h2 class="text-3xl lg:text-4xl font-serif font-bold text-gray-900">Pertanyaan yang Sering Ditanyakan</h2>
                 </div>
-                <!-- Kontainer FAQ diisi via JavaScript -->
                 <div class="space-y-4" id="faq-container">
                     <div class="text-center text-gray-500 py-4">Memuat FAQ...</div>
                 </div>
@@ -324,13 +337,12 @@
     </div>
 
     <footer class="bg-emerald-900 text-emerald-100 pt-16 pb-8">
-        <!-- (Konten Footer tetap sama seperti aslinya) -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-4 gap-8 mb-12">
             <div class="col-span-1 md:col-span-2">
                 <div class="flex items-center mb-4">
                     <img src="https://lh3.googleusercontent.com/pw/AP1GczMrP-PPwcSDnKHQR5Ixn6iOzYrVkqJsGrFAtmIotAt2oDXQpM51ptd6pg50A9uH-p1AYOAEtBlSkZWDBpDJvvKCkJX9CWWLFrGnT_5VpbIX_3xQUfQ3C2OZbhmZc2EhSJ4FGoAX0nYJC-ZVqwco4Mcw=w435-h100-s-no-gm?authuser=0" alt="Logo Footer" loading="lazy" class="h-12 w-auto object-contain mr-2">
                 </div>
-                <p class="text-emerald-200/80 mb-6 max-w-sm">Membantu umat Islam mempelajari agama dengan manhaj yang benar, mudah, dan terstruktur.</p>
+                <p class="text-emerald-200 opacity-80 mb-6 max-w-sm">Membantu umat Islam mempelajari agama dengan manhaj yang benar, mudah, dan terstruktur.</p>
             </div>
             <div>
                 <h4 class="text-white font-bold mb-4">Program</h4>
@@ -355,8 +367,34 @@
         </div>
     </footer>
 
-    <!-- WhatsApp Widget & Modals -->
     <div id="wa-widget" class="fixed bottom-6 right-6 z-[80] font-sans flex flex-col items-end gap-2">
+        <div id="wa-chat-box" class="hidden bg-white rounded-xl shadow-2xl w-80 mb-2 overflow-hidden transform origin-bottom-right transition-all duration-300 border border-gray-100">
+            <div class="bg-emerald-600 p-4 text-white flex items-center shadow-md">
+                <div class="relative mr-3">
+                    <img src="https://lh3.googleusercontent.com/pw/AP1GczOKPE7I_9wICn-U-USeyOBwq-DvDGZhoVjjPn9KxjqhXFeVzLKRXGZYd0k1B0A1P9d-qJ18xFzZv8R8WObxVf3Q3C_BoeqTLjeUzuV7gNr004-E8QauWLx3D2KcMqXreR6a-dkO1k1I5bfPVzLm70XH=w100-h100-s-no-gm?authuser=0" alt="Admin" class="w-10 h-10 rounded-full object-cover border-2 border-emerald-400">
+                    <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 border border-emerald-600 rounded-full"></span>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm leading-tight">Admin Kelas Mengaji</h4>
+                    <p class="text-[10px] text-emerald-100">Online • Biasanya membalas cepat</p>
+                </div>
+                <button onclick="toggleWaWidget()" class="ml-auto text-emerald-100 hover:text-white transition">
+                    <i class="fas fa-times text-lg"></i>
+                </button>
+            </div>
+            <div class="p-4 bg-[#e5ddd5] h-64 flex flex-col overflow-y-auto custom-scrollbar" style="background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');">
+                <div class="bg-white p-3 rounded-b-lg rounded-tr-lg shadow-sm self-start max-w-[85%] text-sm text-gray-800 mb-2 relative">
+                    <p class="mb-1">Assalamualaikum, ada yang bisa kami bantu?</p>
+                    <span class="text-[10px] text-gray-400 block text-right">Just now</span>
+                </div>
+            </div>
+            <div class="p-3 bg-white border-t border-gray-100 flex items-center gap-2">
+                <input type="text" id="wa-input" class="flex-1 bg-gray-100 border-none rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="Ketik pesan...">
+                <button onclick="sendWaMessage()" class="w-10 h-10 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full flex items-center justify-center transition shadow-md transform active:scale-95">
+                    <i class="fas fa-paper-plane text-xs"></i>
+                </button>
+            </div>
+        </div>
         <button onclick="toggleWaWidget()" class="w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110 hover:rotate-12 relative group z-50">
             <i class="fab fa-whatsapp text-3xl"></i>
             <span class="absolute top-0 right-0 w-3.5 h-3.5 bg-red-500 rounded-full border-2 border-white animate-bounce"></span>
@@ -373,9 +411,13 @@
     </div>
 
     <div id="gallery-modal" class="fixed inset-0 z-[80] hidden bg-black/95 backdrop-blur-sm flex flex-col items-center justify-center animate-in fade-in duration-300">
-        <button onclick="closeGalleryModal()" class="absolute top-4 right-4 text-white/70 hover:text-white p-2 z-50 hover:bg-white/10 rounded-full transition-colors"><i class="fas fa-times text-2xl md:text-3xl"></i></button>
+        <button onclick="closeGalleryModal()" class="absolute top-4 right-4 text-white/70 hover:text-white p-2 z-50 hover:bg-white/10 rounded-full transition-colors">
+            <i class="fas fa-times text-2xl md:text-3xl"></i>
+        </button>
         <div class="flex-1 w-full flex items-center justify-center relative px-4 md:px-16 pb-24 pt-4 h-full">
-            <button onclick="navigateGallery('prev', event)" class="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white p-2 hover:bg-white/10 rounded-full transition-all"><i class="fas fa-chevron-left text-3xl md:text-4xl"></i></button>
+            <button onclick="navigateGallery('prev', event)" class="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white p-2 hover:bg-white/10 rounded-full transition-all">
+                <i class="fas fa-chevron-left text-3xl md:text-4xl"></i>
+            </button>
             <div class="relative max-h-full max-w-full group">
                 <img id="gallery-modal-img" src="" alt="" class="max-h-[70vh] w-auto object-contain shadow-2xl rounded-sm">
                 <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent text-white rounded-b-sm">
@@ -383,7 +425,9 @@
                     <p id="gallery-modal-desc" class="text-sm text-white/70"></p>
                 </div>
             </div>
-            <button onclick="navigateGallery('next', event)" class="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white p-2 hover:bg-white/10 rounded-full transition-all"><i class="fas fa-chevron-right text-3xl md:text-4xl"></i></button>
+            <button onclick="navigateGallery('next', event)" class="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white p-2 hover:bg-white/10 rounded-full transition-all">
+                <i class="fas fa-chevron-right text-3xl md:text-4xl"></i>
+            </button>
         </div>
         <div class="absolute bottom-0 left-0 right-0 h-24 bg-black/40 flex items-center justify-center px-4 overflow-x-auto">
             <div id="gallery-thumbnails" class="flex gap-2"></div>
@@ -392,66 +436,71 @@
 
     <script>
         const VIDEO_PROFIL_URL = "https://www.youtube.com/embed/occrfh_-DTQ"; 
-        
-        // --- 1. DATA CADANGAN / FALLBACK ---
-        // Jika file CMS belum ada, website akan tetap menggunakan data ini
+
+        // DATA CADANGAN / FALLBACK
         let classData = {
-            quran: { id: "quran", title: "Kelas Baca Al-Quran (Tahsin Dasar)", badge: "Online / Offline", isOpen: true, img: "https://images.unsplash.com/photo-1584286595398-a59f21d313f5?q=80&w=1000&auto=format&fit=crop", desc: "Program ini didesain khusus untuk pemula yang ingin belajar membaca Al-Quran dari nol.<br><br><b>Target Pembelajaran:</b><br>Peserta diharapkan mampu memperbaiki bacaan yang masih <i>terbata-bata</i> dan memahami <u>kaidah dasar tajwid</u> dengan baik.", syllabus: ["Pengenalan Huruf Hijaiyah","Latihan Makharijul Huruf","Latihan Sifat Huruf","Membaca Kata Sambung"], price: "Rp 75.000 / bulan", brosurLink: "https://ajarkan.github.io/tahsin/", formLink: "https://ajarkan.github.io/form/?kategori=Baca%20Al-Quran" },
-            arab: { id: "arab", title: "Kelas Bahasa Arab (Nahwu Shorof)", badge: "Online / Offline", isOpen: false, img: "https://images.unsplash.com/photo-1555679427-1f6dfcce943b?q=80&w=1000&auto=format&fit=crop", desc: "Belajar membaca kitab bahasa arab dari Nol sampai bisa dengan buku panduan durusul lughah.", syllabus: ["Pengenalan Kalimah","Tanda I'rob","Jumlah Mufidah"], price: "Rp 175.000 / bulan", brosurLink: "#", formLink: "#" },
-            fiqih: { id: "fiqih", title: "Kelas Fiqih Ibadah", badge: "Online", isOpen: false, img: "https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=1000&auto=format&fit=crop", desc: "Memahami tata cara ibadah yang benar sesuai sunnah berdasarkan madzhab Syafi'i.", syllabus: ["Thaharah","Shalat","Zakat"], price: "Rp 175.000 / bulan", brosurLink: "#", formLink: "#" },
-            tafsir: { id: "tafsir", title: "Kelas Tafsir Al-Quran", badge: "Online", isOpen: false, img: "https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=1000&auto=format&fit=crop", desc: "Membahas Tafsir juz 30 dengan referensi utama kitab tafsir Kontemporer Al Wasith.", syllabus: ["Tafsir An-Naba","Asbabun Nuzul"], price: "Infaq Seikhlasnya", brosurLink: "#", formLink: "#" }
+            quran: { id: "quran", title: "Kelas Baca Al-Quran", badge: "Online / Offline", isOpen: true, img: "https://images.unsplash.com/photo-1584286595398-a59f21d313f5?q=80&w=1000&auto=format&fit=crop", desc: "Program ini didesain khusus untuk pemula.", syllabus: ["Pengenalan Huruf Hijaiyah"], price: "Rp 75.000 / bulan", brosurLink: "#", formLink: "#" }
         };
-
         let GALLERY_ITEMS = [
-          { id: 1, label: 'Pelatihan Multimedia', image: 'https://lh3.googleusercontent.com/pw/AP1GczPDXkZWk7rQ0kH6hvgzXoiBS5nUVlOrb1zixBsrpnMJnxnoVSyDczGM14qp3_GJN6-gRXUruAVEgeFIsXmQvldj_cM90aqzo_mJjXczkb9NFfEErOoHS9XUkUTVm2ynNs-OqzAy7xD4epNYeiB4DmZG=w917-h611-s-no-gm?authuser=0', alt: 'Ruang Belajar Nyaman' },
-          { id: 2, label: 'Pesantren Lansia', image: 'https://lh3.googleusercontent.com/pw/AP1GczP4rcsNIxMOI8Uy3oUwFjUgXoLtTsWIWwc6G8Mo8B51uaiI5HWVk-FaPNn7Eyb4koJ1O-jWdKHdSfmuGAljqXXYQLgmOZ39zAyq9Aza6MD5spm00-0nk6TGkKVkY7FyoLhqOZiJViOzDOoW8RFJsQu4=w917-h611-s-no-gm?authuser=0', alt: 'Peserta Mendengar Kajian di Aula Cordioba' }
+          { id: 1, label: 'Pelatihan', image: 'https://images.unsplash.com/photo-1609599006353-e629aaabfeae?q=80&w=500', alt: 'Ruang Belajar' }
         ];
-
         let FAQ_ITEMS = [
-            { question: "Apa saja Program Kampoeng Quran?", answer: "Program utama Kampoeng Quran Cendekia adalah Pesantren dengan legalitas SMP dan SMA, namun bagi yang hanya berminat mengaji ada program Takhassus." },
-            { question: "Apakah bisa belajar secara online?", answer: "Ya, kami menyediakan kelas online menggunakan Zoom Meeting untuk memudahkan peserta yang berada di luar kota atau memiliki kesibukan padat." },
-            { question: "Apa Mazhab yang diterapkan?", answer: "Kami menerapkan mazhab Syafi'i dalam fiqih ibadah harian sebagai dasar pembelajaran, serta menjunjung tinggi nilai-nilai Ahlussunnah wal Jama'ah." }
+            { question: "Apa saja Program Kampoeng Quran?", answer: "Program utama Kampoeng Quran Cendekia adalah Pesantren..." }
         ];
 
-        // --- 2. SISTEM FETCH DARI CMS ---
+        // SISTEM SAKTI: FETCH DATA WARNA & KONTEN DARI CMS
         async function loadCMSData() {
+            // 1. Ambil Warna Tema
             try {
-                // Fetch Kelas
+                const themeRes = await fetch('data/theme.json');
+                if(themeRes.ok) {
+                    const theme = await themeRes.json();
+                    const root = document.documentElement;
+                    // Menyuntikkan warna pilihan ke CSS Variables agar seluruh web otomatis ganti baju!
+                    if(theme.primary) root.style.setProperty('--c-primary', theme.primary);
+                    if(theme.dark) root.style.setProperty('--c-dark', theme.dark);
+                    if(theme.light) root.style.setProperty('--c-light', theme.light);
+                    if(theme.accent) root.style.setProperty('--c-accent', theme.accent);
+                }
+            } catch(e) { console.log("Menggunakan warna tema bawaan (Hijau)"); }
+
+            // 2. Ambil Kelas
+            try {
                 const classRes = await fetch('data/classes.json');
                 if(classRes.ok) {
                     const classJson = await classRes.json();
-                    classData = {}; // Kosongkan fallback
+                    classData = {}; 
                     classJson.items.forEach(item => {
                         classData[item.id] = { ...item, syllabus: (item.syllabus || []).map(s => s.item || s) };
                     });
                 }
-            } catch(e) { console.log("Menggunakan fallback Kelas"); }
+            } catch(e) {}
             
+            // 3. Ambil Galeri
             try {
-                // Fetch Galeri
                 const galRes = await fetch('data/gallery.json');
                 if(galRes.ok) {
                     const galJson = await galRes.json();
                     GALLERY_ITEMS = galJson.items.map((item, index) => ({ id: index + 1, label: item.label, image: item.image, alt: item.alt }));
                 }
-            } catch(e) { console.log("Menggunakan fallback Galeri"); }
+            } catch(e) {}
 
+            // 4. Ambil FAQ
             try {
-                // Fetch FAQ
                 const faqRes = await fetch('data/faq.json');
                 if(faqRes.ok) {
                     const faqJson = await faqRes.json();
                     FAQ_ITEMS = faqJson.items;
                 }
-            } catch(e) { console.log("Menggunakan fallback FAQ"); }
+            } catch(e) {}
 
-            // Panggil fungsi render setelah data (CMS atau Fallback) siap
+            // Merender hasil ke layar
             renderClasses(Object.values(classData));
             renderGallery();
             renderFAQ(FAQ_ITEMS);
         }
 
-        // --- 3. FUNGSI RENDER OTOMATIS KE HTML ---
+        // FUNGSI RENDER (Tetap sama, menggunakan warna dinamis)
         function renderClasses(classesArray) {
             const grid = document.getElementById('class-grid');
             grid.innerHTML = classesArray.map(cls => `
@@ -493,6 +542,7 @@
 
         function renderGallery() {
             const galleryContainer = document.getElementById('gallery-container');
+            if(!galleryContainer) return;
             galleryContainer.innerHTML = GALLERY_ITEMS.map(item => `
                 <div class="relative flex-shrink-0 w-[80vw] sm:w-[45vw] md:w-[30vw] lg:w-[22vw] snap-center group/card cursor-pointer" onclick="openGalleryModal(${item.id})">
                     <div class="aspect-square overflow-hidden rounded-sm shadow-sm bg-gray-200 relative">
@@ -507,11 +557,10 @@
                         </div>
                     </div>
                 </div>`).join('');
-            
             setTimeout(updateScrollButtons, 100);
         }
 
-        // --- MENGGABUNGKAN INTERAKSI (Tetap sama seperti aslinya) ---
+        // --- MENGGABUNGKAN INTERAKSI ---
         function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
         function scrollToSection(id) { showLandingPage(); setTimeout(() => { const el = document.getElementById(id); if(el) el.scrollIntoView({ behavior: 'smooth' }); }, 100); }
         function showLandingPage() { document.getElementById('main-content').classList.remove('hidden'); document.getElementById('detail-page').classList.add('hidden'); window.scrollTo(0,0); }
@@ -551,7 +600,13 @@
         function closeClassDetail() { showLandingPage(); }
         function openVideoModal() { document.getElementById('video-frame').src = `${VIDEO_PROFIL_URL}?autoplay=1`; document.getElementById('video-modal').classList.remove('hidden'); }
         function closeVideoModal() { document.getElementById('video-modal').classList.add('hidden'); document.getElementById('video-frame').src = ""; }
-        function toggleWaWidget() { /* (Fungsi chat bisa ditambahkan di sini) */ window.open(`https://wa.me/6281214880408`, '_blank'); }
+        function toggleWaWidget() { document.getElementById('wa-chat-box').classList.toggle('hidden'); }
+        function sendWaMessage() {
+            const msg = document.getElementById('wa-input').value;
+            if(!msg) return;
+            window.open(`https://wa.me/6281214880408?text=${encodeURIComponent(msg)}`, '_blank');
+            document.getElementById('wa-input').value = '';
+        }
 
         function toggleFaq(header) {
             const item = header.parentElement;
@@ -577,7 +632,7 @@
             }
         }
 
-        // Logic Slider Galeri (Tetap sama)
+        // Logic Slider Galeri
         const prevBtn = document.getElementById('gallery-prev');
         const nextBtn = document.getElementById('gallery-next');
         const galleryContainer = document.getElementById('gallery-container');
@@ -602,7 +657,7 @@
             nextBtn.onclick = () => galleryContainer.scrollBy({ left: galleryContainer.clientWidth * 0.75, behavior: 'smooth' });
         }
 
-        // Logic Modal Galeri (Tetap sama)
+        // Logic Modal Galeri
         let currentModalIndex = -1;
         function openGalleryModal(id) {
             const index = GALLERY_ITEMS.findIndex(item => item.id === id);
@@ -633,7 +688,7 @@
 
         // Inisialisasi Website
         document.addEventListener('DOMContentLoaded', () => {
-            loadCMSData(); // Jalankan fetch data CMS saat web dibuka
+            loadCMSData(); 
         });
 
     </script>
