@@ -7,8 +7,22 @@ media_folder: "assets/uploads" # Folder penyimpanan gambar saat diupload via CMS
 public_folder: "/ngaji/assets/uploads" # SOLUSI: Menambahkan /ngaji agar gambar tidak nyasar ke luar repo!
 
 collections:
+  # MENU BARU: PENGATURAN TEMA WARNA
+  - name: "pengaturan"
+    label: "🎨 Pengaturan Tema"
+    files:
+      - label: "Setting Gaya dan Warna"
+        name: "tema"
+        file: "data/theme.json"
+        fields:
+          - {label: "Warna Utama (Tombol, Judul, Link)", name: "primary", widget: "color", default: "#059669"}
+          - {label: "Warna Gelap (Footer, Background)", name: "dark", widget: "color", default: "#022c22"}
+          - {label: "Warna Latar Terang (Background Seksi)", name: "light", widget: "color", default: "#ecfdf5"}
+          - {label: "Warna Aksen (Bintang, Highlight)", name: "accent", widget: "color", default: "#f59e0b"}
+
+  # MENU LAMA: KONTEN WEB
   - name: "konten_halaman"
-    label: "Konten Halaman Web"
+    label: "📝 Konten Halaman Web"
     editor:
       preview: false
     files:
