@@ -3,17 +3,17 @@
     {
       "label": "Suasana Menjelang Maghrib",
       "image": "/assets/uploads/senja.png",
-      "alt": "Halaman Depan Kampoeng Quran Cendekia"
+      "alt": "Halaman Depan Kampoeng Quran Cendekia Menjelang Maghrib"
+    },
+    {
+      "label": "Pelatihan Multimedia",
+      "image": "/assets/uploads/multi.png",
+      "alt": "Ruang Belajar Multimedia di Bagian Atas Bersama Santri Persiapan Ke Jepang"
     },
     {
       "label": "Pesantren Lansia",
       "image": "/assets/uploads/lansia.png",
       "alt": "Peserta Mendengar Kajian di Aula Cordoba"
-    },
-    {
-      "label": "Pelatihan Multimedia",
-      "image": "/assets/uploads/5.png",
-      "alt": "Ruang Belajar Multimedia di Bagian Atas"
     }
   ]
 }
