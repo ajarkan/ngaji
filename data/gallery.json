@@ -24,6 +24,11 @@
       "label": "Tempat Nongkrong Sehat",
       "image": "/assets/uploads/duduk.png",
       "alt": "Area Diskusi Santai Atau Untuk Merenung"
+    },
+    {
+      "label": "Peserta Program Takhassus",
+      "image": "/assets/uploads/duduk.png",
+      "alt": "Muraja'ah Bareng"
     }
   ]
 }
