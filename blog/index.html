@@ -121,7 +121,7 @@
                 <!-- Isi Artikel -->
                 <div class="p-5 md:p-12 prose max-w-none" id="detail-content"></div>
                 
-                <!-- BACA JUGA / REKOMENDASI ARTIKEL (FITUR BARU) -->
+                <!-- BACA JUGA / REKOMENDASI ARTIKEL -->
                 <div class="bg-white border-t border-gray-100 p-4 md:p-12" id="related-articles-section">
                     <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 px-2 md:px-0">Baca Juga:</h3>
                     
@@ -302,6 +302,38 @@
             container.innerHTML = html;
         }
 
+        // --- FUNGSI BARU: HTML Generator untuk Rekomendasi di Tengah Artikel ---
+        function generateInlineRelatedArticles(currentIndex) {
+            // Ambil 3 artikel lain (di luar artikel ini)
+            const related = allArticles.filter((_, i) => i !== currentIndex).slice(0, 3);
+            if (related.length === 0) return '';
+
+            // Desain responsif ala Republika: 2 kolom di HP, 3 kolom di Laptop
+            let html = `<div class="my-10 border-y-2 border-emerald-100 py-6 bg-emerald-50/40 -mx-5 px-5 md:mx-0 md:px-8 rounded-none md:rounded-2xl not-prose">`;
+            html += `<h4 class="text-emerald-800 font-bold text-base md:text-lg mb-4 flex items-center"><i class="fas fa-book-reader mr-2 text-emerald-600"></i>Baca Juga:</h4>`;
+            html += `<div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">`;
+
+            related.forEach(post => {
+                const relIndex = allArticles.indexOf(post);
+                const relDate = new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                
+                html += `
+                <div class="cursor-pointer group flex flex-col gap-2" onclick="openArticle(${relIndex})">
+                    <div class="w-full h-24 md:h-32 rounded-lg overflow-hidden bg-gray-200">
+                        <img src="${post.thumbnail.startsWith('/') ? '..' + post.thumbnail : post.thumbnail}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="${post.title}">
+                    </div>
+                    <div class="flex flex-col mt-1">
+                        <span class="text-[9px] md:text-[11px] text-gray-500 mb-1 font-semibold uppercase tracking-wider">${post.category} - ${relDate}</span>
+                        <h5 class="font-bold text-gray-800 text-[11px] md:text-sm leading-tight group-hover:text-emerald-600 transition-colors line-clamp-3">${post.title}</h5>
+                    </div>
+                </div>
+                `;
+            });
+
+            html += `</div></div>`;
+            return html;
+        }
+
         function openArticle(index) {
             const post = allArticles[index];
             if(!post) return;
@@ -313,8 +345,16 @@
             
             let content = post.content || "";
             content = content.replace(/\]\(\/assets\/uploads\//g, '](../assets/uploads/');
+            
+            // Konversi dari Markdown ke HTML
+            let contentHtml = marked.parse(content);
+            
+            // FITUR BARU: Cari dan Ganti Shortcode [BACA_JUGA] menjadi blok desain
+            const inlineRelatedHtml = generateInlineRelatedArticles(index);
+            contentHtml = contentHtml.replace(/<p>\[BACA_JUGA\]<\/p>|\[BACA_JUGA\]/gi, inlineRelatedHtml);
+            
             const contentDiv = document.getElementById('detail-content');
-            contentDiv.innerHTML = marked.parse(content);
+            contentDiv.innerHTML = contentHtml;
             
             if(currentSearchQuery) {
                 const walker = document.createTreeWalker(contentDiv, NodeFilter.SHOW_TEXT);
@@ -327,9 +367,8 @@
                 });
             }
 
-            // --- EKSEKUSI BACA JUGA (REKOMENDASI ARTIKEL) ---
+            // --- EKSEKUSI BACA JUGA (REKOMENDASI ARTIKEL DI BAWAH) ---
             const relatedContainer = document.getElementById('related-articles-grid');
-            // Mengambil 3 artikel terbaru, tapi menyembunyikan artikel yang sedang dibaca ini
             const relatedPosts = allArticles.filter((_, i) => i !== index).slice(0, 4);
             
             if(relatedPosts.length > 0) {
@@ -358,7 +397,6 @@
             document.getElementById('blog-detail-view').classList.remove('hidden');
             document.getElementById('blog-detail-view').classList.add('fade-in');
             
-            // Scroll mulus kembali ke ujung atas artikel baru
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             renderDisqusComments(post.title);
