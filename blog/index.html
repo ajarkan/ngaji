@@ -16,8 +16,6 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Library Penterjemah Markdown menjadi HTML untuk Artikel -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <script>
@@ -46,36 +44,31 @@
     <style>
         .fade-in { animation: fadeIn 0.4s ease-in-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Gaya Khusus untuk Isi Artikel (Markdown rendering) */
         .prose h1 { font-family: 'Merriweather', serif; font-size: 2.25rem; font-weight: bold; margin-top: 2rem; margin-bottom: 1rem; color: var(--c-dark, #022c22); line-height: 1.3;}
         .prose h2 { font-family: 'Merriweather', serif; font-size: 1.5rem; font-weight: bold; margin-top: 2rem; margin-bottom: 1rem; color: var(--c-primary, #059669); }
-        .prose h3 { font-size: 1.25rem; font-weight: bold; margin-top: 1.5rem; margin-bottom: 0.5rem; }
         .prose p { margin-bottom: 1.25rem; line-height: 1.8; color: #4b5563; }
-        .prose strong { font-weight: 700; color: #1f2937; }
-        .prose em { font-style: italic; }
-        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; color: #4b5563; }
-        .prose ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1.25rem; color: #4b5563; }
-        .prose li { margin-bottom: 0.5rem; }
         .prose img { border-radius: 0.75rem; margin: 2rem auto; max-width: 100%; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
         .prose blockquote { border-left: 4px solid var(--c-accent, #f59e0b); padding-left: 1rem; font-style: italic; color: #6b7280; background: var(--c-light, #f9fafb); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.25rem;}
-        .prose a { color: var(--c-primary, #059669); text-decoration: underline; }
-
-        /* Custom Scrollbar untuk Panel TOC */
         .toc-scrollbar::-webkit-scrollbar { width: 6px; }
-        .toc-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .toc-scrollbar::-webkit-scrollbar-thumb { background: var(--c-primary, #10b981); border-radius: 10px; }
-        
-        /* Sembunyikan scrollbar untuk filter kategori di mobile tapi biarkan bisa digeser */
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="text-gray-700 bg-gray-50 font-sans antialiased flex flex-col min-h-screen">
 
-    <!-- Sistem Inti Facebook SDK -->
+    <!-- Sistem Inti Facebook SDK (Metode Inisialisasi SPA Modern) -->
     <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v19.0&appId=2899707680179630"></script>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '2899707680179630',
+                xfbml      : true,
+                version    : 'v19.0'
+            });
+        };
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js"></script>
 
     <!-- Navbar -->
     <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
@@ -84,15 +77,12 @@
                 <a href="../index.html" class="flex-shrink-0 flex items-center">
                     <img src="https://lh3.googleusercontent.com/pw/AP1GczO9Oe-sM1Tiw_KsPEdNJn9PreUX3_P5l7BUkWf5WSLgUJ0K0RUgaPuGuFJkm9qJJ1xZzzKGEWWRT1ah6Pz_38hmKq7EttaLmhIg2Ycv2Og2MMezwCS-m7kflhwqh0Jji0c3fDrDKRjXSYjKDmdicuK0=w435-h100-s-no-gm" alt="Logo" class="h-12 w-auto object-contain">
                 </a>
-                
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="../index.html" class="text-gray-600 hover:text-emerald-600 font-medium transition">Beranda</a>
                     <a href="../index.html#classes" class="text-gray-600 hover:text-emerald-600 font-medium transition">Program Kelas</a>
                     <a href="../blog/" class="text-emerald-600 font-bold border-b-2 border-emerald-600 pb-1">Blog Artikel</a>
                     <a href="https://ajarkan.github.io/form/" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-full font-medium transition shadow-lg transform hover:-translate-y-0.5">Daftar Sekarang</a>
                 </div>
-
-                <!-- Tombol Hamburger Mobile -->
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" class="text-gray-600 hover:text-emerald-600 focus:outline-none transition-colors" onclick="toggleMobileMenu()">
                         <i class="fas fa-bars text-2xl"></i>
@@ -100,8 +90,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Dropdown Menu Mobile -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
             <div class="px-4 pt-2 pb-6 space-y-1">
                 <a href="../index.html" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-md">Beranda</a>
@@ -114,191 +102,89 @@
 
     <!-- Main Content Area -->
     <main class="flex-grow pt-28 pb-20 relative">
-        
-        <!-- VIEW 1: DAFTAR ARTIKEL (LIST) -->
         <div id="blog-list-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-8 fade-in">
                 <span class="text-emerald-600 font-bold tracking-wide uppercase text-sm">Pojok Literasi</span>
                 <h1 class="text-4xl lg:text-5xl font-serif font-bold text-emerald-900 mt-3 mb-4">Blog & Artikel Islami</h1>
-                <p class="text-gray-500 max-w-2xl mx-auto text-lg mb-8">Temukan beragam bacaan yang mencerahkan hati dan menambah wawasan keislaman Anda.</p>
-                
-                <!-- Kolom Pencarian -->
                 <div class="max-w-xl mx-auto relative px-2 sm:px-0">
                     <div class="relative flex items-center w-full h-14 rounded-full focus-within:shadow-lg focus-within:border-emerald-500 bg-white overflow-hidden border-2 border-gray-100 transition-all">
-                        <div class="grid place-items-center h-full w-14 text-emerald-600">
-                            <i class="fas fa-search text-lg"></i>
-                        </div>
-                        <input
-                        class="peer h-full w-full outline-none text-base text-gray-700 pr-4 bg-transparent font-medium"
-                        type="text"
-                        id="search-input"
-                        placeholder="Cari artikel, topik, atau kata kunci..."
-                        oninput="handleSearch(event)" />
+                        <div class="grid place-items-center h-full w-14 text-emerald-600"><i class="fas fa-search text-lg"></i></div>
+                        <input class="peer h-full w-full outline-none text-base text-gray-700 pr-4 bg-transparent font-medium" type="text" id="search-input" placeholder="Cari artikel..." oninput="handleSearch(event)" />
                     </div>
                 </div>
             </div>
-
-            <!-- Filter Kategori (Slider Khusus Mobile) -->
-            <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center items-center gap-2 md:gap-3 mb-12 mt-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide py-2 px-2 md:px-0 fade-in" id="category-filters">
-                <!-- Tombol kategori diisi oleh JS -->
-            </div>
-
-            <!-- Grid Artikel -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-grid">
-                <!-- Artikel diisi oleh JS -->
-            </div>
-
-            <!-- Paginasi (Halaman 1, 2, 3...) -->
-            <div class="flex justify-center items-center space-x-2 mt-16 fade-in" id="pagination-controls">
-                <!-- Tombol Paginasi diisi oleh JS -->
-            </div>
+            <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center items-center gap-2 md:gap-3 mb-12 mt-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide py-2 px-2 md:px-0 fade-in" id="category-filters"></div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-grid"></div>
+            <div class="flex justify-center items-center space-x-2 mt-16 fade-in" id="pagination-controls"></div>
         </div>
 
-        <!-- VIEW 2: DETAIL ARTIKEL (Tanpa Loading / SPA) -->
         <div id="blog-detail-view" class="hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <button onclick="closeArticle()" class="mb-8 flex items-center text-gray-500 hover:text-emerald-600 font-medium transition group">
-                <div class="w-10 h-10 rounded-full bg-gray-100 group-hover:bg-emerald-50 flex items-center justify-center mr-3 transition">
-                    <i class="fas fa-arrow-left"></i>
-                </div>
+                <div class="w-10 h-10 rounded-full bg-gray-100 group-hover:bg-emerald-50 flex items-center justify-center mr-3 transition"><i class="fas fa-arrow-left"></i></div>
                 Kembali ke Daftar Artikel
             </button>
-
             <article class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100" id="article-container">
-                <!-- Header Artikel -->
                 <div class="relative h-[400px] w-full">
                     <img id="detail-img" src="" alt="Cover" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
                         <span id="detail-category" class="inline-block bg-gold-500 text-emerald-900 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider mb-4"></span>
-                        <h1 id="detail-title" class="text-3xl md:text-5xl font-serif font-bold leading-tight mb-4">Judul Artikel</h1>
-                        <div class="flex items-center text-gray-200 text-sm">
-                            <i class="far fa-calendar-alt mr-2"></i> <span id="detail-date">Tanggal</span>
-                            <span class="mx-3">•</span>
-                            <i class="far fa-clock mr-2"></i> <span>5 Min Read</span>
-                        </div>
+                        <h1 id="detail-title" class="text-3xl md:text-5xl font-serif font-bold leading-tight mb-4"></h1>
+                        <div class="flex items-center text-gray-200 text-sm"><i class="far fa-calendar-alt mr-2"></i> <span id="detail-date"></span></div>
                     </div>
                 </div>
-
-                <!-- Isi Artikel -->
-                <div class="p-8 md:p-12 prose max-w-none" id="detail-content">
-                    <!-- Konten Markdown di-render di sini -->
-                </div>
-
-                <!-- Kolom Komentar Facebook Asli -->
+                <div class="p-8 md:p-12 prose max-w-none" id="detail-content"></div>
                 <div class="bg-gray-50 border-t border-gray-100 p-8 md:p-12">
                     <h3 class="text-2xl font-bold text-emerald-900 mb-6 font-serif">Komentar Pembaca</h3>
-                    
-                    <!-- Tempat (Container) untuk Facebook Comments -->
-                    <div id="fb-comments-container" class="w-full bg-white p-4 rounded-xl shadow-sm border border-gray-100 overflow-hidden flex justify-center min-h-[150px] relative">
-                        <!-- Komentar akan dimuat secara dinamis oleh Javascript di sini -->
+                    <!-- CONTAINER KOMENTAR: Saya tambahkan tulisan statis "Memulai..." agar tidak blank -->
+                    <div id="fb-comments-container" class="w-full bg-white p-6 rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col items-center justify-center min-h-[250px]">
+                        <p class="text-gray-400">Pilih artikel untuk melihat komentar.</p>
                     </div>
                 </div>
             </article>
         </div>
-
     </main>
 
-    <!-- Daftar Isi Mengambang (Floating TOC) -->
-    <button onclick="toggleTOC()" class="fixed bottom-6 right-6 w-14 h-14 bg-emerald-600 text-white rounded-full shadow-2xl flex items-center justify-center text-xl hover:bg-emerald-700 hover:scale-105 hover:rotate-12 transition-all duration-300 z-40 group" aria-label="Buka Daftar Isi Artikel">
+    <!-- Floating Buttons -->
+    <button onclick="toggleTOC()" class="fixed bottom-6 right-6 w-14 h-14 bg-emerald-600 text-white rounded-full shadow-2xl flex items-center justify-center text-xl hover:bg-emerald-700 hover:scale-105 transition-all z-40 group">
         <i class="fas fa-book-open"></i>
-        <span class="absolute right-full mr-4 bg-gray-800 text-white text-sm px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 whitespace-nowrap pointer-events-none transition-opacity duration-300 shadow-lg">
-            Daftar Isi Blog
-        </span>
+        <span class="absolute right-full mr-4 bg-gray-800 text-white text-sm px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity shadow-lg">Daftar Isi Blog</span>
     </button>
 
-    <div id="toc-overlay" onclick="toggleTOC()" class="fixed inset-0 bg-black/50 z-[55] hidden transition-opacity duration-300 opacity-0 cursor-pointer backdrop-blur-sm"></div>
-
+    <div id="toc-overlay" onclick="toggleTOC()" class="fixed inset-0 bg-black/50 z-[55] hidden transition-opacity backdrop-blur-sm"></div>
     <div id="toc-panel" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-[60] transform translate-x-full transition-transform duration-300 flex flex-col rounded-l-2xl">
         <div class="p-6 border-b border-emerald-100 flex justify-between items-center bg-emerald-50 rounded-tl-2xl">
-            <h3 class="font-serif font-bold text-emerald-900 text-lg flex items-center">
-                <i class="fas fa-list-ul mr-3 text-emerald-600"></i> Daftar Artikel
-            </h3>
-            <button onclick="toggleTOC()" class="text-gray-500 hover:text-red-500 transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-white shadow-sm">
-                <i class="fas fa-times text-xl"></i>
-            </button>
+            <h3 class="font-serif font-bold text-emerald-900 text-lg flex items-center"><i class="fas fa-list-ul mr-3 text-emerald-600"></i> Daftar Artikel</h3>
+            <button onclick="toggleTOC()" class="text-gray-500 hover:text-red-500 transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-white"><i class="fas fa-times"></i></button>
         </div>
-        <div class="flex-1 overflow-y-auto p-4 space-y-2 toc-scrollbar" id="toc-list">
-        </div>
-        <div class="p-4 border-t border-gray-100 bg-gray-50 text-center text-xs text-gray-500">
-            Total <span id="toc-count" class="font-bold text-emerald-600">0</span> Artikel
-        </div>
+        <div class="flex-1 overflow-y-auto p-4 space-y-2 toc-scrollbar" id="toc-list"></div>
+        <div class="p-4 border-t border-gray-100 bg-gray-50 text-center text-xs text-gray-500">Total <span id="toc-count" class="font-bold text-emerald-600">0</span> Artikel</div>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-emerald-900 text-emerald-100 pt-12 pb-8 border-t-4 border-gold-500 mt-auto relative z-30">
-        <div class="max-w-7xl mx-auto px-4 text-center">
+    <footer class="bg-emerald-900 text-emerald-100 pt-12 pb-8 border-t-4 border-gold-500 mt-auto relative z-30 text-center">
+        <div class="max-w-7xl mx-auto px-4">
             <h3 class="text-2xl font-serif font-bold text-white mb-4">Kelas Mengaji</h3>
-            <p class="text-emerald-200/80 max-w-md mx-auto mb-6">Membantu umat Islam mempelajari agama dengan manhaj yang benar, mudah, dan terstruktur.</p>
-            <div class="border-t border-emerald-800 pt-6 text-sm text-gold-500">
-                &copy; 2024 Kelas Mengaji. All Rights Reserved.
-            </div>
+            <div class="border-t border-emerald-800 pt-6 text-sm text-gold-500">&copy; 2024 Kelas Mengaji. All Rights Reserved.</div>
         </div>
     </footer>
 
     <script>
-        // --- 1. DUMMY DATA ARTIKEL ---
-        const dummyArticles = [
-            {
-                title: "Keutamaan Belajar dan Mengajarkan Al-Quran",
-                category: "Fiqih",
-                date: "2024-05-01",
-                thumbnail: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?q=80&w=800",
-                excerpt: "Rasulullah bersabda, sebaik-baik kalian adalah yang mempelajari Al-Quran dan mengajarkannya. Mari kita bahas keutamaan mulia ini.",
-                content: "Sebaik-baik kalian adalah yang mempelajari Al-Quran dan mengajarkannya. (HR. Bukhari).\n\nKeutamaan membaca Al-Quran sangatlah besar. Beberapa di antaranya adalah:\n\n1. **Mendapatkan Syafaat:** Al-Quran akan datang pada hari kiamat memberikan syafaat bagi pembacanya.\n2. **Pahala Berlipat:** Setiap satu huruf yang dibaca diganjar dengan 10 kebaikan.\n3. **Ketenangan Hati:** Membaca Al-Quran adalah dzikir terbaik yang menenangkan jiwa.\n\nMari kita luangkan waktu setiap hari setidaknya membaca 1 lembar (One Day One Lembar). Jangan biarkan hari berlalu tanpa lantunan ayat suci."
-            },
-            {
-                title: "Mengenal 4 Imam Mazhab dalam Islam",
-                category: "Sejarah Islami",
-                date: "2024-05-05",
-                thumbnail: "https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=800",
-                excerpt: "Sejarah singkat Imam Abu Hanifah, Malik, Syafi'i, dan Ahmad bin Hanbal yang menjadi rujukan fiqih umat Islam seluruh dunia.",
-                content: "Dalam perkembangan hukum Islam (Fiqih), ada empat tokoh besar yang pemikirannya diakui dan diikuti oleh mayoritas umat Islam Ahlussunnah wal Jama'ah. Mereka adalah:\n\n### 1. Imam Abu Hanifah\nBeliau adalah pendiri mazhab Hanafi, mazhab yang dominan di wilayah Asia Tengah dan Turki. Dikenal dengan logika dan *qiyas* yang kuat.\n\n### 2. Imam Malik bin Anas\nTokoh dari Madinah, pendiri mazhab Maliki. Beliau sangat berpegang teguh pada amalan penduduk Madinah (Amal Ahlul Madinah).\n\n### 3. Imam Asy-Syafi'i\nMazhab Syafi'i sangat populer di Indonesia, Mesir, dan Asia Tenggara. Beliau menggabungkan keunggulan logika Hanafi dan tradisi hadits Maliki.\n\n### 4. Imam Ahmad bin Hanbal\nMurid Imam Syafi'i yang luar biasa dalam hafalan hadits. Pendiri mazhab Hambali yang banyak diikuti di wilayah Jazirah Arab.\n\nSemua imam ini saling menghormati dan tidak pernah saling menyesatkan."
-            },
-            {
-                title: "Tips Menjaga Keistiqomahan Mengaji",
-                category: "Tips & Inspirasi",
-                date: "2024-05-10",
-                thumbnail: "https://images.unsplash.com/photo-1584286595398-a59f21d313f5?q=80&w=800",
-                excerpt: "Rasa malas sering datang melanda. Berikut adalah 5 tips praktis agar tetap semangat dan istiqomah dalam menghadiri majelis ilmu.",
-                content: "Menjaga semangat belajar (istiqomah) adalah hal yang paling sulit setelah kita memulai suatu kebaikan. \n\n> *\"Amalan yang paling dicintai oleh Allah adalah amalan yang berkesinambungan (rutin) walaupun itu sedikit.\"* (HR. Muslim)\n\nBerikut tipsnya:\n* **Perbaiki Niat:** Selalu luruskan niat bahwa belajar agama murni karena Allah.\n* **Cari Lingkungan Baik:** Bertemanlah dengan orang-orang yang semangat menuntut ilmu.\n* **Jangan Terlalu Memforsir di Awal:** Mulailah dari target kecil yang masuk akal, misal 1 kelas seminggu.\n* **Berdoa:** Minta keistiqomahan melalui doa *\"Ya Muqallibal quluub tsabbit qalbi 'alaa diinik\"*.\n\nSemoga kita selalu dijaga dalam barisan para penuntut ilmu."
-            },
-            {
-                title: "Makna Kalimat Tauhid Lailahaillallah",
-                category: "Aqidah",
-                date: "2024-05-15",
-                thumbnail: "https://images.unsplash.com/photo-1555679427-1f6dfcce943b?q=80&w=800",
-                excerpt: "Pondasi utama seorang muslim adalah Aqidah yang lurus. Memahami makna tiada Tuhan selain Allah adalah kewajiban pertama.",
-                content: "Kalimat *Laa ilaaha illallah* bukanlah sekadar ucapan lisan, namun menuntut pemahaman makna, keyakinan hati, dan realisasi dalam tindakan.\n\nMakna kalimat ini terbagi menjadi dua rukun:\n1. **An-Nafyu (Penolakan):** *Laa ilaaha* (Tidak ada sesembahan yang berhak disembah). Ini berarti menolak segala bentuk kemusyrikan dan berhala.\n2. **Al-Itsbat (Penetapan):** *Illallah* (Kecuali Allah). Menetapkan bahwa satu-satunya dzat yang berhak diibadahi dengan benar hanyalah Allah semata.\n\nMemahami hal ini adalah kunci keselamatan dunia dan akhirat."
-            },
-            {
-                title: "Pendaftaran Takhassus Angkatan ke-5 Dibuka",
-                category: "Info Kegiatan",
-                date: "2024-05-20",
-                thumbnail: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?q=80&w=800",
-                excerpt: "Alhamdulillah, Kelas Mengaji kembali membuka pendaftaran untuk angkatan terbaru program Takhassus. Kuota terbatas!",
-                content: "Kabar gembira bagi Anda yang sedang menanti! Program **Takhassus Bahasa Arab dan Fiqih** angkatan ke-5 resmi dibuka mulai hari ini.\n\n**Persyaratan:**\n* Muslim/Muslimah usia 17 - 40 tahun.\n* Lulus tes bacaan Al-Quran dasar.\n* Berkomitmen menyelesaikan program selama 6 bulan.\n\nSilakan klik tombol *Daftar Sekarang* di menu utama untuk mengisi formulir pendaftaran. Kuota dibatasi hanya untuk 30 pendaftar pertama per kelas demi efektivitas belajar."
-            },
-            {
-                title: "Adab Sebelum Masuk Kelas Online",
-                category: "Tips & Inspirasi",
-                date: "2024-05-22",
-                thumbnail: "https://images.unsplash.com/photo-1584286595398-a59f21d313f5?q=80&w=800",
-                excerpt: "Meskipun belajar dari rumah via Google Meet, adab seorang penuntut ilmu tetap harus dijaga agar ilmu menjadi berkah.",
-                content: "Belajar secara online bukan berarti kita bebas mengabaikan adab terhadap guru dan ilmu.\n\nBeberapa adab yang wajib dijaga saat Zoom / Gmeet:\n1. **Merapikan Pakaian:** Berpakaianlah selayaknya Anda akan pergi ke majelis ilmu sungguhan.\n2. **Membuka Kamera (Bagi Ikhwan):** Jika memungkinkan, bukalah kamera agar ustadz merasa sedang berbicara dengan manusia, bukan tembok.\n3. **Mute Microphone:** Pastikan mik dimatikan saat guru menjelaskan agar tidak bocor suara berisik dari rumah.\n4. **Menyiapkan Catatan:** Ikatlah ilmu dengan menuliskannya."
-            }
-        ];
-
-        // --- 2. SISTEM STATE ---
+        // --- DATA & STATE ---
         let allArticles = [];
         let filteredArticles = [];
         let categories = ["Semua"];
-        
         let currentPage = 1;
         const postsPerPage = 5; 
         let currentCategory = "Semua";
-        let currentSearchQuery = ""; 
+        let currentSearchQuery = "";
 
-        // --- 3. FETCH TEMA DAN DATA ---
+        const dummyArticles = [
+            { title: "Keutamaan Belajar Al-Quran", category: "Fiqih", date: "2024-05-01", thumbnail: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=800", excerpt: "Sebaik-baik kalian adalah yang mempelajari Al-Quran...", content: "Isi artikel..." },
+            { title: "Mengenal 4 Imam Mazhab", category: "Sejarah Islami", date: "2024-05-05", thumbnail: "https://images.unsplash.com/photo-1519817650390-64a93db51149?w=800", excerpt: "Sejarah singkat tokoh besar Islam...", content: "Isi artikel..." }
+        ];
+
+        // --- INIT ---
         async function initBlog() {
             try {
                 const themeRes = await fetch('../data/theme.json');
@@ -306,295 +192,173 @@
                     const theme = await themeRes.json();
                     const root = document.documentElement;
                     if(theme.primary) root.style.setProperty('--c-primary', theme.primary);
-                    if(theme.dark) root.style.setProperty('--c-dark', theme.dark);
-                    if(theme.light) root.style.setProperty('--c-light', theme.light);
                     if(theme.accent) root.style.setProperty('--c-accent', theme.accent);
                 }
-            } catch(e) { console.log("Gunakan warna tema bawaan (Hijau)"); }
+            } catch(e) {}
 
             try {
                 const blogRes = await fetch('../data/blog.json');
-                if(blogRes.ok) {
-                    const blogJson = await blogRes.json();
-                    allArticles = blogJson.items || [];
-                } else {
-                    allArticles = dummyArticles; 
-                }
-            } catch(e) {
-                allArticles = dummyArticles; 
-            }
+                allArticles = blogRes.ok ? (await blogRes.json()).items : dummyArticles;
+            } catch(e) { allArticles = dummyArticles; }
 
-            allArticles.forEach(post => {
-                if(post.category && !categories.includes(post.category)) {
-                    categories.push(post.category);
-                }
-            });
-
+            allArticles.forEach(post => { if(post.category && !categories.includes(post.category)) categories.push(post.category); });
             allArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
-
             setCategory("Semua");
             renderTOC(); 
         }
 
-        // --- 4. SISTEM FILTER, PENCARIAN & PAGINASI ---
+        // --- FILTERS & UI ---
         function applyFilters() {
             currentPage = 1; 
             filteredArticles = allArticles.filter(post => {
                 const matchCategory = currentCategory === "Semua" || post.category === currentCategory;
                 const searchLower = currentSearchQuery.toLowerCase();
-                const matchSearch = !currentSearchQuery || 
-                                    post.title.toLowerCase().includes(searchLower) ||
-                                    post.excerpt.toLowerCase().includes(searchLower) ||
-                                    (post.content && post.content.toLowerCase().includes(searchLower));
-                
+                const matchSearch = !currentSearchQuery || post.title.toLowerCase().includes(searchLower) || post.excerpt.toLowerCase().includes(searchLower) || (post.content && post.content.toLowerCase().includes(searchLower));
                 return matchCategory && matchSearch;
             });
-
-            renderCategoryMenu(); 
-            renderBlogList();
-            renderPagination();
+            renderCategoryMenu(); renderBlogList(); renderPagination();
         }
 
-        function setCategory(category) { currentCategory = category; applyFilters(); }
+        function setCategory(cat) { currentCategory = cat; applyFilters(); }
         function handleSearch(e) { currentSearchQuery = e.target.value; applyFilters(); }
-        function changePage(page) { currentPage = page; renderBlogList(); renderPagination(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function changePage(p) { currentPage = p; renderBlogList(); renderPagination(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-        function highlightText(text, query) {
-            if (!query || !text) return text;
-            const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const regex = new RegExp(`(${escapedQuery})`, 'gi');
-            return text.replace(regex, '<mark class="bg-yellow-300 text-gray-900 px-1 rounded-sm shadow-sm">$1</mark>');
+        function highlightText(text, q) {
+            if (!q || !text) return text;
+            const regex = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return text.replace(regex, '<mark class="bg-yellow-300 text-gray-900 px-1 rounded-sm">$1</mark>');
         }
 
-        function highlightNode(node, query) {
-            if (!query) return;
-            const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const regex = new RegExp(`(${escapedQuery})`, 'gi');
-
-            const walk = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null, false);
-            let n;
-            const nodesToReplace = [];
-            while(n = walk.nextNode()) {
-                if(n.parentNode.nodeName !== 'SCRIPT' && n.parentNode.nodeName !== 'STYLE' && n.parentNode.nodeName !== 'MARK' && regex.test(n.nodeValue)) {
-                    nodesToReplace.push(n);
-                }
-            }
-
-            nodesToReplace.forEach(n => {
-                const fragment = document.createDocumentFragment();
-                let lastIdx = 0;
-                n.nodeValue.replace(regex, (match, p1, offset) => {
-                    const before = document.createTextNode(n.nodeValue.slice(lastIdx, offset));
-                    fragment.appendChild(before);
-                    const mark = document.createElement('mark');
-                    mark.className = 'bg-yellow-300 text-gray-900 px-1 rounded-sm shadow-sm';
-                    mark.textContent = match;
-                    fragment.appendChild(mark);
-                    lastIdx = offset + match.length;
-                });
-                fragment.appendChild(document.createTextNode(n.nodeValue.slice(lastIdx)));
-                n.parentNode.replaceChild(fragment, n);
-            });
-        }
-
-        // --- 5. SISTEM RENDER UI ---
         function renderCategoryMenu() {
-            const container = document.getElementById('category-filters');
-            container.innerHTML = categories.map(cat => {
-                const isActive = cat === currentCategory;
-                const baseClass = "shrink-0 px-4 py-1.5 md:px-5 md:py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 border-2 cursor-pointer shadow-sm snap-center";
-                const activeClass = isActive 
-                    ? "bg-emerald-600 border-emerald-600 text-white transform scale-105" 
-                    : "bg-white border-gray-200 text-gray-600 hover:border-emerald-500 hover:text-emerald-600";
-                return `<button onclick="setCategory('${cat}')" class="${baseClass} ${activeClass}">${cat}</button>`;
+            document.getElementById('category-filters').innerHTML = categories.map(cat => {
+                const active = cat === currentCategory ? "bg-emerald-600 border-emerald-600 text-white scale-105" : "bg-white border-gray-200 text-gray-600 hover:border-emerald-500";
+                return `<button onclick="setCategory('${cat}')" class="shrink-0 px-4 py-1.5 md:px-5 md:py-2 rounded-full font-medium text-xs md:text-sm transition-all border-2 cursor-pointer shadow-sm ${active}">${cat}</button>`;
             }).join('');
         }
 
         function renderBlogList() {
             const container = document.getElementById('blog-grid');
-            const startIndex = (currentPage - 1) * postsPerPage;
-            const endIndex = startIndex + postsPerPage;
-            const postsToShow = filteredArticles.slice(startIndex, endIndex);
-
-            if(postsToShow.length === 0) {
-                container.innerHTML = `
-                <div class="col-span-full text-center py-16 px-4 bg-white rounded-2xl border border-gray-100 shadow-sm fade-in">
-                    <div class="w-20 h-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl"><i class="fas fa-search"></i></div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Pencarian Tidak Ditemukan</h3>
-                    <p class="text-gray-500">Tidak ada artikel yang cocok dengan kata kunci atau kategori tersebut.</p>
-                </div>`;
+            const posts = filteredArticles.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+            if(posts.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-16">Pencarian tidak ditemukan.</div>`;
                 return;
             }
-
-            container.innerHTML = postsToShow.map((post) => {
-                const dateObj = new Date(post.date);
-                const dateString = isNaN(dateObj) ? post.date : dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-                const realIndex = allArticles.indexOf(post); 
-
-                const displayTitle = highlightText(post.title, currentSearchQuery);
-                const displayExcerpt = highlightText(post.excerpt, currentSearchQuery);
-
-                return `
-                <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100 flex flex-col h-full cursor-pointer fade-in" onclick="openArticle(${realIndex})">
+            container.innerHTML = posts.map(post => `
+                <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all overflow-hidden group border border-gray-100 flex flex-col h-full cursor-pointer fade-in" onclick="openArticle(${allArticles.indexOf(post)})">
                     <div class="h-52 overflow-hidden relative">
-                        <img src="${post.thumbnail.startsWith('/') ? '..' + post.thumbnail : post.thumbnail}" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="${post.title}">
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-emerald-600 shadow-sm">${post.category}</div>
+                        <img src="${post.thumbnail.startsWith('/') ? '..' + post.thumbnail : post.thumbnail}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-4 right-4 bg-white/90 px-3 py-1 rounded-full text-xs font-bold text-emerald-600">${post.category}</div>
                     </div>
                     <div class="p-6 flex-1 flex flex-col">
-                        <p class="text-sm text-gray-400 mb-2"><i class="far fa-calendar-alt mr-1"></i> ${dateString}</p>
-                        <h3 class="text-xl font-bold text-emerald-900 mb-3 leading-snug group-hover:text-emerald-600 transition-colors">${displayTitle}</h3>
-                        <p class="text-gray-500 text-sm mb-4 line-clamp-3">${displayExcerpt}</p>
-                        <div class="mt-auto pt-4 border-t border-gray-50">
-                            <span class="text-gold-500 font-bold text-sm flex items-center group-hover:translate-x-2 transition-transform">
-                                Baca Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
-                            </span>
-                        </div>
+                        <h3 class="text-xl font-bold text-emerald-900 mb-3 group-hover:text-emerald-600">${highlightText(post.title, currentSearchQuery)}</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-3">${highlightText(post.excerpt, currentSearchQuery)}</p>
+                        <div class="mt-auto pt-4 border-t text-gold-500 font-bold text-sm">Baca Selengkapnya →</div>
                     </div>
-                </div>`;
-            }).join('');
+                </div>`).join('');
         }
 
         function renderPagination() {
             const container = document.getElementById('pagination-controls');
-            const totalPages = Math.ceil(filteredArticles.length / postsPerPage);
-
-            if(totalPages <= 1) { container.innerHTML = ""; return; }
-
-            let html = "";
-            const prevDisabled = currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-emerald-50 hover:text-emerald-600";
-            html += `<button onclick="if(currentPage > 1) changePage(currentPage - 1)" class="w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-600 flex items-center justify-center transition shadow-sm ${prevDisabled}"><i class="fas fa-chevron-left"></i></button>`;
-
-            for(let i = 1; i <= totalPages; i++) {
-                const isActive = i === currentPage;
-                const activeClass = isActive ? "bg-emerald-600 text-white shadow-md border-emerald-600" : "bg-white border-gray-200 text-gray-600 hover:bg-emerald-50 hover:text-emerald-600";
-                html += `<button onclick="changePage(${i})" class="w-10 h-10 rounded-full font-medium flex items-center justify-center transition border shadow-sm ${activeClass}">${i}</button>`;
-            }
-
-            const nextDisabled = currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-emerald-50 hover:text-emerald-600";
-            html += `<button onclick="if(currentPage < ${totalPages}) changePage(currentPage + 1)" class="w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-600 flex items-center justify-center transition shadow-sm ${nextDisabled}"><i class="fas fa-chevron-right"></i></button>`;
-
+            const total = Math.ceil(filteredArticles.length / postsPerPage);
+            if(total <= 1) { container.innerHTML = ""; return; }
+            let html = `<button onclick="if(currentPage > 1) changePage(currentPage - 1)" class="w-10 h-10 rounded-full bg-white border flex items-center justify-center shadow-sm"><i class="fas fa-chevron-left"></i></button>`;
+            for(let i=1; i<=total; i++) html += `<button onclick="changePage(${i})" class="w-10 h-10 rounded-full border ${i===currentPage ? 'bg-emerald-600 text-white' : 'bg-white'}">${i}</button>`;
+            html += `<button onclick="if(currentPage < ${total}) changePage(currentPage + 1)" class="w-10 h-10 rounded-full bg-white border flex items-center justify-center shadow-sm"><i class="fas fa-chevron-right"></i></button>`;
             container.innerHTML = html;
         }
 
-        // --- 6. SISTEM SPA (GANTI TAMPILAN TANPA LOADING) ---
+        // --- CORE SPA & FB LOGIC ---
         function openArticle(index) {
             const post = allArticles[index];
             if(!post) return;
 
-            const dateObj = new Date(post.date);
-            const dateString = isNaN(dateObj) ? post.date : dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-
             document.getElementById('detail-img').src = post.thumbnail.startsWith('/') ? '..' + post.thumbnail : post.thumbnail;
             document.getElementById('detail-category').innerText = post.category;
-            
             document.getElementById('detail-title').innerHTML = highlightText(post.title, currentSearchQuery);
-            document.getElementById('detail-date').innerText = dateString;
+            document.getElementById('detail-date').innerText = new Date(post.date).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'});
             
-            let rawMarkdown = post.content || "Konten belum tersedia.";
-            rawMarkdown = rawMarkdown.replace(/\]\(\/assets\/uploads\//g, '](../assets/uploads/');
-            
+            let content = post.content || "";
+            content = content.replace(/\]\(\/assets\/uploads\//g, '](../assets/uploads/');
             const contentDiv = document.getElementById('detail-content');
-            contentDiv.innerHTML = marked.parse(rawMarkdown);
-            
-            if (currentSearchQuery) { highlightNode(contentDiv, currentSearchQuery); }
+            contentDiv.innerHTML = marked.parse(content);
+            if(currentSearchQuery) {
+                const walker = document.createTreeWalker(contentDiv, NodeFilter.SHOW_TEXT);
+                let node; const matches = [];
+                while(node = walker.nextNode()) if(node.parentNode.nodeName !== 'MARK' && node.nodeValue.toLowerCase().includes(currentSearchQuery.toLowerCase())) matches.push(node);
+                matches.forEach(n => {
+                    const span = document.createElement('span');
+                    span.innerHTML = highlightText(n.nodeValue, currentSearchQuery);
+                    n.parentNode.replaceChild(span, n);
+                });
+            }
 
-            // --- PERBAIKAN FINAL: TRICK SPA UNTUK KOMENTAR FACEBOOK ---
-            const articleUniqueUrl = window.location.origin + window.location.pathname + "?artikel=" + encodeURIComponent(post.title);
-            const fbContainer = document.getElementById('fb-comments-container');
-            
-            // Tambahkan Indikator Animasi Loading agar Anda tahu sistem sedang bekerja
-            fbContainer.innerHTML = '<div class="text-center py-8 w-full"><i class="fas fa-circle-notch fa-spin text-4xl mb-4 text-emerald-500"></i><p class="text-gray-500 font-medium">Memuat komentar Facebook...</p><p class="text-xs text-red-400 mt-2">Jika tulisan ini hilang dan menjadi putih, periksa pengaturan Domain di Dasbor Meta Facebook.</p></div>';
-            
-            // Tampilkan halaman DULU agar container punya ukuran yang jelas di layar
+            // --- EKSEKUSI FACEBOOK ---
+            const container = document.getElementById('fb-comments-container');
+            // 1. Tampilkan Loading SEGERA
+            container.innerHTML = `
+                <div id="fb-loader" class="text-center py-10 w-full animate-pulse">
+                    <i class="fas fa-circle-notch fa-spin text-4xl text-emerald-500 mb-3"></i>
+                    <p class="text-gray-600 font-medium">Menghubungkan ke Facebook...</p>
+                    <p class="text-[10px] text-gray-400 mt-4 px-10">Pastikan domain kelasngaji.web.id sudah terdaftar di Meta Developer dan mode aplikasi sudah 'Live'.</p>
+                </div>`;
+
             document.getElementById('blog-list-view').classList.add('hidden');
-            const detailView = document.getElementById('blog-detail-view');
-            detailView.classList.remove('hidden');
-            detailView.classList.add('fade-in');
-
+            document.getElementById('blog-detail-view').classList.remove('hidden');
+            document.getElementById('blog-detail-view').classList.add('fade-in');
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            
-            // Tunggu sebentar agar animasi slide selesai, lalu suntikkan kotak FB baru
-            setTimeout(() => {
-                // Bersihkan loading dan bangun kotak komentar
-                fbContainer.innerHTML = '';
-                const fbComments = document.createElement('div');
-                fbComments.className = 'fb-comments';
-                fbComments.setAttribute('data-href', articleUniqueUrl);
-                fbComments.setAttribute('data-width', '100%');
-                fbComments.setAttribute('data-numposts', '5');
-                
-                fbContainer.appendChild(fbComments);
 
-                // Perintahkan FB SDK untuk "memindai" kotak komentar yang baru saja kita masukkan
+            // 2. Suntikkan Plugin setelah jeda agar browser siap
+            setTimeout(() => {
+                const url = window.location.origin + window.location.pathname + "?artikel=" + encodeURIComponent(post.title);
+                const fbDiv = document.createElement('div');
+                fbDiv.className = 'fb-comments';
+                fbDiv.setAttribute('data-href', url);
+                fbDiv.setAttribute('data-width', '100%');
+                fbDiv.setAttribute('data-numposts', '5');
+                
+                // Hapus loader dan pasang kotak FB
+                container.innerHTML = '';
+                container.appendChild(fbDiv);
+
+                // Perintahkan FB SDK untuk menggambar
                 if (typeof FB !== 'undefined') {
-                    FB.XFBML.parse(fbContainer);
-                } else {
-                    console.log("Facebook SDK belum siap, menunggu...");
+                    FB.XFBML.parse(container);
+                    
+                    // Cek jika dalam 5 detik kotak komentar masih kosong (putih)
+                    setTimeout(() => {
+                        if (container.offsetHeight < 100) {
+                            container.innerHTML += `<p class="text-red-500 text-xs mt-4">Gagal memuat. Periksa Ad-Blocker atau status Live di Meta Dashbor.</p>`;
+                        }
+                    }, 5000);
                 }
-            }, 600); // Jeda agar Anda bisa melihat loadingnya dan browser sempat bersiap
+            }, 800);
         }
 
         function closeArticle() {
             document.getElementById('blog-detail-view').classList.add('hidden');
-            const listView = document.getElementById('blog-list-view');
-            listView.classList.remove('hidden');
-            listView.classList.add('fade-in');
-            
-            window.scrollTo({ top: 0, behavior: 'instant' });
-            
-            // Bersihkan container komentar agar tidak ada bekas saat membuka artikel lain
+            document.getElementById('blog-list-view').classList.remove('hidden');
             document.getElementById('fb-comments-container').innerHTML = '';
         }
 
-        // --- Logika Panel Daftar Isi (TOC) ---
         function toggleTOC() {
-            const panel = document.getElementById('toc-panel');
-            const overlay = document.getElementById('toc-overlay');
-
-            if (panel.classList.contains('translate-x-full')) {
-                overlay.classList.remove('hidden');
-                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
-                panel.classList.remove('translate-x-full');
-                document.body.style.overflow = 'hidden'; 
-            } else {
-                overlay.classList.add('opacity-0');
-                panel.classList.add('translate-x-full');
-                document.body.style.overflow = ''; 
-                setTimeout(() => overlay.classList.add('hidden'), 300);
-            }
+            const p = document.getElementById('toc-panel');
+            const o = document.getElementById('toc-overlay');
+            const isOpen = !p.classList.contains('translate-x-full');
+            if(isOpen) { p.classList.add('translate-x-full'); o.classList.add('hidden'); }
+            else { p.classList.remove('translate-x-full'); o.classList.remove('hidden'); }
         }
 
         function renderTOC() {
-            const list = document.getElementById('toc-list');
             document.getElementById('toc-count').innerText = allArticles.length;
-
-            if (allArticles.length === 0) {
-                list.innerHTML = '<p class="text-gray-500 text-sm text-center mt-4">Belum ada artikel.</p>';
-                return;
-            }
-
-            list.innerHTML = allArticles.map((post, index) => {
-                return `
-                <button onclick="openArticleFromTOC(${index})" class="w-full text-left p-3 rounded-xl hover:bg-emerald-50 transition-colors border border-transparent hover:border-emerald-100 group flex gap-3 items-start cursor-pointer">
-                    <div class="w-2.5 h-2.5 mt-1.5 rounded-full bg-emerald-300 group-hover:bg-emerald-500 shrink-0 transition-colors"></div>
-                    <div>
-                        <h4 class="text-sm font-bold text-gray-800 group-hover:text-emerald-700 leading-snug mb-1">${post.title}</h4>
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-full">${post.category}</span>
-                    </div>
-                </button>
-                `;
-            }).join('');
-        }
-
-        function openArticleFromTOC(index) {
-            toggleTOC(); 
-            setTimeout(() => { openArticle(index); }, 300); 
+            document.getElementById('toc-list').innerHTML = allArticles.map((p, i) => `
+                <button onclick="toggleTOC(); setTimeout(()=>openArticle(${i}),300)" class="w-full text-left p-3 rounded-xl hover:bg-emerald-50 border border-transparent hover:border-emerald-100 flex gap-3 items-start group">
+                    <div class="w-2 h-2 mt-2 rounded-full bg-emerald-300 group-hover:bg-emerald-600"></div>
+                    <div><h4 class="text-sm font-bold text-gray-800 leading-tight">${p.title}</h4><span class="text-[10px] font-bold text-emerald-600 uppercase">${p.category}</span></div>
+                </button>`).join('');
         }
 
         function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
-
         document.addEventListener('DOMContentLoaded', initBlog);
-
     </script>
 </body>
 </html>
