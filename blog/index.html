@@ -239,7 +239,9 @@
                 container.innerHTML = `<div class="col-span-full text-center py-16">Pencarian tidak ditemukan.</div>`;
                 return;
             }
-            container.innerHTML = posts.map(post => `
+            container.innerHTML = posts.map(post => {
+                const safeSlug = createSafeSlug(post.title);
+                return `
                 <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all overflow-hidden group border border-gray-100 flex flex-col h-full cursor-pointer fade-in" onclick="openArticle(${allArticles.indexOf(post)})">
                     <div class="h-52 overflow-hidden relative">
                         <img src="${post.thumbnail.startsWith('/') ? '..' + post.thumbnail : post.thumbnail}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
@@ -249,19 +251,31 @@
                         <div class="flex items-center text-xs text-gray-400 mb-2 gap-2">
                             <span><i class="far fa-calendar-alt mr-1"></i> ${new Date(post.date).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</span>
                             <span>•</span>
-                            <!-- Menampilkan Count Komentar Disqus menggunakan URL aman -->
-                            <span><i class="far fa-comments mr-1"></i> <span class="disqus-comment-count" data-disqus-identifier="${createSafeSlug(post.title)}">0 Komentar</span></span>
+                            <!-- PERBAIKAN: Menggunakan tag <a> (Link) agar terdeteksi oleh Disqus -->
+                            <span><i class="far fa-comments mr-1"></i> <a href="?artikel=${safeSlug}#disqus_thread" data-disqus-identifier="${safeSlug}" class="hover:text-emerald-600 transition-colors" onclick="event.preventDefault();">0 Komentar</a></span>
                         </div>
                         <h3 class="text-xl font-bold text-emerald-900 mb-3 group-hover:text-emerald-600">${highlightText(post.title, currentSearchQuery)}</h3>
                         <p class="text-gray-500 text-sm mb-4 line-clamp-3">${highlightText(post.excerpt, currentSearchQuery)}</p>
                         <div class="mt-auto pt-4 border-t text-gold-500 font-bold text-sm">Baca Selengkapnya →</div>
                     </div>
-                </div>`).join('');
+                </div>`
+            }).join('');
 
             // Minta Disqus menghitung ulang angka komentar di halaman setelah render
+            // Tambahkan sedikit pengulangan (interval) untuk memastikan script count.js sudah termuat
             setTimeout(() => {
                 if (typeof DISQUSWIDGETS !== 'undefined') {
                     DISQUSWIDGETS.getCount({reset: true});
+                } else {
+                    // Jika script Disqus terlambat dimuat, kita cek lagi setelah 1 detik
+                    const checkDisqus = setInterval(() => {
+                        if (typeof DISQUSWIDGETS !== 'undefined') {
+                            DISQUSWIDGETS.getCount({reset: true});
+                            clearInterval(checkDisqus);
+                        }
+                    }, 1000);
+                    // Hentikan pengecekan setelah 5 detik agar tidak membebani memori
+                    setTimeout(() => clearInterval(checkDisqus), 5000);
                 }
             }, 500);
         }
@@ -314,10 +328,8 @@
             // SHORTNAME ANDA: kelasngaji
             const disqusShortname = 'kelasngaji'; 
             
-            // PERBAIKAN: Gunakan fungsi Safe Slug untuk menciptakan ID dan URL yang 100% didukung Disqus
             const safeIdentifier = createSafeSlug(articleTitle);
             
-            // PERBAIKAN: Pastikan URL adalah Absolute (Bukan lokal file:///)
             let baseUrl = window.location.origin;
             if (baseUrl === "null" || baseUrl.startsWith("file://")) {
                 baseUrl = "https://kelasngaji.web.id"; // Fallback URL resmi jika dibuka dari laptop
@@ -354,6 +366,13 @@
         function closeArticle() {
             document.getElementById('blog-detail-view').classList.add('hidden');
             document.getElementById('blog-list-view').classList.remove('hidden');
+            
+            // Panggil ulang penghitung Disqus agar angka ter-update setelah orang selesai berkomentar
+            setTimeout(() => {
+                if (typeof DISQUSWIDGETS !== 'undefined') {
+                    DISQUSWIDGETS.getCount({reset: true});
+                }
+            }, 500);
         }
 
         function toggleTOC() {
