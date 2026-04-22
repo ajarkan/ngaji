@@ -118,12 +118,14 @@
                         <div class="flex items-center text-gray-200 text-sm"><i class="far fa-calendar-alt mr-2"></i> <span id="detail-date"></span></div>
                     </div>
                 </div>
-                <div class="p-8 md:p-12 prose max-w-none" id="detail-content"></div>
-                <div class="bg-gray-50 border-t border-gray-100 p-8 md:p-12">
-                    <h3 class="text-2xl font-bold text-emerald-900 mb-6 font-serif">Ruang Diskusi</h3>
+                <div class="p-5 md:p-12 prose max-w-none" id="detail-content"></div>
+                
+                <!-- PERBAIKAN PADDING: p-4 di mobile, p-12 di desktop untuk Ruang Diskusi -->
+                <div class="bg-gray-50 border-t border-gray-100 p-4 md:p-12">
+                    <h3 class="text-2xl font-bold text-emerald-900 mb-4 md:mb-6 font-serif px-2 md:px-0">Ruang Diskusi</h3>
                     
-                    <!-- CONTAINER KOMENTAR DISQUS -->
-                    <div id="disqus_thread" class="w-full bg-white p-6 rounded-xl shadow-sm border border-gray-100 overflow-hidden min-h-[300px]">
+                    <!-- PERBAIKAN PADDING: p-2 di mobile, p-6 di desktop agar Disqus merenggang penuh di HP -->
+                    <div id="disqus_thread" class="w-full bg-white p-2 md:p-6 rounded-xl shadow-sm border border-gray-100 overflow-hidden min-h-[300px]">
                         <!-- Area Loading sebelum Disqus dimuat -->
                         <div class="text-center py-10">
                              <i class="fas fa-circle-notch fa-spin text-4xl text-emerald-500 mb-4"></i>
@@ -174,14 +176,13 @@
             { title: "Mengenal 4 Imam Mazhab", category: "Sejarah Islami", date: "2024-05-05", thumbnail: "https://images.unsplash.com/photo-1519817650390-64a93db51149?w=800", excerpt: "Sejarah singkat tokoh besar Islam...", content: "Isi artikel..." }
         ];
 
-        // --- FUNGSI BARU: Mengubah Judul menjadi URL / Identifier yang aman (Huruf kecil, spasi jadi strip) ---
         function createSafeSlug(text) {
             return text.toString().toLowerCase()
-                .replace(/\s+/g, '-')           // Ganti spasi dengan -
-                .replace(/[^\w\-]+/g, '')       // Hapus karakter non-ASCII
-                .replace(/\-\-+/g, '-')         // Ganti multiple - dengan single -
-                .replace(/^-+/, '')             // Hapus - di awal
-                .replace(/-+$/, '');            // Hapus - di akhir
+                .replace(/\s+/g, '-')           
+                .replace(/[^\w\-]+/g, '')       
+                .replace(/\-\-+/g, '-')         
+                .replace(/^-+/, '')             
+                .replace(/-+$/, '');            
         }
 
         async function initBlog() {
@@ -240,7 +241,6 @@
                 return;
             }
 
-            // --- PERBAIKAN: Menentukan URL Lengkap (Mutlak) agar Disqus tidak bingung ---
             let baseUrl = window.location.origin;
             if (baseUrl === "null" || baseUrl.startsWith("file://")) {
                 baseUrl = "https://kelasngaji.web.id"; 
@@ -248,7 +248,7 @@
 
             container.innerHTML = posts.map(post => {
                 const safeSlug = createSafeSlug(post.title);
-                const fullArticleUrl = baseUrl + window.location.pathname + "?artikel=" + safeSlug; // URL Lengkap
+                const fullArticleUrl = baseUrl + window.location.pathname + "?artikel=" + safeSlug; 
                 
                 return `
                 <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all overflow-hidden group border border-gray-100 flex flex-col h-full cursor-pointer fade-in" onclick="openArticle(${allArticles.indexOf(post)})">
@@ -260,7 +260,6 @@
                         <div class="flex items-center text-xs text-gray-400 mb-2 gap-2">
                             <span><i class="far fa-calendar-alt mr-1"></i> ${new Date(post.date).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</span>
                             <span>•</span>
-                            <!-- PERBAIKAN: Menggunakan URL Lengkap (fullArticleUrl) pada href -->
                             <span><i class="far fa-comments mr-1"></i> <a href="${fullArticleUrl}#disqus_thread" data-disqus-identifier="${safeSlug}" class="hover:text-emerald-600 transition-colors" onclick="event.preventDefault();">0 Komentar</a></span>
                         </div>
                         <h3 class="text-xl font-bold text-emerald-900 mb-3 group-hover:text-emerald-600">${highlightText(post.title, currentSearchQuery)}</h3>
@@ -270,20 +269,16 @@
                 </div>`
             }).join('');
 
-            // Minta Disqus menghitung ulang angka komentar di halaman setelah render
-            // Tambahkan sedikit pengulangan (interval) untuk memastikan script count.js sudah termuat
             setTimeout(() => {
                 if (typeof DISQUSWIDGETS !== 'undefined') {
                     DISQUSWIDGETS.getCount({reset: true});
                 } else {
-                    // Jika script Disqus terlambat dimuat, kita cek lagi setelah 1 detik
                     const checkDisqus = setInterval(() => {
                         if (typeof DISQUSWIDGETS !== 'undefined') {
                             DISQUSWIDGETS.getCount({reset: true});
                             clearInterval(checkDisqus);
                         }
                     }, 1000);
-                    // Hentikan pengecekan setelah 5 detik agar tidak membebani memori
                     setTimeout(() => clearInterval(checkDisqus), 5000);
                 }
             }, 500);
@@ -299,7 +294,6 @@
             container.innerHTML = html;
         }
 
-        // --- CORE SPA & DISQUS LOGIC ---
         function openArticle(index) {
             const post = allArticles[index];
             if(!post) return;
@@ -334,20 +328,18 @@
         }
 
         function renderDisqusComments(articleTitle) {
-            // SHORTNAME ANDA: kelasngaji
             const disqusShortname = 'kelasngaji'; 
             
             const safeIdentifier = createSafeSlug(articleTitle);
             
             let baseUrl = window.location.origin;
             if (baseUrl === "null" || baseUrl.startsWith("file://")) {
-                baseUrl = "https://kelasngaji.web.id"; // Fallback URL resmi jika dibuka dari laptop
+                baseUrl = "https://kelasngaji.web.id";
             }
             const articleUrl = baseUrl + window.location.pathname + "?artikel=" + safeIdentifier;
 
             setTimeout(() => {
                 if (typeof DISQUS !== 'undefined') {
-                    // Reset Disqus untuk artikel baru
                     DISQUS.reset({
                         reload: true,
                         config: function () {
@@ -357,7 +349,6 @@
                         }
                     });
                 } else {
-                    // Inisialisasi Disqus pertama kali
                     window.disqus_config = function () {
                         this.page.identifier = safeIdentifier;
                         this.page.url = articleUrl;
@@ -376,7 +367,6 @@
             document.getElementById('blog-detail-view').classList.add('hidden');
             document.getElementById('blog-list-view').classList.remove('hidden');
             
-            // Panggil ulang penghitung Disqus agar angka ter-update setelah orang selesai berkomentar
             setTimeout(() => {
                 if (typeof DISQUSWIDGETS !== 'undefined') {
                     DISQUSWIDGETS.getCount({reset: true});
