@@ -7,6 +7,8 @@
     
     <meta property="og:title" content="Blog & Artikel Islami - Kelas Mengaji">
     <meta property="og:description" content="Kumpulan artikel, tips, dan tulisan islami yang mencerahkan.">
+    <!-- TAMBAHAN: Kode App ID Facebook untuk Moderasi Komentar -->
+    <meta property="fb:app_id" content="2899707680179630" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,9 +65,17 @@
         .toc-scrollbar::-webkit-scrollbar { width: 6px; }
         .toc-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .toc-scrollbar::-webkit-scrollbar-thumb { background: var(--c-primary, #10b981); border-radius: 10px; }
+        
+        /* Sembunyikan scrollbar untuk filter kategori di mobile tapi biarkan bisa digeser */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="text-gray-700 bg-gray-50 font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Sistem Inti Facebook SDK (Wajib untuk memunculkan Komentar) -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v19.0"></script>
 
     <!-- Navbar (Link kembali ke index.html menggunakan path ../) -->
     <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
@@ -112,7 +122,7 @@
                 <h1 class="text-4xl lg:text-5xl font-serif font-bold text-emerald-900 mt-3 mb-4">Blog & Artikel Islami</h1>
                 <p class="text-gray-500 max-w-2xl mx-auto text-lg mb-8">Temukan beragam bacaan yang mencerahkan hati dan menambah wawasan keislaman Anda.</p>
                 
-                <!-- FITUR BARU: Kolom Pencarian -->
+                <!-- Kolom Pencarian -->
                 <div class="max-w-xl mx-auto relative px-2 sm:px-0">
                     <div class="relative flex items-center w-full h-14 rounded-full focus-within:shadow-lg focus-within:border-emerald-500 bg-white overflow-hidden border-2 border-gray-100 transition-all">
                         <div class="grid place-items-center h-full w-14 text-emerald-600">
@@ -128,8 +138,8 @@
                 </div>
             </div>
 
-            <!-- Filter Kategori -->
-            <div class="flex flex-wrap justify-center gap-3 mb-12 fade-in mt-8" id="category-filters">
+            <!-- Filter Kategori (Slider Khusus Mobile) -->
+            <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center items-center gap-2 md:gap-3 mb-12 mt-8 overflow-x-auto snap-x snap-mandatory scrollbar-hide py-2 px-2 md:px-0 fade-in" id="category-filters">
                 <!-- Tombol kategori diisi oleh JS -->
             </div>
 
@@ -173,28 +183,32 @@
                 <div class="p-8 md:p-12 prose max-w-none" id="detail-content">
                     <!-- Konten Markdown di-render di sini -->
                 </div>
+
+                <!-- FITUR BARU: Kolom Komentar Facebook Asli -->
+                <div class="bg-gray-50 border-t border-gray-100 p-8 md:p-12">
+                    <h3 class="text-2xl font-bold text-emerald-900 mb-6 font-serif">Komentar Pembaca</h3>
+                    
+                    <!-- Tempat (Container) untuk Facebook Comments -->
+                    <div id="fb-comments-container" class="w-full bg-white p-4 rounded-xl shadow-sm border border-gray-100 overflow-hidden flex justify-center">
+                        <!-- Komentar akan dimuat secara dinamis oleh Javascript di sini -->
+                    </div>
+                </div>
             </article>
         </div>
 
     </main>
 
-    <!-- FITUR BARU: Daftar Isi Mengambang (Floating TOC) -->
-    
-    <!-- 1. Tombol Buka TOC (Pojok Kanan Bawah) -->
+    <!-- Daftar Isi Mengambang (Floating TOC) -->
     <button onclick="toggleTOC()" class="fixed bottom-6 right-6 w-14 h-14 bg-emerald-600 text-white rounded-full shadow-2xl flex items-center justify-center text-xl hover:bg-emerald-700 hover:scale-105 hover:rotate-12 transition-all duration-300 z-40 group" aria-label="Buka Daftar Isi Artikel">
         <i class="fas fa-book-open"></i>
-        <!-- Tooltip muncul saat kursor didekatkan -->
         <span class="absolute right-full mr-4 bg-gray-800 text-white text-sm px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 whitespace-nowrap pointer-events-none transition-opacity duration-300 shadow-lg">
             Daftar Isi Blog
         </span>
     </button>
 
-    <!-- 2. Overlay Gelap (Saat panel terbuka) -->
     <div id="toc-overlay" onclick="toggleTOC()" class="fixed inset-0 bg-black/50 z-[55] hidden transition-opacity duration-300 opacity-0 cursor-pointer backdrop-blur-sm"></div>
 
-    <!-- 3. Panel Geser TOC -->
     <div id="toc-panel" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-[60] transform translate-x-full transition-transform duration-300 flex flex-col rounded-l-2xl">
-        <!-- Header Panel -->
         <div class="p-6 border-b border-emerald-100 flex justify-between items-center bg-emerald-50 rounded-tl-2xl">
             <h3 class="font-serif font-bold text-emerald-900 text-lg flex items-center">
                 <i class="fas fa-list-ul mr-3 text-emerald-600"></i> Daftar Artikel
@@ -203,9 +217,7 @@
                 <i class="fas fa-times text-xl"></i>
             </button>
         </div>
-        <!-- List Artikel -->
         <div class="flex-1 overflow-y-auto p-4 space-y-2 toc-scrollbar" id="toc-list">
-            <!-- Diisi Otomatis oleh JS -->
         </div>
         <div class="p-4 border-t border-gray-100 bg-gray-50 text-center text-xs text-gray-500">
             Total <span id="toc-count" class="font-bold text-emerald-600">0</span> Artikel
@@ -224,7 +236,7 @@
     </footer>
 
     <script>
-        // --- 1. DUMMY DATA ARTIKEL (Fallback jika CMS belum diisi) ---
+        // --- 1. DUMMY DATA ARTIKEL ---
         const dummyArticles = [
             {
                 title: "Keutamaan Belajar dan Mengajarkan Al-Quran",
@@ -284,11 +296,10 @@
         let currentPage = 1;
         const postsPerPage = 5; 
         let currentCategory = "Semua";
-        let currentSearchQuery = ""; // State baru untuk menyimpan kata kunci pencarian
+        let currentSearchQuery = ""; 
 
         // --- 3. FETCH TEMA DAN DATA ---
         async function initBlog() {
-            // Ambil Tema 
             try {
                 const themeRes = await fetch('../data/theme.json');
                 if(themeRes.ok) {
@@ -301,44 +312,35 @@
                 }
             } catch(e) { console.log("Gunakan warna tema bawaan (Hijau)"); }
 
-            // Ambil Artikel dari CMS
             try {
                 const blogRes = await fetch('../data/blog.json');
                 if(blogRes.ok) {
                     const blogJson = await blogRes.json();
                     allArticles = blogJson.items || [];
                 } else {
-                    allArticles = dummyArticles; // Fallback jika belum ada file
+                    allArticles = dummyArticles; 
                 }
             } catch(e) {
-                allArticles = dummyArticles; // Fallback jika gagal loading
+                allArticles = dummyArticles; 
             }
 
-            // Ekstrak Kategori Unik
             allArticles.forEach(post => {
                 if(post.category && !categories.includes(post.category)) {
                     categories.push(post.category);
                 }
             });
 
-            // Urutkan artikel dari yang terbaru
             allArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
             setCategory("Semua");
-            renderTOC(); // Panggil fungsi render Daftar Isi
+            renderTOC(); 
         }
 
         // --- 4. SISTEM FILTER, PENCARIAN & PAGINASI ---
-        
-        // Fungsi utama yang menggabungkan filter Kategori dan Pencarian Text
         function applyFilters() {
-            currentPage = 1; // Selalu kembali ke hal 1 jika memfilter/mencari
-            
+            currentPage = 1; 
             filteredArticles = allArticles.filter(post => {
-                // Filter 1: Cek Kategori
                 const matchCategory = currentCategory === "Semua" || post.category === currentCategory;
-                
-                // Filter 2: Cek Pencarian (Cari di Judul, Kutipan, ATAU Isi Konten)
                 const searchLower = currentSearchQuery.toLowerCase();
                 const matchSearch = !currentSearchQuery || 
                                     post.title.toLowerCase().includes(searchLower) ||
@@ -353,24 +355,10 @@
             renderPagination();
         }
 
-        function setCategory(category) {
-            currentCategory = category;
-            applyFilters();
-        }
+        function setCategory(category) { currentCategory = category; applyFilters(); }
+        function handleSearch(e) { currentSearchQuery = e.target.value; applyFilters(); }
+        function changePage(page) { currentPage = page; renderBlogList(); renderPagination(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-        function handleSearch(e) {
-            currentSearchQuery = e.target.value;
-            applyFilters();
-        }
-
-        function changePage(page) {
-            currentPage = page;
-            renderBlogList();
-            renderPagination();
-            window.scrollTo({ top: 0, behavior: 'smooth' }); 
-        }
-
-        // --- FUNGSI HIGHLIGHT TEKS (Warna Kuning) ---
         function highlightText(text, query) {
             if (!query || !text) return text;
             const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -414,18 +402,16 @@
             const container = document.getElementById('category-filters');
             container.innerHTML = categories.map(cat => {
                 const isActive = cat === currentCategory;
-                const baseClass = "px-5 py-2 rounded-full font-medium text-sm transition-all duration-300 border-2 cursor-pointer shadow-sm";
+                const baseClass = "shrink-0 px-4 py-1.5 md:px-5 md:py-2 rounded-full font-medium text-xs md:text-sm transition-all duration-300 border-2 cursor-pointer shadow-sm snap-center";
                 const activeClass = isActive 
                     ? "bg-emerald-600 border-emerald-600 text-white transform scale-105" 
                     : "bg-white border-gray-200 text-gray-600 hover:border-emerald-500 hover:text-emerald-600";
-                
                 return `<button onclick="setCategory('${cat}')" class="${baseClass} ${activeClass}">${cat}</button>`;
             }).join('');
         }
 
         function renderBlogList() {
             const container = document.getElementById('blog-grid');
-            
             const startIndex = (currentPage - 1) * postsPerPage;
             const endIndex = startIndex + postsPerPage;
             const postsToShow = filteredArticles.slice(startIndex, endIndex);
@@ -472,10 +458,7 @@
             const container = document.getElementById('pagination-controls');
             const totalPages = Math.ceil(filteredArticles.length / postsPerPage);
 
-            if(totalPages <= 1) {
-                container.innerHTML = ""; 
-                return;
-            }
+            if(totalPages <= 1) { container.innerHTML = ""; return; }
 
             let html = "";
             const prevDisabled = currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-emerald-50 hover:text-emerald-600";
@@ -513,8 +496,20 @@
             const contentDiv = document.getElementById('detail-content');
             contentDiv.innerHTML = marked.parse(rawMarkdown);
             
-            if (currentSearchQuery) {
-                highlightNode(contentDiv, currentSearchQuery);
+            if (currentSearchQuery) { highlightNode(contentDiv, currentSearchQuery); }
+
+            // --- TRICK SPA UNTUK KOMENTAR FACEBOOK ---
+            // Kita buat URL buatan/dummy yang memuat judul artikel agar Facebook menganggap ini halaman berbeda
+            // Format URL-nya akan menjadi: kelasngaji.web.id/blog/?artikel=Judul-Artikel-Tersebut
+            const articleUniqueUrl = window.location.origin + window.location.pathname + "?artikel=" + encodeURIComponent(post.title);
+            
+            const fbContainer = document.getElementById('fb-comments-container');
+            // Tulis ulang kode komentar Facebook dengan menyisipkan URL unik tersebut
+            fbContainer.innerHTML = `<div class="fb-comments" data-href="${articleUniqueUrl}" data-width="100%" data-numposts="5"></div>`;
+            
+            // Perintahkan sistem Facebook (jika sudah ter-load) untuk me-refresh dan memunculkan ulang kotak komentarnya
+            if (typeof FB !== 'undefined') {
+                FB.XFBML.parse(fbContainer);
             }
 
             document.getElementById('blog-list-view').classList.add('hidden');
@@ -534,22 +529,20 @@
             window.scrollTo({ top: 0, behavior: 'instant' });
         }
 
-        // --- FITUR BARU: Logika Panel Daftar Isi (TOC) ---
+        // --- Logika Panel Daftar Isi (TOC) ---
         function toggleTOC() {
             const panel = document.getElementById('toc-panel');
             const overlay = document.getElementById('toc-overlay');
 
             if (panel.classList.contains('translate-x-full')) {
-                // Buka Panel
                 overlay.classList.remove('hidden');
                 setTimeout(() => overlay.classList.remove('opacity-0'), 10);
                 panel.classList.remove('translate-x-full');
-                document.body.style.overflow = 'hidden'; // Kunci scroll layar utama
+                document.body.style.overflow = 'hidden'; 
             } else {
-                // Tutup Panel
                 overlay.classList.add('opacity-0');
                 panel.classList.add('translate-x-full');
-                document.body.style.overflow = ''; // Lepas kunci scroll
+                document.body.style.overflow = ''; 
                 setTimeout(() => overlay.classList.add('hidden'), 300);
             }
         }
@@ -577,16 +570,11 @@
         }
 
         function openArticleFromTOC(index) {
-            toggleTOC(); // Tutup panel samping dulu
-            setTimeout(() => {
-                openArticle(index); // Langsung buka artikel dengan SPA
-            }, 300); // Tunggu panel selesai bergeser baru memuat artikel
+            toggleTOC(); 
+            setTimeout(() => { openArticle(index); }, 300); 
         }
 
-        // Fungsi untuk membuka dan menutup menu di HP
-        function toggleMobileMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        }
+        function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
 
         document.addEventListener('DOMContentLoaded', initBlog);
 
