@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog & Artikel - Kelas Mengaji</title>
     
+    <!-- META TAGS -->
     <meta property="og:title" content="Blog & Artikel Islami - Kelas Mengaji">
     <meta property="og:description" content="Kumpulan artikel, tips, dan tulisan islami yang mencerahkan.">
+    <meta property="og:image" content="https://lh3.googleusercontent.com/pw/AP1GczOUpbU-2hSkIEvPy63Kw04mnEgJFqfSeOLq50LsL_noG9fthuzCOR4xS2iswTPKUqL0SEeQD_P_6uexLDJlQnHCjSfaX4VXkrT12DX8plfFyNA7ykaINTQw0OIgyeVR9Ag4RY8oYwxbADd_58dN_VpQ=w512-h512-s-no-gm?authuser=0">
+    <meta property="og:type" content="website">
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/pw/AP1GczPA9jXgztdoCCCKqYeoymeBj8Iu6edy4bCVqWV1bG00BlmrfgPfKi0WcAiLwTfbwiFZT4wzN-Tf6Gwn4pRVsruyyez4zzmV1Cgxe4232rKbxcch1W0mtL_JjFwW38Vfg66YuUdKRz-xuC0XnhCzXBRP=w512-h512-s-no-gm?authuser=0">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,6 +82,23 @@
                     <a href="../blog/" class="text-emerald-600 font-bold border-b-2 border-emerald-600 pb-1">Blog Artikel</a>
                     <a href="https://ajarkan.github.io/form/" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-full font-medium transition shadow-lg transform hover:-translate-y-0.5">Daftar Sekarang</a>
                 </div>
+
+                <!-- TAMBAHAN: Tombol Hamburger Mobile -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-emerald-600 focus:outline-none transition-colors" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAMBAHAN: Dropdown Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="../index.html" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-md">Beranda</a>
+                <a href="../index.html#classes" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-md">Program Kelas</a>
+                <a href="../blog/" class="block px-3 py-3 text-base font-bold text-emerald-600 bg-emerald-50 rounded-md">Blog Artikel</a>
+                <a href="https://ajarkan.github.io/form/" target="_blank" class="block w-full text-center mt-4 bg-emerald-600 text-white px-4 py-3 rounded-lg font-bold shadow-md">Daftar Sekarang</a>
             </div>
         </div>
     </nav>
@@ -391,6 +414,11 @@
             listView.classList.add('fade-in');
             
             window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        // TAMBAHAN: Fungsi untuk membuka dan menutup menu di HP
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         }
 
         document.addEventListener('DOMContentLoaded', initBlog);
