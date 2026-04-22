@@ -3,8 +3,8 @@ backend:
   repo: ajarkan/ngaji # SAYA SUDAH SESUAIKAN DENGAN REPO KAMU
   branch: main # Ganti dengan 'master' jika branch utamamu bernama master
 
-media_folder: "/assets/uploads" # Folder penyimpanan gambar saat diupload via CMS
-public_folder: "/assets/uploads" # SOLUSI: Menambahkan /ngaji agar gambar tidak nyasar ke luar repo!
+media_folder: "assets/uploads" # Folder penyimpanan gambar saat diupload via CMS
+public_folder: "/ngaji/assets/uploads" # SOLUSI: Menambahkan /ngaji agar gambar tidak nyasar ke luar repo!
 
 collections:
   # MENU BARU: PENGATURAN TEMA WARNA
@@ -90,7 +90,8 @@ collections:
             fields:
               - {label: "Judul Artikel", name: "title", widget: "string"}
               - {label: "Kategori", name: "category", widget: "select", options: ["Fiqih", "Aqidah", "Sejarah Islami", "Tips & Inspirasi", "Info Kegiatan"]}
-              - {label: "Tanggal Posting", name: "date", widget: "date"}
+              # (PERBAIKAN ERROR ADA DI BARIS BAWAH INI)
+              - {label: "Tanggal Posting", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false}
               - {label: "Thumbnail / Gambar Utama", name: "thumbnail", widget: "image"}
               - {label: "Kutipan Singkat (Tampil sebelum Read More)", name: "excerpt", widget: "text"}
               - {label: "Isi Artikel Lengkap", name: "content", widget: "markdown"}
