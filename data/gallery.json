@@ -1,9 +1,9 @@
 {
   "items": [
     {
-      "label": "Suasana Menjelang Maghrib",
-      "image": "/assets/uploads/senja.png",
-      "alt": "Halaman Depan Kampoeng Quran Cendekia Menjelang Maghrib"
+      "label": "Pesantren Lansia",
+      "image": "/assets/uploads/lansia.png",
+      "alt": "Peserta Mendengar Kajian di Aula Cordoba"
     },
     {
       "label": "Pelatihan Multimedia",
@@ -11,9 +11,19 @@
       "alt": "Ruang Belajar Multimedia di Bagian Atas Bersama Santri Persiapan Ke Jepang"
     },
     {
-      "label": "Pesantren Lansia",
-      "image": "/assets/uploads/lansia.png",
-      "alt": "Peserta Mendengar Kajian di Aula Cordoba"
+      "label": "Suasana Menjelang Maghrib",
+      "image": "/assets/uploads/senja.png",
+      "alt": "Halaman Depan Kampoeng Quran Cendekia Menjelang Maghrib"
+    },
+    {
+      "label": "Tempat Transit Santri/Peserta",
+      "image": "/assets/uploads/transit.png",
+      "alt": "Peserta/Santri biasa duduk dulu setelah lelah menaiki tangga"
+    },
+    {
+      "label": "Tempat Nongkrong Sehat",
+      "image": "/assets/uploads/duduk.png",
+      "alt": "Area Diskusi Santai Atau Untuk Merenung"
     }
   ]
 }
