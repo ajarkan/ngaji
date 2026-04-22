@@ -57,7 +57,7 @@
 </head>
 <body class="text-gray-700 bg-gray-50 font-sans antialiased flex flex-col min-h-screen">
 
-    <!-- Sistem Inti Facebook SDK (Metode Inisialisasi SPA Modern) -->
+    <!-- Sistem Inti Facebook SDK -->
     <div id="fb-root"></div>
     <script>
         window.fbAsyncInit = function() {
@@ -136,9 +136,13 @@
                 <div class="p-8 md:p-12 prose max-w-none" id="detail-content"></div>
                 <div class="bg-gray-50 border-t border-gray-100 p-8 md:p-12">
                     <h3 class="text-2xl font-bold text-emerald-900 mb-6 font-serif">Komentar Pembaca</h3>
-                    <!-- CONTAINER KOMENTAR: Saya tambahkan tulisan statis "Memulai..." agar tidak blank -->
-                    <div id="fb-comments-container" class="w-full bg-white p-6 rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col items-center justify-center min-h-[250px]">
-                        <p class="text-gray-400">Pilih artikel untuk melihat komentar.</p>
+                    
+                    <!-- CONTAINER KOMENTAR DENGAN DETEKTOR ERROR -->
+                    <div id="fb-comments-container" class="w-full bg-white p-6 rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col items-center justify-center min-h-[300px]">
+                        <div id="fb-status-area" class="text-center">
+                             <i class="fas fa-circle-notch fa-spin text-4xl text-emerald-500 mb-4"></i>
+                             <p class="text-gray-500">Mempersiapkan kotak komentar...</p>
+                        </div>
                     </div>
                 </div>
             </article>
@@ -170,7 +174,6 @@
     </footer>
 
     <script>
-        // --- DATA & STATE ---
         let allArticles = [];
         let filteredArticles = [];
         let categories = ["Semua"];
@@ -184,7 +187,6 @@
             { title: "Mengenal 4 Imam Mazhab", category: "Sejarah Islami", date: "2024-05-05", thumbnail: "https://images.unsplash.com/photo-1519817650390-64a93db51149?w=800", excerpt: "Sejarah singkat tokoh besar Islam...", content: "Isi artikel..." }
         ];
 
-        // --- INIT ---
         async function initBlog() {
             try {
                 const themeRes = await fetch('../data/theme.json');
@@ -195,19 +197,16 @@
                     if(theme.accent) root.style.setProperty('--c-accent', theme.accent);
                 }
             } catch(e) {}
-
             try {
                 const blogRes = await fetch('../data/blog.json');
                 allArticles = blogRes.ok ? (await blogRes.json()).items : dummyArticles;
             } catch(e) { allArticles = dummyArticles; }
-
             allArticles.forEach(post => { if(post.category && !categories.includes(post.category)) categories.push(post.category); });
             allArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
             setCategory("Semua");
             renderTOC(); 
         }
 
-        // --- FILTERS & UI ---
         function applyFilters() {
             currentPage = 1; 
             filteredArticles = allArticles.filter(post => {
@@ -226,7 +225,7 @@
         function highlightText(text, q) {
             if (!q || !text) return text;
             const regex = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-            return text.replace(regex, '<mark class="bg-yellow-300 text-gray-900 px-1 rounded-sm">$1</mark>');
+            return text.replace(regex, '<mark class="bg-yellow-300 text-gray-900 px-1 rounded-sm shadow-sm">$1</mark>');
         }
 
         function renderCategoryMenu() {
@@ -281,6 +280,8 @@
             content = content.replace(/\]\(\/assets\/uploads\//g, '](../assets/uploads/');
             const contentDiv = document.getElementById('detail-content');
             contentDiv.innerHTML = marked.parse(content);
+            
+            // Highlight Search
             if(currentSearchQuery) {
                 const walker = document.createTreeWalker(contentDiv, NodeFilter.SHOW_TEXT);
                 let node; const matches = [];
@@ -292,46 +293,55 @@
                 });
             }
 
-            // --- EKSEKUSI FACEBOOK ---
-            const container = document.getElementById('fb-comments-container');
-            // 1. Tampilkan Loading SEGERA
-            container.innerHTML = `
-                <div id="fb-loader" class="text-center py-10 w-full animate-pulse">
-                    <i class="fas fa-circle-notch fa-spin text-4xl text-emerald-500 mb-3"></i>
-                    <p class="text-gray-600 font-medium">Menghubungkan ke Facebook...</p>
-                    <p class="text-[10px] text-gray-400 mt-4 px-10">Pastikan domain kelasngaji.web.id sudah terdaftar di Meta Developer dan mode aplikasi sudah 'Live'.</p>
-                </div>`;
-
             document.getElementById('blog-list-view').classList.add('hidden');
             document.getElementById('blog-detail-view').classList.remove('hidden');
             document.getElementById('blog-detail-view').classList.add('fade-in');
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // 2. Suntikkan Plugin setelah jeda agar browser siap
-            setTimeout(() => {
-                const url = window.location.origin + window.location.pathname + "?artikel=" + encodeURIComponent(post.title);
-                const fbDiv = document.createElement('div');
-                fbDiv.className = 'fb-comments';
-                fbDiv.setAttribute('data-href', url);
-                fbDiv.setAttribute('data-width', '100%');
-                fbDiv.setAttribute('data-numposts', '5');
-                
-                // Hapus loader dan pasang kotak FB
-                container.innerHTML = '';
-                container.appendChild(fbDiv);
+            // --- EKSEKUSI KOMENTAR FACEBOOK ---
+            renderFacebookComments(post.title);
+        }
 
-                // Perintahkan FB SDK untuk menggambar
+        function renderFacebookComments(articleTitle) {
+            const container = document.getElementById('fb-comments-container');
+            
+            // 1. Tampilkan status loading awal
+            container.innerHTML = `
+                <div id="fb-status-area" class="text-center py-10">
+                    <i class="fas fa-circle-notch fa-spin text-4xl text-emerald-500 mb-4"></i>
+                    <p class="text-gray-600 font-medium">Menghubungkan ke Facebook...</p>
+                </div>`;
+
+            const url = window.location.origin + window.location.pathname + "?artikel=" + encodeURIComponent(articleTitle);
+
+            // 2. Tunggu sebentar agar animasi SPA selesai
+            setTimeout(() => {
+                // Bersihkan loader dan masukkan tag HTML Facebook murni
+                container.innerHTML = `<div class="fb-comments" data-href="${url}" data-width="100%" data-numposts="5"></div>`;
+                
+                // 3. Perintahkan SDK merender
                 if (typeof FB !== 'undefined') {
                     FB.XFBML.parse(container);
                     
-                    // Cek jika dalam 5 detik kotak komentar masih kosong (putih)
+                    // 4. Detektor "Kotak Putih" (Jika 4 detik masih kosong, tampilkan pesan bantuan)
                     setTimeout(() => {
-                        if (container.offsetHeight < 100) {
-                            container.innerHTML += `<p class="text-red-500 text-xs mt-4">Gagal memuat. Periksa Ad-Blocker atau status Live di Meta Dashbor.</p>`;
+                        const iframe = container.querySelector('iframe');
+                        if (!iframe || container.offsetHeight < 50) {
+                            container.innerHTML += `
+                                <div class="mt-4 p-4 bg-red-50 rounded-lg text-xs text-red-600 border border-red-100">
+                                    <p class="font-bold mb-1"><i class="fas fa-exclamation-triangle mr-1"></i> Kotak komentar tidak muncul?</p>
+                                    <ul class="list-disc ml-4 space-y-1">
+                                        <li>Matikan <b>Ad-Blocker</b> atau Brave Shields.</li>
+                                        <li>Pastikan aplikasi Meta di Dasbor sudah berstatus <b>Live</b>.</li>
+                                        <li>Domain <b>kelasngaji.web.id</b> wajib masuk ke <b>Pengelola Domain</b> di Meta.</li>
+                                    </ul>
+                                </div>`;
                         }
-                    }, 5000);
+                    }, 4000);
+                } else {
+                    container.innerHTML = `<p class="text-red-500 text-sm">Gagal memuat Facebook SDK. Periksa koneksi atau Ad-Blocker.</p>`;
                 }
-            }, 800);
+            }, 500);
         }
 
         function closeArticle() {
