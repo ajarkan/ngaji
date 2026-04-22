@@ -311,7 +311,8 @@
             let html = `<div class="my-8 md:my-12 border-y md:border-y-0 md:border-2 border-emerald-100 py-6 md:p-6 bg-emerald-50/40 md:rounded-2xl not-prose">`;
             html += `<h4 class="text-emerald-800 font-bold text-base md:text-lg mb-4 px-4 md:px-0 flex items-center"><i class="fas fa-book-reader mr-2 text-emerald-600"></i>Baca Juga:</h4>`;
             
-            html += `<div class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 md:pb-0 px-4 md:px-0 md:grid md:grid-cols-3 md:gap-6 scrollbar-hide">`;
+            // PERBAIKAN: Flex container untuk scroll horizontal di HP
+            html += `<div class="flex flex-nowrap overflow-x-auto snap-x snap-mandatory gap-4 pb-4 md:pb-0 px-4 md:px-0 md:grid md:grid-cols-3 md:gap-6 scrollbar-hide">`;
 
             related.forEach(post => {
                 const relIndex = allArticles.indexOf(post);
@@ -319,10 +320,12 @@
                 
                 // DESAIN BARU: Frameless (Gambar menyentuh batas kiri-kanan-atas, rasio presisi)
                 // Ditambahkan !m-0 !shadow-none !rounded-none pada <img> untuk menetralisir efek CSS dari .prose
+                // PERBAIKAN HP: Menambahkan w-[70vw] dan flex-shrink-0 agar tidak menurun
                 html += `
-                <div class="w-[70vw] md:w-auto shrink-0 snap-center cursor-pointer group flex flex-col bg-white rounded-xl shadow-sm border border-emerald-100 hover:shadow-md transition-all overflow-hidden" onclick="openArticle(${relIndex})">
-                    <div class="relative w-full aspect-video bg-gray-100 shrink-0 overflow-hidden">
-                        <img src="${post.thumbnail.startsWith('/') ? '..' + post.thumbnail : post.thumbnail}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 !m-0 !shadow-none !rounded-none !border-0" alt="${post.title}">
+                <div class="w-[70vw] md:w-auto flex-shrink-0 snap-center cursor-pointer group flex flex-col bg-white rounded-xl shadow-sm border border-emerald-100 hover:shadow-md transition-all overflow-hidden" onclick="openArticle(${relIndex})">
+                    <!-- Gunakan w-full dengan pb-[56.25%] untuk rasio 16:9 yang lebih stabil -->
+                    <div class="relative w-full pb-[56.25%] bg-gray-100 overflow-hidden">
+                        <img src="${post.thumbnail.startsWith('/') ? '..' + post.thumbnail : post.thumbnail}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 !m-0 !p-0 !shadow-none !rounded-none !border-0" alt="${post.title}">
                     </div>
                     <div class="p-4 flex flex-col flex-grow">
                         <span class="text-[10px] md:text-xs text-emerald-600 mb-1.5 font-bold uppercase tracking-wider">${post.category} <span class="text-gray-400 font-normal mx-1">•</span> <span class="text-gray-400 font-normal">${relDate}</span></span>
@@ -378,9 +381,10 @@
                     const relDate = new Date(relPost.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
                     
                     return `
-                    <div class="w-[70vw] md:w-auto shrink-0 snap-center bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer border border-gray-100 flex flex-col group" onclick="openArticle(${relIndex})">
-                        <div class="relative w-full aspect-video bg-gray-100 shrink-0 overflow-hidden">
-                            <img src="${relPost.thumbnail.startsWith('/') ? '..' + relPost.thumbnail : relPost.thumbnail}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 !m-0 !shadow-none !rounded-none !border-0" alt="${relPost.title}">
+                    <div class="w-[70vw] md:w-auto flex-shrink-0 snap-center bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer border border-gray-100 flex flex-col group" onclick="openArticle(${relIndex})">
+                        <!-- Gunakan w-full dengan pb-[56.25%] untuk rasio 16:9 yang lebih stabil -->
+                        <div class="relative w-full pb-[56.25%] bg-gray-100 overflow-hidden">
+                            <img src="${relPost.thumbnail.startsWith('/') ? '..' + relPost.thumbnail : relPost.thumbnail}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 !m-0 !p-0 !shadow-none !rounded-none !border-0" alt="${relPost.title}">
                         </div>
                         <div class="p-4 flex flex-col flex-grow">
                             <p class="text-[10px] md:text-xs text-gray-400 mb-1.5 uppercase tracking-wider font-bold text-emerald-600">${relPost.category} <span class="text-gray-300 font-normal ml-1">• ${relDate}</span></p>
