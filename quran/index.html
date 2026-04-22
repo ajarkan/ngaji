@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelas Belajar Al-Quran - Kampoeng Quran Cendekia</title>
+
+    <!-- META TAGS -->
+    <meta property="og:title" content="Kelas Belajar - Kelas Belajar Al-Quran">
+    <meta property="og:description" content="Kelas ini cocok untuk yang belum bisa dan sudah bisa (ingin lancar membaca Al-Quran).">
+    <meta property="og:image" content="https://lh3.googleusercontent.com/pw/AP1GczOId51_Y4tdoPZYNuWjslKeqypxLYgRHqeWivft_KTYI7y_UFX3ZFq9-K1L_nqM213Q5cC0p1WZFmXKHAfcElEjhDRZjrjw8lUa-jZIHtxpLuWTqpkEMdc8q87_u4yyPQzjd1tDtiEe1m0P2N4m_px3=w512-h512-s-no-gm?authuser=0">
+    <meta property="og:type" content="website">
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/pw/AP1GczPA9jXgztdoCCCKqYeoymeBj8Iu6edy4bCVqWV1bG00BlmrfgPfKi0WcAiLwTfbwiFZT4wzN-Tf6Gwn4pRVsruyyez4zzmV1Cgxe4232rKbxcch1W0mtL_JjFwW38Vfg66YuUdKRz-xuC0XnhCzXBRP=w512-h512-s-no-gm?authuser=0">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts: Inter & Noto Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10b981', // Emerald/Teal green similar to video
+                        secondary: '#1e293b', // Slate/Dark Blue for footer/headings
+                        accent: '#f3f4f6', // Light gray background
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Noto Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for specific elements not covered by utility classes */
+        .hero-pattern {
+            background-image: url('https://images.unsplash.com/photo-1609599006353-e629aaabfeae?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(255,255,255,1) 100%);
+        }
+        .faq-content {
+            transition: max-height 0.3s ease-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .faq-active .faq-content {
+            max-height: 500px; /* Arbitrary large height */
+        }
+        .faq-active i {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-800 antialiased font-sans">
+
+    <!-- Navbar Simple -->
+    <nav class="bg-white shadow-sm sticky top-0 z-40">
+    <div class="max-w-md mx-auto px-4 py-3 flex justify-between items-center">
+        
+        <div class="flex items-center">
+            <a href="#" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">
+            <img 
+                src="https://lh3.googleusercontent.com/pw/AP1GczOeglhqO63pFW3bNE5nGqhg0s24gs7n65dJ7Jap4F4TTGRJi1lLGj753ErVMW1oS7SIPAbIzkAM9KT3EXbdlksCVGGLOrtGl8YeSsmQ-NsoHQ2YZiSWMxu_61IB_icBor97xDEieIgN0Iq3z-S8IXMi=w435-h100-s-no-gm?authuser=0" 
+                alt="Logo Kampoeng Quran" 
+                class="h-10 w-auto object-contain" 
+            />
+            </a>
+        </div>
+        <a href="#daftar" class="bg-primary text-white text-sm px-4 py-2 rounded-full font-semibold hover:bg-emerald-600 transition">
+            Daftar
+        </a>
+    </div>
+    </nav>
+
+    <!-- Main Container (Limited width to simulate mobile app feel on desktop, optional) -->
+    <main class="max-w-md mx-auto bg-white shadow-xl min-h-screen overflow-hidden">
+        
+        <!-- Hero Section -->
+        <header class="relative pt-10 pb-16 px-6 text-center">
+            <div class="absolute inset-0 hero-pattern opacity-20 z-0"></div>
+            <div class="absolute inset-0 hero-overlay z-10"></div>
+            
+            <div class="relative z-20">
+                <h1 class="font-heading text-3xl font-extrabold text-secondary leading-tight mb-4">
+                    Kelas Belajar <br> <span class="text-primary">Al-Quran</span> <br> Kampoeng Quran Cendekia
+                </h1>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Kabar gembira bagi untuk semua, Kampoeng Quran Cendekia membuka kelas belajar Al-Quran intensif dan menyenangkan.
+                </p>
+                
+                <a href="#daftar" class="inline-block bg-primary text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-emerald-200 hover:shadow-xl hover:-translate-y-1 transition transform duration-300">
+                    <i data-lucide="arrow-right-circle" class="inline w-5 h-5 mr-1 mb-0.5"></i> Daftar Sekarang
+                </a>
+
+                <!-- Hero Video Embed with Custom Thumbnail -->
+                <div class="mt-10 mx-2 relative group">
+                    <!-- Efek Glow di belakang video -->
+                    <div class="absolute -inset-1 bg-gradient-to-r from-primary to-emerald-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                    
+                    <!-- Container Video Interaktif -->
+                    <div 
+                        class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white aspect-video cursor-pointer"
+                        onclick="playVideo(this, 'oXZxB8ABsh0')"
+                    >
+                        <!-- 1. Custom Thumbnail Image -->
+                        <img 
+                            src="https://lh3.googleusercontent.com/pw/AP1GczMBux4v4soGpK6u43K9jqQBKiSOi-6edi5PprtMALxUVZD9A3eZQ42c2hNmA1vuePwuqCv5wstvpin7_Vle9OqVGLpABbTyyM2vizPIXqoHNXeg1Ii3wzcXrHUycak9A9yRb-TRcQPmscgvF5csSMVZ=w1280-h720-s-no-gm?authuser=0?q=80&w=1280&h=720&auto=format&fit=crop" 
+                            alt="Video Thumbnail" 
+                            class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                        >
+                        
+                        <!-- 2. Overlay Gelap -->
+                        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition duration-300"></div>
+
+                        <!-- 3. Tombol Play -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-16 h-16 bg-white/90 text-primary rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:scale-110 transition duration-300 pl-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-400 mt-2 italic">Klik tombol play untuk menonton video</p>
+
+            </div>
+        </header>
+
+        <!-- Testimonials -->
+        <section class="bg-gray-50 py-12 px-6">
+            <h2 class="text-xl font-bold text-center text-secondary mb-2">Apa Kata Mereka Tentang</h2>
+            <h3 class="text-xl font-bold text-center text-primary mb-8">Kampoeng Quran?</h3>
+
+            <!-- Testimonial Carousel (Simplified to stack) -->
+            <div class="space-y-6">
+
+                <!-- Testi 1 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center">
+                    <div class="w-16 h-16 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczPH8qVEV3CFCyAoAOnuDqkPGsPm1eOEdtoMjivGCPAfarZLxcLiEvJWF8CSok1yr_sK25cY3R-Ru0lJi-DxC625HOuQzEJPbJKtPN1Z3VjE19lcwlvbcir0c5-NqQE0xL7AGIyQi2AXsZy4W5lSpIZ5=w128-h128-s-no-gm?authuser=0" alt="Ahmad Zahir" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-gray-500 italic text-sm mb-4">
+                        "Metode pengajarannya sangat mudah dipahami. Alhamdulillah sekarang bacaan saya jauh lebih baik."
+                    </p>
+                    <h4 class="font-bold text-secondary">Ahmad Zahir</h4>
+                    <p class="text-xs text-gray-400">Engineer dan Motivator</p>
+                </div>
+
+                <!-- Testi 2 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center">
+                    <div class="w-16 h-16 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczPgxKK3jbnzRXRuMcilB_czCl394aKR7wM9XihqQIALzvVIzTNnjXIQ4R2uiUdW9w_Em0SwpBj01YjXEjn1dAuTrGhZHp5H8vPH_UYQDr_lE4oZQeCxuZfS1Y4T5Idle3V4lhgnPHGrFsQQomJZOK9s=w128-h128-s-no-gm?authuser=0" alt="Azizah" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-gray-500 italic text-sm mb-4">
+                        "Sangat membantu bagi saya ibu rumah tangga yang ingin memperbaiki bacaan di sela kesibukan."
+                    </p>
+                    <h4 class="font-bold text-secondary">Azizah</h4>
+                    <p class="text-xs text-gray-400">Ibu Rumah Tangga</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Introduction (The Book) -->
+        <section class="bg-secondary text-white py-16 px-6 text-center relative overflow-hidden">
+            <div class="relative z-10">
+                <span class="text-primary font-semibold text-sm uppercase tracking-widest mb-2 block">Memperkenalkan</span>
+                <h2 class="text-3xl font-bold mb-8">Kelas Belajar Al-Quran</h2>
+                
+                <!-- Book Image Mockup -->
+                
+                <div class="flex justify-center mb-8">
+                <img 
+                    src="https://lh3.googleusercontent.com/pw/AP1GczNZBk_yCNYajkf4BWsp6Ehy2XbOB-e97w_eCghQQpNSgsMahVlhfeNEQAIlv_SYL12ww93loTWCyyIlna5lDpKLG_UZj1nl6Kby68JLp7Ohv05U19LvGDt-DG7fyXAEYtzoERgJ-Y1_3wJghEK1xn66=w241-h264-s-no-gm?authuser=0" 
+                    alt="Mockup Buku Tahsin Qarana" 
+                    class="w-40 h-auto object-contain drop-shadow-2xl transform rotate-3 hover:rotate-0 transition duration-500 ease-in-out"
+                    />
+                </div>
+
+                <div class="text-left bg-secondary/50 backdrop-blur-sm p-4 rounded-xl border border-white/10">
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                        <strong class="text-white">Tahsin Qarana</strong> adalah buku panduan yang digunakan di kelas ini. Ciri khas buku ini, sesuai namanya, ada pada <em class="text-primary">talqin</em> (pemberian contoh) dari asatiz untuk disimak kemudian diikuti.
+                    </p>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Penyesuaian dengan jenis kesalahan, jika kesalahan lebih banyak pada panjang pendek maka pelajaran dimulai dari Qoro'na 2, dst.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Target Audience -->
+        <section class="py-12 px-6">
+            <h2 class="text-2xl font-bold text-secondary mb-8">Untuk siapa saja?</h2>
+            
+            <div class="space-y-6">
+                <!-- Item 1 -->
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center shrink-0 text-blue-600">
+                        <i data-lucide="users" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-secondary text-lg">Peserta Pemula</h3>
+                        <p class="text-gray-500 text-sm">Yaitu peserta yang belum bisa membaca Al-Quran sama sekali.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center shrink-0 text-orange-600">
+                        <i data-lucide="mic" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-secondary text-lg">Belum Lancar</h3>
+                        <p class="text-gray-500 text-sm">Peserta yang tajwidnya masih kurang, atau masih terbata-bata.</p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center shrink-0 text-primary">
+                        <i data-lucide="smile" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-secondary text-lg">Berbagai Usia</h3>
+                        <p class="text-gray-500 text-sm">Diperuntukkan untuk berbagai usia, namun diprioritaskan minimal usia SMP.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features/What You Get -->
+        <section class="bg-gray-50 py-12 px-6">
+            <h2 class="text-2xl font-bold text-secondary mb-8 leading-tight">Apa Yang Akan Kamu Dapatkan Dari Kelas Ini?</h2>
+
+            <div class="space-y-8">
+                <!-- Feature 1 -->
+                <div class="relative pl-8 border-l-2 border-primary/30">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-white"></div>
+                    <h3 class="font-bold text-secondary mb-1">Buku Paket Ebook Qara'na Gratis</h3>
+                    <p class="text-gray-500 text-sm">Kamu akan diberikan secara gratis buku panduan qarana (PDF).</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="relative pl-8 border-l-2 border-primary/30">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-white"></div>
+                    <h3 class="font-bold text-secondary mb-1">Bimbingan Dari Asatiz Berpengalaman</h3>
+                    <p class="text-gray-500 text-sm">Dibimbing 2x dalam sepekan oleh para asatiz berpengalaman.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="relative pl-8 border-l-2 border-primary/30">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-white"></div>
+                    <h3 class="font-bold text-secondary mb-1">Pilihan Kelas Online atau Offline</h3>
+                    <p class="text-gray-500 text-sm">Pilih kelas sesuai hari dan waktu yang tersedia.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other Classes Promo -->
+        <section class="py-12 px-6 bg-secondary text-white relative overflow-hidden text-center">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-primary rounded-full filter blur-3xl opacity-20"></div>
+            
+            <h2 class="text-xl font-bold mb-4">Apakah ada kelas lainnya?</h2>
+            <p class="text-gray-300 text-sm mb-6">
+                Ya ada, namun untuk saat ini, kelas yang dibuka baru kelas belajar Al-Quran. In syaa Allah kelas bahasa arab akan dibuka dalam waktu dekat.
+            </p>
+            <a href="#" class="inline-block border border-primary text-primary hover:bg-primary hover:text-white px-6 py-2 rounded-full text-sm font-semibold transition">
+                Cek Update Website
+            </a>
+        </section>
+
+        <!-- Benefits Grid -->
+        <section class="py-12 px-6">
+            <h2 class="text-2xl font-bold text-secondary mb-8">Manfaat Mengikuti Kelas</h2>
+            
+            <div class="grid grid-cols-1 gap-4">
+                <div class="bg-white p-5 rounded-xl shadow-md flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center">
+                        <i data-lucide="zap" class="w-5 h-5"></i>
+                    </div>
+                    <span class="font-semibold text-gray-700">Melancarkan Bacaan</span>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-md flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center">
+                        <i data-lucide="users" class="w-5 h-5"></i>
+                    </div>
+                    <span class="font-semibold text-gray-700">Lingkungan Orang Shaleh</span>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-md flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center">
+                        <i data-lucide="lightbulb" class="w-5 h-5"></i>
+                    </div>
+                    <span class="font-semibold text-gray-700">Menambah Pemahaman</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bonuses -->
+        <section class="bg-gray-50 py-12 px-6">
+            <p class="text-primary text-sm font-bold uppercase tracking-wider mb-2">Bonus Bagi Anda</p>
+            <h2 class="text-2xl font-bold text-secondary mb-8">Bonus Kelas Kursus</h2>
+
+            <div class="space-y-4">
+                <!-- Bonus 1 -->
+                <div class="bg-white rounded-xl shadow-sm p-4 flex gap-4">
+                    <div class="w-16 h-16 bg-gray-100 rounded-lg flex-shrink-0 flex items-center justify-center">
+                        <i data-lucide="library" class="text-primary w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-secondary">Akses Gratis Ebook Islami</h3>
+                        <p class="text-xs text-gray-500 mt-1">Akses kurang lebih 2700 koleksi buku islami dengan berbagai tema.</p>
+                    </div>
+                </div>
+                 <!-- Bonus 2 -->
+                 <div class="bg-white rounded-xl shadow-sm p-4 flex gap-4">
+                    <div class="w-16 h-16 bg-gray-100 rounded-lg flex-shrink-0 flex items-center justify-center">
+                        <i data-lucide="book-open-check" class="text-primary w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-secondary">Free Ebook Panduan</h3>
+                        <p class="text-xs text-gray-500 mt-1">Buku panduan diberikan secara cuma-cuma (PDF).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING SECTION -->
+        <section id="daftar" class="py-16 px-6 text-center bg-white relative">
+            <h2 class="text-2xl font-bold text-secondary mb-4">Berapa Biayanya?</h2>
+            <p class="text-sm text-gray-500 mb-8 max-w-xs mx-auto">
+                In syaa Allah kami berusaha memberikan yang terbaik dengan biaya terjangkau.
+            </p>
+
+            <div class="bg-white border-2 border-primary rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+                <!-- Badge -->
+                <div class="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
+                    PROMO
+                </div>
+
+                <p class="text-gray-400 line-through text-sm mb-1">Rp 200.000</p>
+                <div class="text-4xl font-extrabold text-secondary mb-1">
+                    <span class="text-sm align-top text-gray-500 font-normal">Rp</span>Rp 75.000<span class="text-sm text-gray-500 font-normal">/bulan</span>
+                </div>
+                <p class="text-xs text-gray-400 mb-6">Minimal 15 peserta per kelas</p>
+
+                <a href="https://ajarkan.github.io/form/?kategori=Baca%20Al-Quran" class="block w-full bg-primary text-white font-bold py-3 rounded-xl shadow-lg hover:bg-emerald-600 transition hover:shadow-emerald-200 hover:shadow-xl transform hover:-translate-y-1">
+                    Daftar Sekarang
+                </a>
+                
+                <p class="text-[10px] text-gray-400 mt-4">*Biaya privat dan weekend berbeda</p>
+            </div>
+        </section>
+
+        <!-- FAQ Accordion -->
+        <section class="bg-gray-50 py-12 px-6">
+            <h2 class="text-2xl font-bold text-secondary mb-8">Pertanyaan Seputar Program</h2>
+
+            <div class="space-y-3">
+
+                <!-- FAQ 1 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden faq-item cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-secondary text-sm">Berapa batas maksimal per kelas?</h3>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content bg-gray-50 px-4">
+                        <p class="text-gray-600 text-xs pb-4 leading-relaxed">
+                            Batas maksimal satu kelas berisi 15 peserta.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden faq-item cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-secondary text-sm">Apakah harus menunggu sampai 15 orang baru mulai?</h3>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content bg-gray-50 px-4">
+                        <p class="text-gray-600 text-xs pb-4 leading-relaxed">
+                            Tidak, kelas baru dapat dimulai jika memenuhi kuota minimal 8 peserta, baik online maupun offline.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden faq-item cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-secondary text-sm">Apakah kelas bisa ditutup atau dibubarkan jika peserta tinggal sedikit?</h3>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content bg-gray-50 px-4">
+                        <p class="text-gray-600 text-xs pb-4 leading-relaxed">
+                            Kelas dinyatakan berjalan normal apabila jumlah peserta aktif minimal 4 orang.<br/><br/>
+
+Kelas dengan jumlah peserta 3 orang dapat berjalan sementara dengan masa evaluasi maksimal 1 bulan.<br/><br/>
+
+Apabila dalam masa tersebut tidak terjadi penambahan peserta, kelas akan digabung, ditutup atau dibubarkan, namun kelas dengan jumlah peserta 3 orang dapat tetap berjalan jika disetujui asatiz bersangkutan.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden faq-item cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-secondary text-sm">Bagaimana ketentuan biaya kelas online, offline dan privat perorangan atau institusi?</h3>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content bg-gray-50 px-4">
+                        <p class="text-gray-600 text-xs pb-4 leading-relaxed">
+                            Biaya Online dan Offline disamakan, yaitu Rp. 75.000 / bulan, kecuali weekend (Kelas Sabtu – Ahad), biayanya Rp. 100.000 / bulan.<br/><br/>
+
+Biaya Privat Online 150.000 / pertemuan (Jumlah pertemuan dalam sebulan disepakati antara ustadz pengajar dan peserta).<br/><br/>
+
+Biaya Privat Offline 200.000 / pertemuan (Jumlah pertemuan dalam sebulan disepakati antara ustadz pengajar dan peserta).<br/><br/>
+
+Biaya privat institusi (masjid, kantor) dengan jumlah maksimal 20 orang (untuk semua program) Rp. 1000.000.<br/><br/>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden faq-item cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-secondary text-sm">Kapan biaya pendidikan (non privat) paling lambat ditunaikan, dan apa konsekuensi jika terlambat?</h3>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content bg-gray-50 px-4">
+                        <p class="text-gray-600 text-xs pb-4 leading-relaxed">
+                            Biaya Pendidikan (non privat) ditunaikan paling lambat tanggal 10 setiap bulannya.<br/><br/>
+Peserta yang belum menunaikan biaya pendidikan lebih dari tanggal 10 tetap dibolehkan belajar dengan konfirmasi terlebih dahulu kepada admin mengenai alasan penundaan pembayaran.<br/><br/>
+Peserta yang tidak mengkonfirmasi alasan penundaan pembayaran biaya Pendidikan sampai akhir bulan dianggap mengundurkan diri dan dikeluarkan dari grup.<br/><br/>
+Peserta yang telah mengundurkan diri boleh kembali bergabung dengan mendaftar ulang.<br/><br/>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 6 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden faq-item cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-secondary text-sm">Apakah ada buku panduannya?</h3>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content bg-gray-50 px-4">
+                        <p class="text-gray-600 text-xs pb-4 leading-relaxed">
+                            Ya, ada, buku panduan berupa ebook boleh diprint masing-masing. Buku cetak dapat dipesan dengan cara PO.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 7 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden faq-item cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-secondary text-sm">Apakah pengajar ikhwan dan akhwat dibedakan?</h3>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content bg-gray-50 px-4">
+                        <p class="text-gray-600 text-xs pb-4 leading-relaxed">
+                            Pengajar Ikhwan adalah Ikhwan, dan pengajar akhwat adalah akhwat atau Ikhwan yang sudah menikah. (Berlaku untuk offline maupun online)
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 8 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden faq-item cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-secondary text-sm">Apakah peserta yang sudah bisa baca Al-Quran mesti mengulang dari dasar?</h3>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content bg-gray-50 px-4">
+                        <p class="text-gray-600 text-xs pb-4 leading-relaxed">
+                            Tidak, peserta yang sudah bisa membaca Al-Quran memulai pembelajaran dari jilid yang ditentukan asatiz/ustadzahnya (bisa langsung loncat ke jilid 3, 4, dst., tidak mesti dari awal), setelah tes membaca ayat-ayat yang ditentukan.<br/><br/>
+
+Perlu diketahui, ini bukan iqro, jadi turun jilid maksudnya untuk melatih lisan secara bertahap, mulai dari teks-teks arab yang singkat sampai kompleks (Al-Quran) dengan harapan ketika sudah kembali ke Al-Quran, bacaan sudah berbeda sebelum (before) dan setelahnya (after).<br/><br/>
+
+Peserta dinyatakan selesai mengikuti kelas baca Al-Quran setelah menuntaskan jilid 6 buku Qoro’na.<br/><br/>
+
+Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (Training For Trainer) yang diadakan Kampoeng Quran Cendekia (KQC) untuk menjadi pengajar Buku Qorona, baik offline di KQC, maupun online di tempat masing-masing.<br/><br/>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 9 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden faq-item cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-secondary text-sm">Media apa yang digunakan untuk online</h3>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content bg-gray-50 px-4">
+                        <p class="text-gray-600 text-xs pb-4 leading-relaxed">
+                            Media online kelas baca Al-Quran menggunakan google meet premium yang tidak terbatas durasi 60 menit (batasan sekali online bisa sampai 24 jam). Jadi pembelajaran tidak akan putus koneksi.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 10 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden faq-item cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-secondary text-sm">Dimana kelas Offline dilaksanakan?</h3>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content bg-gray-50 px-4">
+                        <p class="text-gray-600 text-xs pb-4 leading-relaxed">
+                            Kelas Offline dilaksanakan di kelas-kelas atau ruangan-ruangan Kawasan Pesantren Tahfizh Kampoeng Quran Cendekia Cihanjuang, Bandung Barat.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 11 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden faq-item cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-secondary text-sm">Jika Ustadz/ah berhalangan, apakah bisa meminta ganti hari kelas yang diliburkan?</h3>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content bg-gray-50 px-4">
+                        <p class="text-gray-600 text-xs pb-4 leading-relaxed">
+                            Bisa, hari libur lembaga (Hari Jumat) atau hari lainnya dapat dipakai untuk badal (pengganti) kelas yang diliburkan karena asatiz terkendala (sakit, izin, dll) jika terjadi kesepakatan.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 12 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden faq-item cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-secondary text-sm">Apakah peserta boleh mengundurkan diri di tengah jalan?</h3>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-content bg-gray-50 px-4">
+                        <p class="text-gray-600 text-xs pb-4 leading-relaxed">
+                            Peserta yang akan mengundurkan mengabarkan asatiznya masing-masing minimal sepekan sebelum masuk ke bulan berikutnya.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="bg-secondary text-white pt-12 pb-6 px-6 text-center">
+            
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <a href="https://ajarkan.github.io/program/" target="_blank" rel="noopener noreferrer" class="bg-slate-800 p-4 rounded-xl border border-slate-700 hover:border-primary transition">
+                    <i data-lucide="globe" class="w-8 h-8 text-primary mx-auto mb-2"></i>
+                    <span class="text-xs font-bold block">Program Lain</span>
+                </a>
+                <a href="http://kampoengquran.or.id/" target="_blank" rel="noopener noreferrer" class="bg-slate-800 p-4 rounded-xl border border-slate-700 hover:border-primary transition">
+                    <i data-lucide="home" class="w-8 h-8 text-primary mx-auto mb-2"></i>
+                    <span class="text-xs font-bold block">Web Pesantren</span>
+                </a>
+            </div>
+
+            <h3 class="font-bold text-lg mb-2">Tentang Kampoeng Quran Cendekia</h3>
+            <p class="text-gray-400 text-xs mb-8">
+                Kawasan Qurani yang meliputi Lembaga pendidikan formal dan non formal (kursus dan pelatihan).
+            </p>
+
+            <div class="border-t border-slate-700 pt-6">
+                <p class="text-xs text-gray-500">© 2026 Kelas Mengaji. All Rights Reserved.</p>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/6281214880408" target="_blank" class="fixed bottom-6 right-6 z-50 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 hover:scale-110 transition duration-300 flex items-center justify-center animate-bounce">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Video Play Logic
+        function playVideo(container, videoId) {
+            container.innerHTML = `
+                <iframe 
+                   class="w-full h-full" 
+                   src="https://www.youtube.com/embed/oXZxB8ABsh0?autoplay=1&rel=0" 
+                   title="Video Profil" 
+                   frameborder="0" 
+                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                   allowfullscreen>
+                </iframe>
+            `;
+        }
+
+        // FAQ Toggle Logic
+        function toggleFaq(element) {
+            // Close all others first (Accordion style) - optional
+            const allFaqs = document.querySelectorAll('.faq-item');
+            
+            // Toggle current
+            const content = element.querySelector('.faq-content');
+            
+            if (element.classList.contains('faq-active')) {
+                element.classList.remove('faq-active');
+                content.style.maxHeight = '0';
+            } else {
+                element.classList.add('faq-active');
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+    </script>
+</body>
+</html>
