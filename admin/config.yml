@@ -76,3 +76,21 @@ collections:
             fields:
               - {label: "Pertanyaan", name: "question", widget: "string"}
               - {label: "Jawaban", name: "answer", widget: "text"}
+
+      # --- MENU BLOG BARU ---
+      - label: "📝 Blog / Artikel"
+        name: "blog"
+        file: "data/blog.json"
+        extension: "json"
+        format: "json"
+        fields:
+          - label: "Daftar Artikel"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "Judul Artikel", name: "title", widget: "string"}
+              - {label: "Kategori", name: "category", widget: "select", options: ["Fiqih", "Aqidah", "Sejarah Islami", "Tips & Inspirasi", "Info Kegiatan"]}
+              - {label: "Tanggal Posting", name: "date", widget: "date"}
+              - {label: "Thumbnail / Gambar Utama", name: "thumbnail", widget: "image"}
+              - {label: "Kutipan Singkat (Tampil sebelum Read More)", name: "excerpt", widget: "text"}
+              - {label: "Isi Artikel Lengkap", name: "content", widget: "markdown"}
