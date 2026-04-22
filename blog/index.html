@@ -58,6 +58,11 @@
         .prose img { border-radius: 0.75rem; margin: 2rem auto; max-width: 100%; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
         .prose blockquote { border-left: 4px solid var(--c-accent, #f59e0b); padding-left: 1rem; font-style: italic; color: #6b7280; background: var(--c-light, #f9fafb); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.25rem;}
         .prose a { color: var(--c-primary, #059669); text-decoration: underline; }
+
+        /* Custom Scrollbar untuk Panel TOC */
+        .toc-scrollbar::-webkit-scrollbar { width: 6px; }
+        .toc-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .toc-scrollbar::-webkit-scrollbar-thumb { background: var(--c-primary, #10b981); border-radius: 10px; }
     </style>
 </head>
 <body class="text-gray-700 bg-gray-50 font-sans antialiased flex flex-col min-h-screen">
@@ -98,7 +103,7 @@
     </nav>
 
     <!-- Main Content Area -->
-    <main class="flex-grow pt-28 pb-20">
+    <main class="flex-grow pt-28 pb-20 relative">
         
         <!-- VIEW 1: DAFTAR ARTIKEL (LIST) -->
         <div id="blog-list-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -173,8 +178,42 @@
 
     </main>
 
+    <!-- FITUR BARU: Daftar Isi Mengambang (Floating TOC) -->
+    
+    <!-- 1. Tombol Buka TOC (Pojok Kanan Bawah) -->
+    <button onclick="toggleTOC()" class="fixed bottom-6 right-6 w-14 h-14 bg-emerald-600 text-white rounded-full shadow-2xl flex items-center justify-center text-xl hover:bg-emerald-700 hover:scale-105 hover:rotate-12 transition-all duration-300 z-40 group" aria-label="Buka Daftar Isi Artikel">
+        <i class="fas fa-book-open"></i>
+        <!-- Tooltip muncul saat kursor didekatkan -->
+        <span class="absolute right-full mr-4 bg-gray-800 text-white text-sm px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 whitespace-nowrap pointer-events-none transition-opacity duration-300 shadow-lg">
+            Daftar Isi Blog
+        </span>
+    </button>
+
+    <!-- 2. Overlay Gelap (Saat panel terbuka) -->
+    <div id="toc-overlay" onclick="toggleTOC()" class="fixed inset-0 bg-black/50 z-[55] hidden transition-opacity duration-300 opacity-0 cursor-pointer backdrop-blur-sm"></div>
+
+    <!-- 3. Panel Geser TOC -->
+    <div id="toc-panel" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-[60] transform translate-x-full transition-transform duration-300 flex flex-col rounded-l-2xl">
+        <!-- Header Panel -->
+        <div class="p-6 border-b border-emerald-100 flex justify-between items-center bg-emerald-50 rounded-tl-2xl">
+            <h3 class="font-serif font-bold text-emerald-900 text-lg flex items-center">
+                <i class="fas fa-list-ul mr-3 text-emerald-600"></i> Daftar Artikel
+            </h3>
+            <button onclick="toggleTOC()" class="text-gray-500 hover:text-red-500 transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-white shadow-sm">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        <!-- List Artikel -->
+        <div class="flex-1 overflow-y-auto p-4 space-y-2 toc-scrollbar" id="toc-list">
+            <!-- Diisi Otomatis oleh JS -->
+        </div>
+        <div class="p-4 border-t border-gray-100 bg-gray-50 text-center text-xs text-gray-500">
+            Total <span id="toc-count" class="font-bold text-emerald-600">0</span> Artikel
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-emerald-900 text-emerald-100 pt-12 pb-8 border-t-4 border-gold-500 mt-auto">
+    <footer class="bg-emerald-900 text-emerald-100 pt-12 pb-8 border-t-4 border-gold-500 mt-auto relative z-30">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h3 class="text-2xl font-serif font-bold text-white mb-4">Kelas Mengaji</h3>
             <p class="text-emerald-200/80 max-w-md mx-auto mb-6">Membantu umat Islam mempelajari agama dengan manhaj yang benar, mudah, dan terstruktur.</p>
@@ -286,6 +325,7 @@
             allArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
             setCategory("Semua");
+            renderTOC(); // Panggil fungsi render Daftar Isi
         }
 
         // --- 4. SISTEM FILTER, PENCARIAN & PAGINASI ---
@@ -333,14 +373,11 @@
         // --- FUNGSI HIGHLIGHT TEKS (Warna Kuning) ---
         function highlightText(text, query) {
             if (!query || !text) return text;
-            // Hindari error Regex dari karakter spesial
             const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
             const regex = new RegExp(`(${escapedQuery})`, 'gi');
-            // Bungkus kata yang cocok dengan mark warna kuning
             return text.replace(regex, '<mark class="bg-yellow-300 text-gray-900 px-1 rounded-sm shadow-sm">$1</mark>');
         }
 
-        // Fungsi khusus untuk highlight konten dalam detail artikel dengan aman (tidak merusak tag HTML)
         function highlightNode(node, query) {
             if (!query) return;
             const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -350,7 +387,6 @@
             let n;
             const nodesToReplace = [];
             while(n = walk.nextNode()) {
-                // Jangan utak atik script, style, atau yang sudah di-highlight
                 if(n.parentNode.nodeName !== 'SCRIPT' && n.parentNode.nodeName !== 'STYLE' && n.parentNode.nodeName !== 'MARK' && regex.test(n.nodeValue)) {
                     nodesToReplace.push(n);
                 }
@@ -407,9 +443,8 @@
             container.innerHTML = postsToShow.map((post) => {
                 const dateObj = new Date(post.date);
                 const dateString = isNaN(dateObj) ? post.date : dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-                const realIndex = allArticles.indexOf(post); // Cara yang lebih aman untuk mencari index asli
+                const realIndex = allArticles.indexOf(post); 
 
-                // Terapkan highlight pada Judul dan Kutipan
                 const displayTitle = highlightText(post.title, currentSearchQuery);
                 const displayExcerpt = highlightText(post.excerpt, currentSearchQuery);
 
@@ -469,7 +504,6 @@
             document.getElementById('detail-img').src = post.thumbnail.startsWith('/') ? '..' + post.thumbnail : post.thumbnail;
             document.getElementById('detail-category').innerText = post.category;
             
-            // Highlight judul di detail
             document.getElementById('detail-title').innerHTML = highlightText(post.title, currentSearchQuery);
             document.getElementById('detail-date').innerText = dateString;
             
@@ -479,7 +513,6 @@
             const contentDiv = document.getElementById('detail-content');
             contentDiv.innerHTML = marked.parse(rawMarkdown);
             
-            // Highlight isi artikel dengan aman (jika ada pencarian)
             if (currentSearchQuery) {
                 highlightNode(contentDiv, currentSearchQuery);
             }
@@ -499,6 +532,55 @@
             listView.classList.add('fade-in');
             
             window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        // --- FITUR BARU: Logika Panel Daftar Isi (TOC) ---
+        function toggleTOC() {
+            const panel = document.getElementById('toc-panel');
+            const overlay = document.getElementById('toc-overlay');
+
+            if (panel.classList.contains('translate-x-full')) {
+                // Buka Panel
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+                panel.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden'; // Kunci scroll layar utama
+            } else {
+                // Tutup Panel
+                overlay.classList.add('opacity-0');
+                panel.classList.add('translate-x-full');
+                document.body.style.overflow = ''; // Lepas kunci scroll
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        function renderTOC() {
+            const list = document.getElementById('toc-list');
+            document.getElementById('toc-count').innerText = allArticles.length;
+
+            if (allArticles.length === 0) {
+                list.innerHTML = '<p class="text-gray-500 text-sm text-center mt-4">Belum ada artikel.</p>';
+                return;
+            }
+
+            list.innerHTML = allArticles.map((post, index) => {
+                return `
+                <button onclick="openArticleFromTOC(${index})" class="w-full text-left p-3 rounded-xl hover:bg-emerald-50 transition-colors border border-transparent hover:border-emerald-100 group flex gap-3 items-start cursor-pointer">
+                    <div class="w-2.5 h-2.5 mt-1.5 rounded-full bg-emerald-300 group-hover:bg-emerald-500 shrink-0 transition-colors"></div>
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-800 group-hover:text-emerald-700 leading-snug mb-1">${post.title}</h4>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-full">${post.category}</span>
+                    </div>
+                </button>
+                `;
+            }).join('');
+        }
+
+        function openArticleFromTOC(index) {
+            toggleTOC(); // Tutup panel samping dulu
+            setTimeout(() => {
+                openArticle(index); // Langsung buka artikel dengan SPA
+            }, 300); // Tunggu panel selesai bergeser baru memuat artikel
         }
 
         // Fungsi untuk membuka dan menutup menu di HP
