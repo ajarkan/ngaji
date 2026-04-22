@@ -7,8 +7,7 @@
     
     <meta property="og:title" content="Blog & Artikel Islami - Kelas Mengaji">
     <meta property="og:description" content="Kumpulan artikel, tips, dan tulisan islami yang mencerahkan.">
-    <!-- Kode App ID Facebook untuk Moderasi Komentar -->
-    <meta property="fb:app_id" content="2899707680179630" />
+    <!-- Kode Facebook App ID sudah dihapus -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,18 +56,7 @@
 </head>
 <body class="text-gray-700 bg-gray-50 font-sans antialiased flex flex-col min-h-screen">
 
-    <!-- Sistem Inti Facebook SDK -->
-    <div id="fb-root"></div>
-    <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : '2899707680179630',
-                xfbml      : true,
-                version    : 'v19.0'
-            });
-        };
-    </script>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js"></script>
+    <!-- Sistem Facebook SDK sudah dihapus dari sini -->
 
     <!-- Navbar -->
     <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
@@ -135,15 +123,17 @@
                 </div>
                 <div class="p-8 md:p-12 prose max-w-none" id="detail-content"></div>
                 <div class="bg-gray-50 border-t border-gray-100 p-8 md:p-12">
-                    <h3 class="text-2xl font-bold text-emerald-900 mb-6 font-serif">Komentar Pembaca</h3>
+                    <h3 class="text-2xl font-bold text-emerald-900 mb-6 font-serif">Ruang Diskusi</h3>
                     
-                    <!-- CONTAINER KOMENTAR DENGAN DETEKTOR ERROR -->
-                    <div id="fb-comments-container" class="w-full bg-white p-6 rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col items-center justify-center min-h-[300px]">
-                        <div id="fb-status-area" class="text-center">
+                    <!-- CONTAINER KOMENTAR DISQUS -->
+                    <div id="disqus_thread" class="w-full bg-white p-6 rounded-xl shadow-sm border border-gray-100 overflow-hidden min-h-[300px]">
+                        <!-- Area Loading sebelum Disqus dimuat -->
+                        <div class="text-center py-10">
                              <i class="fas fa-circle-notch fa-spin text-4xl text-emerald-500 mb-4"></i>
-                             <p class="text-gray-500">Mempersiapkan kotak komentar...</p>
+                             <p class="text-gray-500">Mempersiapkan kolom komentar...</p>
                         </div>
                     </div>
+                    <noscript>Silakan aktifkan JavaScript untuk melihat <a href="https://disqus.com/?ref_noscript">komentar yang didukung oleh Disqus.</a></noscript>
                 </div>
             </article>
         </div>
@@ -266,7 +256,7 @@
             container.innerHTML = html;
         }
 
-        // --- CORE SPA & FB LOGIC ---
+        // --- CORE SPA & DISQUS LOGIC ---
         function openArticle(index) {
             const post = allArticles[index];
             if(!post) return;
@@ -298,56 +288,48 @@
             document.getElementById('blog-detail-view').classList.add('fade-in');
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // --- EKSEKUSI KOMENTAR FACEBOOK ---
-            renderFacebookComments(post.title);
+            // --- EKSEKUSI KOMENTAR DISQUS ---
+            renderDisqusComments(post.title);
         }
 
-        function renderFacebookComments(articleTitle) {
-            const container = document.getElementById('fb-comments-container');
+        function renderDisqusComments(articleTitle) {
+            // PENTING: Ganti tulisan 'GANTI_DENGAN_SHORTNAME_DISQUS_ANDA' dengan shortname akun Disqus Anda.
+            // Contoh jika shortname Anda 'kelasngaji', maka jadinya: const disqusShortname = 'kelasngaji';
+            const disqusShortname = 'GANTI_DENGAN_SHORTNAME_DISQUS_ANDA'; 
             
-            // 1. Tampilkan status loading awal
-            container.innerHTML = `
-                <div id="fb-status-area" class="text-center py-10">
-                    <i class="fas fa-circle-notch fa-spin text-4xl text-emerald-500 mb-4"></i>
-                    <p class="text-gray-600 font-medium">Menghubungkan ke Facebook...</p>
-                </div>`;
+            const articleUrl = window.location.origin + window.location.pathname + "?artikel=" + encodeURIComponent(articleTitle);
 
-            const url = window.location.origin + window.location.pathname + "?artikel=" + encodeURIComponent(articleTitle);
-
-            // 2. Tunggu sebentar agar animasi SPA selesai
+            // Karena SPA, kita harus me-reset Disqus setiap kali artikel baru dibuka
             setTimeout(() => {
-                // Bersihkan loader dan masukkan tag HTML Facebook murni
-                container.innerHTML = `<div class="fb-comments" data-href="${url}" data-width="100%" data-numposts="5"></div>`;
-                
-                // 3. Perintahkan SDK merender
-                if (typeof FB !== 'undefined') {
-                    FB.XFBML.parse(container);
-                    
-                    // 4. Detektor "Kotak Putih" (Jika 4 detik masih kosong, tampilkan pesan bantuan)
-                    setTimeout(() => {
-                        const iframe = container.querySelector('iframe');
-                        if (!iframe || container.offsetHeight < 50) {
-                            container.innerHTML += `
-                                <div class="mt-4 p-4 bg-red-50 rounded-lg text-xs text-red-600 border border-red-100">
-                                    <p class="font-bold mb-1"><i class="fas fa-exclamation-triangle mr-1"></i> Kotak komentar tidak muncul?</p>
-                                    <ul class="list-disc ml-4 space-y-1">
-                                        <li>Matikan <b>Ad-Blocker</b> atau Brave Shields.</li>
-                                        <li>Pastikan aplikasi Meta di Dasbor sudah berstatus <b>Live</b>.</li>
-                                        <li>Domain <b>kelasngaji.web.id</b> wajib masuk ke <b>Pengelola Domain</b> di Meta.</li>
-                                    </ul>
-                                </div>`;
+                if (typeof DISQUS !== 'undefined') {
+                    // Reset Disqus jika sudah pernah dimuat sebelumnya
+                    DISQUS.reset({
+                        reload: true,
+                        config: function () {
+                            this.page.identifier = articleTitle;
+                            this.page.url = articleUrl;
+                            this.page.title = articleTitle;
                         }
-                    }, 4000);
+                    });
                 } else {
-                    container.innerHTML = `<p class="text-red-500 text-sm">Gagal memuat Facebook SDK. Periksa koneksi atau Ad-Blocker.</p>`;
+                    // Muat script Disqus untuk pertama kalinya
+                    window.disqus_config = function () {
+                        this.page.identifier = articleTitle;
+                        this.page.url = articleUrl;
+                        this.page.title = articleTitle;
+                    };
+                    
+                    const d = document, s = d.createElement('script');
+                    s.src = `https://${disqusShortname}.disqus.com/embed.js`;
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
                 }
-            }, 500);
+            }, 500); // Jeda animasi
         }
 
         function closeArticle() {
             document.getElementById('blog-detail-view').classList.add('hidden');
             document.getElementById('blog-list-view').classList.remove('hidden');
-            document.getElementById('fb-comments-container').innerHTML = '';
         }
 
         function toggleTOC() {
@@ -370,5 +352,8 @@
         function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
         document.addEventListener('DOMContentLoaded', initBlog);
     </script>
+    
+    <!-- Script Penghitung Komentar Disqus -->
+    <script id="dsq-count-scr" src="//kelasngaji.disqus.com/count.js" async></script>
 </body>
 </html>
