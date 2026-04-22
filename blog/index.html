@@ -47,13 +47,19 @@
         .prose h1 { font-family: 'Merriweather', serif; font-size: 2.25rem; font-weight: bold; margin-top: 2rem; margin-bottom: 1rem; color: var(--c-dark, #022c22); line-height: 1.3;}
         .prose h2 { font-family: 'Merriweather', serif; font-size: 1.5rem; font-weight: bold; margin-top: 2rem; margin-bottom: 1rem; color: var(--c-primary, #059669); }
         .prose p { margin-bottom: 1.25rem; line-height: 1.8; color: #4b5563; }
-        /* Perbaikan: Membatasi margin agar hanya berlaku untuk gambar murni dalam artikel, bukan slider */
         .prose img { border-radius: 0.75rem; margin: 2rem auto; max-width: 100%; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
         .prose blockquote { border-left: 4px solid var(--c-accent, #f59e0b); padding-left: 1rem; font-style: italic; color: #6b7280; background: var(--c-light, #f9fafb); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.25rem;}
+        
         .toc-scrollbar::-webkit-scrollbar { width: 6px; }
         .toc-scrollbar::-webkit-scrollbar-thumb { background: var(--c-primary, #10b981); border-radius: 10px; }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* FITUR BARU: CSS untuk Dropdown Daftar Isi (Accordion) */
+        .toc-category-content { transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
+        .toc-category-item.active .toc-category-content { opacity: 1; }
+        .toc-icon { transition: transform 0.3s ease; }
+        .toc-category-item.active .toc-icon { transform: rotate(180deg); }
     </style>
 </head>
 <body class="text-gray-700 bg-gray-50 font-sans antialiased flex flex-col min-h-screen">
@@ -159,7 +165,9 @@
             <h3 class="font-serif font-bold text-emerald-900 text-lg flex items-center"><i class="fas fa-list-ul mr-3 text-emerald-600"></i> Daftar Artikel</h3>
             <button onclick="toggleTOC()" class="text-gray-500 hover:text-red-500 transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-white"><i class="fas fa-times"></i></button>
         </div>
-        <div class="flex-1 overflow-y-auto p-4 space-y-2 toc-scrollbar" id="toc-list"></div>
+        <div class="flex-1 overflow-y-auto p-4 toc-scrollbar" id="toc-list">
+            <!-- FITUR BARU: Dropdown Daftar Isi (Accordion) diisi di sini -->
+        </div>
         <div class="p-4 border-t border-gray-100 bg-gray-50 text-center text-xs text-gray-500">Total <span id="toc-count" class="font-bold text-emerald-600">0</span> Artikel</div>
     </div>
 
@@ -303,7 +311,6 @@
             container.innerHTML = html;
         }
 
-        // --- PERBAIKAN DESAIN BACA JUGA (Murni Frameless & Aman dari CSS Artikel) ---
         function generateInlineRelatedArticles(currentIndex) {
             const related = allArticles.filter((_, i) => i !== currentIndex).slice(0, 3);
             if (related.length === 0) return '';
@@ -311,19 +318,14 @@
             let html = `<div class="my-8 md:my-12 border-y md:border-y-0 md:border-2 border-emerald-100 py-6 md:p-6 bg-emerald-50/40 md:rounded-2xl not-prose">`;
             html += `<h4 class="text-emerald-800 font-bold text-base md:text-lg mb-4 px-4 md:px-0 flex items-center"><i class="fas fa-book-reader mr-2 text-emerald-600"></i>Baca Juga:</h4>`;
             
-            // PERBAIKAN: Flex container untuk scroll horizontal di HP
             html += `<div class="flex flex-nowrap overflow-x-auto snap-x snap-mandatory gap-4 pb-4 md:pb-0 px-4 md:px-0 md:grid md:grid-cols-3 md:gap-6 scrollbar-hide">`;
 
             related.forEach(post => {
                 const relIndex = allArticles.indexOf(post);
                 const relDate = new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
                 
-                // DESAIN BARU: Frameless (Gambar menyentuh batas kiri-kanan-atas, rasio presisi)
-                // Ditambahkan !m-0 !shadow-none !rounded-none pada <img> untuk menetralisir efek CSS dari .prose
-                // PERBAIKAN HP: Menambahkan w-[70vw] dan flex-shrink-0 agar tidak menurun
                 html += `
                 <div class="w-[70vw] md:w-auto flex-shrink-0 snap-center cursor-pointer group flex flex-col bg-white rounded-xl shadow-sm border border-emerald-100 hover:shadow-md transition-all overflow-hidden" onclick="openArticle(${relIndex})">
-                    <!-- Gunakan w-full dengan pb-[56.25%] untuk rasio 16:9 yang lebih stabil -->
                     <div class="relative w-full pb-[56.25%] bg-gray-100 overflow-hidden">
                         <img src="${post.thumbnail.startsWith('/') ? '..' + post.thumbnail : post.thumbnail}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 !m-0 !p-0 !shadow-none !rounded-none !border-0" alt="${post.title}">
                     </div>
@@ -370,7 +372,6 @@
                 });
             }
 
-            // --- EKSEKUSI BACA JUGA BAWAH DENGAN DESAIN FRAMELESS YANG SAMA ---
             const relatedContainer = document.getElementById('related-articles-grid');
             const relatedPosts = allArticles.filter((_, i) => i !== index).slice(0, 4);
             
@@ -382,7 +383,6 @@
                     
                     return `
                     <div class="w-[70vw] md:w-auto flex-shrink-0 snap-center bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer border border-gray-100 flex flex-col group" onclick="openArticle(${relIndex})">
-                        <!-- Gunakan w-full dengan pb-[56.25%] untuk rasio 16:9 yang lebih stabil -->
                         <div class="relative w-full pb-[56.25%] bg-gray-100 overflow-hidden">
                             <img src="${relPost.thumbnail.startsWith('/') ? '..' + relPost.thumbnail : relPost.thumbnail}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 !m-0 !p-0 !shadow-none !rounded-none !border-0" alt="${relPost.title}">
                         </div>
@@ -461,13 +461,76 @@
             else { p.classList.remove('translate-x-full'); o.classList.remove('hidden'); }
         }
 
+        // --- FITUR BARU: Toggle Animasi Dropdown Kategori ---
+        function toggleTocCategory(btn) {
+            const item = btn.parentElement;
+            const content = item.querySelector('.toc-category-content');
+            const isOpen = item.classList.contains('active');
+
+            // Tutup semua kategori lain terlebih dahulu
+            document.querySelectorAll('.toc-category-item').forEach(other => {
+                other.classList.remove('active');
+                other.querySelector('.toc-category-content').style.maxHeight = null;
+            });
+
+            // Buka yang di-klik jika sebelumnya tertutup
+            if (!isOpen) {
+                item.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+
+        // --- FITUR BARU: Render Daftar Isi dengan Dropdown (Accordion) Berdasarkan Kategori ---
         function renderTOC() {
             document.getElementById('toc-count').innerText = allArticles.length;
-            document.getElementById('toc-list').innerHTML = allArticles.map((p, i) => `
-                <button onclick="toggleTOC(); setTimeout(()=>openArticle(${i}),300)" class="w-full text-left p-3 rounded-xl hover:bg-emerald-50 border border-transparent hover:border-emerald-100 flex gap-3 items-start group">
-                    <div class="w-2 h-2 mt-2 rounded-full bg-emerald-300 group-hover:bg-emerald-600"></div>
-                    <div><h4 class="text-sm font-bold text-gray-800 leading-tight">${p.title}</h4><span class="text-[10px] font-bold text-emerald-600 uppercase">${p.category}</span></div>
-                </button>`).join('');
+            
+            // 1. Mengelompokkan artikel berdasarkan kategori
+            const groupedArticles = {};
+            allArticles.forEach((post, index) => {
+                const cat = post.category || "Lain-Lain";
+                if (!groupedArticles[cat]) groupedArticles[cat] = [];
+                groupedArticles[cat].push({ post, index });
+            });
+
+            let html = '';
+            
+            // 2. Merakit HTML Dropdown untuk setiap kategori
+            for (const cat in groupedArticles) {
+                const articles = groupedArticles[cat];
+                if (articles.length === 0) continue;
+
+                html += `
+                <div class="toc-category-item mb-2 bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden transition-all">
+                    <!-- Tombol Judul Kategori -->
+                    <button onclick="toggleTocCategory(this)" class="w-full flex justify-between items-center p-4 text-left hover:bg-emerald-50 transition-colors focus:outline-none">
+                        <span class="font-bold text-emerald-800 text-sm uppercase tracking-wider">
+                            ${cat} <span class="text-gray-400 text-xs ml-1 font-normal">(${articles.length})</span>
+                        </span>
+                        <i class="fas fa-chevron-down text-emerald-500 text-sm toc-icon"></i>
+                    </button>
+                    
+                    <!-- Isi Dropdown (Daftar Judul Artikel) -->
+                    <div class="toc-category-content bg-emerald-50/30">
+                        <div class="p-2 border-t border-gray-50 space-y-1">
+                `;
+
+                articles.forEach(item => {
+                    html += `
+                            <button onclick="toggleTOC(); setTimeout(()=>openArticle(${item.index}),300)" class="w-full text-left p-3 rounded-lg hover:bg-emerald-100 transition-colors group flex gap-3 items-start">
+                                <div class="w-1.5 h-1.5 mt-1.5 rounded-full bg-emerald-300 group-hover:bg-emerald-600 shrink-0 transition-colors"></div>
+                                <h4 class="text-xs font-semibold text-gray-700 group-hover:text-emerald-900 leading-snug">${item.post.title}</h4>
+                            </button>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                </div>
+                `;
+            }
+
+            document.getElementById('toc-list').innerHTML = html;
         }
 
         function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
