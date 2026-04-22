@@ -118,15 +118,23 @@
                         <div class="flex items-center text-gray-200 text-sm"><i class="far fa-calendar-alt mr-2"></i> <span id="detail-date"></span></div>
                     </div>
                 </div>
+                <!-- Isi Artikel -->
                 <div class="p-5 md:p-12 prose max-w-none" id="detail-content"></div>
                 
-                <!-- PERBAIKAN PADDING: p-4 di mobile, p-12 di desktop untuk Ruang Diskusi -->
+                <!-- BACA JUGA / REKOMENDASI ARTIKEL (FITUR BARU) -->
+                <div class="bg-white border-t border-gray-100 p-4 md:p-12" id="related-articles-section">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 px-2 md:px-0">Baca Juga:</h3>
+                    
+                    <!-- Grid/Slider Artikel Terkait -->
+                    <div id="related-articles-grid" class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 md:grid md:grid-cols-3 md:gap-6 md:pb-0 scrollbar-hide px-2 md:px-0">
+                        <!-- Artikel Terkait Akan Diisi Oleh Javascript -->
+                    </div>
+                </div>
+                
+                <!-- Ruang Diskusi Disqus -->
                 <div class="bg-gray-50 border-t border-gray-100 p-4 md:p-12">
                     <h3 class="text-2xl font-bold text-emerald-900 mb-4 md:mb-6 font-serif px-2 md:px-0">Ruang Diskusi</h3>
-                    
-                    <!-- PERBAIKAN PADDING: p-2 di mobile, p-6 di desktop agar Disqus merenggang penuh di HP -->
                     <div id="disqus_thread" class="w-full bg-white p-2 md:p-6 rounded-xl shadow-sm border border-gray-100 overflow-hidden min-h-[300px]">
-                        <!-- Area Loading sebelum Disqus dimuat -->
                         <div class="text-center py-10">
                              <i class="fas fa-circle-notch fa-spin text-4xl text-emerald-500 mb-4"></i>
                              <p class="text-gray-500">Mempersiapkan kolom komentar...</p>
@@ -319,9 +327,38 @@
                 });
             }
 
+            // --- EKSEKUSI BACA JUGA (REKOMENDASI ARTIKEL) ---
+            const relatedContainer = document.getElementById('related-articles-grid');
+            // Mengambil 3 artikel terbaru, tapi menyembunyikan artikel yang sedang dibaca ini
+            const relatedPosts = allArticles.filter((_, i) => i !== index).slice(0, 4);
+            
+            if(relatedPosts.length > 0) {
+                document.getElementById('related-articles-section').classList.remove('hidden');
+                relatedContainer.innerHTML = relatedPosts.map(relPost => {
+                    const relIndex = allArticles.indexOf(relPost);
+                    const relDate = new Date(relPost.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                    
+                    return `
+                    <div class="w-[65vw] md:w-auto shrink-0 snap-center bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer border border-gray-100 flex flex-col group" onclick="openArticle(${relIndex})">
+                        <div class="h-32 md:h-40 overflow-hidden relative">
+                            <img src="${relPost.thumbnail.startsWith('/') ? '..' + relPost.thumbnail : relPost.thumbnail}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="${relPost.title}">
+                        </div>
+                        <div class="p-4 flex flex-col flex-grow">
+                            <p class="text-[10px] md:text-xs text-gray-400 mb-1.5 uppercase tracking-wider font-bold text-emerald-600">${relPost.category} <span class="text-gray-300 font-normal ml-1">• ${relDate}</span></p>
+                            <h4 class="font-bold text-gray-800 text-sm md:text-base leading-snug group-hover:text-emerald-600 transition-colors line-clamp-3">${relPost.title}</h4>
+                        </div>
+                    </div>
+                    `;
+                }).join('');
+            } else {
+                document.getElementById('related-articles-section').classList.add('hidden');
+            }
+
             document.getElementById('blog-list-view').classList.add('hidden');
             document.getElementById('blog-detail-view').classList.remove('hidden');
             document.getElementById('blog-detail-view').classList.add('fade-in');
+            
+            // Scroll mulus kembali ke ujung atas artikel baru
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             renderDisqusComments(post.title);
