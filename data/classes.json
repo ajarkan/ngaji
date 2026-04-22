@@ -1,8 +1,8 @@
 {
   "items": [
     {
-      "id": "desain",
-      "title": "Kelas Desain",
+      "id": "Baca Al-Quran",
+      "title": "Kelas Baca Al-Quran",
       "isOpen": true,
       "badge": "Offline",
       "img": "/assets/uploads/photo-1519817650390-64a93db51149.jpg",
@@ -13,6 +13,23 @@
       "syllabus": [
         "Yang penting Hepi",
         "Seru-seruan"
+      ]
+    },
+    {
+      "id": "Bahasa",
+      "title": "Bahasa Arab",
+      "isOpen": true,
+      "badge": "Offline",
+      "img": "/assets/uploads/photo-1519817650390-64a93db51149.jpg",
+      "desc": "Coba dulu tes",
+      "price": "Rp. 30.000 / Bulan",
+      "brosurLink": "https://kelasngaji.web.id/quran/",
+      "formLink": "https://form.kelasngaji.web.id/?kategori=Baca%20Al-Quran",
+      "syllabus": [
+        "Yang penting Hepi",
+        "Seru-seruan",
+        "Makanan bergizi",
+        "MBG yang nikmat dan tidak nikmat"
       ]
     }
   ]
