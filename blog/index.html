@@ -239,8 +239,17 @@
                 container.innerHTML = `<div class="col-span-full text-center py-16">Pencarian tidak ditemukan.</div>`;
                 return;
             }
+
+            // --- PERBAIKAN: Menentukan URL Lengkap (Mutlak) agar Disqus tidak bingung ---
+            let baseUrl = window.location.origin;
+            if (baseUrl === "null" || baseUrl.startsWith("file://")) {
+                baseUrl = "https://kelasngaji.web.id"; 
+            }
+
             container.innerHTML = posts.map(post => {
                 const safeSlug = createSafeSlug(post.title);
+                const fullArticleUrl = baseUrl + window.location.pathname + "?artikel=" + safeSlug; // URL Lengkap
+                
                 return `
                 <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all overflow-hidden group border border-gray-100 flex flex-col h-full cursor-pointer fade-in" onclick="openArticle(${allArticles.indexOf(post)})">
                     <div class="h-52 overflow-hidden relative">
@@ -251,8 +260,8 @@
                         <div class="flex items-center text-xs text-gray-400 mb-2 gap-2">
                             <span><i class="far fa-calendar-alt mr-1"></i> ${new Date(post.date).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</span>
                             <span>•</span>
-                            <!-- PERBAIKAN: Menggunakan tag <a> (Link) agar terdeteksi oleh Disqus -->
-                            <span><i class="far fa-comments mr-1"></i> <a href="?artikel=${safeSlug}#disqus_thread" data-disqus-identifier="${safeSlug}" class="hover:text-emerald-600 transition-colors" onclick="event.preventDefault();">0 Komentar</a></span>
+                            <!-- PERBAIKAN: Menggunakan URL Lengkap (fullArticleUrl) pada href -->
+                            <span><i class="far fa-comments mr-1"></i> <a href="${fullArticleUrl}#disqus_thread" data-disqus-identifier="${safeSlug}" class="hover:text-emerald-600 transition-colors" onclick="event.preventDefault();">0 Komentar</a></span>
                         </div>
                         <h3 class="text-xl font-bold text-emerald-900 mb-3 group-hover:text-emerald-600">${highlightText(post.title, currentSearchQuery)}</h3>
                         <p class="text-gray-500 text-sm mb-4 line-clamp-3">${highlightText(post.excerpt, currentSearchQuery)}</p>
