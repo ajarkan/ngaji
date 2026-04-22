@@ -73,11 +73,11 @@
 </head>
 <body class="text-gray-700 bg-gray-50 font-sans antialiased flex flex-col min-h-screen">
 
-    <!-- Sistem Inti Facebook SDK (Wajib untuk memunculkan Komentar) -->
+    <!-- Sistem Inti Facebook SDK (Sudah ditambahkan appId Anda di sini agar tidak blank) -->
     <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v19.0"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v19.0&appId=2899707680179630"></script>
 
-    <!-- Navbar (Link kembali ke index.html menggunakan path ../) -->
+    <!-- Navbar -->
     <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
@@ -184,12 +184,12 @@
                     <!-- Konten Markdown di-render di sini -->
                 </div>
 
-                <!-- FITUR BARU: Kolom Komentar Facebook Asli -->
+                <!-- Kolom Komentar Facebook Asli -->
                 <div class="bg-gray-50 border-t border-gray-100 p-8 md:p-12">
                     <h3 class="text-2xl font-bold text-emerald-900 mb-6 font-serif">Komentar Pembaca</h3>
                     
                     <!-- Tempat (Container) untuk Facebook Comments -->
-                    <div id="fb-comments-container" class="w-full bg-white p-4 rounded-xl shadow-sm border border-gray-100 overflow-hidden flex justify-center">
+                    <div id="fb-comments-container" class="w-full bg-white p-4 rounded-xl shadow-sm border border-gray-100 overflow-hidden flex justify-center min-h-[150px]">
                         <!-- Komentar akan dimuat secara dinamis oleh Javascript di sini -->
                     </div>
                 </div>
@@ -498,26 +498,29 @@
             
             if (currentSearchQuery) { highlightNode(contentDiv, currentSearchQuery); }
 
-            // --- TRICK SPA UNTUK KOMENTAR FACEBOOK ---
-            // Kita buat URL buatan/dummy yang memuat judul artikel agar Facebook menganggap ini halaman berbeda
-            // Format URL-nya akan menjadi: kelasngaji.web.id/blog/?artikel=Judul-Artikel-Tersebut
+            // --- PERBAIKAN: TRICK SPA UNTUK KOMENTAR FACEBOOK ---
+            // Kita buat URL buatan/dummy yang memuat judul artikel
             const articleUniqueUrl = window.location.origin + window.location.pathname + "?artikel=" + encodeURIComponent(post.title);
-            
             const fbContainer = document.getElementById('fb-comments-container');
-            // Tulis ulang kode komentar Facebook dengan menyisipkan URL unik tersebut
+            
+            // Bersihkan dulu lalu tulis ulang tag Facebook
+            fbContainer.innerHTML = '';
             fbContainer.innerHTML = `<div class="fb-comments" data-href="${articleUniqueUrl}" data-width="100%" data-numposts="5"></div>`;
             
-            // Perintahkan sistem Facebook (jika sudah ter-load) untuk me-refresh dan memunculkan ulang kotak komentarnya
-            if (typeof FB !== 'undefined') {
-                FB.XFBML.parse(fbContainer);
-            }
-
+            // PERBAIKAN: Tampilkan halaman DULU agar container punya lebar yang jelas, BARU suruh FB render.
             document.getElementById('blog-list-view').classList.add('hidden');
             const detailView = document.getElementById('blog-detail-view');
             detailView.classList.remove('hidden');
             detailView.classList.add('fade-in');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Jeda sedikit waktu (100ms) untuk memastikan browser sudah menggambar layar dengan benar
+            setTimeout(() => {
+                if (typeof FB !== 'undefined') {
+                    FB.XFBML.parse(fbContainer);
+                }
+            }, 100);
         }
 
         function closeArticle() {
