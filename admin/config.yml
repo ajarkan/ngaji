@@ -3,7 +3,7 @@ backend:
   repo: ajarkan/ngaji # SAYA SUDAH SESUAIKAN DENGAN REPO KAMU
   branch: main # Ganti dengan 'master' jika branch utamamu bernama master
 
-media_folder: "assets/uploads" # Folder penyimpanan gambar saat diupload via CMS
+media_folder: "/assets/uploads" # Folder penyimpanan gambar saat diupload via CMS
 public_folder: "/assets/uploads" # SOLUSI: Menambahkan /ngaji agar gambar tidak nyasar ke luar repo!
 
 collections:
