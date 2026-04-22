@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & Artikel - Kelas Mengaji</title>
+    
+    <meta property="og:title" content="Blog & Artikel Islami - Kelas Mengaji">
+    <meta property="og:description" content="Kumpulan artikel, tips, dan tulisan islami yang mencerahkan.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Library Penterjemah Markdown menjadi HTML untuk Artikel -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Merriweather', 'serif'] },
+                    colors: {
+                        emerald: {
+                            50: 'var(--c-light, #ecfdf5)',
+                            100: 'color-mix(in srgb, var(--c-light, #ecfdf5) 95%, black)',
+                            500: 'color-mix(in srgb, var(--c-primary, #059669) 80%, white)',
+                            600: 'var(--c-primary, #059669)',
+                            700: 'color-mix(in srgb, var(--c-primary, #059669) 80%, black)',
+                            900: 'var(--c-dark, #022c22)',
+                        },
+                        gold: {
+                            500: 'var(--c-accent, #f59e0b)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-in { animation: fadeIn 0.4s ease-in-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Gaya Khusus untuk Isi Artikel (Markdown rendering) */
+        .prose h1 { font-family: 'Merriweather', serif; font-size: 2.25rem; font-weight: bold; margin-top: 2rem; margin-bottom: 1rem; color: var(--c-dark, #022c22); line-height: 1.3;}
+        .prose h2 { font-family: 'Merriweather', serif; font-size: 1.5rem; font-weight: bold; margin-top: 2rem; margin-bottom: 1rem; color: var(--c-primary, #059669); }
+        .prose h3 { font-size: 1.25rem; font-weight: bold; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        .prose p { margin-bottom: 1.25rem; line-height: 1.8; color: #4b5563; }
+        .prose strong { font-weight: 700; color: #1f2937; }
+        .prose em { font-style: italic; }
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; color: #4b5563; }
+        .prose ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1.25rem; color: #4b5563; }
+        .prose li { margin-bottom: 0.5rem; }
+        .prose img { border-radius: 0.75rem; margin: 2rem auto; max-width: 100%; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .prose blockquote { border-left: 4px solid var(--c-accent, #f59e0b); padding-left: 1rem; font-style: italic; color: #6b7280; background: var(--c-light, #f9fafb); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.25rem;}
+        .prose a { color: var(--c-primary, #059669); text-decoration: underline; }
+    </style>
+</head>
+<body class="text-gray-700 bg-gray-50 font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Navbar (Link kembali ke index.html menggunakan path ../) -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="../index.html" class="flex-shrink-0 flex items-center">
+                    <img src="https://lh3.googleusercontent.com/pw/AP1GczO9Oe-sM1Tiw_KsPEdNJn9PreUX3_P5l7BUkWf5WSLgUJ0K0RUgaPuGuFJkm9qJJ1xZzzKGEWWRT1ah6Pz_38hmKq7EttaLmhIg2Ycv2Og2MMezwCS-m7kflhwqh0Jji0c3fDrDKRjXSYjKDmdicuK0=w435-h100-s-no-gm" alt="Logo" class="h-12 w-auto object-contain">
+                </a>
+                
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="../index.html" class="text-gray-600 hover:text-emerald-600 font-medium transition">Beranda</a>
+                    <a href="../index.html#classes" class="text-gray-600 hover:text-emerald-600 font-medium transition">Program Kelas</a>
+                    <a href="../blog/" class="text-emerald-600 font-bold border-b-2 border-emerald-600 pb-1">Blog Artikel</a>
+                    <a href="https://ajarkan.github.io/form/" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-full font-medium transition shadow-lg transform hover:-translate-y-0.5">Daftar Sekarang</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow pt-28 pb-20">
+        
+        <!-- VIEW 1: DAFTAR ARTIKEL (LIST) -->
+        <div id="blog-list-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-in">
+                <span class="text-emerald-600 font-bold tracking-wide uppercase text-sm">Pojok Literasi</span>
+                <h1 class="text-4xl lg:text-5xl font-serif font-bold text-emerald-900 mt-3 mb-4">Blog & Artikel Islami</h1>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg">Temukan beragam bacaan yang mencerahkan hati dan menambah wawasan keislaman Anda.</p>
+            </div>
+
+            <!-- Filter Kategori -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12 fade-in" id="category-filters">
+                <!-- Tombol kategori diisi oleh JS -->
+            </div>
+
+            <!-- Grid Artikel -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-grid">
+                <!-- Artikel diisi oleh JS -->
+            </div>
+
+            <!-- Paginasi (Halaman 1, 2, 3...) -->
+            <div class="flex justify-center items-center space-x-2 mt-16 fade-in" id="pagination-controls">
+                <!-- Tombol Paginasi diisi oleh JS -->
+            </div>
+        </div>
+
+        <!-- VIEW 2: DETAIL ARTIKEL (Tanpa Loading / SPA) -->
+        <div id="blog-detail-view" class="hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <button onclick="closeArticle()" class="mb-8 flex items-center text-gray-500 hover:text-emerald-600 font-medium transition group">
+                <div class="w-10 h-10 rounded-full bg-gray-100 group-hover:bg-emerald-50 flex items-center justify-center mr-3 transition">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                Kembali ke Daftar Artikel
+            </button>
+
+            <article class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100" id="article-container">
+                <!-- Header Artikel -->
+                <div class="relative h-[400px] w-full">
+                    <img id="detail-img" src="" alt="Cover" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <span id="detail-category" class="inline-block bg-gold-500 text-emerald-900 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider mb-4"></span>
+                        <h1 id="detail-title" class="text-3xl md:text-5xl font-serif font-bold leading-tight mb-4">Judul Artikel</h1>
+                        <div class="flex items-center text-gray-200 text-sm">
+                            <i class="far fa-calendar-alt mr-2"></i> <span id="detail-date">Tanggal</span>
+                            <span class="mx-3">•</span>
+                            <i class="far fa-clock mr-2"></i> <span>5 Min Read</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Isi Artikel -->
+                <div class="p-8 md:p-12 prose max-w-none" id="detail-content">
+                    <!-- Konten Markdown di-render di sini -->
+                </div>
+            </article>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-emerald-900 text-emerald-100 pt-12 pb-8 border-t-4 border-gold-500 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h3 class="text-2xl font-serif font-bold text-white mb-4">Kelas Mengaji</h3>
+            <p class="text-emerald-200/80 max-w-md mx-auto mb-6">Membantu umat Islam mempelajari agama dengan manhaj yang benar, mudah, dan terstruktur.</p>
+            <div class="border-t border-emerald-800 pt-6 text-sm text-gold-500">
+                &copy; 2024 Kelas Mengaji. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. DUMMY DATA ARTIKEL (Fallback jika CMS belum diisi) ---
+        const dummyArticles = [
+            {
+                title: "Keutamaan Belajar dan Mengajarkan Al-Quran",
+                category: "Fiqih",
+                date: "2024-05-01",
+                thumbnail: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?q=80&w=800",
+                excerpt: "Rasulullah bersabda, sebaik-baik kalian adalah yang mempelajari Al-Quran dan mengajarkannya. Mari kita bahas keutamaan mulia ini.",
+                content: "Sebaik-baik kalian adalah yang mempelajari Al-Quran dan mengajarkannya. (HR. Bukhari).\n\nKeutamaan membaca Al-Quran sangatlah besar. Beberapa di antaranya adalah:\n\n1. **Mendapatkan Syafaat:** Al-Quran akan datang pada hari kiamat memberikan syafaat bagi pembacanya.\n2. **Pahala Berlipat:** Setiap satu huruf yang dibaca diganjar dengan 10 kebaikan.\n3. **Ketenangan Hati:** Membaca Al-Quran adalah dzikir terbaik yang menenangkan jiwa.\n\nMari kita luangkan waktu setiap hari setidaknya membaca 1 lembar (One Day One Lembar). Jangan biarkan hari berlalu tanpa lantunan ayat suci."
+            },
+            {
+                title: "Mengenal 4 Imam Mazhab dalam Islam",
+                category: "Sejarah Islami",
+                date: "2024-05-05",
+                thumbnail: "https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=800",
+                excerpt: "Sejarah singkat Imam Abu Hanifah, Malik, Syafi'i, dan Ahmad bin Hanbal yang menjadi rujukan fiqih umat Islam seluruh dunia.",
+                content: "Dalam perkembangan hukum Islam (Fiqih), ada empat tokoh besar yang pemikirannya diakui dan diikuti oleh mayoritas umat Islam Ahlussunnah wal Jama'ah. Mereka adalah:\n\n### 1. Imam Abu Hanifah\nBeliau adalah pendiri mazhab Hanafi, mazhab yang dominan di wilayah Asia Tengah dan Turki. Dikenal dengan logika dan *qiyas* yang kuat.\n\n### 2. Imam Malik bin Anas\nTokoh dari Madinah, pendiri mazhab Maliki. Beliau sangat berpegang teguh pada amalan penduduk Madinah (Amal Ahlul Madinah).\n\n### 3. Imam Asy-Syafi'i\nMazhab Syafi'i sangat populer di Indonesia, Mesir, dan Asia Tenggara. Beliau menggabungkan keunggulan logika Hanafi dan tradisi hadits Maliki.\n\n### 4. Imam Ahmad bin Hanbal\nMurid Imam Syafi'i yang luar biasa dalam hafalan hadits. Pendiri mazhab Hambali yang banyak diikuti di wilayah Jazirah Arab.\n\nSemua imam ini saling menghormati dan tidak pernah saling menyesatkan."
+            },
+            {
+                title: "Tips Menjaga Keistiqomahan Mengaji",
+                category: "Tips & Inspirasi",
+                date: "2024-05-10",
+                thumbnail: "https://images.unsplash.com/photo-1584286595398-a59f21d313f5?q=80&w=800",
+                excerpt: "Rasa malas sering datang melanda. Berikut adalah 5 tips praktis agar tetap semangat dan istiqomah dalam menghadiri majelis ilmu.",
+                content: "Menjaga semangat belajar (istiqomah) adalah hal yang paling sulit setelah kita memulai suatu kebaikan. \n\n> *\"Amalan yang paling dicintai oleh Allah adalah amalan yang berkesinambungan (rutin) walaupun itu sedikit.\"* (HR. Muslim)\n\nBerikut tipsnya:\n* **Perbaiki Niat:** Selalu luruskan niat bahwa belajar agama murni karena Allah.\n* **Cari Lingkungan Baik:** Bertemanlah dengan orang-orang yang semangat menuntut ilmu.\n* **Jangan Terlalu Memforsir di Awal:** Mulailah dari target kecil yang masuk akal, misal 1 kelas seminggu.\n* **Berdoa:** Minta keistiqomahan melalui doa *\"Ya Muqallibal quluub tsabbit qalbi 'alaa diinik\"*.\n\nSemoga kita selalu dijaga dalam barisan para penuntut ilmu."
+            },
+            {
+                title: "Makna Kalimat Tauhid Lailahaillallah",
+                category: "Aqidah",
+                date: "2024-05-15",
+                thumbnail: "https://images.unsplash.com/photo-1555679427-1f6dfcce943b?q=80&w=800",
+                excerpt: "Pondasi utama seorang muslim adalah Aqidah yang lurus. Memahami makna tiada Tuhan selain Allah adalah kewajiban pertama.",
+                content: "Kalimat *Laa ilaaha illallah* bukanlah sekadar ucapan lisan, namun menuntut pemahaman makna, keyakinan hati, dan realisasi dalam tindakan.\n\nMakna kalimat ini terbagi menjadi dua rukun:\n1. **An-Nafyu (Penolakan):** *Laa ilaaha* (Tidak ada sesembahan yang berhak disembah). Ini berarti menolak segala bentuk kemusyrikan dan berhala.\n2. **Al-Itsbat (Penetapan):** *Illallah* (Kecuali Allah). Menetapkan bahwa satu-satunya dzat yang berhak diibadahi dengan benar hanyalah Allah semata.\n\nMemahami hal ini adalah kunci keselamatan dunia dan akhirat."
+            },
+            {
+                title: "Pendaftaran Takhassus Angkatan ke-5 Dibuka",
+                category: "Info Kegiatan",
+                date: "2024-05-20",
+                thumbnail: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?q=80&w=800",
+                excerpt: "Alhamdulillah, Kelas Mengaji kembali membuka pendaftaran untuk angkatan terbaru program Takhassus. Kuota terbatas!",
+                content: "Kabar gembira bagi Anda yang sedang menanti! Program **Takhassus Bahasa Arab dan Fiqih** angkatan ke-5 resmi dibuka mulai hari ini.\n\n**Persyaratan:**\n* Muslim/Muslimah usia 17 - 40 tahun.\n* Lulus tes bacaan Al-Quran dasar.\n* Berkomitmen menyelesaikan program selama 6 bulan.\n\nSilakan klik tombol *Daftar Sekarang* di menu utama untuk mengisi formulir pendaftaran. Kuota dibatasi hanya untuk 30 pendaftar pertama per kelas demi efektivitas belajar."
+            },
+            {
+                title: "Adab Sebelum Masuk Kelas Online",
+                category: "Tips & Inspirasi",
+                date: "2024-05-22",
+                thumbnail: "https://images.unsplash.com/photo-1584286595398-a59f21d313f5?q=80&w=800",
+                excerpt: "Meskipun belajar dari rumah via Google Meet, adab seorang penuntut ilmu tetap harus dijaga agar ilmu menjadi berkah.",
+                content: "Belajar secara online bukan berarti kita bebas mengabaikan adab terhadap guru dan ilmu.\n\nBeberapa adab yang wajib dijaga saat Zoom / Gmeet:\n1. **Merapikan Pakaian:** Berpakaianlah selayaknya Anda akan pergi ke majelis ilmu sungguhan.\n2. **Membuka Kamera (Bagi Ikhwan):** Jika memungkinkan, bukalah kamera agar ustadz merasa sedang berbicara dengan manusia, bukan tembok.\n3. **Mute Microphone:** Pastikan mik dimatikan saat guru menjelaskan agar tidak bocor suara berisik dari rumah.\n4. **Menyiapkan Catatan:** Ikatlah ilmu dengan menuliskannya."
+            }
+        ];
+
+        // --- 2. SISTEM STATE ---
+        let allArticles = [];
+        let filteredArticles = [];
+        let categories = ["Semua"];
+        
+        let currentPage = 1;
+        const postsPerPage = 5; 
+        let currentCategory = "Semua";
+
+        // --- 3. FETCH TEMA DAN DATA (Penyesuaian Path dengan '../' karena berada di folder blog/) ---
+        async function initBlog() {
+            // Ambil Tema 
+            try {
+                const themeRes = await fetch('../data/theme.json');
+                if(themeRes.ok) {
+                    const theme = await themeRes.json();
+                    const root = document.documentElement;
+                    if(theme.primary) root.style.setProperty('--c-primary', theme.primary);
+                    if(theme.dark) root.style.setProperty('--c-dark', theme.dark);
+                    if(theme.light) root.style.setProperty('--c-light', theme.light);
+                    if(theme.accent) root.style.setProperty('--c-accent', theme.accent);
+                }
+            } catch(e) { console.log("Gunakan warna tema bawaan (Hijau)"); }
+
+            // Ambil Artikel dari CMS
+            try {
+                const blogRes = await fetch('../data/blog.json');
+                if(blogRes.ok) {
+                    const blogJson = await blogRes.json();
+                    allArticles = blogJson.items || [];
+                } else {
+                    allArticles = dummyArticles; // Fallback jika belum ada file
+                }
+            } catch(e) {
+                allArticles = dummyArticles; // Fallback jika gagal loading
+            }
+
+            // Ekstrak Kategori Unik
+            allArticles.forEach(post => {
+                if(post.category && !categories.includes(post.category)) {
+                    categories.push(post.category);
+                }
+            });
+
+            // Urutkan artikel dari yang terbaru
+            allArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            filterByCategory("Semua");
+            renderCategoryMenu();
+        }
+
+        // --- 4. SISTEM FILTER & PAGINASI ---
+        function filterByCategory(category) {
+            currentCategory = category;
+            currentPage = 1; 
+            
+            if(category === "Semua") {
+                filteredArticles = allArticles;
+            } else {
+                filteredArticles = allArticles.filter(post => post.category === category);
+            }
+            
+            renderCategoryMenu(); 
+            renderBlogList();
+            renderPagination();
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            renderBlogList();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' }); 
+        }
+
+        // --- 5. SISTEM RENDER UI ---
+        function renderCategoryMenu() {
+            const container = document.getElementById('category-filters');
+            container.innerHTML = categories.map(cat => {
+                const isActive = cat === currentCategory;
+                const baseClass = "px-5 py-2 rounded-full font-medium text-sm transition-all duration-300 border-2 cursor-pointer shadow-sm";
+                const activeClass = isActive 
+                    ? "bg-emerald-600 border-emerald-600 text-white transform scale-105" 
+                    : "bg-white border-gray-200 text-gray-600 hover:border-emerald-500 hover:text-emerald-600";
+                
+                return `<button onclick="filterByCategory('${cat}')" class="${baseClass} ${activeClass}">${cat}</button>`;
+            }).join('');
+        }
+
+        function renderBlogList() {
+            const container = document.getElementById('blog-grid');
+            
+            const startIndex = (currentPage - 1) * postsPerPage;
+            const endIndex = startIndex + postsPerPage;
+            const postsToShow = filteredArticles.slice(startIndex, endIndex);
+
+            if(postsToShow.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-10">Belum ada artikel di kategori ini.</div>`;
+                return;
+            }
+
+            container.innerHTML = postsToShow.map((post) => {
+                const dateObj = new Date(post.date);
+                const dateString = isNaN(dateObj) ? post.date : dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                const realIndex = allArticles.findIndex(p => p.title === post.title);
+
+                return `
+                <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100 flex flex-col h-full cursor-pointer fade-in" onclick="openArticle(${realIndex})">
+                    <div class="h-52 overflow-hidden relative">
+                        <img src="${post.thumbnail.startsWith('/') ? '..' + post.thumbnail : post.thumbnail}" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="${post.title}">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-emerald-600 shadow-sm">${post.category}</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-sm text-gray-400 mb-2"><i class="far fa-calendar-alt mr-1"></i> ${dateString}</p>
+                        <h3 class="text-xl font-bold text-emerald-900 mb-3 leading-snug group-hover:text-emerald-600 transition-colors">${post.title}</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-3">${post.excerpt}</p>
+                        <div class="mt-auto pt-4 border-t border-gray-50">
+                            <span class="text-gold-500 font-bold text-sm flex items-center group-hover:translate-x-2 transition-transform">
+                                Baca Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderPagination() {
+            const container = document.getElementById('pagination-controls');
+            const totalPages = Math.ceil(filteredArticles.length / postsPerPage);
+
+            if(totalPages <= 1) {
+                container.innerHTML = ""; 
+                return;
+            }
+
+            let html = "";
+            const prevDisabled = currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-emerald-50 hover:text-emerald-600";
+            html += `<button onclick="if(currentPage > 1) changePage(currentPage - 1)" class="w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-600 flex items-center justify-center transition shadow-sm ${prevDisabled}"><i class="fas fa-chevron-left"></i></button>`;
+
+            for(let i = 1; i <= totalPages; i++) {
+                const isActive = i === currentPage;
+                const activeClass = isActive ? "bg-emerald-600 text-white shadow-md border-emerald-600" : "bg-white border-gray-200 text-gray-600 hover:bg-emerald-50 hover:text-emerald-600";
+                html += `<button onclick="changePage(${i})" class="w-10 h-10 rounded-full font-medium flex items-center justify-center transition border shadow-sm ${activeClass}">${i}</button>`;
+            }
+
+            const nextDisabled = currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-emerald-50 hover:text-emerald-600";
+            html += `<button onclick="if(currentPage < totalPages) changePage(currentPage + 1)" class="w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-600 flex items-center justify-center transition shadow-sm ${nextDisabled}"><i class="fas fa-chevron-right"></i></button>`;
+
+            container.innerHTML = html;
+        }
+
+        // --- 6. SISTEM SPA (GANTI TAMPILAN TANPA LOADING) ---
+        function openArticle(index) {
+            const post = allArticles[index];
+            if(!post) return;
+
+            const dateObj = new Date(post.date);
+            const dateString = isNaN(dateObj) ? post.date : dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+
+            // Mengisi data ke detail view (memastikan link gambar dari root terbaca dari dalam folder blog/)
+            document.getElementById('detail-img').src = post.thumbnail.startsWith('/') ? '..' + post.thumbnail : post.thumbnail;
+            document.getElementById('detail-category').innerText = post.category;
+            document.getElementById('detail-title').innerText = post.title;
+            document.getElementById('detail-date').innerText = dateString;
+            
+            let rawMarkdown = post.content || "Konten belum tersedia.";
+            
+            // Perbaikan agar gambar di dalam markdown yang berasal dari CMS juga menambahkan ../
+            rawMarkdown = rawMarkdown.replace(/\]\(\/assets\/uploads\//g, '](../assets/uploads/');
+            
+            document.getElementById('detail-content').innerHTML = marked.parse(rawMarkdown);
+
+            document.getElementById('blog-list-view').classList.add('hidden');
+            const detailView = document.getElementById('blog-detail-view');
+            detailView.classList.remove('hidden');
+            detailView.classList.add('fade-in');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closeArticle() {
+            document.getElementById('blog-detail-view').classList.add('hidden');
+            const listView = document.getElementById('blog-list-view');
+            listView.classList.remove('hidden');
+            listView.classList.add('fade-in');
+            
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        document.addEventListener('DOMContentLoaded', initBlog);
+
+    </script>
+</body>
+</html>
