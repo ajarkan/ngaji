@@ -7,7 +7,7 @@
     
     <meta property="og:title" content="Blog & Artikel Islami - Kelas Mengaji">
     <meta property="og:description" content="Kumpulan artikel, tips, dan tulisan islami yang mencerahkan.">
-    <!-- TAMBAHAN: Kode App ID Facebook untuk Moderasi Komentar -->
+    <!-- Kode App ID Facebook untuk Moderasi Komentar -->
     <meta property="fb:app_id" content="2899707680179630" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,7 +73,7 @@
 </head>
 <body class="text-gray-700 bg-gray-50 font-sans antialiased flex flex-col min-h-screen">
 
-    <!-- Sistem Inti Facebook SDK (Sudah ditambahkan appId Anda di sini agar tidak blank) -->
+    <!-- Sistem Inti Facebook SDK -->
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v19.0&appId=2899707680179630"></script>
 
@@ -189,7 +189,7 @@
                     <h3 class="text-2xl font-bold text-emerald-900 mb-6 font-serif">Komentar Pembaca</h3>
                     
                     <!-- Tempat (Container) untuk Facebook Comments -->
-                    <div id="fb-comments-container" class="w-full bg-white p-4 rounded-xl shadow-sm border border-gray-100 overflow-hidden flex justify-center min-h-[150px]">
+                    <div id="fb-comments-container" class="w-full bg-white p-4 rounded-xl shadow-sm border border-gray-100 overflow-hidden flex justify-center min-h-[200px]">
                         <!-- Komentar akan dimuat secara dinamis oleh Javascript di sini -->
                     </div>
                 </div>
@@ -498,16 +498,11 @@
             
             if (currentSearchQuery) { highlightNode(contentDiv, currentSearchQuery); }
 
-            // --- PERBAIKAN: TRICK SPA UNTUK KOMENTAR FACEBOOK ---
-            // Kita buat URL buatan/dummy yang memuat judul artikel
+            // --- PERBAIKAN FINAL: TRICK SPA UNTUK KOMENTAR FACEBOOK ---
             const articleUniqueUrl = window.location.origin + window.location.pathname + "?artikel=" + encodeURIComponent(post.title);
             const fbContainer = document.getElementById('fb-comments-container');
             
-            // Bersihkan dulu lalu tulis ulang tag Facebook
-            fbContainer.innerHTML = '';
-            fbContainer.innerHTML = `<div class="fb-comments" data-href="${articleUniqueUrl}" data-width="100%" data-numposts="5"></div>`;
-            
-            // PERBAIKAN: Tampilkan halaman DULU agar container punya lebar yang jelas, BARU suruh FB render.
+            // Tampilkan halaman DULU agar container punya ukuran yang jelas di layar
             document.getElementById('blog-list-view').classList.add('hidden');
             const detailView = document.getElementById('blog-detail-view');
             detailView.classList.remove('hidden');
@@ -515,12 +510,26 @@
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Jeda sedikit waktu (100ms) untuk memastikan browser sudah menggambar layar dengan benar
+            // Hapus isi container lama (wajib dilakukan setelah layar berubah)
+            fbContainer.innerHTML = '';
+            
+            // Tunggu sebentar agar animasi slide selesai, lalu suntikkan kotak FB baru
             setTimeout(() => {
+                const fbComments = document.createElement('div');
+                fbComments.className = 'fb-comments';
+                fbComments.setAttribute('data-href', articleUniqueUrl);
+                fbComments.setAttribute('data-width', '100%');
+                fbComments.setAttribute('data-numposts', '5');
+                
+                fbContainer.appendChild(fbComments);
+
+                // Perintahkan FB SDK untuk "memindai" kotak komentar yang baru saja kita masukkan
                 if (typeof FB !== 'undefined') {
                     FB.XFBML.parse(fbContainer);
+                } else {
+                    console.log("Facebook SDK belum siap, menunggu...");
                 }
-            }, 100);
+            }, 500); // Waktu tunggu sedikit lebih lama (setengah detik) agar lebih stabil
         }
 
         function closeArticle() {
@@ -530,6 +539,9 @@
             listView.classList.add('fade-in');
             
             window.scrollTo({ top: 0, behavior: 'instant' });
+            
+            // Bersihkan container komentar agar tidak ada bekas saat membuka artikel lain
+            document.getElementById('fb-comments-container').innerHTML = '';
         }
 
         // --- Logika Panel Daftar Isi (TOC) ---
