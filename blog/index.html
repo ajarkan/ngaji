@@ -5,14 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog & Artikel - Kelas Mengaji</title>
     
-    <!-- META TAGS -->
     <meta property="og:title" content="Blog & Artikel Islami - Kelas Mengaji">
     <meta property="og:description" content="Kumpulan artikel, tips, dan tulisan islami yang mencerahkan.">
-    <meta property="og:image" content="https://lh3.googleusercontent.com/pw/AP1GczOUpbU-2hSkIEvPy63Kw04mnEgJFqfSeOLq50LsL_noG9fthuzCOR4xS2iswTPKUqL0SEeQD_P_6uexLDJlQnHCjSfaX4VXkrT12DX8plfFyNA7ykaINTQw0OIgyeVR9Ag4RY8oYwxbADd_58dN_VpQ=w512-h512-s-no-gm?authuser=0">
-    <meta property="og:type" content="website">
-
-    <!-- FAVICON -->
-    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/pw/AP1GczPA9jXgztdoCCCKqYeoymeBj8Iu6edy4bCVqWV1bG00BlmrfgPfKi0WcAiLwTfbwiFZT4wzN-Tf6Gwn4pRVsruyyez4zzmV1Cgxe4232rKbxcch1W0mtL_JjFwW38Vfg66YuUdKRz-xuC0XnhCzXBRP=w512-h512-s-no-gm?authuser=0">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -83,7 +77,7 @@
                     <a href="https://ajarkan.github.io/form/" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-full font-medium transition shadow-lg transform hover:-translate-y-0.5">Daftar Sekarang</a>
                 </div>
 
-                <!-- TAMBAHAN: Tombol Hamburger Mobile -->
+                <!-- Tombol Hamburger Mobile -->
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" class="text-gray-600 hover:text-emerald-600 focus:outline-none transition-colors" onclick="toggleMobileMenu()">
                         <i class="fas fa-bars text-2xl"></i>
@@ -92,7 +86,7 @@
             </div>
         </div>
 
-        <!-- TAMBAHAN: Dropdown Menu Mobile -->
+        <!-- Dropdown Menu Mobile -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
             <div class="px-4 pt-2 pb-6 space-y-1">
                 <a href="../index.html" class="block px-3 py-3 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-md">Beranda</a>
@@ -108,14 +102,29 @@
         
         <!-- VIEW 1: DAFTAR ARTIKEL (LIST) -->
         <div id="blog-list-view" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 fade-in">
+            <div class="text-center mb-8 fade-in">
                 <span class="text-emerald-600 font-bold tracking-wide uppercase text-sm">Pojok Literasi</span>
                 <h1 class="text-4xl lg:text-5xl font-serif font-bold text-emerald-900 mt-3 mb-4">Blog & Artikel Islami</h1>
-                <p class="text-gray-500 max-w-2xl mx-auto text-lg">Temukan beragam bacaan yang mencerahkan hati dan menambah wawasan keislaman Anda.</p>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg mb-8">Temukan beragam bacaan yang mencerahkan hati dan menambah wawasan keislaman Anda.</p>
+                
+                <!-- FITUR BARU: Kolom Pencarian -->
+                <div class="max-w-xl mx-auto relative px-2 sm:px-0">
+                    <div class="relative flex items-center w-full h-14 rounded-full focus-within:shadow-lg focus-within:border-emerald-500 bg-white overflow-hidden border-2 border-gray-100 transition-all">
+                        <div class="grid place-items-center h-full w-14 text-emerald-600">
+                            <i class="fas fa-search text-lg"></i>
+                        </div>
+                        <input
+                        class="peer h-full w-full outline-none text-base text-gray-700 pr-4 bg-transparent font-medium"
+                        type="text"
+                        id="search-input"
+                        placeholder="Cari artikel, topik, atau kata kunci..."
+                        oninput="handleSearch(event)" />
+                    </div>
+                </div>
             </div>
 
             <!-- Filter Kategori -->
-            <div class="flex flex-wrap justify-center gap-3 mb-12 fade-in" id="category-filters">
+            <div class="flex flex-wrap justify-center gap-3 mb-12 fade-in mt-8" id="category-filters">
                 <!-- Tombol kategori diisi oleh JS -->
             </div>
 
@@ -236,8 +245,9 @@
         let currentPage = 1;
         const postsPerPage = 5; 
         let currentCategory = "Semua";
+        let currentSearchQuery = ""; // State baru untuk menyimpan kata kunci pencarian
 
-        // --- 3. FETCH TEMA DAN DATA (Penyesuaian Path dengan '../' karena berada di folder blog/) ---
+        // --- 3. FETCH TEMA DAN DATA ---
         async function initBlog() {
             // Ambil Tema 
             try {
@@ -275,24 +285,42 @@
             // Urutkan artikel dari yang terbaru
             allArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-            filterByCategory("Semua");
-            renderCategoryMenu();
+            setCategory("Semua");
         }
 
-        // --- 4. SISTEM FILTER & PAGINASI ---
-        function filterByCategory(category) {
-            currentCategory = category;
-            currentPage = 1; 
+        // --- 4. SISTEM FILTER, PENCARIAN & PAGINASI ---
+        
+        // Fungsi utama yang menggabungkan filter Kategori dan Pencarian Text
+        function applyFilters() {
+            currentPage = 1; // Selalu kembali ke hal 1 jika memfilter/mencari
             
-            if(category === "Semua") {
-                filteredArticles = allArticles;
-            } else {
-                filteredArticles = allArticles.filter(post => post.category === category);
-            }
-            
+            filteredArticles = allArticles.filter(post => {
+                // Filter 1: Cek Kategori
+                const matchCategory = currentCategory === "Semua" || post.category === currentCategory;
+                
+                // Filter 2: Cek Pencarian (Cari di Judul, Kutipan, ATAU Isi Konten)
+                const searchLower = currentSearchQuery.toLowerCase();
+                const matchSearch = !currentSearchQuery || 
+                                    post.title.toLowerCase().includes(searchLower) ||
+                                    post.excerpt.toLowerCase().includes(searchLower) ||
+                                    (post.content && post.content.toLowerCase().includes(searchLower));
+                
+                return matchCategory && matchSearch;
+            });
+
             renderCategoryMenu(); 
             renderBlogList();
             renderPagination();
+        }
+
+        function setCategory(category) {
+            currentCategory = category;
+            applyFilters();
+        }
+
+        function handleSearch(e) {
+            currentSearchQuery = e.target.value;
+            applyFilters();
         }
 
         function changePage(page) {
@@ -300,6 +328,49 @@
             renderBlogList();
             renderPagination();
             window.scrollTo({ top: 0, behavior: 'smooth' }); 
+        }
+
+        // --- FUNGSI HIGHLIGHT TEKS (Warna Kuning) ---
+        function highlightText(text, query) {
+            if (!query || !text) return text;
+            // Hindari error Regex dari karakter spesial
+            const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(${escapedQuery})`, 'gi');
+            // Bungkus kata yang cocok dengan mark warna kuning
+            return text.replace(regex, '<mark class="bg-yellow-300 text-gray-900 px-1 rounded-sm shadow-sm">$1</mark>');
+        }
+
+        // Fungsi khusus untuk highlight konten dalam detail artikel dengan aman (tidak merusak tag HTML)
+        function highlightNode(node, query) {
+            if (!query) return;
+            const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(${escapedQuery})`, 'gi');
+
+            const walk = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null, false);
+            let n;
+            const nodesToReplace = [];
+            while(n = walk.nextNode()) {
+                // Jangan utak atik script, style, atau yang sudah di-highlight
+                if(n.parentNode.nodeName !== 'SCRIPT' && n.parentNode.nodeName !== 'STYLE' && n.parentNode.nodeName !== 'MARK' && regex.test(n.nodeValue)) {
+                    nodesToReplace.push(n);
+                }
+            }
+
+            nodesToReplace.forEach(n => {
+                const fragment = document.createDocumentFragment();
+                let lastIdx = 0;
+                n.nodeValue.replace(regex, (match, p1, offset) => {
+                    const before = document.createTextNode(n.nodeValue.slice(lastIdx, offset));
+                    fragment.appendChild(before);
+                    const mark = document.createElement('mark');
+                    mark.className = 'bg-yellow-300 text-gray-900 px-1 rounded-sm shadow-sm';
+                    mark.textContent = match;
+                    fragment.appendChild(mark);
+                    lastIdx = offset + match.length;
+                });
+                fragment.appendChild(document.createTextNode(n.nodeValue.slice(lastIdx)));
+                n.parentNode.replaceChild(fragment, n);
+            });
         }
 
         // --- 5. SISTEM RENDER UI ---
@@ -312,7 +383,7 @@
                     ? "bg-emerald-600 border-emerald-600 text-white transform scale-105" 
                     : "bg-white border-gray-200 text-gray-600 hover:border-emerald-500 hover:text-emerald-600";
                 
-                return `<button onclick="filterByCategory('${cat}')" class="${baseClass} ${activeClass}">${cat}</button>`;
+                return `<button onclick="setCategory('${cat}')" class="${baseClass} ${activeClass}">${cat}</button>`;
             }).join('');
         }
 
@@ -324,14 +395,23 @@
             const postsToShow = filteredArticles.slice(startIndex, endIndex);
 
             if(postsToShow.length === 0) {
-                container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-10">Belum ada artikel di kategori ini.</div>`;
+                container.innerHTML = `
+                <div class="col-span-full text-center py-16 px-4 bg-white rounded-2xl border border-gray-100 shadow-sm fade-in">
+                    <div class="w-20 h-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl"><i class="fas fa-search"></i></div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Pencarian Tidak Ditemukan</h3>
+                    <p class="text-gray-500">Tidak ada artikel yang cocok dengan kata kunci atau kategori tersebut.</p>
+                </div>`;
                 return;
             }
 
             container.innerHTML = postsToShow.map((post) => {
                 const dateObj = new Date(post.date);
                 const dateString = isNaN(dateObj) ? post.date : dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-                const realIndex = allArticles.findIndex(p => p.title === post.title);
+                const realIndex = allArticles.indexOf(post); // Cara yang lebih aman untuk mencari index asli
+
+                // Terapkan highlight pada Judul dan Kutipan
+                const displayTitle = highlightText(post.title, currentSearchQuery);
+                const displayExcerpt = highlightText(post.excerpt, currentSearchQuery);
 
                 return `
                 <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100 flex flex-col h-full cursor-pointer fade-in" onclick="openArticle(${realIndex})">
@@ -341,8 +421,8 @@
                     </div>
                     <div class="p-6 flex-1 flex flex-col">
                         <p class="text-sm text-gray-400 mb-2"><i class="far fa-calendar-alt mr-1"></i> ${dateString}</p>
-                        <h3 class="text-xl font-bold text-emerald-900 mb-3 leading-snug group-hover:text-emerald-600 transition-colors">${post.title}</h3>
-                        <p class="text-gray-500 text-sm mb-4 line-clamp-3">${post.excerpt}</p>
+                        <h3 class="text-xl font-bold text-emerald-900 mb-3 leading-snug group-hover:text-emerald-600 transition-colors">${displayTitle}</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-3">${displayExcerpt}</p>
                         <div class="mt-auto pt-4 border-t border-gray-50">
                             <span class="text-gold-500 font-bold text-sm flex items-center group-hover:translate-x-2 transition-transform">
                                 Baca Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
@@ -386,18 +466,23 @@
             const dateObj = new Date(post.date);
             const dateString = isNaN(dateObj) ? post.date : dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 
-            // Mengisi data ke detail view (memastikan link gambar dari root terbaca dari dalam folder blog/)
             document.getElementById('detail-img').src = post.thumbnail.startsWith('/') ? '..' + post.thumbnail : post.thumbnail;
             document.getElementById('detail-category').innerText = post.category;
-            document.getElementById('detail-title').innerText = post.title;
+            
+            // Highlight judul di detail
+            document.getElementById('detail-title').innerHTML = highlightText(post.title, currentSearchQuery);
             document.getElementById('detail-date').innerText = dateString;
             
             let rawMarkdown = post.content || "Konten belum tersedia.";
-            
-            // Perbaikan agar gambar di dalam markdown yang berasal dari CMS juga menambahkan ../
             rawMarkdown = rawMarkdown.replace(/\]\(\/assets\/uploads\//g, '](../assets/uploads/');
             
-            document.getElementById('detail-content').innerHTML = marked.parse(rawMarkdown);
+            const contentDiv = document.getElementById('detail-content');
+            contentDiv.innerHTML = marked.parse(rawMarkdown);
+            
+            // Highlight isi artikel dengan aman (jika ada pencarian)
+            if (currentSearchQuery) {
+                highlightNode(contentDiv, currentSearchQuery);
+            }
 
             document.getElementById('blog-list-view').classList.add('hidden');
             const detailView = document.getElementById('blog-detail-view');
@@ -416,7 +501,7 @@
             window.scrollTo({ top: 0, behavior: 'instant' });
         }
 
-        // TAMBAHAN: Fungsi untuk membuka dan menutup menu di HP
+        // Fungsi untuk membuka dan menutup menu di HP
         function toggleMobileMenu() {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         }
