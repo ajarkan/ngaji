@@ -623,7 +623,6 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
             // ---> A. UBAH WARNA TAILWIND <---
             if (cmsData.primaryColor) tailwind.config.theme.extend.colors.primary = cmsData.primaryColor;
             if (cmsData.secondaryColor) tailwind.config.theme.extend.colors.secondary = cmsData.secondaryColor;
-            
             if (cmsData.bgColor) tailwind.config.theme.extend.colors.white = cmsData.bgColor; 
             if (cmsData.accentColor) {
                 if (!tailwind.config.theme.extend.colors.gray) tailwind.config.theme.extend.colors.gray = {};
@@ -650,12 +649,9 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
             const testiTitle2El = document.querySelector('section.bg-gray-50 h3.text-xl');
             if (testiTitle2El && cmsData.testiTitle2) testiTitle2El.innerText = cmsData.testiTitle2;
 
-            // Cari kontainer (pembungkus) kartu testimoni
             const testiContainer = document.querySelector('section.bg-gray-50 h3.text-xl').nextElementSibling;
             if (testiContainer && testiContainer.classList.contains('space-y-6')) {
                 let testiHTML = '';
-                
-                // Fungsi perakit kartu testimoni
                 const createCard = (name, role, quote, img) => {
                     if (!name && !quote) return '';
                     return `
@@ -669,16 +665,12 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                     </div>`;
                 };
 
-                // Masukkan Testi 1 dan 2
                 testiHTML += createCard(cmsData.testiName1, cmsData.testiRole1, cmsData.testiQuote1, cmsData.testiImage1);
                 testiHTML += createCard(cmsData.testiName2, cmsData.testiRole2, cmsData.testiQuote2, cmsData.testiImage2);
                 
-                // Masukkan Testi 3 jika diaktifkan dari CMS
                 if (cmsData.showTesti3) {
                     testiHTML += createCard(cmsData.testiName3, cmsData.testiRole3, cmsData.testiQuote3, cmsData.testiImage3);
                 }
-
-                // Ganti isi kontainer dengan HTML yang baru dirakit
                 testiContainer.innerHTML = testiHTML;
             }
 
@@ -695,9 +687,92 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
 
             const introImageEl = document.querySelector('section.bg-secondary img[alt="Mockup Buku Tahsin Qarana"]');
             if (introImageEl && cmsData.introImage) introImageEl.src = cmsData.introImage;
+
+            // ---> E. UBAH BAGIAN "UNTUK SIAPA SAJA" <---
+            const forWhoTitleEl = document.querySelector('h2.text-secondary:nth-of-type(1)'); // Mencari H2 "Untuk siapa saja?"
+            // Kita gunakan seleksi yang lebih spesifik karena ada banyak h2
+            const allH2s = document.querySelectorAll('h2.text-secondary');
+            let forWhoSectionH2 = null;
+            allH2s.forEach(h2 => { if(h2.innerText.includes('Untuk siapa saja')) forWhoSectionH2 = h2; });
+            
+            if(forWhoSectionH2 && cmsData.forWhoTitle) {
+                forWhoSectionH2.innerText = cmsData.forWhoTitle;
+                const forWhoContainer = forWhoSectionH2.nextElementSibling;
+                if(forWhoContainer && forWhoContainer.classList.contains('space-y-6')) {
+                    // Update konten di dalam container "Untuk siapa saja"
+                    const createForWhoItem = (target, desc, icon, colorClass, textClass) => {
+                        if(!target && !desc) return '';
+                        return `
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full ${colorClass} flex items-center justify-center shrink-0 ${textClass}">
+                                <i data-lucide="${icon || 'check'}" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-secondary text-lg">${target}</h3>
+                                <p class="text-gray-500 text-sm">${desc}</p>
+                            </div>
+                        </div>`;
+                    };
+                    
+                    let forWhoHTML = '';
+                    forWhoHTML += createForWhoItem(cmsData.fwTarget1, cmsData.fwDesc1, cmsData.fwIcon1, 'bg-blue-100', 'text-blue-600');
+                    forWhoHTML += createForWhoItem(cmsData.fwTarget2, cmsData.fwDesc2, cmsData.fwIcon2, 'bg-orange-100', 'text-orange-600');
+                    forWhoHTML += createForWhoItem(cmsData.fwTarget3, cmsData.fwDesc3, cmsData.fwIcon3, 'bg-primary/20', 'text-primary');
+                    
+                    forWhoContainer.innerHTML = forWhoHTML;
+                }
+            }
+
+            // ---> F. UBAH BAGIAN "APA YANG DIDAPATKAN" <---
+            let benefitsSectionH2 = null;
+            allH2s.forEach(h2 => { if(h2.innerText.includes('Dapatkan Dari Kelas Ini')) benefitsSectionH2 = h2; });
+
+            if(benefitsSectionH2 && cmsData.benefitsTitle) {
+                benefitsSectionH2.innerText = cmsData.benefitsTitle;
+                const benefitsContainer = benefitsSectionH2.nextElementSibling;
+                if(benefitsContainer && benefitsContainer.classList.contains('space-y-8')) {
+                    const createBenefitItem = (title, desc) => {
+                        if(!title && !desc) return '';
+                        return `
+                        <div class="relative pl-8 border-l-2 border-primary/30">
+                            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-white"></div>
+                            <h3 class="font-bold text-secondary mb-1">${title}</h3>
+                            <p class="text-gray-500 text-sm">${desc}</p>
+                        </div>`;
+                    };
+
+                    let benHTML = '';
+                    benHTML += createBenefitItem(cmsData.benTitle1, cmsData.benDesc1);
+                    benHTML += createBenefitItem(cmsData.benTitle2, cmsData.benDesc2);
+                    benHTML += createBenefitItem(cmsData.benTitle3, cmsData.benDesc3);
+                    
+                    benefitsContainer.innerHTML = benHTML;
+                }
+            }
+
+            // ---> G. UBAH BAGIAN PROMO KELAS LAINNYA <---
+            const promoSection = document.querySelector('section.bg-secondary.text-white.text-center');
+            if(promoSection) {
+                const promoTitleEl = promoSection.querySelector('h2');
+                if(promoTitleEl && cmsData.promoTitle) promoTitleEl.innerText = cmsData.promoTitle;
+                
+                const promoDescEl = promoSection.querySelector('p');
+                if(promoDescEl && cmsData.promoDesc) promoDescEl.innerText = cmsData.promoDesc;
+
+                const promoBtnEl = promoSection.querySelector('a');
+                if(promoBtnEl) {
+                    if(cmsData.promoBtnText) promoBtnEl.innerText = cmsData.promoBtnText;
+                    if(cmsData.promoBtnLink) promoBtnEl.href = cmsData.promoBtnLink;
+                }
+            }
+            
+            // Re-inisialisasi Lucide Icon jika ada yang baru ditambahkan
+            if(window.lucide) {
+                lucide.createIcons();
+            }
         }
     });
 </script>
-    
+   
 </body>
 </html>
