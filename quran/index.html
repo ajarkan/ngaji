@@ -617,18 +617,14 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
 <!-- KODE PENGHUBUNG CMS (Tambahkan di atas tag </body>) -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // 1. Ambil data yang disimpan oleh admin.html
         const cmsData = JSON.parse(localStorage.getItem('cmsData'));
         
-        // 2. Jika ada data yang tersimpan, timpa konten aslinya
         if (cmsData) {
             // ---> A. UBAH WARNA TAILWIND <---
             if (cmsData.primaryColor) tailwind.config.theme.extend.colors.primary = cmsData.primaryColor;
             if (cmsData.secondaryColor) tailwind.config.theme.extend.colors.secondary = cmsData.secondaryColor;
             
-            if (cmsData.bgColor) {
-                tailwind.config.theme.extend.colors.white = cmsData.bgColor; 
-            }
+            if (cmsData.bgColor) tailwind.config.theme.extend.colors.white = cmsData.bgColor; 
             if (cmsData.accentColor) {
                 if (!tailwind.config.theme.extend.colors.gray) tailwind.config.theme.extend.colors.gray = {};
                 tailwind.config.theme.extend.colors.gray[50] = cmsData.accentColor; 
@@ -643,37 +639,50 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
             
             window.playVideo = function(container) {
                 container.innerHTML = `
-                    <iframe 
-                       class="w-full h-full" 
-                       src="https://www.youtube.com/embed/${cmsData.videoId || 'oXZxB8ABsh0'}?autoplay=1&rel=0" 
-                       title="Video Profil" 
-                       frameborder="0" 
-                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                       allowfullscreen>
-                    </iframe>
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/${cmsData.videoId || 'oXZxB8ABsh0'}?autoplay=1&rel=0" title="Video Profil" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 `;
             }
 
-            // ---> C. UBAH TESTIMONI <---
+            // ---> C. UBAH TESTIMONI (SEKARANG DINAMIS BISA 2 ATAU 3) <---
             const testiTitle1El = document.querySelector('section.bg-gray-50 h2.text-xl');
             if (testiTitle1El && cmsData.testiTitle1) testiTitle1El.innerText = cmsData.testiTitle1;
 
             const testiTitle2El = document.querySelector('section.bg-gray-50 h3.text-xl');
             if (testiTitle2El && cmsData.testiTitle2) testiTitle2El.innerText = cmsData.testiTitle2;
 
-            const testiNames = document.querySelectorAll('div.bg-white.p-6 h4');
-            const testiRoles = document.querySelectorAll('div.bg-white.p-6 p.text-xs');
-            const testiQuotes = document.querySelectorAll('div.bg-white.p-6 p.text-gray-500.italic');
+            // Cari kontainer (pembungkus) kartu testimoni
+            const testiContainer = document.querySelector('section.bg-gray-50 h3.text-xl').nextElementSibling;
+            if (testiContainer && testiContainer.classList.contains('space-y-6')) {
+                let testiHTML = '';
+                
+                // Fungsi perakit kartu testimoni
+                const createCard = (name, role, quote, img) => {
+                    if (!name && !quote) return '';
+                    return `
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center">
+                        <div class="w-16 h-16 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden">
+                            <img src="${img || 'https://via.placeholder.com/150'}" alt="${name}" class="w-full h-full object-cover">
+                        </div>
+                        <p class="text-gray-500 italic text-sm mb-4">${quote}</p>
+                        <h4 class="font-bold text-secondary">${name}</h4>
+                        <p class="text-xs text-gray-400">${role}</p>
+                    </div>`;
+                };
 
-            if(testiNames[0] && cmsData.testiName1) testiNames[0].innerText = cmsData.testiName1;
-            if(testiRoles[0] && cmsData.testiRole1) testiRoles[0].innerText = cmsData.testiRole1;
-            if(testiQuotes[0] && cmsData.testiQuote1) testiQuotes[0].innerText = cmsData.testiQuote1;
+                // Masukkan Testi 1 dan 2
+                testiHTML += createCard(cmsData.testiName1, cmsData.testiRole1, cmsData.testiQuote1, cmsData.testiImage1);
+                testiHTML += createCard(cmsData.testiName2, cmsData.testiRole2, cmsData.testiQuote2, cmsData.testiImage2);
+                
+                // Masukkan Testi 3 jika diaktifkan dari CMS
+                if (cmsData.showTesti3) {
+                    testiHTML += createCard(cmsData.testiName3, cmsData.testiRole3, cmsData.testiQuote3, cmsData.testiImage3);
+                }
 
-            if(testiNames[1] && cmsData.testiName2) testiNames[1].innerText = cmsData.testiName2;
-            if(testiRoles[1] && cmsData.testiRole2) testiRoles[1].innerText = cmsData.testiRole2;
-            if(testiQuotes[1] && cmsData.testiQuote2) testiQuotes[1].innerText = cmsData.testiQuote2;
+                // Ganti isi kontainer dengan HTML yang baru dirakit
+                testiContainer.innerHTML = testiHTML;
+            }
 
-            // ---> D. UBAH BAGIAN "MEMPERKENALKAN" <---
+            // ---> D. UBAH BAGIAN "MEMPERKENALKAN" & GAMBAR <---
             const introSubEl = document.querySelector('section.bg-secondary span.tracking-widest');
             if (introSubEl && cmsData.introSub) introSubEl.innerText = cmsData.introSub;
 
@@ -684,7 +693,6 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
             if(introDescs[0] && cmsData.introDesc1) introDescs[0].innerHTML = cmsData.introDesc1;
             if(introDescs[1] && cmsData.introDesc2) introDescs[1].innerHTML = cmsData.introDesc2;
 
-            // ---> E. FITUR BARU: UBAH GAMBAR BUKU/PRODUK <---
             const introImageEl = document.querySelector('section.bg-secondary img[alt="Mockup Buku Tahsin Qarana"]');
             if (introImageEl && cmsData.introImage) introImageEl.src = cmsData.introImage;
         }
