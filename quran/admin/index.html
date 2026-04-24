@@ -71,7 +71,7 @@
                 <h2 class="text-lg font-bold">CMS Panel</h2>
             </div>
             
-            <nav class="flex-1 p-4 space-y-2">
+            <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
                 <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 mt-4 px-2">Menu Utama</p>
                 
                 <button onclick="switchTab('tab-umum')" id="btn-tab-umum" class="w-full flex items-center gap-3 px-4 py-3 bg-emerald-600 rounded-lg text-sm font-medium transition tab-btn">
@@ -86,8 +86,8 @@
                     <i data-lucide="message-square" class="w-4 h-4"></i> Testimoni & Intro
                 </button>
 
-                <button class="w-full flex items-center gap-3 px-4 py-3 opacity-50 cursor-not-allowed rounded-lg text-sm font-medium text-slate-300" title="Akan dibuat di tahap selanjutnya">
-                    <i data-lucide="help-circle" class="w-4 h-4"></i> FAQ (Segera)
+                <button onclick="switchTab('tab-faq')" id="btn-tab-faq" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700 rounded-lg text-sm font-medium transition text-slate-300 tab-btn">
+                    <i data-lucide="help-circle" class="w-4 h-4"></i> FAQ & Info Tambahan
                 </button>
 
                 <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 mt-6 px-2">Sistem</p>
@@ -387,7 +387,148 @@
                         </div>
                     </div>
 
-                    <!-- TAB 4: PENGATURAN GITHUB -->
+                    <!-- TAB 4: FAQ & INFO TAMBAHAN -->
+                    <div id="tab-faq" class="tab-content hidden">
+                        <!-- UNTUK SIAPA SAJA -->
+                        <h3 class="text-lg font-bold mb-6 pb-2 border-b">Untuk Siapa Saja?</h3>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Judul Bagian</label>
+                            <input type="text" id="forWhoTitle" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm" value="Untuk siapa saja?">
+                        </div>
+
+                        <div class="space-y-4 mb-8">
+                            <!-- Item 1 -->
+                            <div class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-sm text-emerald-600 mb-3 border-b pb-1">Peserta 1</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-700 mb-1">Tipe Peserta</label>
+                                        <input type="text" id="fwTarget1" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-700 mb-1">Ikon (Lucide)</label>
+                                        <input type="text" id="fwIcon1" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm" placeholder="users, mic, smile...">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Keterangan</label>
+                                    <textarea id="fwDesc1" rows="2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm"></textarea>
+                                </div>
+                            </div>
+                            <!-- Item 2 -->
+                            <div class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-sm text-emerald-600 mb-3 border-b pb-1">Peserta 2</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-700 mb-1">Tipe Peserta</label>
+                                        <input type="text" id="fwTarget2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-700 mb-1">Ikon (Lucide)</label>
+                                        <input type="text" id="fwIcon2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm" placeholder="users, mic, smile...">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Keterangan</label>
+                                    <textarea id="fwDesc2" rows="2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm"></textarea>
+                                </div>
+                            </div>
+                            <!-- Item 3 -->
+                            <div class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-sm text-emerald-600 mb-3 border-b pb-1">Peserta 3</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-700 mb-1">Tipe Peserta</label>
+                                        <input type="text" id="fwTarget3" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-700 mb-1">Ikon (Lucide)</label>
+                                        <input type="text" id="fwIcon3" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm" placeholder="users, mic, smile...">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Keterangan</label>
+                                    <textarea id="fwDesc3" rows="2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- APA YANG DIDAPATKAN -->
+                        <h3 class="text-lg font-bold mb-6 pb-2 border-b">Apa Yang Akan Didapatkan?</h3>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Judul Bagian</label>
+                            <input type="text" id="benefitsTitle" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm" value="Apa Yang Akan Kamu Dapatkan Dari Kelas Ini?">
+                        </div>
+                        <div class="space-y-4 mb-8">
+                            <!-- Poin 1 -->
+                            <div class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-sm text-emerald-600 mb-2">Poin 1</h4>
+                                <div class="mb-2">
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Judul Poin</label>
+                                    <input type="text" id="benTitle1" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Penjelasan Singkat</label>
+                                    <input type="text" id="benDesc1" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                            </div>
+                            <!-- Poin 2 -->
+                            <div class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-sm text-emerald-600 mb-2">Poin 2</h4>
+                                <div class="mb-2">
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Judul Poin</label>
+                                    <input type="text" id="benTitle2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Penjelasan Singkat</label>
+                                    <input type="text" id="benDesc2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                            </div>
+                            <!-- Poin 3 -->
+                            <div class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-sm text-emerald-600 mb-2">Poin 3</h4>
+                                <div class="mb-2">
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Judul Poin</label>
+                                    <input type="text" id="benTitle3" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Penjelasan Singkat</label>
+                                    <input type="text" id="benDesc3" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- KELAS LAINNYA -->
+                        <h3 class="text-lg font-bold mb-6 pb-2 border-b">Promo Kelas Lainnya</h3>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Judul Promo</label>
+                            <input type="text" id="promoTitle" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Deskripsi Singkat</label>
+                            <textarea id="promoDesc" rows="3" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm"></textarea>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Teks Tombol</label>
+                                <input type="text" id="promoBtnText" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Link Tujuan (URL)</label>
+                                <input type="text" id="promoBtnLink" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                            </div>
+                        </div>
+
+
+                        <div class="mt-8 flex justify-end">
+                            <button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-emerald-700 transition flex items-center gap-2">
+                                <i data-lucide="save" class="w-4 h-4"></i> Simpan Perubahan
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <!-- TAB 5: PENGATURAN GITHUB -->
                     <div id="tab-github" class="tab-content hidden">
                         <h3 class="text-lg font-bold mb-2">Koneksi API GitHub</h3>
                         <p class="text-sm text-gray-500 mb-6 pb-2 border-b">Konfigurasi ini disimpan lokal di browsermu dan tidak akan ter-publish ke internet. Aman 100%.</p>
@@ -481,6 +622,7 @@
             if(tabId === 'tab-umum') judul = 'Tampilan Dasar';
             else if(tabId === 'tab-hero') judul = 'Bagian Atas (Hero) & Video';
             else if(tabId === 'tab-testi') judul = 'Testimoni & Pengenalan';
+            else if(tabId === 'tab-faq') judul = 'FAQ & Info Tambahan';
             else if(tabId === 'tab-github') judul = 'Sistem - Pengaturan GitHub';
             
             document.getElementById('page-title').innerText = judul;
@@ -630,7 +772,23 @@
             introSub: 'MEMPERKENALKAN',
             introTitle: 'Kelas Belajar Al-Quran',
             introDesc1: '<strong class="text-white">Tahsin Qarana</strong> adalah buku panduan yang digunakan di kelas ini. Ciri khas buku ini, sesuai namanya, ada pada <em class="text-primary">talqin</em> (pemberian contoh) dari asatiz untuk disimak kemudian diikuti.',
-            introDesc2: 'Penyesuaian dengan jenis kesalahan, jika kesalahan lebih banyak pada panjang pendek maka pelajaran dimulai dari Qoro\'na 2, dst.'
+            introDesc2: 'Penyesuaian dengan jenis kesalahan, jika kesalahan lebih banyak pada panjang pendek maka pelajaran dimulai dari Qoro\'na 2, dst.',
+            
+            // Tambahan Data Default FAQ & Lainnya
+            forWhoTitle: 'Untuk siapa saja?',
+            fwTarget1: 'Peserta Pemula', fwIcon1: 'users', fwDesc1: 'Yaitu peserta yang belum bisa membaca Al-Quran sama sekali.',
+            fwTarget2: 'Belum Lancar', fwIcon2: 'mic', fwDesc2: 'Peserta yang tajwidnya masih kurang, atau masih terbata-bata.',
+            fwTarget3: 'Berbagai Usia', fwIcon3: 'smile', fwDesc3: 'Diperuntukkan untuk berbagai usia, namun diprioritaskan minimal usia SMP.',
+            
+            benefitsTitle: 'Apa Yang Akan Kamu Dapatkan Dari Kelas Ini?',
+            benTitle1: 'Buku Paket Ebook Qara\'na Gratis', benDesc1: 'Kamu akan diberikan secara gratis buku panduan qarana (PDF).',
+            benTitle2: 'Bimbingan Dari Asatiz Berpengalaman', benDesc2: 'Dibimbing 2x dalam sepekan oleh para asatiz berpengalaman.',
+            benTitle3: 'Pilihan Kelas Online atau Offline', benDesc3: 'Pilih kelas sesuai hari dan waktu yang tersedia.',
+
+            promoTitle: 'Apakah ada kelas lainnya?',
+            promoDesc: 'Ya ada, namun untuk saat ini, kelas yang dibuka baru kelas belajar Al-Quran. In syaa Allah kelas bahasa arab akan dibuka dalam waktu dekat.',
+            promoBtnText: 'Cek Update Website',
+            promoBtnLink: 'https://kelasngaji.web.id/'
         };
 
         function loadData() {
@@ -678,6 +836,31 @@
             document.getElementById('introTitle').value = savedData.introTitle || defaultData.introTitle;
             document.getElementById('introDesc1').value = savedData.introDesc1 || defaultData.introDesc1;
             document.getElementById('introDesc2').value = savedData.introDesc2 || defaultData.introDesc2;
+
+            // Load Data FAQ & Lainnya
+            document.getElementById('forWhoTitle').value = savedData.forWhoTitle || defaultData.forWhoTitle;
+            document.getElementById('fwTarget1').value = savedData.fwTarget1 || defaultData.fwTarget1;
+            document.getElementById('fwIcon1').value = savedData.fwIcon1 || defaultData.fwIcon1;
+            document.getElementById('fwDesc1').value = savedData.fwDesc1 || defaultData.fwDesc1;
+            document.getElementById('fwTarget2').value = savedData.fwTarget2 || defaultData.fwTarget2;
+            document.getElementById('fwIcon2').value = savedData.fwIcon2 || defaultData.fwIcon2;
+            document.getElementById('fwDesc2').value = savedData.fwDesc2 || defaultData.fwDesc2;
+            document.getElementById('fwTarget3').value = savedData.fwTarget3 || defaultData.fwTarget3;
+            document.getElementById('fwIcon3').value = savedData.fwIcon3 || defaultData.fwIcon3;
+            document.getElementById('fwDesc3').value = savedData.fwDesc3 || defaultData.fwDesc3;
+
+            document.getElementById('benefitsTitle').value = savedData.benefitsTitle || defaultData.benefitsTitle;
+            document.getElementById('benTitle1').value = savedData.benTitle1 || defaultData.benTitle1;
+            document.getElementById('benDesc1').value = savedData.benDesc1 || defaultData.benDesc1;
+            document.getElementById('benTitle2').value = savedData.benTitle2 || defaultData.benTitle2;
+            document.getElementById('benDesc2').value = savedData.benDesc2 || defaultData.benDesc2;
+            document.getElementById('benTitle3').value = savedData.benTitle3 || defaultData.benTitle3;
+            document.getElementById('benDesc3').value = savedData.benDesc3 || defaultData.benDesc3;
+
+            document.getElementById('promoTitle').value = savedData.promoTitle || defaultData.promoTitle;
+            document.getElementById('promoDesc').value = savedData.promoDesc || defaultData.promoDesc;
+            document.getElementById('promoBtnText').value = savedData.promoBtnText || defaultData.promoBtnText;
+            document.getElementById('promoBtnLink').value = savedData.promoBtnLink || defaultData.promoBtnLink;
         }
 
         function resetColors() {
@@ -729,7 +912,31 @@
                 introSub: document.getElementById('introSub').value,
                 introTitle: document.getElementById('introTitle').value,
                 introDesc1: document.getElementById('introDesc1').value,
-                introDesc2: document.getElementById('introDesc2').value
+                introDesc2: document.getElementById('introDesc2').value,
+
+                forWhoTitle: document.getElementById('forWhoTitle').value,
+                fwTarget1: document.getElementById('fwTarget1').value,
+                fwIcon1: document.getElementById('fwIcon1').value,
+                fwDesc1: document.getElementById('fwDesc1').value,
+                fwTarget2: document.getElementById('fwTarget2').value,
+                fwIcon2: document.getElementById('fwIcon2').value,
+                fwDesc2: document.getElementById('fwDesc2').value,
+                fwTarget3: document.getElementById('fwTarget3').value,
+                fwIcon3: document.getElementById('fwIcon3').value,
+                fwDesc3: document.getElementById('fwDesc3').value,
+
+                benefitsTitle: document.getElementById('benefitsTitle').value,
+                benTitle1: document.getElementById('benTitle1').value,
+                benDesc1: document.getElementById('benDesc1').value,
+                benTitle2: document.getElementById('benTitle2').value,
+                benDesc2: document.getElementById('benDesc2').value,
+                benTitle3: document.getElementById('benTitle3').value,
+                benDesc3: document.getElementById('benDesc3').value,
+
+                promoTitle: document.getElementById('promoTitle').value,
+                promoDesc: document.getElementById('promoDesc').value,
+                promoBtnText: document.getElementById('promoBtnText').value,
+                promoBtnLink: document.getElementById('promoBtnLink').value
             };
 
             localStorage.setItem('cmsData', JSON.stringify(newData));
