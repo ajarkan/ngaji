@@ -1,1 +1,649 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Administrator - CMS Pesantren</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="bg-gray-100 text-slate-800 h-screen overflow-hidden">
 
+    <!-- ========================================== -->
+    <!-- 1. HALAMAN LOGIN -->
+    <!-- ========================================== -->
+    <div id="login-screen" class="flex items-center justify-center h-full fade-in">
+        <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border-t-4 border-emerald-500">
+            <div class="text-center mb-8">
+                <div class="bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="user-cog" class="w-8 h-8 text-emerald-600"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-slate-800">Login Administrator</h1>
+                <p class="text-sm text-gray-500 mt-1">CMS Website Pondok Pesantren</p>
+            </div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Username</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-lucide="user" class="w-5 h-5 text-gray-400"></i>
+                        </div>
+                        <input type="text" id="username" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Masukkan username" required>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-lucide="lock" class="w-5 h-5 text-gray-400"></i>
+                        </div>
+                        <input type="password" id="password" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Masukkan password" required>
+                    </div>
+                    <p id="login-error" class="text-red-500 text-xs mt-2 hidden">Username atau password salah!</p>
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-emerald-700 transition duration-200">
+                    Masuk ke CMS
+                </button>
+            </form>
+            <p class="text-center text-xs text-gray-400 mt-8">© 2026 Sistem Pengelola Konten Pesantren</p>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- 2. HALAMAN DASHBOARD CMS -->
+    <!-- ========================================== -->
+    <div id="dashboard-screen" class="hidden h-full flex bg-gray-50 fade-in">
+        
+        <!-- Sidebar -->
+        <aside class="w-64 bg-slate-800 text-white flex flex-col h-full shadow-lg z-10">
+            <div class="p-6 border-b border-slate-700 flex items-center gap-3">
+                <i data-lucide="layout-dashboard" class="w-6 h-6 text-emerald-400"></i>
+                <h2 class="text-lg font-bold">CMS Panel</h2>
+            </div>
+            
+            <nav class="flex-1 p-4 space-y-2">
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 mt-4 px-2">Menu Utama</p>
+                
+                <button onclick="switchTab('tab-umum')" id="btn-tab-umum" class="w-full flex items-center gap-3 px-4 py-3 bg-emerald-600 rounded-lg text-sm font-medium transition tab-btn">
+                    <i data-lucide="palette" class="w-4 h-4"></i> Tampilan Dasar
+                </button>
+                
+                <button onclick="switchTab('tab-hero')" id="btn-tab-hero" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700 rounded-lg text-sm font-medium transition text-slate-300 tab-btn">
+                    <i data-lucide="image" class="w-4 h-4"></i> Hero & Video
+                </button>
+
+                <button onclick="switchTab('tab-testi')" id="btn-tab-testi" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700 rounded-lg text-sm font-medium transition text-slate-300 tab-btn">
+                    <i data-lucide="message-square" class="w-4 h-4"></i> Testimoni & Intro
+                </button>
+
+                <button class="w-full flex items-center gap-3 px-4 py-3 opacity-50 cursor-not-allowed rounded-lg text-sm font-medium text-slate-300" title="Akan dibuat di tahap selanjutnya">
+                    <i data-lucide="help-circle" class="w-4 h-4"></i> FAQ (Segera)
+                </button>
+
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 mt-6 px-2">Sistem</p>
+
+                <!-- MENU BARU: PENGATURAN GITHUB -->
+                <button onclick="switchTab('tab-github')" id="btn-tab-github" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700 rounded-lg text-sm font-medium transition text-slate-300 tab-btn border border-slate-700">
+                    <i data-lucide="github" class="w-4 h-4"></i> Pengaturan GitHub
+                </button>
+            </nav>
+
+            <div class="p-4 border-t border-slate-700">
+                <button onclick="logout()" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-red-500/20 text-red-400 rounded-lg text-sm font-medium transition">
+                    <i data-lucide="log-out" class="w-4 h-4"></i> Keluar
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col h-full overflow-hidden">
+            <!-- Header Topbar -->
+            <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-0">
+                <h2 class="text-xl font-bold text-slate-800" id="page-title">Tampilan Dasar</h2>
+                <div class="flex gap-4">
+                    <a href="index.html" target="_blank" class="flex items-center gap-2 text-sm text-emerald-600 hover:text-emerald-700 font-medium bg-emerald-50 px-4 py-2 rounded-lg transition">
+                        <i data-lucide="external-link" class="w-4 h-4"></i> Lihat Website
+                    </a>
+                </div>
+            </header>
+
+            <!-- Formulir Konten -->
+            <div class="flex-1 overflow-y-auto p-8">
+                <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-gray-100 p-6 relative">
+                    
+                    <div id="toast-success" class="absolute top-4 right-4 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-lg text-sm font-bold hidden flex items-center gap-2 z-50">
+                        <i data-lucide="check-circle" class="w-4 h-4"></i> Disimpan!
+                    </div>
+
+                    <!-- TAB 1: PENGATURAN UMUM -->
+                    <div id="tab-umum" class="tab-content block">
+                        <h3 class="text-lg font-bold mb-6 pb-2 border-b">Warna & Tampilan Dasar</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Warna Utama (Primary Color)</label>
+                                <p class="text-xs text-gray-500 mb-3">Warna dominan tombol & aksen.</p>
+                                <div class="flex items-center gap-4">
+                                    <input type="color" id="primaryColor" class="w-14 h-14 p-1 rounded cursor-pointer border border-gray-300" value="#10b981">
+                                    <span class="text-sm font-mono text-gray-500 bg-gray-100 px-3 py-1 rounded" id="colorHexCode">#10b981</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Warna Sekunder</label>
+                                <p class="text-xs text-gray-500 mb-3">Warna background gelap & footer.</p>
+                                <div class="flex items-center gap-4">
+                                    <input type="color" id="secondaryColor" class="w-14 h-14 p-1 rounded cursor-pointer border border-gray-300" value="#1e293b">
+                                    <span class="text-sm font-mono text-gray-500 bg-gray-100 px-3 py-1 rounded" id="secondaryColorHexCode">#1e293b</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 border-t border-gray-100 pt-6">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Warna Latar Utama</label>
+                                <p class="text-xs text-gray-500 mb-3">Menggantikan warna putih pada area background.</p>
+                                <div class="flex items-center gap-4">
+                                    <input type="color" id="bgColor" class="w-14 h-14 p-1 rounded cursor-pointer border border-gray-300" value="#ffffff">
+                                    <span class="text-sm font-mono text-gray-500 bg-gray-100 px-3 py-1 rounded" id="bgColorHexCode">#ffffff</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Warna Latar Kombinasi</label>
+                                <p class="text-xs text-gray-500 mb-3">Menggantikan warna abu muda (Testimoni, FAQ).</p>
+                                <div class="flex items-center gap-4">
+                                    <input type="color" id="accentColor" class="w-14 h-14 p-1 rounded cursor-pointer border border-gray-300" value="#f9fafb">
+                                    <span class="text-sm font-mono text-gray-500 bg-gray-100 px-3 py-1 rounded" id="accentColorHexCode">#f9fafb</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 flex justify-end gap-3">
+                            <button onclick="resetColors()" class="bg-gray-100 text-slate-600 border border-gray-300 px-6 py-2 rounded-lg font-bold hover:bg-gray-200 transition flex items-center gap-2">
+                                <i data-lucide="refresh-cw" class="w-4 h-4"></i> Reset Default
+                            </button>
+                            <button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-emerald-700 transition flex items-center gap-2">
+                                <i data-lucide="save" class="w-4 h-4"></i> Simpan Perubahan
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: HERO & VIDEO -->
+                    <div id="tab-hero" class="tab-content hidden">
+                        <h3 class="text-lg font-bold mb-6 pb-2 border-b">Bagian Atas (Hero) & Video</h3>
+                        
+                        <div class="mb-5">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Judul Utama</label>
+                            <p class="text-xs text-gray-500 mb-2">Gunakan tag <code>&lt;br&gt;</code> untuk garis baru, dan <code>&lt;span class="text-primary"&gt;</code> untuk mewarnai teks.</p>
+                            <textarea id="heroTitle" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500"></textarea>
+                        </div>
+
+                        <div class="mb-5">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Deskripsi Pendek</label>
+                            <textarea id="heroDesc" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500"></textarea>
+                        </div>
+
+                        <div class="mb-5 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">ID Video YouTube</label>
+                            <p class="text-xs text-gray-500 mb-2">Ambil kode acak di URL YouTube setelah "v=". Contoh: youtube.com/watch?v=<strong class="text-red-500">oXZxB8ABsh0</strong></p>
+                            <div class="flex items-center gap-3">
+                                <div class="bg-red-100 p-2 rounded">
+                                    <i data-lucide="youtube" class="w-5 h-5 text-red-600"></i>
+                                </div>
+                                <input type="text" id="videoId" class="flex-1 p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+                            </div>
+                        </div>
+
+                        <div class="mt-8 flex justify-end">
+                            <button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-emerald-700 transition flex items-center gap-2">
+                                <i data-lucide="save" class="w-4 h-4"></i> Simpan Perubahan
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: TESTIMONI & INTRO -->
+                    <div id="tab-testi" class="tab-content hidden">
+                        <h3 class="text-lg font-bold mb-6 pb-2 border-b">Bagian Testimoni</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Judul Atas Testimoni</label>
+                                <input type="text" id="testiTitle1" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Judul Bawah Testimoni</label>
+                                <input type="text" id="testiTitle2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+                            </div>
+                        </div>
+
+                        <!-- Data Testimoni 1 -->
+                        <div class="mb-5 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-sm text-emerald-600 mb-3 border-b pb-1">Testimoni 1</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Nama</label>
+                                    <input type="text" id="testiName1" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Profesi/Status</label>
+                                    <input type="text" id="testiRole1" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Kutipan Testimoni</label>
+                                <textarea id="testiQuote1" rows="2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Data Testimoni 2 -->
+                        <div class="mb-8 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-sm text-emerald-600 mb-3 border-b pb-1">Testimoni 2</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Nama</label>
+                                    <input type="text" id="testiName2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Profesi/Status</label>
+                                    <input type="text" id="testiRole2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Kutipan Testimoni</label>
+                                <textarea id="testiQuote2" rows="2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm"></textarea>
+                            </div>
+                        </div>
+
+                        <h3 class="text-lg font-bold mb-6 pb-2 border-b">Bagian "Memperkenalkan"</h3>
+                        
+                        <!-- ======================================= -->
+                        <!-- FITUR BARU: UPLOAD FOTO KE GITHUB -->
+                        <!-- ======================================= -->
+                        <div class="mb-5 bg-white p-5 rounded-lg border border-blue-100 shadow-sm border-l-4 border-l-blue-500 relative">
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Gambar Produk/Buku</label>
+                            
+                            <div class="mb-4">
+                                <p class="text-xs text-gray-500 mb-2">Pilih foto dari komputermu, lalu klik tombol biru untuk mengunggahnya langsung ke folder <code>assets</code> di GitHub-mu.</p>
+                                
+                                <div class="flex items-center gap-3">
+                                    <input type="file" id="introImageUpload" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 cursor-pointer border border-gray-200 rounded-lg">
+                                    
+                                    <button onclick="uploadToGitHub()" id="btn-upload" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded-lg flex items-center gap-2 whitespace-nowrap transition">
+                                        <i data-lucide="cloud-upload" class="w-4 h-4"></i> Upload ke GitHub
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center gap-4 my-3">
+                                <hr class="flex-1 border-gray-200">
+                                <span class="text-xs text-gray-400 font-medium">HASIL LINK</span>
+                                <hr class="flex-1 border-gray-200">
+                            </div>
+
+                            <!-- Opsi Paste Manual -->
+                            <div>
+                                <p class="text-xs text-gray-500 mb-2">Setelah upload sukses, link otomatis muncul di sini. (Kamu juga bisa paste link gambar manual di sini).</p>
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-slate-100 p-2 rounded">
+                                        <i data-lucide="link" class="w-4 h-4 text-slate-500"></i>
+                                    </div>
+                                    <input type="text" id="introImage" class="flex-1 p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-xs font-mono" placeholder="https://raw.githubusercontent.com/.../gambar.png">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Teks Kecil (Sub-Judul)</label>
+                                <input type="text" id="introSub" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Judul Utama</label>
+                                <input type="text" id="introTitle" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500">
+                            </div>
+                        </div>
+
+                        <div class="mb-5">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Paragraf Deskripsi 1</label>
+                            <textarea id="introDesc1" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 text-sm"></textarea>
+                        </div>
+
+                        <div class="mb-5">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Paragraf Deskripsi 2</label>
+                            <textarea id="introDesc2" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 text-sm"></textarea>
+                        </div>
+
+                        <div class="mt-8 flex justify-end">
+                            <button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-emerald-700 transition flex items-center gap-2">
+                                <i data-lucide="save" class="w-4 h-4"></i> Simpan Perubahan
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- TAB 4: PENGATURAN GITHUB -->
+                    <div id="tab-github" class="tab-content hidden">
+                        <h3 class="text-lg font-bold mb-2">Koneksi API GitHub</h3>
+                        <p class="text-sm text-gray-500 mb-6 pb-2 border-b">Konfigurasi ini disimpan lokal di browsermu dan tidak akan ter-publish ke internet. Aman 100%.</p>
+                        
+                        <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg mb-6">
+                            <h4 class="font-bold text-yellow-800 text-sm mb-1 flex items-center gap-2">
+                                <i data-lucide="info" class="w-4 h-4"></i> Info Token
+                            </h4>
+                            <p class="text-xs text-yellow-700">Pastikan Personal Access Token (Classic) kamu memiliki centang (permission) pada bagian <strong>"repo"</strong> agar bisa mengupload file.</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Username GitHub</label>
+                            <input type="text" id="ghUsername" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500" placeholder="contoh: ajarkan">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Nama Repositori</label>
+                            <input type="text" id="ghRepo" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500" placeholder="contoh: kelasngaji.github.io atau ngaji">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Folder Upload (Path)</label>
+                            <input type="text" id="ghPath" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500" placeholder="contoh: assets" value="assets">
+                            <p class="text-xs text-gray-500 mt-1">Kosongkan jika ingin diupload di folder utama.</p>
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Personal Access Token</label>
+                            <div class="relative">
+                                <input type="password" id="ghToken" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-sm" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button onclick="saveGitHubSettings()" class="bg-slate-800 text-white px-6 py-2 rounded-lg font-bold hover:bg-slate-900 transition flex items-center gap-2">
+                                <i data-lucide="key" class="w-4 h-4"></i> Simpan Akses GitHub
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- LOGIKA JAVASCRIPT CMS -->
+    <script>
+        lucide.createIcons();
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            if (user === 'admin' && pass === 'admin123') {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('dashboard-screen').classList.remove('hidden');
+                loadData();
+                loadGitHubSettings(); // Load pengaturan github saat login
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        function logout() {
+            document.getElementById('dashboard-screen').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-emerald-600', 'text-white', 'border-transparent');
+                if(btn.id !== 'btn-tab-github') {
+                    btn.classList.add('hover:bg-slate-700', 'text-slate-300');
+                } else {
+                    btn.classList.add('hover:bg-slate-700', 'text-slate-300', 'border-slate-700');
+                }
+            });
+
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.add('bg-emerald-600', 'text-white');
+            activeBtn.classList.remove('hover:bg-slate-700', 'text-slate-300');
+
+            let judul = '';
+            if(tabId === 'tab-umum') judul = 'Tampilan Dasar';
+            else if(tabId === 'tab-hero') judul = 'Bagian Atas (Hero) & Video';
+            else if(tabId === 'tab-testi') judul = 'Testimoni & Pengenalan';
+            else if(tabId === 'tab-github') judul = 'Sistem - Pengaturan GitHub';
+            
+            document.getElementById('page-title').innerText = judul;
+        }
+
+        // ==========================================
+        // SISTEM API UPLOAD GITHUB
+        // ==========================================
+        function saveGitHubSettings() {
+            const settings = {
+                username: document.getElementById('ghUsername').value,
+                repo: document.getElementById('ghRepo').value,
+                path: document.getElementById('ghPath').value,
+                token: document.getElementById('ghToken').value
+            };
+            localStorage.setItem('githubApiSettings', JSON.stringify(settings));
+            alert("Pengaturan GitHub berhasil disimpan di browser ini!");
+        }
+
+        function loadGitHubSettings() {
+            const settings = JSON.parse(localStorage.getItem('githubApiSettings'));
+            if(settings) {
+                document.getElementById('ghUsername').value = settings.username || '';
+                document.getElementById('ghRepo').value = settings.repo || '';
+                document.getElementById('ghPath').value = settings.path || 'assets';
+                document.getElementById('ghToken').value = settings.token || '';
+            }
+        }
+
+        async function uploadToGitHub() {
+            const fileInput = document.getElementById('introImageUpload');
+            const file = fileInput.files[0];
+            const btn = document.getElementById('btn-upload');
+            
+            if (!file) return alert("Pilih file gambar dulu dengan tombol Choose File!");
+
+            const ghSettings = JSON.parse(localStorage.getItem('githubApiSettings'));
+            if (!ghSettings || !ghSettings.token || !ghSettings.repo || !ghSettings.username) {
+                return alert("Pengaturan GitHub belum lengkap! Silakan ke menu 'Pengaturan GitHub' terlebih dahulu.");
+            }
+
+            // Ubah tombol jadi loading
+            const originalBtnText = btn.innerHTML;
+            btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Mengunggah...`;
+            btn.disabled = true;
+            lucide.createIcons();
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                // Ambil kode Base64 murni (tanpa header data:image/png;base64,)
+                const base64Content = e.target.result.split(',')[1];
+                
+                // Buat nama file unik agar tidak menimpa gambar lama
+                const cleanFileName = file.name.replace(/[^a-zA-Z0-9.]/g, '-');
+                const filename = Date.now() + '_' + cleanFileName;
+                
+                // Tentukan folder path
+                let folderPath = ghSettings.path ? ghSettings.path + '/' : '';
+                const apiUrl = `https://api.github.com/repos/${ghSettings.username}/${ghSettings.repo}/contents/${folderPath}${filename}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${ghSettings.token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: `Upload gambar ${filename} via CMS Admin`,
+                            content: base64Content
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // SUKSES! Ambil raw url dari GitHub
+                        document.getElementById('introImage').value = data.content.download_url;
+                        alert("Berhasil! Gambar telah terunggah ke repositori GitHub.");
+                        // Otomatis simpan data CMS setelah upload
+                        saveData();
+                    } else {
+                        alert("Gagal mengunggah: " + data.message);
+                    }
+                } catch (err) {
+                    alert("Terjadi kesalahan jaringan: " + err.message);
+                } finally {
+                    // Kembalikan tombol ke semula
+                    btn.innerHTML = originalBtnText;
+                    btn.disabled = false;
+                }
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        // ==========================================
+        // SISTEM UPDATE WARNA REAL-TIME
+        // ==========================================
+        document.getElementById('primaryColor').addEventListener('input', function(e) {
+            document.getElementById('colorHexCode').innerText = e.target.value;
+        });
+        document.getElementById('secondaryColor').addEventListener('input', function(e) {
+            document.getElementById('secondaryColorHexCode').innerText = e.target.value;
+        });
+        document.getElementById('bgColor').addEventListener('input', function(e) {
+            document.getElementById('bgColorHexCode').innerText = e.target.value;
+        });
+        document.getElementById('accentColor').addEventListener('input', function(e) {
+            document.getElementById('accentColorHexCode').innerText = e.target.value;
+        });
+
+        // ==========================================
+        // DATA DEFAULT & SAVE LOAD
+        // ==========================================
+        const defaultData = {
+            primaryColor: '#10b981',
+            secondaryColor: '#1e293b', 
+            bgColor: '#ffffff',
+            accentColor: '#f9fafb',
+            heroTitle: 'Kelas Belajar <br> <span class="text-primary">Al-Quran</span> <br> Kampoeng Quran Cendekia',
+            heroDesc: 'Kabar gembira bagi untuk semua, Kampoeng Quran Cendekia membuka kelas belajar Al-Quran intensif dan menyenangkan.',
+            videoId: 'oXZxB8ABsh0',
+            testiTitle1: 'Apa Kata Mereka Tentang',
+            testiTitle2: 'Kampoeng Quran?',
+            testiName1: 'Ahmad Zahir',
+            testiRole1: 'Engineer dan Motivator',
+            testiQuote1: '"Metode pengajarannya sangat mudah dipahami. Alhamdulillah sekarang bacaan saya jauh lebih baik."',
+            testiName2: 'Azizah',
+            testiRole2: 'Ibu Rumah Tangga',
+            testiQuote2: '"Sangat membantu bagi saya ibu rumah tangga yang ingin memperbaiki bacaan di sela kesibukan."',
+            
+            introImage: 'https://lh3.googleusercontent.com/pw/AP1GczNZBk_yCNYajkf4BWsp6Ehy2XbOB-e97w_eCghQQpNSgsMahVlhfeNEQAIlv_SYL12ww93loTWCyyIlna5lDpKLG_UZj1nl6Kby68JLp7Ohv05U19LvGDt-DG7fyXAEYtzoERgJ-Y1_3wJghEK1xn66=w241-h264-s-no-gm?authuser=0',
+            introSub: 'MEMPERKENALKAN',
+            introTitle: 'Kelas Belajar Al-Quran',
+            introDesc1: '<strong class="text-white">Tahsin Qarana</strong> adalah buku panduan yang digunakan di kelas ini. Ciri khas buku ini, sesuai namanya, ada pada <em class="text-primary">talqin</em> (pemberian contoh) dari asatiz untuk disimak kemudian diikuti.',
+            introDesc2: 'Penyesuaian dengan jenis kesalahan, jika kesalahan lebih banyak pada panjang pendek maka pelajaran dimulai dari Qoro\'na 2, dst.'
+        };
+
+        function loadData() {
+            const savedData = JSON.parse(localStorage.getItem('cmsData')) || defaultData;
+            
+            document.getElementById('primaryColor').value = savedData.primaryColor || defaultData.primaryColor;
+            document.getElementById('colorHexCode').innerText = savedData.primaryColor || defaultData.primaryColor;
+            document.getElementById('secondaryColor').value = savedData.secondaryColor || defaultData.secondaryColor;
+            document.getElementById('secondaryColorHexCode').innerText = savedData.secondaryColor || defaultData.secondaryColor;
+            document.getElementById('bgColor').value = savedData.bgColor || defaultData.bgColor;
+            document.getElementById('bgColorHexCode').innerText = savedData.bgColor || defaultData.bgColor;
+            document.getElementById('accentColor').value = savedData.accentColor || defaultData.accentColor;
+            document.getElementById('accentColorHexCode').innerText = savedData.accentColor || defaultData.accentColor;
+
+            document.getElementById('heroTitle').value = savedData.heroTitle || defaultData.heroTitle;
+            document.getElementById('heroDesc').value = savedData.heroDesc || defaultData.heroDesc;
+            document.getElementById('videoId').value = savedData.videoId || defaultData.videoId;
+
+            document.getElementById('testiTitle1').value = savedData.testiTitle1 || defaultData.testiTitle1;
+            document.getElementById('testiTitle2').value = savedData.testiTitle2 || defaultData.testiTitle2;
+            document.getElementById('testiName1').value = savedData.testiName1 || defaultData.testiName1;
+            document.getElementById('testiRole1').value = savedData.testiRole1 || defaultData.testiRole1;
+            document.getElementById('testiQuote1').value = savedData.testiQuote1 || defaultData.testiQuote1;
+            document.getElementById('testiName2').value = savedData.testiName2 || defaultData.testiName2;
+            document.getElementById('testiRole2').value = savedData.testiRole2 || defaultData.testiRole2;
+            document.getElementById('testiQuote2').value = savedData.testiQuote2 || defaultData.testiQuote2;
+            
+            document.getElementById('introImage').value = savedData.introImage || defaultData.introImage; 
+            document.getElementById('introSub').value = savedData.introSub || defaultData.introSub;
+            document.getElementById('introTitle').value = savedData.introTitle || defaultData.introTitle;
+            document.getElementById('introDesc1').value = savedData.introDesc1 || defaultData.introDesc1;
+            document.getElementById('introDesc2').value = savedData.introDesc2 || defaultData.introDesc2;
+        }
+
+        function resetColors() {
+            if(confirm("Kembalikan warna ke pengaturan asli bawaan?")) {
+                document.getElementById('primaryColor').value = defaultData.primaryColor;
+                document.getElementById('colorHexCode').innerText = defaultData.primaryColor;
+                document.getElementById('secondaryColor').value = defaultData.secondaryColor;
+                document.getElementById('secondaryColorHexCode').innerText = defaultData.secondaryColor;
+                document.getElementById('bgColor').value = defaultData.bgColor;
+                document.getElementById('bgColorHexCode').innerText = defaultData.bgColor;
+                document.getElementById('accentColor').value = defaultData.accentColor;
+                document.getElementById('accentColorHexCode').innerText = defaultData.accentColor;
+                saveData();
+            }
+        }
+
+        function saveData() {
+            const newData = {
+                primaryColor: document.getElementById('primaryColor').value,
+                secondaryColor: document.getElementById('secondaryColor').value,
+                bgColor: document.getElementById('bgColor').value,
+                accentColor: document.getElementById('accentColor').value,
+                
+                heroTitle: document.getElementById('heroTitle').value,
+                heroDesc: document.getElementById('heroDesc').value,
+                videoId: document.getElementById('videoId').value,
+                
+                testiTitle1: document.getElementById('testiTitle1').value,
+                testiTitle2: document.getElementById('testiTitle2').value,
+                testiName1: document.getElementById('testiName1').value,
+                testiRole1: document.getElementById('testiRole1').value,
+                testiQuote1: document.getElementById('testiQuote1').value,
+                testiName2: document.getElementById('testiName2').value,
+                testiRole2: document.getElementById('testiRole2').value,
+                testiQuote2: document.getElementById('testiQuote2').value,
+                
+                introImage: document.getElementById('introImage').value, 
+                
+                introSub: document.getElementById('introSub').value,
+                introTitle: document.getElementById('introTitle').value,
+                introDesc1: document.getElementById('introDesc1').value,
+                introDesc2: document.getElementById('introDesc2').value
+            };
+
+            localStorage.setItem('cmsData', JSON.stringify(newData));
+
+            const toast = document.getElementById('toast-success');
+            toast.classList.remove('hidden');
+            setTimeout(() => { toast.classList.add('hidden'); }, 3000);
+        }
+    </script>
+</body>
+</html>
