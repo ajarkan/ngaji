@@ -218,8 +218,26 @@
             } catch(e) { allArticles = dummyArticles; }
             allArticles.forEach(post => { if(post.category && !categories.includes(post.category)) categories.push(post.category); });
             allArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
-            setCategory("Semua");
+            
             renderTOC(); 
+
+            // Cek URL untuk melihat apakah ada parameter '?artikel='
+            const urlParams = new URLSearchParams(window.location.search);
+            const artikelSlug = urlParams.get('artikel');
+
+            if (artikelSlug) {
+                // Cari artikel yang slug-nya cocok
+                const index = allArticles.findIndex(post => createSafeSlug(post.title) === artikelSlug);
+                if (index !== -1) {
+                    // Jika ketemu, buka artikel tanpa mengubah history lagi
+                    openArticle(index, false);
+                    setCategory("Semua"); // Set kategori default di background
+                } else {
+                    setCategory("Semua");
+                }
+            } else {
+                setCategory("Semua");
+            }
         }
 
         function applyFilters() {
@@ -341,9 +359,17 @@
             return html;
         }
 
-        function openArticle(index) {
+        // FUNGSI DIUBAH: Tambahan parameter updateUrl
+        function openArticle(index, updateUrl = true) {
             const post = allArticles[index];
             if(!post) return;
+
+            // Mengubah URL tanpa reload halaman (History API)
+            if (updateUrl) {
+                const safeSlug = createSafeSlug(post.title);
+                const newUrl = window.location.pathname + "?artikel=" + safeSlug;
+                window.history.pushState({ articleIndex: index }, post.title, newUrl);
+            }
 
             document.getElementById('detail-img').src = post.thumbnail.startsWith('/') ? '..' + post.thumbnail : post.thumbnail;
             document.getElementById('detail-category').innerText = post.category;
@@ -442,16 +468,41 @@
             }, 500);
         }
 
-        function closeArticle() {
+        // FUNGSI DIUBAH: Tambahan parameter updateUrl
+        function closeArticle(updateUrl = true) {
             document.getElementById('blog-detail-view').classList.add('hidden');
             document.getElementById('blog-list-view').classList.remove('hidden');
             
+            // Kembalikan URL ke path aslinya (tanpa parameter ?artikel=)
+            if (updateUrl) {
+                window.history.pushState({ articleIndex: null }, 'Blog', window.location.pathname);
+            }
+
             setTimeout(() => {
                 if (typeof DISQUSWIDGETS !== 'undefined') {
                     DISQUSWIDGETS.getCount({reset: true});
                 }
             }, 500);
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // FITUR BARU: Menangani ketika user menekan tombol 'Back' atau 'Forward' di Browser
+        window.addEventListener('popstate', function(event) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const artikelSlug = urlParams.get('artikel');
+
+            if (artikelSlug) {
+                // Jika URL berubah dan punya parameter artikel, buka artikel tersebut
+                const index = allArticles.findIndex(post => createSafeSlug(post.title) === artikelSlug);
+                if (index !== -1) {
+                    openArticle(index, false); // false = jangan push history lagi
+                }
+            } else {
+                // Jika URL kembali ke halaman list utama, tutup artikel
+                closeArticle(false); // false = jangan push history lagi
+            }
+        });
 
         function toggleTOC() {
             const p = document.getElementById('toc-panel');
