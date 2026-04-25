@@ -134,6 +134,9 @@
                 <!-- Isi Artikel -->
                 <div class="p-5 md:p-12 prose max-w-none" id="detail-content"></div>
                 
+                <!-- FITUR BARU: SHARE BUTTONS -->
+                <div id="share-section"></div>
+                
                 <!-- BACA JUGA / REKOMENDASI ARTIKEL BAWAH -->
                 <div class="bg-white border-t border-gray-100 p-4 md:p-12" id="related-articles-section">
                     <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 px-2 md:px-0">Baca Juga:</h3>
@@ -372,14 +375,38 @@
             return html;
         }
 
+        // --- FITUR BARU: Copy to Clipboard ---
+        function copyShareLink(url, btnElement) {
+            const textArea = document.createElement("textarea");
+            textArea.value = url;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                const originalIcon = btnElement.innerHTML;
+                btnElement.innerHTML = '<i class="fas fa-check text-lg"></i>';
+                btnElement.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
+                btnElement.classList.remove('bg-white', 'text-gray-600');
+                setTimeout(() => {
+                    btnElement.innerHTML = originalIcon;
+                    btnElement.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-600');
+                    btnElement.classList.add('bg-white', 'text-gray-600');
+                }, 2000);
+            } catch (err) {
+                console.error('Gagal menyalin', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
         // FUNGSI DIUBAH: Tambahan parameter updateUrl
         function openArticle(index, updateUrl = true) {
             const post = allArticles[index];
             if(!post) return;
 
+            const safeSlug = createSafeSlug(post.title);
+
             // Mengubah URL tanpa reload halaman (History API)
             if (updateUrl) {
-                const safeSlug = createSafeSlug(post.title);
                 const newUrl = window.location.pathname + "?artikel=" + safeSlug;
                 window.history.pushState({ articleIndex: index }, post.title, newUrl);
             }
@@ -411,6 +438,41 @@
                     n.parentNode.replaceChild(span, n);
                 });
             }
+
+            // FITUR BARU: Render Tombol Share
+            let baseUrlShare = window.location.origin;
+            if (baseUrlShare === "null" || baseUrlShare.startsWith("file://")) {
+                baseUrlShare = "https://kelasngaji.web.id"; 
+            }
+            let pathShare = window.location.pathname;
+            if (!pathShare.endsWith('/')) pathShare += '/';
+            pathShare = pathShare.replace(/index\.html$/, ''); // Bersihkan jika ada index.html
+            
+            const absoluteShareUrl = baseUrlShare + pathShare + safeSlug + ".html";
+            const encodedShareUrl = encodeURIComponent(absoluteShareUrl);
+            const encodedShareTitle = encodeURIComponent(post.title);
+
+            document.getElementById('share-section').innerHTML = `
+                <div class="px-5 pb-8 md:px-12 md:pb-12">
+                    <div class="flex flex-col sm:flex-row items-center justify-between bg-emerald-50/50 border border-emerald-100 p-4 md:p-6 rounded-2xl">
+                        <span class="font-bold text-emerald-900 mb-4 sm:mb-0"><i class="fas fa-share-nodes mr-2 text-emerald-600"></i>Bagikan Artikel Ini:</span>
+                        <div class="flex space-x-2 md:space-x-3">
+                            <a href="https://api.whatsapp.com/send?text=${encodedShareTitle}%0A%0A${encodedShareUrl}" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#25D366] text-white hover:bg-green-600 hover:scale-110 transition-transform shadow-sm" title="Bagikan ke WhatsApp">
+                                <i class="fab fa-whatsapp text-lg"></i>
+                            </a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#1877F2] text-white hover:bg-blue-700 hover:scale-110 transition-transform shadow-sm" title="Bagikan ke Facebook">
+                                <i class="fab fa-facebook-f text-lg"></i>
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?url=${encodedShareUrl}&text=${encodedShareTitle}" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-900 text-white hover:bg-black hover:scale-110 transition-transform shadow-sm" title="Bagikan ke X/Twitter">
+                                <i class="fab fa-x-twitter text-lg"></i>
+                            </a>
+                            <button onclick="copyShareLink('${absoluteShareUrl}', this)" class="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-600 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 hover:scale-110 transition-all shadow-sm" title="Salin Tautan">
+                                <i class="fas fa-link text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
 
             const relatedContainer = document.getElementById('related-articles-grid');
             
