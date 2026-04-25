@@ -124,23 +124,48 @@
                             <input type="text" id="post-author" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all" placeholder="Kosong = Admin">
                         </div>
                     </div>
-                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
-                        <label class="block text-sm font-bold text-gray-700 mb-3"><i class="fas fa-image text-emerald-600 mr-2"></i>Gambar Cover Artikel</label>
-                        <div class="flex space-x-4 mb-4 border-b border-gray-200 pb-2">
-                            <button onclick="toggleImageTab('upload')" id="tab-btn-upload" class="text-sm font-medium text-emerald-600 border-b-2 border-emerald-600 pb-1">Unggah File</button>
-                            <button onclick="toggleImageTab('url')" id="tab-btn-url" class="text-sm font-medium text-gray-500 hover:text-gray-700 pb-1">Sematkan Link</button>
-                        </div>
-                        <div id="img-area-upload" class="space-y-3">
-                            <div class="flex items-center gap-4">
-                                <input type="file" id="cover-file" accept="image/png, image/jpeg, image/webp" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 transition-all cursor-pointer">
-                                <button onclick="uploadCoverImage()" id="btn-upload-image" class="shrink-0 bg-gray-800 hover:bg-gray-900 text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center"><i class="fas fa-cloud-upload-alt mr-2"></i> Unggah ke GitHub</button>
+                    
+                    <!-- Cover & Audio Section (Side by side) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Cover Image -->
+                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                            <label class="block text-sm font-bold text-gray-700 mb-3"><i class="fas fa-image text-emerald-600 mr-2"></i>Gambar Cover Artikel</label>
+                            <div class="flex space-x-4 mb-4 border-b border-gray-200 pb-2">
+                                <button onclick="toggleImageTab('upload')" id="tab-btn-upload" class="text-sm font-medium text-emerald-600 border-b-2 border-emerald-600 pb-1">Unggah File</button>
+                                <button onclick="toggleImageTab('url')" id="tab-btn-url" class="text-sm font-medium text-gray-500 hover:text-gray-700 pb-1">Sematkan Link</button>
                             </div>
-                            <p class="text-xs text-gray-500"><i class="fas fa-info-circle"></i> Gambar yang sukses diunggah akan otomatis mengisi kolom link di bawah.</p>
+                            <div id="img-area-upload" class="space-y-3">
+                                <div class="flex flex-col xl:flex-row items-start xl:items-center gap-3">
+                                    <input type="file" id="cover-file" accept="image/png, image/jpeg, image/webp" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 transition-all cursor-pointer">
+                                    <button onclick="uploadCoverImage()" id="btn-upload-image" class="shrink-0 w-full xl:w-auto bg-gray-800 hover:bg-gray-900 text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm flex justify-center items-center"><i class="fas fa-cloud-upload-alt mr-2"></i> Unggah</button>
+                                </div>
+                                <p class="text-xs text-gray-500"><i class="fas fa-info-circle"></i> Gambar otomatis mengisi link di bawah.</p>
+                            </div>
+                            <div id="img-area-url" class="mt-4">
+                                <input type="text" id="post-cover-url" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm bg-white" placeholder="https://... atau /assets/gambar.jpg">
+                            </div>
                         </div>
-                        <div id="img-area-url" class="mt-4">
-                            <input type="text" id="post-cover-url" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm bg-white" placeholder="https://... atau /assets/gambar.jpg">
+
+                        <!-- Audio Upload -->
+                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                            <label class="block text-sm font-bold text-gray-700 mb-3"><i class="fas fa-music text-emerald-600 mr-2"></i>Audio Artikel (Opsional)</label>
+                            <div class="flex space-x-4 mb-4 border-b border-gray-200 pb-2">
+                                <button onclick="toggleAudioTab('upload')" id="tab-btn-audio-upload" class="text-sm font-medium text-emerald-600 border-b-2 border-emerald-600 pb-1">Unggah Audio</button>
+                                <button onclick="toggleAudioTab('url')" id="tab-btn-audio-url" class="text-sm font-medium text-gray-500 hover:text-gray-700 pb-1">Sematkan Link</button>
+                            </div>
+                            <div id="audio-area-upload" class="space-y-3">
+                                <div class="flex flex-col xl:flex-row items-start xl:items-center gap-3">
+                                    <input type="file" id="audio-file" accept="audio/mpeg, audio/mp3, audio/wav, audio/ogg" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 transition-all cursor-pointer">
+                                    <button onclick="uploadAudioFile()" id="btn-upload-audio" class="shrink-0 w-full xl:w-auto bg-gray-800 hover:bg-gray-900 text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm flex justify-center items-center"><i class="fas fa-cloud-upload-alt mr-2"></i> Unggah</button>
+                                </div>
+                                <p class="text-xs text-gray-500"><i class="fas fa-info-circle"></i> Audio mp3/wav otomatis mengisi link di bawah.</p>
+                            </div>
+                            <div id="audio-area-url" class="mt-4">
+                                <input type="text" id="post-audio-url" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm bg-white" placeholder="https://... atau /assets/audio.mp3">
+                            </div>
                         </div>
                     </div>
+
                     <div class="border border-gray-300 rounded-xl overflow-hidden bg-white shadow-sm">
                         <div class="bg-gray-100 border-b border-gray-300 px-3 py-2 flex flex-wrap items-center gap-1">
                             <button onclick="execCmd('bold')" class="w-8 h-8 rounded hover:bg-gray-200 text-gray-700 font-bold" title="Tebal (Ctrl+B)">B</button>
@@ -191,7 +216,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Folder Upload Media (Path)</label>
                             <input type="text" id="gh-path" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 outline-none" placeholder="assets/uploads">
-                            <p class="text-xs text-gray-500 mt-1">Hanya untuk gambar. Kosongkan jika ingin diupload di root folder.</p>
+                            <p class="text-xs text-gray-500 mt-1">Digunakan untuk upload gambar dan audio. Kosongkan jika ingin di root folder.</p>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Personal Access Token</label>
@@ -320,6 +345,12 @@
             gId('tab-btn-url').className = tab === 'url' ? act : inact;
         }
 
+        function toggleAudioTab(tab) {
+            const act = "text-sm font-medium text-emerald-600 border-b-2 border-emerald-600 pb-1", inact = "text-sm font-medium text-gray-500 hover:text-gray-700 pb-1";
+            gId('tab-btn-audio-upload').className = tab === 'upload' ? act : inact;
+            gId('tab-btn-audio-url').className = tab === 'url' ? act : inact;
+        }
+
         const createSafeSlug = t => t.toString().toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-').replace(/^-+/, '').replace(/-+$/, '');
         const getAuthHeaders = () => ({ 'Authorization': `Bearer ${localStorage.getItem('gh_token')}`, 'Content-Type': 'application/json' });
         
@@ -365,6 +396,27 @@
                     if (res.ok) {
                         showToast('Gambar diunggah!', 'success'); gId('post-cover-url').value = `https://${cfg.user}.github.io/${cfg.repo}/${fullPath}`;
                         toggleImageTab('url'); fInp.value = ''; 
+                    } else throw new Error((await res.json()).message);
+                } catch (err) { showToast(`Gagal: ${err.message}`, 'error'); } finally { btn.innerHTML = orig; btn.disabled = false; }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function uploadAudioFile() {
+            const fInp = gId('audio-file'); if (!fInp.files.length) return showToast('Pilih file audio!', 'error');
+            const cfg = checkConfig(); if(!cfg) return;
+            const file = fInp.files[0], btn = gId('btn-upload-audio'), orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengunggah...'; btn.disabled = true;
+
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const b64 = e.target.result.split(',')[1], pth = (localStorage.getItem('gh_path') || '').replace(/^\/|\/$/g, ''); 
+                const fullPath = (pth ? pth + '/' : '') + Date.now() + "-" + file.name.replace(/[^a-zA-Z0-9.]/g, '-');
+                try {
+                    const res = await fetch(`https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${fullPath}`, { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify({ message: `Upload audio: ${fullPath}`, content: b64 }) });
+                    if (res.ok) {
+                        showToast('Audio diunggah!', 'success'); gId('post-audio-url').value = `https://${cfg.user}.github.io/${cfg.repo}/${fullPath}`;
+                        toggleAudioTab('url'); fInp.value = ''; 
                     } else throw new Error((await res.json()).message);
                 } catch (err) { showToast(`Gagal: ${err.message}`, 'error'); } finally { btn.innerHTML = orig; btn.disabled = false; }
             };
@@ -431,12 +483,13 @@
 
         function editArticle(slug) {
             const a = cachedBlogData.items.find(p => createSafeSlug(p.title) === slug); if(!a) return showToast('Artikel tak ditemukan.', 'error');
-            gId('post-title').value = a.title; gId('post-category').value = a.category; gId('post-author').value = a.author === 'Admin' ? '' : (a.author || ''); gId('post-cover-url').value = a.thumbnail; gId('editor').innerHTML = a.content;
-            editingOriginalSlug = slug; gId('publish-text').innerText = "Update Artikel"; gId('btn-cancel-edit').classList.replace('hidden', 'flex'); toggleImageTab('url'); switchMenu('tulis');
+            gId('post-title').value = a.title; gId('post-category').value = a.category; gId('post-author').value = a.author === 'Admin' ? '' : (a.author || ''); 
+            gId('post-cover-url').value = a.thumbnail; gId('post-audio-url').value = a.audio || ''; gId('editor').innerHTML = a.content;
+            editingOriginalSlug = slug; gId('publish-text').innerText = "Update Artikel"; gId('btn-cancel-edit').classList.replace('hidden', 'flex'); toggleImageTab('url'); toggleAudioTab('url'); switchMenu('tulis');
         }
 
         function cancelEdit() {
-            editingOriginalSlug = null; ['post-title','post-category','post-author','post-cover-url'].forEach(id => gId(id).value = ''); gId('editor').innerHTML = '<p><br></p>';
+            editingOriginalSlug = null; ['post-title','post-category','post-author','post-cover-url','post-audio-url'].forEach(id => gId(id).value = ''); gId('editor').innerHTML = '<p><br></p>';
             gId('publish-text').innerText = "Simpan & Publikasikan"; gId('btn-cancel-edit').classList.replace('flex', 'hidden'); gId('page-title').innerText = 'Tulis Artikel Baru';
         }
 
@@ -465,7 +518,7 @@
         }
 
         async function publishArticle() {
-            const tit = gId('post-title').value.trim(), cat = gId('post-category').value.trim() || 'Lain-Lain', aut = gId('post-author').value.trim() || 'Admin', cov = gId('post-cover-url').value.trim() || 'https://via.placeholder.com/800x400?text=Kelas+Mengaji', htm = gId('editor').innerHTML;
+            const tit = gId('post-title').value.trim(), cat = gId('post-category').value.trim() || 'Lain-Lain', aut = gId('post-author').value.trim() || 'Admin', cov = gId('post-cover-url').value.trim() || 'https://via.placeholder.com/800x400?text=Kelas+Mengaji', aud = gId('post-audio-url').value.trim(), htm = gId('editor').innerHTML;
             if(!tit || !htm || htm === '<p><br></p>') return showToast('Judul/Isi kosong!', 'error');
             if(!checkConfig()) return;
 
@@ -474,6 +527,7 @@
             try {
                 const slug = createSafeSlug(tit), { data: b, sha } = await fetchGitHubJSON('data/blog.json');
                 const newA = { title: tit, category: cat, author: aut, date: new Date().toISOString().split('T')[0], thumbnail: cov, excerpt: gId('editor').innerText.substring(0,140).replace(/\n/g, ' ')+'...', content: htm };
+                if (aud) newA.audio = aud; // Masukkan audio ke JSON jika ada
                 
                 const rm = b.items.findIndex(p => createSafeSlug(p.title) === (editingOriginalSlug || slug));
                 if (rm > -1) { newA.date = b.items[rm].date; b.items.splice(rm, 1); }
