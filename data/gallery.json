@@ -36,7 +36,12 @@
       "alt": "Duduk Bareng"
     },
     {
-      "label": "Peserta Daurah",
+      "label": "Makanan",
+      "image": "/assets/uploads/muro.png",
+      "alt": "Makan bareng"
+    },
+    {
+      "label": "Peserta Apa Aja",
       "image": "/assets/uploads/muro.png",
       "alt": "Makan bareng"
     }
