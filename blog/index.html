@@ -336,8 +336,15 @@
         }
 
         function generateInlineRelatedArticles(currentIndex) {
-            const related = allArticles.filter((_, i) => i !== currentIndex).slice(0, 3);
-            if (related.length === 0) return '';
+            // 1. Ambil semua artikel kecuali artikel yang sedang dibaca saat ini
+            const otherArticles = allArticles.filter((_, i) => i !== currentIndex);
+            if (otherArticles.length === 0) return '';
+
+            // 2. Acak urutan artikel (Randomize)
+            const shuffledArticles = [...otherArticles].sort(() => 0.5 - Math.random());
+            
+            // 3. Ambil 3 artikel teratas dari hasil acakan
+            const related = shuffledArticles.slice(0, 3);
 
             let html = `<div class="my-8 md:my-12 border-y md:border-y-0 md:border-2 border-emerald-100 py-6 md:p-6 bg-emerald-50/40 md:rounded-2xl not-prose">`;
             html += `<h4 class="text-emerald-800 font-bold text-base md:text-lg mb-4 px-4 md:px-0 flex items-center"><i class="fas fa-book-reader mr-2 text-emerald-600"></i>Baca Juga:</h4>`;
@@ -406,7 +413,11 @@
             }
 
             const relatedContainer = document.getElementById('related-articles-grid');
-            const relatedPosts = allArticles.filter((_, i) => i !== index).slice(0, 4);
+            
+            // Bikin rekomendasi artikel bagian Bawah jadi Random (Acak) juga!
+            const otherPosts = allArticles.filter((_, i) => i !== index);
+            const shuffledPosts = [...otherPosts].sort(() => 0.5 - Math.random());
+            const relatedPosts = shuffledPosts.slice(0, 4);
             
             if(relatedPosts.length > 0) {
                 document.getElementById('related-articles-section').classList.remove('hidden');
