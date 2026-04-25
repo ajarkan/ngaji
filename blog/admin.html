@@ -7,139 +7,77 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        brand: {
-                            dark: '#1e293b',
-                            primary: '#0f766e',
-                            light: '#ccfbf1'
-                        }
-                    }
+                    colors: { brand: { dark: '#1e293b', primary: '#0f766e', light: '#ccfbf1' } }
                 }
             }
         }
     </script>
     <style>
-        /* Editor Styles */
-        #editor {
-            min-height: 400px;
-            outline: none;
-        }
-        #editor p { margin-bottom: 1em; line-height: 1.6; }
-        #editor h2 { font-size: 1.5em; font-weight: bold; margin-top: 1em; margin-bottom: 0.5em; }
-        #editor blockquote { border-left: 4px solid #cbd5e1; padding-left: 1rem; color: #64748b; font-style: italic; }
-        #editor img { max-width: 100%; height: auto; border-radius: 0.5rem; margin: 1.5rem auto; display: block; }
-        
-        .toast { transition: all 0.3s ease; transform: translateY(100%); opacity: 0; }
-        .toast.show { transform: translateY(0); opacity: 1; }
-        
-        /* Custom Scrollbar */
-        .custom-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        aside .custom-scroll::-webkit-scrollbar-thumb { background: #334155; }
+        #editor{min-height:400px;outline:none}#editor p{margin-bottom:1em;line-height:1.6}#editor h2{font-size:1.5em;font-weight:bold;margin-top:1em;margin-bottom:.5em}#editor blockquote{border-left:4px solid #cbd5e1;padding-left:1rem;color:#64748b;font-style:italic}#editor img{max-width:100%;height:auto;border-radius:.5rem;margin:1.5rem auto;display:block}
+        .toast{transition:all .3s ease;transform:translateY(100%);opacity:0}.toast.show{transform:translateY(0);opacity:1}
+        .custom-scroll::-webkit-scrollbar{width:4px;height:4px}.custom-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}aside .custom-scroll::-webkit-scrollbar-thumb{background:#334155}
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans h-screen overflow-hidden">
-
-    <!-- LOGIN SCREEN -->
     <div id="login-container" class="flex h-screen w-full items-center justify-center bg-brand-dark relative z-50">
         <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-sm mx-4 transform transition-all">
             <div class="text-center mb-8">
-                <div class="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
-                    <i class="fas fa-user-shield text-3xl text-emerald-600"></i>
-                </div>
+                <div class="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner"><i class="fas fa-user-shield text-3xl text-emerald-600"></i></div>
                 <h2 class="text-2xl font-bold text-brand-dark">Login CMS</h2>
                 <p class="text-sm text-gray-500 mt-1">Sistem Manajemen Konten</p>
             </div>
-            
-            <div id="login-error" class="hidden bg-red-50 text-red-600 p-3 rounded-lg text-sm mb-5 border border-red-100 text-center fade-in">
-                <i class="fas fa-exclamation-triangle mr-1"></i> Username atau Password salah!
-            </div>
-            
+            <div id="login-error" class="hidden bg-red-50 text-red-600 p-3 rounded-lg text-sm mb-5 border border-red-100 text-center fade-in"><i class="fas fa-exclamation-triangle mr-1"></i> Username atau Password salah!</div>
             <div class="space-y-5">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1.5">Username</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-user text-gray-400"></i>
-                        </div>
-                        <input type="text" id="login-user" class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all" placeholder="Masukkan username" onkeypress="if(event.key === 'Enter') checkLogin()">
+                    <div class="relative"><div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i class="fas fa-user text-gray-400"></i></div>
+                        <input type="text" id="login-user" class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all" placeholder="Masukkan username" onkeypress="if(event.key==='Enter') checkLogin()">
                     </div>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-lock text-gray-400"></i>
-                        </div>
-                        <input type="password" id="login-pass" class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all" placeholder="••••••••" onkeypress="if(event.key === 'Enter') checkLogin()">
+                    <div class="relative"><div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i class="fas fa-lock text-gray-400"></i></div>
+                        <input type="password" id="login-pass" class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all" placeholder="••••••••" onkeypress="if(event.key==='Enter') checkLogin()">
                     </div>
                 </div>
-                <button onclick="checkLogin()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg transition-all transform hover:-translate-y-0.5 shadow-lg mt-6 flex justify-center items-center">
-                    Masuk ke Panel <i class="fas fa-arrow-right ml-2"></i>
-                </button>
+                <button onclick="checkLogin()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg transition-all transform hover:-translate-y-0.5 shadow-lg mt-6 flex justify-center items-center">Masuk ke Panel <i class="fas fa-arrow-right ml-2"></i></button>
             </div>
         </div>
     </div>
 
-    <!-- DASHBOARD SCREEN -->
     <div id="dashboard-container" class="hidden h-screen w-full flex">
-        <!-- Sidebar -->
         <aside class="w-64 bg-brand-dark text-slate-300 flex flex-col h-full flex-shrink-0 transition-all duration-300 z-20 shadow-xl">
-            <div class="h-16 flex items-center px-6 border-b border-slate-700/50">
-                <i class="fas fa-th-large text-emerald-400 text-xl mr-3"></i>
-                <span class="text-white font-bold text-lg tracking-wide">CMS Panel</span>
-            </div>
-            
+            <div class="h-16 flex items-center px-6 border-b border-slate-700/50"><i class="fas fa-th-large text-emerald-400 text-xl mr-3"></i><span class="text-white font-bold text-lg tracking-wide">CMS Panel</span></div>
             <div class="p-4 flex-1 overflow-y-auto custom-scroll">
                 <p class="text-xs font-semibold text-slate-500 mb-3 px-2 tracking-wider mt-2">MENU UTAMA</p>
                 <nav class="space-y-1">
-                    <a href="#" onclick="switchMenu('tulis')" id="menu-tulis" class="flex items-center px-3 py-2.5 rounded-lg text-white bg-brand-primary font-medium transition-colors">
-                        <i class="fas fa-pen-nib w-6 mr-1"></i> Tulis Artikel
-                    </a>
-                    <a href="#" onclick="switchMenu('daftar'); fetchArticlesList();" id="menu-daftar" class="flex items-center px-3 py-2.5 rounded-lg hover:text-white hover:bg-slate-800 transition-colors">
-                        <i class="fas fa-list w-6 mr-1"></i> Daftar Artikel
-                    </a>
+                    <a href="#" onclick="switchMenu('tulis')" id="menu-tulis" class="flex items-center px-3 py-2.5 rounded-lg text-white bg-brand-primary font-medium transition-colors"><i class="fas fa-pen-nib w-6 mr-1"></i> Tulis Artikel</a>
+                    <a href="#" onclick="switchMenu('daftar'); fetchArticlesList();" id="menu-daftar" class="flex items-center px-3 py-2.5 rounded-lg hover:text-white hover:bg-slate-800 transition-colors"><i class="fas fa-list w-6 mr-1"></i> Daftar Artikel</a>
                 </nav>
-
                 <p class="text-xs font-semibold text-slate-500 mb-3 px-2 tracking-wider mt-8">SISTEM</p>
                 <nav class="space-y-1">
-                    <a href="#" onclick="switchMenu('pengaturan')" id="menu-pengaturan" class="flex items-center px-3 py-2.5 rounded-lg hover:text-white hover:bg-slate-800 transition-colors">
-                        <i class="fab fa-github w-6 mr-1"></i> Pengaturan GitHub
-                    </a>
+                    <a href="#" onclick="switchMenu('pengaturan')" id="menu-pengaturan" class="flex items-center px-3 py-2.5 rounded-lg hover:text-white hover:bg-slate-800 transition-colors"><i class="fab fa-github w-6 mr-1"></i> Pengaturan GitHub</a>
                 </nav>
             </div>
-
             <div class="p-4 border-t border-slate-700/50">
-                <button onclick="logout()" class="w-full flex items-center px-3 py-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
-                    <i class="fas fa-sign-out-alt w-6"></i> Keluar
-                </button>
+                <button onclick="logout()" class="w-full flex items-center px-3 py-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"><i class="fas fa-sign-out-alt w-6"></i> Keluar</button>
             </div>
         </aside>
 
-        <!-- Main Content -->
         <main class="flex-1 flex flex-col h-full relative overflow-hidden bg-white">
-            
-            <!-- Header Top -->
             <header class="h-16 flex items-center justify-between px-8 border-b border-gray-200 bg-white shadow-sm z-10 flex-shrink-0">
                 <div class="flex items-center gap-4">
                     <h1 class="text-xl font-bold text-gray-800" id="page-title">Tulis Artikel Baru</h1>
-                    <!-- Tombol Batal Edit -->
-                    <button id="btn-cancel-edit" onclick="cancelEdit()" class="hidden bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg transition-colors items-center">
-                        <i class="fas fa-times mr-1.5"></i> Batal Edit
-                    </button>
+                    <button id="btn-cancel-edit" onclick="cancelEdit()" class="hidden bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg transition-colors items-center"><i class="fas fa-times mr-1.5"></i> Batal Edit</button>
                 </div>
-                <a href="index.html" target="_blank" class="text-sm font-medium text-emerald-600 hover:text-emerald-700 bg-emerald-50 px-4 py-2 rounded-lg flex items-center transition-colors">
-                    <i class="fas fa-external-link-alt mr-2"></i> Lihat Blog
-                </a>
+                <a href="index.html" target="_blank" class="text-sm font-medium text-emerald-600 hover:text-emerald-700 bg-emerald-50 px-4 py-2 rounded-lg flex items-center transition-colors"><i class="fas fa-external-link-alt mr-2"></i> Lihat Blog</a>
             </header>
 
-            <!-- SECTION: DAFTAR ARTIKEL -->
             <div id="section-daftar" class="hidden flex-1 overflow-y-auto p-8 custom-scroll bg-gray-50/50">
                 <div class="max-w-6xl mx-auto">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
@@ -149,8 +87,6 @@
                             <button onclick="renderArticleList('trash')" id="tab-trash" class="px-5 py-2 text-sm font-medium rounded-md text-gray-500 hover:text-gray-700 transition-colors">Tempat Sampah</button>
                         </div>
                     </div>
-
-                    <!-- Table Area -->
                     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                         <div class="overflow-x-auto custom-scroll">
                             <table class="w-full text-left border-collapse min-w-[600px]">
@@ -164,7 +100,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id="article-list-body" class="text-sm divide-y divide-gray-100">
-                                    <!-- List Artikel akan dirender di sini via JS -->
                                     <tr><td colspan="5" class="p-8 text-center text-gray-400"><i class="fas fa-spinner fa-spin text-2xl mb-2"></i><br>Memuat artikel...</td></tr>
                                 </tbody>
                             </table>
@@ -173,10 +108,8 @@
                 </div>
             </div>
 
-            <!-- SECTION: TULIS ARTIKEL -->
             <div id="section-tulis" class="flex-1 overflow-y-auto p-8 custom-scroll">
                 <div class="max-w-4xl mx-auto space-y-6">
-                    <!-- Judul, Kategori, & Penulis -->
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Judul Artikel</label>
@@ -191,51 +124,33 @@
                             <input type="text" id="post-author" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all" placeholder="Kosong = Admin">
                         </div>
                     </div>
-
-                    <!-- Cover Image Section -->
                     <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
                         <label class="block text-sm font-bold text-gray-700 mb-3"><i class="fas fa-image text-emerald-600 mr-2"></i>Gambar Cover Artikel</label>
-                        
-                        <!-- Tabs Upload / URL -->
                         <div class="flex space-x-4 mb-4 border-b border-gray-200 pb-2">
                             <button onclick="toggleImageTab('upload')" id="tab-btn-upload" class="text-sm font-medium text-emerald-600 border-b-2 border-emerald-600 pb-1">Unggah File</button>
                             <button onclick="toggleImageTab('url')" id="tab-btn-url" class="text-sm font-medium text-gray-500 hover:text-gray-700 pb-1">Sematkan Link</button>
                         </div>
-
-                        <!-- Area Upload -->
                         <div id="img-area-upload" class="space-y-3">
                             <div class="flex items-center gap-4">
                                 <input type="file" id="cover-file" accept="image/png, image/jpeg, image/webp" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 transition-all cursor-pointer">
-                                <button onclick="uploadCoverImage()" id="btn-upload-image" class="shrink-0 bg-gray-800 hover:bg-gray-900 text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center">
-                                    <i class="fas fa-cloud-upload-alt mr-2"></i> Unggah ke GitHub
-                                </button>
+                                <button onclick="uploadCoverImage()" id="btn-upload-image" class="shrink-0 bg-gray-800 hover:bg-gray-900 text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center"><i class="fas fa-cloud-upload-alt mr-2"></i> Unggah ke GitHub</button>
                             </div>
                             <p class="text-xs text-gray-500"><i class="fas fa-info-circle"></i> Gambar yang sukses diunggah akan otomatis mengisi kolom link di bawah.</p>
                         </div>
-
-                        <!-- Area URL -->
                         <div id="img-area-url" class="mt-4">
                             <input type="text" id="post-cover-url" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm bg-white" placeholder="https://... atau /assets/gambar.jpg">
                         </div>
                     </div>
-
-                    <!-- Rich Text Editor -->
                     <div class="border border-gray-300 rounded-xl overflow-hidden bg-white shadow-sm">
-                        <!-- Toolbar -->
                         <div class="bg-gray-100 border-b border-gray-300 px-3 py-2 flex flex-wrap items-center gap-1">
                             <button onclick="execCmd('bold')" class="w-8 h-8 rounded hover:bg-gray-200 text-gray-700 font-bold" title="Tebal (Ctrl+B)">B</button>
                             <button onclick="execCmd('italic')" class="w-8 h-8 rounded hover:bg-gray-200 text-gray-700 italic" title="Miring (Ctrl+I)">I</button>
                             <button onclick="execCmd('underline')" class="w-8 h-8 rounded hover:bg-gray-200 text-gray-700 underline" title="Garis Bawah (Ctrl+U)">U</button>
                             <div class="w-px h-6 bg-gray-300 mx-1"></div>
-                            
-                            <!-- PERBAIKAN: Fungsi ubah warna kustom agar tidak hilang fokus -->
                             <div class="relative flex items-center">
-                                <label for="textColor" onmousedown="saveSelection()" class="cursor-pointer w-8 h-8 rounded hover:bg-gray-200 flex items-center justify-center text-gray-700" title="Warna Teks">
-                                    <i class="fas fa-font"></i>
-                                </label>
+                                <label for="textColor" onmousedown="saveSelection()" class="cursor-pointer w-8 h-8 rounded hover:bg-gray-200 flex items-center justify-center text-gray-700" title="Warna Teks"><i class="fas fa-font"></i></label>
                                 <input type="color" id="textColor" class="opacity-0 absolute w-0 h-0" oninput="changeTextColor(this.value)">
                             </div>
-                            
                             <div class="w-px h-6 bg-gray-300 mx-1"></div>
                             <button onclick="execCmd('justifyLeft')" class="w-8 h-8 rounded hover:bg-gray-200 text-gray-700" title="Rata Kiri"><i class="fas fa-align-left"></i></button>
                             <button onclick="execCmd('justifyCenter')" class="w-8 h-8 rounded hover:bg-gray-200 text-gray-700" title="Rata Tengah"><i class="fas fa-align-center"></i></button>
@@ -247,12 +162,8 @@
                             <button onclick="execCmd('insertUnorderedList')" class="w-8 h-8 rounded hover:bg-gray-200 text-gray-700" title="Daftar Bullet"><i class="fas fa-list-ul"></i></button>
                             <button onclick="execCmd('insertOrderedList')" class="w-8 h-8 rounded hover:bg-gray-200 text-gray-700" title="Daftar Angka"><i class="fas fa-list-ol"></i></button>
                         </div>
-                        
-                        <!-- Editable Area -->
                         <div id="editor" class="p-5 overflow-y-auto custom-scroll text-gray-700 text-base" contenteditable="true" placeholder="Mulai menulis artikelmu di sini..."></div>
                     </div>
-
-                    <!-- Submit Action -->
                     <div class="flex justify-end pt-4 pb-10">
                         <button onclick="publishArticle()" id="btn-publish" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-transform transform hover:-translate-y-0.5 flex items-center">
                             <i class="fas fa-paper-plane mr-2"></i> <span id="publish-text">Simpan & Publikasikan</span>
@@ -261,19 +172,13 @@
                 </div>
             </div>
 
-            <!-- SECTION: PENGATURAN GITHUB -->
             <div id="section-pengaturan" class="hidden flex-1 overflow-y-auto custom-scroll p-8 bg-gray-50">
                 <div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
                     <p class="text-sm text-gray-500 mb-6 border-b pb-4">Konfigurasi ini disimpan lokal di browsermu dan tidak akan ter-publish ke internet. Aman 100%.</p>
-                    
                     <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-8 flex gap-3 text-yellow-800">
                         <i class="fas fa-info-circle mt-0.5"></i>
-                        <div class="text-sm">
-                            <strong>Info Token</strong><br>
-                            Pastikan Personal Access Token (Classic) kamu memiliki centang (permission) pada bagian <strong>"repo"</strong> agar bisa mengupload file.
-                        </div>
+                        <div class="text-sm"><strong>Info Token</strong><br>Pastikan Personal Access Token (Classic) kamu memiliki centang (permission) pada bagian <strong>"repo"</strong> agar bisa mengupload file.</div>
                     </div>
-
                     <div class="space-y-5">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Username GitHub</label>
@@ -296,24 +201,18 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="mt-8 pt-6 border-t flex justify-end">
-                        <button onclick="saveGitHubSettings()" class="bg-gray-800 hover:bg-gray-900 text-white font-medium py-2.5 px-6 rounded-lg transition-colors flex items-center">
-                            <i class="fas fa-key mr-2"></i> Simpan Akses GitHub
-                        </button>
+                        <button onclick="saveGitHubSettings()" class="bg-gray-800 hover:bg-gray-900 text-white font-medium py-2.5 px-6 rounded-lg transition-colors flex items-center"><i class="fas fa-key mr-2"></i> Simpan Akses GitHub</button>
                     </div>
                 </div>
             </div>
-
         </main>
-    </div> <!-- END DASHBOARD CONTAINER -->
+    </div>
 
-    <!-- CUSTOM CONFIRM MODAL (Hapus Artikel) -->
+    <!-- MODALS -->
     <div id="confirm-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
         <div class="bg-white rounded-2xl p-6 max-w-sm w-full mx-4 shadow-2xl transform transition-all scale-95 opacity-0" id="confirm-box">
-            <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mb-4">
-                <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
-            </div>
+            <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mb-4"><i class="fas fa-exclamation-triangle text-red-600 text-xl"></i></div>
             <h3 class="text-lg font-bold text-gray-900 mb-2" id="confirm-title">Konfirmasi</h3>
             <p class="text-gray-600 mb-6 text-sm leading-relaxed" id="confirm-msg">Apakah Anda yakin?</p>
             <div class="flex justify-end space-x-3">
@@ -323,713 +222,278 @@
         </div>
     </div>
 
-    <!-- INSERT INLINE IMAGE MODAL -->
     <div id="insert-image-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
         <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl transform transition-all scale-95 opacity-0" id="insert-image-box">
             <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-100">
                 <h3 class="text-lg font-bold text-gray-900"><i class="far fa-image text-emerald-600 mr-2"></i>Sisipkan Gambar</h3>
                 <button onclick="closeInsertImageModal()" class="text-gray-400 hover:text-red-500 transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100"><i class="fas fa-times"></i></button>
             </div>
-            
             <div class="space-y-4">
                 <div class="bg-emerald-50/50 p-4 rounded-xl border border-emerald-100/50">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Unggah File Gambar</label>
                     <input type="file" id="inline-image-file" accept="image/png, image/jpeg, image/webp" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-100 file:text-emerald-700 hover:file:bg-emerald-200 transition-all cursor-pointer">
                     <p class="text-[11px] text-emerald-600 mt-2 font-medium"><i class="fas fa-info-circle mr-1"></i> Gambar akan otomatis diunggah ke GitHub Pages.</p>
                 </div>
-                
-                <div class="flex items-center text-sm text-gray-400 my-2">
-                    <div class="flex-grow border-t border-gray-200"></div>
-                    <span class="px-3 font-medium">ATAU</span>
-                    <div class="flex-grow border-t border-gray-200"></div>
-                </div>
-                
+                <div class="flex items-center text-sm text-gray-400 my-2"><div class="flex-grow border-t border-gray-200"></div><span class="px-3 font-medium">ATAU</span><div class="flex-grow border-t border-gray-200"></div></div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Gunakan Link URL</label>
                     <input type="text" id="inline-image-url" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm" placeholder="https://contoh.com/gambar.jpg">
                 </div>
-                
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Teks Alternatif (Alt Text)</label>
                     <input type="text" id="inline-image-alt" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm" placeholder="Deskripsi gambar untuk SEO...">
                 </div>
             </div>
-            
             <div class="mt-6 pt-4 border-t border-gray-100 flex justify-end space-x-3">
                 <button onclick="closeInsertImageModal()" class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition-colors text-sm">Batal</button>
-                <button id="btn-insert-image-confirm" onclick="processInsertImage()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm flex items-center">
-                    <i class="fas fa-plus mr-2"></i> Sisipkan Sekarang
-                </button>
+                <button id="btn-insert-image-confirm" onclick="processInsertImage()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-lg font-medium transition-colors shadow-sm text-sm flex items-center"><i class="fas fa-plus mr-2"></i> Sisipkan Sekarang</button>
             </div>
         </div>
     </div>
 
-    <!-- Toast Notification -->
     <div id="toast" class="toast fixed bottom-6 right-6 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-xl flex items-center z-50">
         <i id="toast-icon" class="fas fa-check-circle text-emerald-400 mr-3 text-lg"></i>
         <span id="toast-msg" class="font-medium text-sm">Berhasil disimpan!</span>
     </div>
 
     <script>
-        // --- GLOBAL VARIABLES ---
-        let cachedBlogData = { items: [], trash: [] };
-        let blogFileSha = null;
-        let currentListTab = 'published'; // 'published' or 'trash'
-        let editingOriginalSlug = null;   // Untuk melacak artikel mana yang sedang di-edit
-        let savedEditorSelection = null;  // Untuk menyimpan posisi kursor di editor
+        let cachedBlogData = { items: [], trash: [] }, blogFileSha = null, currentListTab = 'published', editingOriginalSlug = null, savedEditorSelection = null;
+        const gId = (id) => document.getElementById(id);
 
-        // --- SISTEM LOGIN ---
         function checkSession() {
-            const isLoggedIn = sessionStorage.getItem('cms_logged_in');
-            const loginContainer = document.getElementById('login-container');
-            const dashboardContainer = document.getElementById('dashboard-container');
-
-            if (isLoggedIn === 'true') {
-                loginContainer.classList.add('hidden');
-                loginContainer.classList.remove('flex');
-                dashboardContainer.classList.remove('hidden');
-                loadSettings(); 
-            } else {
-                loginContainer.classList.remove('hidden');
-                loginContainer.classList.add('flex');
-                dashboardContainer.classList.add('hidden');
-            }
+            const isLog = sessionStorage.getItem('cms_logged_in') === 'true';
+            gId('login-container').classList.toggle('hidden', isLog);
+            gId('login-container').classList.toggle('flex', !isLog);
+            gId('dashboard-container').classList.toggle('hidden', !isLog);
+            if (isLog) loadSettings();
         }
 
         function checkLogin() {
-            const user = document.getElementById('login-user').value;
-            const pass = document.getElementById('login-pass').value;
-            const errorMsg = document.getElementById('login-error');
-
-            if (user === 'admin' && pass === 'adminxyz') {
-                errorMsg.classList.add('hidden');
-                sessionStorage.setItem('cms_logged_in', 'true');
-                
-                document.getElementById('login-container').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('login-container').style.opacity = '1';
-                    checkSession();
-                }, 300);
+            const err = gId('login-error');
+            if (gId('login-user').value === 'admin' && gId('login-pass').value === 'adminxyz') {
+                err.classList.add('hidden'); sessionStorage.setItem('cms_logged_in', 'true');
+                gId('login-container').style.opacity = '0'; setTimeout(() => { gId('login-container').style.opacity = '1'; checkSession(); }, 300);
             } else {
-                errorMsg.classList.remove('hidden');
-                setTimeout(() => errorMsg.classList.add('hidden'), 3000);
+                err.classList.remove('hidden'); setTimeout(() => err.classList.add('hidden'), 3000);
             }
         }
 
-        function logout() {
-            sessionStorage.removeItem('cms_logged_in');
-            document.getElementById('login-user').value = '';
-            document.getElementById('login-pass').value = '';
-            checkSession();
-        }
+        function logout() { sessionStorage.removeItem('cms_logged_in'); gId('login-user').value = ''; gId('login-pass').value = ''; checkSession(); }
 
-        // --- NAVIGASI MENU ---
         function switchMenu(menu) {
-            // Update Headers
-            if(menu === 'tulis') {
-                document.getElementById('page-title').innerText = editingOriginalSlug ? 'Edit Artikel' : 'Tulis Artikel Baru';
-            } else if(menu === 'daftar') {
-                document.getElementById('page-title').innerText = 'Daftar Artikel';
-            } else {
-                document.getElementById('page-title').innerText = 'Pengaturan GitHub';
-            }
-            
-            // Toggle Content Visibility
-            document.getElementById('section-tulis').classList.toggle('hidden', menu !== 'tulis');
-            document.getElementById('section-daftar').classList.toggle('hidden', menu !== 'daftar');
-            document.getElementById('section-pengaturan').classList.toggle('hidden', menu !== 'pengaturan');
-            
-            // Toggle Sidebar Active States
-            const btns = {
-                tulis: document.getElementById('menu-tulis'),
-                daftar: document.getElementById('menu-daftar'),
-                pengaturan: document.getElementById('menu-pengaturan')
-            };
-
-            for(let key in btns) {
-                if(key === menu) {
-                    btns[key].className = "flex items-center px-3 py-2.5 rounded-lg text-white bg-brand-primary font-medium transition-colors";
-                } else {
-                    btns[key].className = "flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors";
-                }
-            }
+            gId('page-title').innerText = menu === 'tulis' ? (editingOriginalSlug ? 'Edit Artikel' : 'Tulis Artikel Baru') : (menu === 'daftar' ? 'Daftar Artikel' : 'Pengaturan GitHub');
+            ['tulis', 'daftar', 'pengaturan'].forEach(m => {
+                gId(`section-${m}`).classList.toggle('hidden', m !== menu);
+                gId(`menu-${m}`).className = m === menu ? "flex items-center px-3 py-2.5 rounded-lg text-white bg-brand-primary font-medium transition-colors" : "flex items-center px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors";
+            });
         }
 
-        // --- EDITOR WYSIWYG & MANAJEMEN KURSOR ---
-        function execCmd(command, value = null) {
-            document.execCommand(command, false, value);
-            document.getElementById('editor').focus();
-        }
+        function execCmd(command, value = null) { document.execCommand(command, false, value); gId('editor').focus(); }
+        function changeTextColor(color) { restoreSelection(); document.execCommand('styleWithCSS', false, true); document.execCommand('foreColor', false, color); saveSelection(); }
+        function insertLink() { const url = prompt("Masukkan Link URL:"); if (url) execCmd('createLink', url); }
+        
+        gId('editor').addEventListener('keydown', e => { if (e.key === 'Enter') document.execCommand('formatBlock', false, 'p'); });
+        function saveSelection() { const sel = window.getSelection(); if (sel.getRangeAt && sel.rangeCount) savedEditorSelection = sel.getRangeAt(0); }
+        function restoreSelection() { if (savedEditorSelection) { const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(savedEditorSelection); } }
 
-        // PERBAIKAN: Fungsi khusus untuk pewarnaan agar blok teks tidak hilang saat digeser
-        function changeTextColor(color) {
-            restoreSelection(); // Kembalikan ke posisi teks yang diblok
-            document.execCommand('styleWithCSS', false, true);
-            document.execCommand('foreColor', false, color);
-            saveSelection(); // Amankan kembali blok yang baru agar siap digeser lagi
-        }
-
-        function insertLink() {
-            const url = prompt("Masukkan Link URL:");
-            if (url) execCmd('createLink', url);
-        }
-
-        // Paksa tekan Enter membuat tag <p> bukan <div>
-        document.getElementById('editor').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                document.execCommand('formatBlock', false, 'p');
-            }
-        });
-
-        // Menyimpan posisi kursor saat modal pop-up / color picker terbuka
-        function saveSelection() {
-            if (window.getSelection) {
-                const sel = window.getSelection();
-                if (sel.getRangeAt && sel.rangeCount) {
-                    savedEditorSelection = sel.getRangeAt(0);
-                }
-            }
-        }
-
-        // Mengembalikan posisi kursor ke tempat terakhir kali di-blok
-        function restoreSelection() {
-            if (savedEditorSelection) {
-                if (window.getSelection) {
-                    const sel = window.getSelection();
-                    sel.removeAllRanges();
-                    sel.addRange(savedEditorSelection);
-                }
-            }
-        }
-
-        // --- MANAJEMEN GITHUB SETTINGS ---
         function loadSettings() {
-            document.getElementById('gh-user').value = localStorage.getItem('gh_user') || '';
-            document.getElementById('gh-repo').value = localStorage.getItem('gh_repo') || '';
-            document.getElementById('gh-path').value = localStorage.getItem('gh_path') || 'assets/uploads';
-            document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
-            
-            if(document.getElementById('editor').innerHTML.trim() === '') {
-                document.getElementById('editor').innerHTML = '<p><br></p>';
-            }
+            ['gh-user', 'gh-repo', 'gh-token'].forEach(id => gId(id).value = localStorage.getItem(id.replace('-', '_')) || '');
+            gId('gh-path').value = localStorage.getItem('gh_path') || 'assets/uploads';
+            if(gId('editor').innerHTML.trim() === '') gId('editor').innerHTML = '<p><br></p>';
         }
 
         function saveGitHubSettings() {
-            localStorage.setItem('gh_user', document.getElementById('gh-user').value.trim());
-            localStorage.setItem('gh_repo', document.getElementById('gh-repo').value.trim());
-            localStorage.setItem('gh_path', document.getElementById('gh-path').value.trim());
-            localStorage.setItem('gh_token', document.getElementById('gh-token').value.trim());
-            showToast('Pengaturan GitHub berhasil disimpan ke browser!', 'success');
+            ['gh-user', 'gh-repo', 'gh-path', 'gh-token'].forEach(id => localStorage.setItem(id.replace('-', '_'), gId(id).value.trim()));
+            showToast('Pengaturan disimpan!', 'success');
         }
 
         function togglePassword() {
-            const input = document.getElementById('gh-token');
-            const icon = document.getElementById('eye-icon');
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.replace('fa-eye', 'fa-eye-slash');
-            } else {
-                input.type = "password";
-                icon.classList.replace('fa-eye-slash', 'fa-eye');
-            }
+            const inp = gId('gh-token'), ico = gId('eye-icon');
+            const isPass = inp.type === "password";
+            inp.type = isPass ? "text" : "password";
+            ico.className = isPass ? "fas fa-eye-slash" : "fas fa-eye";
         }
 
         function toggleImageTab(tab) {
-            const btnUpload = document.getElementById('tab-btn-upload');
-            const btnUrl = document.getElementById('tab-btn-url');
-            if(tab === 'upload') {
-                btnUpload.className = "text-sm font-medium text-emerald-600 border-b-2 border-emerald-600 pb-1";
-                btnUrl.className = "text-sm font-medium text-gray-500 hover:text-gray-700 pb-1";
-            } else {
-                btnUrl.className = "text-sm font-medium text-emerald-600 border-b-2 border-emerald-600 pb-1";
-                btnUpload.className = "text-sm font-medium text-gray-500 hover:text-gray-700 pb-1";
-            }
+            const act = "text-sm font-medium text-emerald-600 border-b-2 border-emerald-600 pb-1", inact = "text-sm font-medium text-gray-500 hover:text-gray-700 pb-1";
+            gId('tab-btn-upload').className = tab === 'upload' ? act : inact;
+            gId('tab-btn-url').className = tab === 'url' ? act : inact;
         }
 
-        // --- HELPERS GITHUB API ---
-        function createSafeSlug(text) {
-            return text.toString().toLowerCase()
-                .replace(/\s+/g, '-')           
-                .replace(/[^\w\-]+/g, '')       
-                .replace(/\-\-+/g, '-')         
-                .replace(/^-+/, '')             
-                .replace(/-+$/, '');            
-        }
-
-        function getAuthHeaders() {
-            const token = localStorage.getItem('gh_token');
-            return { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
-        }
-
+        const createSafeSlug = t => t.toString().toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-').replace(/^-+/, '').replace(/-+$/, '');
+        const getAuthHeaders = () => ({ 'Authorization': `Bearer ${localStorage.getItem('gh_token')}`, 'Content-Type': 'application/json' });
+        
         function checkConfig() {
-            const user = localStorage.getItem('gh_user');
-            const repo = localStorage.getItem('gh_repo');
-            const token = localStorage.getItem('gh_token');
-            if(!user || !repo || !token) {
-                showToast('Pengaturan GitHub belum lengkap!', 'error');
-                switchMenu('pengaturan'); 
-                return null;
-            }
-            return { user, repo, token };
+            const cfg = { user: localStorage.getItem('gh_user'), repo: localStorage.getItem('gh_repo'), token: localStorage.getItem('gh_token') };
+            if(!cfg.user || !cfg.repo || !cfg.token) { showToast('Pengaturan GitHub belum lengkap!', 'error'); switchMenu('pengaturan'); return null; }
+            return cfg;
         }
 
         async function fetchGitHubJSON(path) {
             const cfg = checkConfig(); if(!cfg) throw new Error("Config missing");
-            const apiUrl = `https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${path}`;
-            
-            const res = await fetch(apiUrl, { headers: getAuthHeaders(), cache: "no-store" });
+            const res = await fetch(`https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${path}`, { headers: getAuthHeaders(), cache: "no-store" });
             if (res.ok) {
                 const data = await res.json();
-                const jsonStr = decodeURIComponent(escape(atob(data.content)));
-                let parsed = JSON.parse(jsonStr);
-                if(!parsed.trash) parsed.trash = []; // backward compatibility
+                let parsed = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+                if(!parsed.trash) parsed.trash = [];
                 return { data: parsed, sha: data.sha };
-            } else if (res.status === 404) {
-                return { data: { items: [], trash: [] }, sha: null };
-            }
-            const err = await res.json();
-            throw new Error(err.message);
+            } else if (res.status === 404) return { data: { items: [], trash: [] }, sha: null };
+            throw new Error((await res.json()).message);
         }
 
         async function uploadTextToGithub(path, textContent, sha, commitMessage) {
             const cfg = checkConfig(); if(!cfg) throw new Error("Config missing");
-            const apiUrl = `https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${path}`;
-            const encodedContent = btoa(unescape(encodeURIComponent(textContent)));
-            
-            const bodyData = { message: commitMessage, content: encodedContent };
+            const bodyData = { message: commitMessage, content: btoa(unescape(encodeURIComponent(textContent))) };
             if (sha) bodyData.sha = sha;
-
-            const res = await fetch(apiUrl, { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify(bodyData) });
-            if(!res.ok) {
-                const err = await res.json();
-                throw new Error(err.message);
-            }
+            const res = await fetch(`https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${path}`, { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify(bodyData) });
+            if(!res.ok) throw new Error((await res.json()).message);
             return await res.json();
         }
 
-        // --- UPLOAD GAMBAR COVER ---
         async function uploadCoverImage() {
-            const fileInput = document.getElementById('cover-file');
-            if (!fileInput.files || fileInput.files.length === 0) { showToast('Pilih gambar terlebih dahulu!', 'error'); return; }
-
+            const fInp = gId('cover-file'); if (!fInp.files.length) return showToast('Pilih gambar!', 'error');
             const cfg = checkConfig(); if(!cfg) return;
-            let path = localStorage.getItem('gh_path') || '';
-
-            const file = fileInput.files[0];
-            const btn = document.getElementById('btn-upload-image');
-            const originalBtnText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengunggah...';
-            btn.disabled = true;
+            const file = fInp.files[0], btn = gId('btn-upload-image'), orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengunggah...'; btn.disabled = true;
 
             const reader = new FileReader();
-            reader.onload = async function(e) {
-                const base64Content = e.target.result.split(',')[1];
-                path = path.replace(/^\/|\/$/g, ''); 
-                const safeFileName = Date.now() + "-" + file.name.replace(/[^a-zA-Z0-9.]/g, '-');
-                const fullPath = path ? `${path}/${safeFileName}` : safeFileName;
-
-                const apiUrl = `https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${fullPath}`;
-
+            reader.onload = async (e) => {
+                const b64 = e.target.result.split(',')[1], pth = (localStorage.getItem('gh_path') || '').replace(/^\/|\/$/g, ''); 
+                const fullPath = (pth ? pth + '/' : '') + Date.now() + "-" + file.name.replace(/[^a-zA-Z0-9.]/g, '-');
                 try {
-                    const res = await fetch(apiUrl, {
-                        method: 'PUT',
-                        headers: getAuthHeaders(),
-                        body: JSON.stringify({ message: `Upload cover image: ${safeFileName}`, content: base64Content })
-                    });
-                    const data = await res.json();
+                    const res = await fetch(`https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${fullPath}`, { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify({ message: `Upload cover: ${fullPath}`, content: b64 }) });
                     if (res.ok) {
-                        showToast('Gambar berhasil diunggah!', 'success');
-                        document.getElementById('post-cover-url').value = `https://${cfg.user}.github.io/${cfg.repo}/${fullPath}`;
-                        toggleImageTab('url'); fileInput.value = ''; 
-                    } else { throw new Error(data.message); }
-                } catch (error) {
-                    showToast(`Gagal: ${error.message}`, 'error');
-                } finally {
-                    btn.innerHTML = originalBtnText; btn.disabled = false;
-                }
+                        showToast('Gambar diunggah!', 'success'); gId('post-cover-url').value = `https://${cfg.user}.github.io/${cfg.repo}/${fullPath}`;
+                        toggleImageTab('url'); fInp.value = ''; 
+                    } else throw new Error((await res.json()).message);
+                } catch (err) { showToast(`Gagal: ${err.message}`, 'error'); } finally { btn.innerHTML = orig; btn.disabled = false; }
             };
             reader.readAsDataURL(file);
         }
 
-        // --- FITUR SISIPKAN GAMBAR DI TENGAH TULISAN (INLINE) ---
-        function openInsertImageModal() {
-            document.getElementById('editor').focus();
-            saveSelection(); // Amankan posisi kursor
-            
-            document.getElementById('inline-image-file').value = '';
-            document.getElementById('inline-image-url').value = '';
-            document.getElementById('inline-image-alt').value = '';
-
-            const modal = document.getElementById('insert-image-modal');
-            const box = document.getElementById('insert-image-box');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                box.classList.remove('scale-95', 'opacity-0');
-                box.classList.add('scale-100', 'opacity-100');
-            }, 10);
+        function toggleModal(id, show) {
+            const m = gId(`${id}-modal`), b = gId(`${id}-box`);
+            if(show) { m.classList.remove('hidden'); setTimeout(() => { b.classList.remove('scale-95', 'opacity-0'); b.classList.add('scale-100', 'opacity-100'); }, 10); } 
+            else { b.classList.remove('scale-100', 'opacity-100'); b.classList.add('scale-95', 'opacity-0'); setTimeout(() => m.classList.add('hidden'), 200); }
         }
 
-        function closeInsertImageModal() {
-            const modal = document.getElementById('insert-image-modal');
-            const box = document.getElementById('insert-image-box');
-            box.classList.remove('scale-100', 'opacity-100');
-            box.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                const btn = document.getElementById('btn-insert-image-confirm');
-                if (btn) {
-                    btn.innerHTML = '<i class="fas fa-plus mr-2"></i> Sisipkan Sekarang';
-                    btn.disabled = false;
-                }
-            }, 200);
-        }
+        function openInsertImageModal() { gId('editor').focus(); saveSelection(); ['file','url','alt'].forEach(x => gId(`inline-image-${x}`).value = ''); toggleModal('insert-image', true); }
+        function closeInsertImageModal() { toggleModal('insert-image', false); setTimeout(() => { const b = gId('btn-insert-image-confirm'); if(b) { b.innerHTML = '<i class="fas fa-plus mr-2"></i> Sisipkan Sekarang'; b.disabled = false; } }, 200); }
 
         async function processInsertImage() {
-            const fileInput = document.getElementById('inline-image-file');
-            let imgUrl = document.getElementById('inline-image-url').value.trim();
-            const altText = document.getElementById('inline-image-alt').value.trim() || 'Gambar Artikel';
-            const btn = document.getElementById('btn-insert-image-confirm');
-            const originalBtnText = '<i class="fas fa-plus mr-2"></i> Sisipkan Sekarang';
+            const fInp = gId('inline-image-file'), alt = gId('inline-image-alt').value.trim() || 'Gambar Artikel', btn = gId('btn-insert-image-confirm'), orig = '<i class="fas fa-plus mr-2"></i> Sisipkan Sekarang';
+            let imgUrl = gId('inline-image-url').value.trim();
 
-            // Cek apakah user mengupload file baru
-            if (fileInput.files && fileInput.files.length > 0) {
+            if (fInp.files.length) {
                 const cfg = checkConfig(); if(!cfg) return;
-                let path = localStorage.getItem('gh_path') || '';
-                const file = fileInput.files[0];
-
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengunggah...';
-                btn.disabled = true;
-
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengunggah...'; btn.disabled = true;
                 try {
-                    const base64Content = await new Promise((resolve) => {
-                        const reader = new FileReader();
-                        reader.onload = (e) => resolve(e.target.result.split(',')[1]);
-                        reader.readAsDataURL(file);
-                    });
-
-                    path = path.replace(/^\/|\/$/g, '');
-                    const safeFileName = Date.now() + "-inline-" + file.name.replace(/[^a-zA-Z0-9.]/g, '-');
-                    const fullPath = path ? `${path}/${safeFileName}` : safeFileName;
-                    const apiUrl = `https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${fullPath}`;
-
-                    const res = await fetch(apiUrl, {
-                        method: 'PUT',
-                        headers: getAuthHeaders(),
-                        body: JSON.stringify({ message: `Upload inline image: ${safeFileName}`, content: base64Content })
-                    });
-                    const data = await res.json();
-
-                    if (res.ok) {
-                        imgUrl = `https://${cfg.user}.github.io/${cfg.repo}/${fullPath}`;
-                    } else { throw new Error(data.message); }
-                } catch (error) {
-                    showToast(`Gagal unggah gambar: ${error.message}`, 'error');
-                    btn.innerHTML = originalBtnText; btn.disabled = false;
-                    return;
-                }
+                    const b64 = await new Promise(r => { const rd = new FileReader(); rd.onload = e => r(e.target.result.split(',')[1]); rd.readAsDataURL(fInp.files[0]); });
+                    const pth = (localStorage.getItem('gh_path') || '').replace(/^\/|\/$/g, '');
+                    const fPath = (pth ? pth + '/' : '') + Date.now() + "-inline-" + fInp.files[0].name.replace(/[^a-zA-Z0-9.]/g, '-');
+                    const res = await fetch(`https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${fPath}`, { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify({ message: `Upload inline image`, content: b64 }) });
+                    if (res.ok) imgUrl = `https://${cfg.user}.github.io/${cfg.repo}/${fPath}`; else throw new Error((await res.json()).message);
+                } catch (err) { showToast(`Gagal unggah: ${err.message}`, 'error'); btn.innerHTML = orig; btn.disabled = false; return; }
             }
 
-            if (!imgUrl) {
-                showToast('Pilih file gambar atau masukkan URL!', 'error');
-                btn.innerHTML = originalBtnText; btn.disabled = false;
-                return;
-            }
-
-            // Kembalikan kursor ke posisi semula dan sisipkan tag <img>
-            closeInsertImageModal();
-            document.getElementById('editor').focus();
-            restoreSelection();
-
-            // Kita masukan tag <br> setelah gambar agar pengguna mudah mengetik kalimat berikutnya
-            const imgHtml = `<img src="${imgUrl}" alt="${altText}" /> <br>`;
-            document.execCommand('insertHTML', false, imgHtml);
-            
-            showToast('Gambar berhasil disisipkan!', 'success');
-            
-            btn.innerHTML = originalBtnText;
-            btn.disabled = false;
+            if (!imgUrl) return showToast('Pilih gambar atau URL!', 'error');
+            closeInsertImageModal(); gId('editor').focus(); restoreSelection();
+            document.execCommand('insertHTML', false, `<img src="${imgUrl}" alt="${alt}" /> <br>`);
+            showToast('Gambar disisipkan!', 'success'); btn.innerHTML = orig; btn.disabled = false;
         }
 
-        // --- FITUR DAFTAR ARTIKEL (FETCH & RENDER) ---
         async function fetchArticlesList() {
             try {
-                document.getElementById('article-list-body').innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-400"><i class="fas fa-spinner fa-spin text-2xl mb-2"></i><br>Menghubungkan ke GitHub...</td></tr>`;
-                const result = await fetchGitHubJSON('data/blog.json');
-                cachedBlogData = result.data;
-                blogFileSha = result.sha;
-                renderArticleList(currentListTab);
-            } catch (error) {
-                console.error(error);
-                document.getElementById('article-list-body').innerHTML = `<tr><td colspan="5" class="p-8 text-center text-red-500 bg-red-50"><i class="fas fa-exclamation-triangle text-xl mb-2"></i><br>Gagal memuat data: ${error.message}</td></tr>`;
-            }
+                gId('article-list-body').innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-400"><i class="fas fa-spinner fa-spin text-2xl mb-2"></i><br>Menghubungkan...</td></tr>`;
+                const { data, sha } = await fetchGitHubJSON('data/blog.json'); cachedBlogData = data; blogFileSha = sha; renderArticleList(currentListTab);
+            } catch (e) { gId('article-list-body').innerHTML = `<tr><td colspan="5" class="p-8 text-center text-red-500 bg-red-50">Gagal memuat: ${e.message}</td></tr>`; }
         }
 
         function renderArticleList(tab) {
             currentListTab = tab;
-            const btnPub = document.getElementById('tab-published');
-            const btnTrash = document.getElementById('tab-trash');
-            
-            if(tab === 'published') {
-                btnPub.className = "px-5 py-2 text-sm font-medium rounded-md bg-emerald-100 text-emerald-800 transition-colors shadow-sm";
-                btnTrash.className = "px-5 py-2 text-sm font-medium rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors";
-            } else {
-                btnTrash.className = "px-5 py-2 text-sm font-medium rounded-md bg-gray-200 text-gray-800 transition-colors shadow-sm";
-                btnPub.className = "px-5 py-2 text-sm font-medium rounded-md text-gray-500 hover:text-gray-700 hover:bg-emerald-50 transition-colors";
-            }
+            const act = "px-5 py-2 text-sm font-medium rounded-md transition-colors shadow-sm", inact = "px-5 py-2 text-sm font-medium rounded-md transition-colors";
+            gId('tab-published').className = tab === 'published' ? `${act} bg-emerald-100 text-emerald-800` : `${inact} text-gray-500 hover:text-gray-700 hover:bg-emerald-50`;
+            gId('tab-trash').className = tab === 'trash' ? `${act} bg-gray-200 text-gray-800` : `${inact} text-gray-500 hover:text-gray-700 hover:bg-gray-100`;
 
-            const tbody = document.getElementById('article-list-body');
-            const listToRender = tab === 'published' ? cachedBlogData.items : cachedBlogData.trash;
+            const list = tab === 'published' ? cachedBlogData.items : cachedBlogData.trash;
+            if(!list || !list.length) return gId('article-list-body').innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-400">Tidak ada artikel.</td></tr>`;
 
-            if(!listToRender || listToRender.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-gray-400"><i class="fas fa-folder-open text-3xl mb-3 opacity-50"></i><br>Tidak ada artikel di bagian ini.</td></tr>`;
-                return;
-            }
-
-            let html = '';
-            listToRender.forEach((post, index) => {
-                const slug = createSafeSlug(post.title);
-                const safeSlugStr = `'${slug.replace(/'/g, "\\'")}'`; 
-                
-                html += `
-                <tr class="hover:bg-gray-50/80 transition-colors group">
-                    <td class="p-4 text-center text-gray-400 font-medium">${index + 1}</td>
-                    <td class="p-4">
-                        <div class="font-bold text-gray-800 line-clamp-1">${post.title}</div>
-                        <div class="text-xs text-gray-400 mt-0.5 line-clamp-1">${post.excerpt}</div>
-                    </td>
-                    <td class="p-4">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200">
-                            ${post.category || 'Lain-Lain'}
-                        </span>
-                    </td>
-                    <td class="p-4 text-gray-500 text-sm whitespace-nowrap">
-                        <i class="far fa-calendar-alt mr-1"></i> ${post.date}
-                    </td>
-                    <td class="p-4 text-right pr-6 whitespace-nowrap">
-                        ${tab === 'published' ? `
-                            <button onclick="editArticle(${safeSlugStr})" class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white transition-colors border border-emerald-100 shadow-sm mr-1" title="Edit Artikel">
-                                <i class="fas fa-pencil-alt"></i>
-                            </button>
-                            <button onclick="confirmTrashArticle(${safeSlugStr})" class="w-8 h-8 rounded-lg bg-red-50 text-red-500 hover:bg-red-600 hover:text-white transition-colors border border-red-100 shadow-sm" title="Buang ke Sampah">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        ` : `
-                            <button onclick="confirmRestoreArticle(${safeSlugStr})" class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors border border-blue-100 shadow-sm mr-1" title="Kembalikan (Restore)">
-                                <i class="fas fa-undo-alt"></i>
-                            </button>
-                            <button onclick="confirmDeletePermanent(${safeSlugStr})" class="w-8 h-8 rounded-lg bg-gray-100 text-gray-500 hover:bg-gray-800 hover:text-white transition-colors border border-gray-200 shadow-sm" title="Hapus Permanen">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        `}
-                    </td>
-                </tr>`;
-            });
-            tbody.innerHTML = html;
+            gId('article-list-body').innerHTML = list.map((p, i) => {
+                const s = `'${createSafeSlug(p.title).replace(/'/g, "\\'")}'`;
+                const acts = tab === 'published' ? 
+                    `<button onclick="editArticle(${s})" class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white border border-emerald-100 mr-1"><i class="fas fa-pencil-alt"></i></button>
+                     <button onclick="confirmAction('trash', ${s})" class="w-8 h-8 rounded-lg bg-red-50 text-red-500 hover:bg-red-600 hover:text-white border border-red-100"><i class="fas fa-trash-alt"></i></button>` :
+                    `<button onclick="confirmAction('restore', ${s})" class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white border border-blue-100 mr-1"><i class="fas fa-undo-alt"></i></button>
+                     <button onclick="confirmAction('delete', ${s})" class="w-8 h-8 rounded-lg bg-gray-100 text-gray-500 hover:bg-gray-800 hover:text-white border border-gray-200"><i class="fas fa-times"></i></button>`;
+                return `<tr class="hover:bg-gray-50/80 group"><td class="p-4 text-center text-gray-400">${i + 1}</td><td class="p-4"><div class="font-bold text-gray-800 line-clamp-1">${p.title}</div><div class="text-xs text-gray-400 mt-0.5 line-clamp-1">${p.excerpt}</div></td><td class="p-4"><span class="px-2.5 py-0.5 rounded-full text-xs bg-gray-100 text-gray-600">${p.category || 'Lain-Lain'}</span></td><td class="p-4 text-gray-500 text-sm whitespace-nowrap"><i class="far fa-calendar-alt mr-1"></i> ${p.date}</td><td class="p-4 text-right pr-6 whitespace-nowrap">${acts}</td></tr>`;
+            }).join('');
         }
 
-        // --- FITUR EDIT ARTIKEL ---
         function editArticle(slug) {
-            const article = cachedBlogData.items.find(p => createSafeSlug(p.title) === slug);
-            if(!article) { showToast('Artikel tidak ditemukan di memori.', 'error'); return; }
-
-            document.getElementById('post-title').value = article.title;
-            document.getElementById('post-category').value = article.category;
-            document.getElementById('post-author').value = article.author === 'Admin' ? '' : (article.author || '');
-            document.getElementById('post-cover-url').value = article.thumbnail;
-            document.getElementById('editor').innerHTML = article.content;
-            
-            editingOriginalSlug = slug;
-            document.getElementById('publish-text').innerText = "Update Artikel";
-            document.getElementById('btn-cancel-edit').classList.remove('hidden');
-            document.getElementById('btn-cancel-edit').classList.add('flex');
-            toggleImageTab('url'); 
-
-            switchMenu('tulis');
+            const a = cachedBlogData.items.find(p => createSafeSlug(p.title) === slug); if(!a) return showToast('Artikel tak ditemukan.', 'error');
+            gId('post-title').value = a.title; gId('post-category').value = a.category; gId('post-author').value = a.author === 'Admin' ? '' : (a.author || ''); gId('post-cover-url').value = a.thumbnail; gId('editor').innerHTML = a.content;
+            editingOriginalSlug = slug; gId('publish-text').innerText = "Update Artikel"; gId('btn-cancel-edit').classList.replace('hidden', 'flex'); toggleImageTab('url'); switchMenu('tulis');
         }
 
         function cancelEdit() {
-            editingOriginalSlug = null;
-            document.getElementById('post-title').value = '';
-            document.getElementById('post-category').value = '';
-            document.getElementById('post-author').value = '';
-            document.getElementById('post-cover-url').value = '';
-            document.getElementById('editor').innerHTML = '<p><br></p>';
-            
-            document.getElementById('publish-text').innerText = "Simpan & Publikasikan";
-            document.getElementById('btn-cancel-edit').classList.add('hidden');
-            document.getElementById('btn-cancel-edit').classList.remove('flex');
-            
-            document.getElementById('page-title').innerText = 'Tulis Artikel Baru';
+            editingOriginalSlug = null; ['post-title','post-category','post-author','post-cover-url'].forEach(id => gId(id).value = ''); gId('editor').innerHTML = '<p><br></p>';
+            gId('publish-text').innerText = "Simpan & Publikasikan"; gId('btn-cancel-edit').classList.replace('flex', 'hidden'); gId('page-title').innerText = 'Tulis Artikel Baru';
         }
 
-        // --- FITUR TRASH & RESTORE (AKSI) ---
-        async function processListAction(slug, actionType) {
-            const tbody = document.getElementById('article-list-body');
-            tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-emerald-600"><i class="fas fa-spinner fa-spin text-2xl mb-2"></i><br>Memproses di GitHub...</td></tr>`;
-            
+        async function processListAction(slug, type) {
+            gId('article-list-body').innerHTML = `<tr><td colspan="5" class="p-8 text-center text-emerald-600">Memproses...</td></tr>`;
             try {
-                const result = await fetchGitHubJSON('data/blog.json');
-                let blogData = result.data;
-                const currentSha = result.sha;
-
-                let itemToMove = null;
-
-                if (actionType === 'trash') {
-                    const idx = blogData.items.findIndex(p => createSafeSlug(p.title) === slug);
-                    if(idx > -1) {
-                        itemToMove = blogData.items.splice(idx, 1)[0];
-                        blogData.trash.unshift(itemToMove);
-                    }
-                } else if (actionType === 'restore') {
-                    const idx = blogData.trash.findIndex(p => createSafeSlug(p.title) === slug);
-                    if(idx > -1) {
-                        itemToMove = blogData.trash.splice(idx, 1)[0];
-                        blogData.items.unshift(itemToMove);
-                    }
-                } else if (actionType === 'delete') {
-                    const idx = blogData.trash.findIndex(p => createSafeSlug(p.title) === slug);
-                    if(idx > -1) {
-                        blogData.trash.splice(idx, 1); 
-                    }
-                }
-
-                const updatedJsonStr = JSON.stringify(blogData, null, 2);
-                await uploadTextToGithub('data/blog.json', updatedJsonStr, currentSha, `Action ${actionType} on article: ${slug}`);
-                
-                showToast('Aksi berhasil dilakukan!', 'success');
-                await fetchArticlesList();
-
-            } catch (error) {
-                console.error(error);
-                showToast(`Gagal: ${error.message}`, 'error');
-                fetchArticlesList(); 
-            }
+                const { data: b, sha } = await fetchGitHubJSON('data/blog.json');
+                const s = t => createSafeSlug(t) === slug;
+                if (type === 'trash') { const i = b.items.findIndex(s); if(i > -1) b.trash.unshift(b.items.splice(i, 1)[0]); }
+                else if (type === 'restore') { const i = b.trash.findIndex(s); if(i > -1) b.items.unshift(b.trash.splice(i, 1)[0]); }
+                else { const i = b.trash.findIndex(s); if(i > -1) b.trash.splice(i, 1); }
+                await uploadTextToGithub('data/blog.json', JSON.stringify(b, null, 2), sha, `Action ${type}: ${slug}`);
+                showToast('Aksi berhasil!', 'success'); await fetchArticlesList();
+            } catch (e) { showToast(`Gagal: ${e.message}`, 'error'); fetchArticlesList(); }
         }
 
-        // --- CUSTOM CONFIRM MODAL LOGIC ---
-        function showConfirmModal(title, msg, btnColor, actionFunc) {
-            const modal = document.getElementById('confirm-modal');
-            const box = document.getElementById('confirm-box');
-            const yesBtn = document.getElementById('confirm-yes-btn');
-            
-            document.getElementById('confirm-title').innerText = title;
-            document.getElementById('confirm-msg').innerHTML = msg;
-            
-            yesBtn.className = `px-5 py-2 text-white rounded-lg font-medium transition-colors shadow-sm text-sm ${btnColor}`;
-            yesBtn.onclick = () => { closeConfirm(); actionFunc(); };
-            
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                box.classList.remove('scale-95', 'opacity-0');
-                box.classList.add('scale-100', 'opacity-100');
-            }, 10);
+        function showConfirmModal(title, msg, color, action) {
+            gId('confirm-title').innerText = title; gId('confirm-msg').innerHTML = msg;
+            const b = gId('confirm-yes-btn'); b.className = `px-5 py-2 text-white rounded-lg font-medium text-sm shadow-sm ${color}`; b.onclick = () => { closeConfirm(); action(); }; toggleModal('confirm', true);
+        }
+        function closeConfirm() { toggleModal('confirm', false); }
+        function confirmAction(type, slug) {
+            if(type==='trash') showConfirmModal('Buang Artikel', `Yakin buang ke tempat sampah?`, 'bg-red-600 hover:bg-red-700', () => processListAction(slug, 'trash'));
+            if(type==='restore') showConfirmModal('Kembalikan', `Artikel akan kembali tayang. Lanjutkan?`, 'bg-blue-600 hover:bg-blue-700', () => processListAction(slug, 'restore'));
+            if(type==='delete') showConfirmModal('Hapus Permanen', `Artikel akan dihapus selamanya!`, 'bg-gray-800 hover:bg-black', () => processListAction(slug, 'delete'));
         }
 
-        function closeConfirm() {
-            const modal = document.getElementById('confirm-modal');
-            const box = document.getElementById('confirm-box');
-            box.classList.remove('scale-100', 'opacity-100');
-            box.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 200);
-        }
-
-        function confirmTrashArticle(slug) {
-            showConfirmModal('Buang ke Sampah', `Yakin ingin membuang artikel ini?<br><span class="text-xs text-gray-400">Artikel tidak akan terhapus permanen.</span>`, 'bg-red-600 hover:bg-red-700', () => processListAction(slug, 'trash'));
-        }
-        function confirmRestoreArticle(slug) {
-            showConfirmModal('Kembalikan Artikel', `Artikel ini akan kembali tayang (Published) di website. Lanjutkan?`, 'bg-blue-600 hover:bg-blue-700', () => processListAction(slug, 'restore'));
-        }
-        function confirmDeletePermanent(slug) {
-            showConfirmModal('Hapus Permanen', `<strong>Peringatan!</strong> Artikel akan dihapus selamanya dari sistem. Anda tidak dapat mengembalikannya.`, 'bg-gray-800 hover:bg-black', () => processListAction(slug, 'delete'));
-        }
-
-        // --- PUBLISH ARTIKEL & BUAT CANGKANG HTML ---
         async function publishArticle() {
-            const title = document.getElementById('post-title').value.trim();
-            const category = document.getElementById('post-category').value.trim() || 'Lain-Lain';
-            const author = document.getElementById('post-author').value.trim() || 'Admin';
-            const coverUrl = document.getElementById('post-cover-url').value.trim() || 'https://via.placeholder.com/800x400?text=Kelas+Mengaji';
-            const contentHtml = document.getElementById('editor').innerHTML;
-            const rawText = document.getElementById('editor').innerText;
-
-            if(!title || !contentHtml || contentHtml === '<p><br></p>') { showToast('Judul dan isi artikel tidak boleh kosong!', 'error'); return; }
+            const tit = gId('post-title').value.trim(), cat = gId('post-category').value.trim() || 'Lain-Lain', aut = gId('post-author').value.trim() || 'Admin', cov = gId('post-cover-url').value.trim() || 'https://via.placeholder.com/800x400?text=Kelas+Mengaji', htm = gId('editor').innerHTML;
+            if(!tit || !htm || htm === '<p><br></p>') return showToast('Judul/Isi kosong!', 'error');
             if(!checkConfig()) return;
 
-            const btn = document.getElementById('btn-publish');
-            const originalBtnHtml = btn.innerHTML;
-            
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> <span id="publish-text">Memproses...</span>';
-            btn.disabled = true;
-
-            let isSuccess = false;
+            const btn = gId('btn-publish'), orig = btn.innerHTML; btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> <span id="publish-text">Memproses...</span>'; btn.disabled = true; let isOk = false;
 
             try {
-                const slug = createSafeSlug(title);
-                let dateStr = new Date().toISOString().split('T')[0];
-                const excerpt = rawText.substring(0, 140).replace(/\n/g, ' ') + '...';
-
-                const newArticle = { title, category, author, date: dateStr, thumbnail: coverUrl, excerpt, content: contentHtml };
-
-                const result = await fetchGitHubJSON('data/blog.json');
-                let blogData = result.data;
-                const blogSha = result.sha;
-
-                if (editingOriginalSlug) {
-                    const idx = blogData.items.findIndex(p => createSafeSlug(p.title) === editingOriginalSlug);
-                    if (idx > -1) {
-                        newArticle.date = blogData.items[idx].date; 
-                        blogData.items.splice(idx, 1); 
-                    }
-                } else {
-                    const existingIdx = blogData.items.findIndex(p => createSafeSlug(p.title) === slug);
-                    if(existingIdx > -1) {
-                        newArticle.date = blogData.items[existingIdx].date;
-                        blogData.items.splice(existingIdx, 1);
-                    }
-                }
+                const slug = createSafeSlug(tit), { data: b, sha } = await fetchGitHubJSON('data/blog.json');
+                const newA = { title: tit, category: cat, author: aut, date: new Date().toISOString().split('T')[0], thumbnail: cov, excerpt: gId('editor').innerText.substring(0,140).replace(/\n/g, ' ')+'...', content: htm };
                 
-                blogData.items.unshift(newArticle);
+                const rm = b.items.findIndex(p => createSafeSlug(p.title) === (editingOriginalSlug || slug));
+                if (rm > -1) { newA.date = b.items[rm].date; b.items.splice(rm, 1); }
+                b.items.unshift(newA);
+                await uploadTextToGithub('data/blog.json', JSON.stringify(b, null, 2), sha, `Update: ${tit}`);
 
-                const updatedJsonStr = JSON.stringify(blogData, null, 2);
-                await uploadTextToGithub('data/blog.json', updatedJsonStr, blogSha, `Publish/Update artikel: ${title}`);
-
-                const cangkangHtml = `<!DOCTYPE html>\n<html lang="id">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>${title} - Kelas Mengaji</title>\n    <meta property="og:title" content="${title}">\n    <meta property="og:description" content="${excerpt}">\n    <meta property="og:image" content="${coverUrl}">\n    <meta property="og:type" content="article">\n    <meta http-equiv="refresh" content="0; url=./?artikel=${slug}">\n    <script>window.location.replace("./?artikel=${slug}");<\/script>\n</head>\n<body style="font-family: sans-serif; text-align: center; padding-top: 50px;">\n    <p>Mengalihkan halaman ke artikel...</p>\n    <p><a href="./?artikel=${slug}" style="color: #059669; text-decoration: none;">Klik di sini jika tidak dialihkan otomatis.</a></p>\n</body>\n</html>`;
+                const htmlTpl = `<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${tit} - Kelas Mengaji</title><meta property="og:title" content="${tit}"><meta property="og:description" content="${newA.excerpt}"><meta property="og:image" content="${cov}"><meta property="og:type" content="article"><meta http-equiv="refresh" content="0; url=./?artikel=${slug}"><script>window.location.replace("./?artikel=${slug}");<\/script></head><body style="text-align:center;padding-top:50px"><p>Mengalihkan...</p><p><a href="./?artikel=${slug}">Klik di sini</a></p></body></html>`;
                 
-                let cangkangSha = null;
-                try {
-                    const cfg = checkConfig();
-                    const resCangkang = await fetch(`https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/blog/${slug}.html`, { headers: getAuthHeaders() });
-                    if (resCangkang.ok) cangkangSha = (await resCangkang.json()).sha;
-                } catch(e) {}
+                let cSha = null; try { const r = await fetch(`https://api.github.com/repos/${checkConfig().user}/${checkConfig().repo}/contents/blog/${slug}.html`, { headers: getAuthHeaders() }); if(r.ok) cSha = (await r.json()).sha; } catch(e){}
+                await uploadTextToGithub(`blog/${slug}.html`, htmlTpl, cSha, `Cangkang: ${tit}`);
 
-                await uploadTextToGithub(`blog/${slug}.html`, cangkangHtml, cangkangSha, `Upload Cangkang HTML: ${title}`);
-
-                showToast(editingOriginalSlug ? 'Artikel berhasil diperbarui!' : 'Artikel berhasil dipublikasi!', 'success');
-                isSuccess = true;
-                cancelEdit(); 
-
-            } catch (error) {
-                console.error(error);
-                showToast(`Gagal publikasi: ${error.message}`, 'error');
-            } finally {
-                if (isSuccess) {
-                    btn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> <span id="publish-text">Simpan & Publikasikan</span>';
-                } else {
-                    btn.innerHTML = originalBtnHtml;
-                }
-                btn.disabled = false;
-            }
+                showToast(editingOriginalSlug ? 'Diperbarui!' : 'Terpublikasi!', 'success'); isOk = true; cancelEdit(); 
+            } catch (e) { showToast(`Gagal: ${e.message}`, 'error'); } 
+            finally { btn.innerHTML = isOk ? '<i class="fas fa-paper-plane mr-2"></i> <span id="publish-text">Simpan & Publikasikan</span>' : orig; btn.disabled = false; }
         }
 
-        // --- TOAST NOTIFICATION ---
         function showToast(msg, type) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').innerText = msg;
-            const icon = document.getElementById('toast-icon');
-            if(type === 'error') { icon.className = 'fas fa-exclamation-circle text-red-400 mr-3 text-lg'; } 
-            else { icon.className = 'fas fa-check-circle text-emerald-400 mr-3 text-lg'; }
-            toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+            const t = gId('toast'), i = gId('toast-icon'); gId('toast-msg').innerText = msg;
+            i.className = type === 'error' ? 'fas fa-exclamation-circle text-red-400 mr-3 text-lg' : 'fas fa-check-circle text-emerald-400 mr-3 text-lg';
+            t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 4000);
         }
 
         window.onload = checkSession;
