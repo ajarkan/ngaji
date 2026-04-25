@@ -662,6 +662,67 @@
             nextBtn.onclick = () => galleryContainer.scrollBy({ left: galleryContainer.clientWidth * 0.75, behavior: 'smooth' });
         }
 
+		// --- MENGEMBALIKAN FITUR GESER (DRAG) BAR GALERI ---
+        const track = document.getElementById('progress-track');
+        let isDragging = false;
+        let startX = 0;
+        let initialScrollLeft = 0;
+
+        if (track) {
+            track.addEventListener('mousedown', startDrag);
+            track.addEventListener('touchstart', (e) => startDrag(e.touches[0]), { passive: false });
+        }
+
+        function startDrag(e) {
+            isDragging = true;
+            startX = e.clientX;
+            initialScrollLeft = galleryContainer.scrollLeft;
+            galleryContainer.style.scrollSnapType = 'none';
+            document.body.style.cursor = 'grabbing';
+            const bar = document.getElementById('progress-bar');
+            if (bar) bar.classList.add('cursor-grabbing', 'h-3');
+            
+            window.addEventListener('mousemove', onDragMove);
+            window.addEventListener('touchmove', onTouchDragMove, { passive: false });
+            window.addEventListener('mouseup', endDrag);
+            window.addEventListener('touchend', endDrag);
+        }
+
+        function onDragMove(e) {
+            if (!isDragging) return;
+            calculateScroll(e.clientX - startX);
+        }
+
+        function onTouchDragMove(e) {
+            if (!isDragging) return;
+            // Mencegah layar ikut tergulir saat menggeser bar di HP
+            if(e.cancelable) e.preventDefault(); 
+            calculateScroll(e.touches[0].clientX - startX);
+        }
+
+        function calculateScroll(deltaX) {
+            if (!track || !galleryContainer) return;
+            const trackWidth = track.clientWidth;
+            const maxScroll = galleryContainer.scrollWidth - galleryContainer.clientWidth;
+            // 0.85 adalah toleransi ruang aman track
+            const scrollDelta = (deltaX / (trackWidth * 0.85)) * maxScroll; 
+            galleryContainer.scrollLeft = initialScrollLeft + scrollDelta;
+        }
+
+        function endDrag() {
+            isDragging = false;
+            if (galleryContainer) galleryContainer.style.scrollSnapType = 'x mandatory';
+            document.body.style.cursor = 'default';
+            const bar = document.getElementById('progress-bar');
+            if (bar) bar.classList.remove('cursor-grabbing', 'h-3');
+            
+            window.removeEventListener('mousemove', onDragMove);
+            window.removeEventListener('touchmove', onTouchDragMove);
+            window.removeEventListener('mouseup', endDrag);
+            window.removeEventListener('touchend', endDrag);
+        }
+        // --- AKHIR FITUR GESER (DRAG) BAR GALERI ---
+
         // Logic Modal Galeri
         let currentModalIndex = -1;
         function openGalleryModal(id) {
