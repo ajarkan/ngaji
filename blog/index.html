@@ -55,11 +55,14 @@
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* FITUR BARU: CSS untuk Dropdown Daftar Isi (Accordion) */
+        /* CSS untuk Dropdown Daftar Isi (Accordion) */
         .toc-category-content { transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
         .toc-category-item.active .toc-category-content { opacity: 1; }
         .toc-icon { transition: transform 0.3s ease; }
         .toc-category-item.active .toc-icon { transform: rotate(180deg); }
+        
+        /* Progress bar animasi halus */
+        #audio-progress-bar { transition: width 0.1s linear; }
     </style>
 </head>
 <body class="text-gray-700 bg-gray-50 font-sans antialiased flex flex-col min-h-screen">
@@ -131,10 +134,39 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- FITUR BARU: AUDIO PLAYER PANEL (Hidden by default) -->
+                <div id="audio-player-wrapper" class="hidden px-5 pt-8 md:px-12 md:pt-10">
+                    <div class="bg-emerald-50/60 border border-emerald-100 rounded-2xl p-4 flex items-center shadow-sm relative overflow-hidden">
+                        <!-- Ornamen Latar -->
+                        <i class="fas fa-headphones-alt absolute -right-4 -bottom-4 text-6xl text-emerald-100/50 transform -rotate-12 pointer-events-none"></i>
+                        
+                        <audio id="article-audio" src="" preload="metadata"></audio>
+                        
+                        <!-- Play/Pause Button -->
+                        <button id="audio-play-btn" onclick="toggleAudio()" class="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-full bg-emerald-600 text-white hover:bg-emerald-700 hover:scale-105 transition-all shadow-md focus:outline-none z-10">
+                            <i class="fas fa-play ml-1" id="audio-play-icon"></i>
+                        </button>
+                        
+                        <!-- Progress Bar & Info -->
+                        <div class="flex-grow ml-4 flex flex-col justify-center z-10">
+                            <div class="flex justify-between items-end mb-1.5">
+                                <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider flex items-center">
+                                    <i class="fas fa-volume-up mr-2 text-emerald-500 animate-pulse hidden" id="audio-wave-icon"></i> Dengarkan Artikel
+                                </span>
+                                <span class="text-xs text-emerald-700/80 font-medium font-mono" id="audio-time">00:00 / 00:00</span>
+                            </div>
+                            <div class="relative w-full h-2.5 bg-white/60 rounded-full cursor-pointer overflow-hidden border border-emerald-100/50 shadow-inner" id="audio-progress-container" onclick="seekAudio(event)">
+                                <div class="absolute top-0 left-0 h-full bg-emerald-500 w-0 pointer-events-none transition-all duration-100 rounded-full" id="audio-progress-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Isi Artikel -->
                 <div class="p-5 md:p-12 prose max-w-none" id="detail-content"></div>
                 
-                <!-- FITUR BARU: SHARE BUTTONS -->
+                <!-- SHARE BUTTONS -->
                 <div id="share-section"></div>
                 
                 <!-- BACA JUGA / REKOMENDASI ARTIKEL BAWAH -->
@@ -173,7 +205,7 @@
             <button onclick="toggleTOC()" class="text-gray-500 hover:text-red-500 transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-white"><i class="fas fa-times"></i></button>
         </div>
         <div class="flex-1 overflow-y-auto p-4 toc-scrollbar" id="toc-list">
-            <!-- FITUR BARU: Dropdown Daftar Isi (Accordion) diisi di sini -->
+            <!-- Dropdown Daftar Isi -->
         </div>
         <div class="p-4 border-t border-gray-100 bg-gray-50 text-center text-xs text-gray-500">Total <span id="toc-count" class="font-bold text-emerald-600">0</span> Artikel</div>
     </div>
@@ -196,7 +228,7 @@
         let currentSearchQuery = "";
 
         const dummyArticles = [
-            { title: "Keutamaan Belajar Al-Quran", category: "Fiqih", date: "2024-05-01", author: "Ust. Fulan", thumbnail: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=800", excerpt: "Sebaik-baik kalian adalah yang mempelajari Al-Quran...", content: "Isi artikel..." },
+            { title: "Keutamaan Belajar Al-Quran", category: "Fiqih", date: "2024-05-01", author: "Ust. Fulan", thumbnail: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=800", audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", excerpt: "Sebaik-baik kalian adalah yang mempelajari Al-Quran...", content: "Isi artikel..." },
             { title: "Mengenal 4 Imam Mazhab", category: "Sejarah Islami", date: "2024-05-05", author: "Admin", thumbnail: "https://images.unsplash.com/photo-1519817650390-64a93db51149?w=800", excerpt: "Sejarah singkat tokoh besar Islam...", content: "Isi artikel..." }
         ];
 
@@ -227,18 +259,16 @@
             allArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
             
             renderTOC(); 
+            setupAudioPlayer();
 
-            // Cek URL untuk melihat apakah ada parameter '?artikel='
             const urlParams = new URLSearchParams(window.location.search);
             const artikelSlug = urlParams.get('artikel');
 
             if (artikelSlug) {
-                // Cari artikel yang slug-nya cocok
                 const index = allArticles.findIndex(post => createSafeSlug(post.title) === artikelSlug);
                 if (index !== -1) {
-                    // Jika ketemu, buka artikel tanpa mengubah history lagi
                     openArticle(index, false);
-                    setCategory("Semua"); // Set kategori default di background
+                    setCategory("Semua");
                 } else {
                     setCategory("Semua");
                 }
@@ -292,6 +322,9 @@
                 const safeSlug = createSafeSlug(post.title);
                 const fullArticleUrl = baseUrl + window.location.pathname + "?artikel=" + safeSlug; 
                 
+                // Tambahkan Ikon Audio di Card depan jika artikel punya audio
+                const audioIconHtml = post.audio ? `<span class="bg-emerald-100 text-emerald-700 text-[10px] px-2 py-0.5 rounded-md font-bold ml-2 shadow-sm"><i class="fas fa-volume-up mr-1"></i>Audio</span>` : '';
+
                 return `
                 <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all overflow-hidden group border border-gray-100 flex flex-col h-full cursor-pointer fade-in" onclick="openArticle(${allArticles.indexOf(post)})">
                     <div class="h-52 overflow-hidden relative">
@@ -306,7 +339,10 @@
                             <span>•</span>
                             <span><i class="far fa-user mr-1"></i> ${post.author || 'Admin'}</span>
                         </div>
-                        <h3 class="text-xl font-bold text-emerald-900 mb-3 group-hover:text-emerald-600">${highlightText(post.title, currentSearchQuery)}</h3>
+                        <h3 class="text-xl font-bold text-emerald-900 mb-3 group-hover:text-emerald-600 flex items-center flex-wrap">
+                            ${highlightText(post.title, currentSearchQuery)}
+                            ${audioIconHtml}
+                        </h3>
                         <p class="text-gray-500 text-sm mb-4 line-clamp-3">${highlightText(post.excerpt, currentSearchQuery)}</p>
                         <div class="mt-auto pt-4 border-t text-gold-500 font-bold text-sm">Baca Selengkapnya →</div>
                     </div>
@@ -316,14 +352,6 @@
             setTimeout(() => {
                 if (typeof DISQUSWIDGETS !== 'undefined') {
                     DISQUSWIDGETS.getCount({reset: true});
-                } else {
-                    const checkDisqus = setInterval(() => {
-                        if (typeof DISQUSWIDGETS !== 'undefined') {
-                            DISQUSWIDGETS.getCount({reset: true});
-                            clearInterval(checkDisqus);
-                        }
-                    }, 1000);
-                    setTimeout(() => clearInterval(checkDisqus), 5000);
                 }
             }, 500);
         }
@@ -338,20 +366,76 @@
             container.innerHTML = html;
         }
 
+        // --- SISTEM AUDIO PLAYER ---
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "00:00";
+            const m = Math.floor(seconds / 60);
+            const s = Math.floor(seconds % 60);
+            return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function setupAudioPlayer() {
+            const audio = document.getElementById('article-audio');
+            
+            audio.addEventListener('loadedmetadata', () => {
+                document.getElementById('audio-time').innerText = `00:00 / ${formatTime(audio.duration)}`;
+            });
+            
+            audio.addEventListener('timeupdate', () => {
+                if(audio.duration) {
+                    const percent = (audio.currentTime / audio.duration) * 100;
+                    document.getElementById('audio-progress-bar').style.width = `${percent}%`;
+                    document.getElementById('audio-time').innerText = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+                }
+            });
+            
+            audio.addEventListener('ended', () => {
+                const icon = document.getElementById('audio-play-icon');
+                const wave = document.getElementById('audio-wave-icon');
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play', 'ml-1');
+                wave.classList.add('hidden');
+                document.getElementById('audio-progress-bar').style.width = `0%`;
+                audio.currentTime = 0;
+            });
+        }
+
+        function toggleAudio() {
+            const audio = document.getElementById('article-audio');
+            const icon = document.getElementById('audio-play-icon');
+            const wave = document.getElementById('audio-wave-icon');
+            
+            if (audio.paused) {
+                audio.play();
+                icon.classList.remove('fa-play', 'ml-1');
+                icon.classList.add('fa-pause');
+                wave.classList.remove('hidden');
+            } else {
+                audio.pause();
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play', 'ml-1');
+                wave.classList.add('hidden');
+            }
+        }
+
+        function seekAudio(e) {
+            const audio = document.getElementById('article-audio');
+            if(!audio.duration) return;
+            const container = document.getElementById('audio-progress-container');
+            const rect = container.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const percent = clickX / rect.width;
+            audio.currentTime = percent * audio.duration;
+        }
+
         function generateInlineRelatedArticles(currentIndex) {
-            // 1. Ambil semua artikel kecuali artikel yang sedang dibaca saat ini
             const otherArticles = allArticles.filter((_, i) => i !== currentIndex);
             if (otherArticles.length === 0) return '';
-
-            // 2. Acak urutan artikel (Randomize)
             const shuffledArticles = [...otherArticles].sort(() => 0.5 - Math.random());
-            
-            // 3. Ambil 3 artikel teratas dari hasil acakan
             const related = shuffledArticles.slice(0, 3);
 
             let html = `<div class="my-8 md:my-12 border-y md:border-y-0 md:border-2 border-emerald-100 py-6 md:p-6 bg-emerald-50/40 md:rounded-2xl not-prose">`;
             html += `<h4 class="text-emerald-800 font-bold text-base md:text-lg mb-4 px-4 md:px-0 flex items-center"><i class="fas fa-book-reader mr-2 text-emerald-600"></i>Baca Juga:</h4>`;
-            
             html += `<div class="flex flex-nowrap overflow-x-auto snap-x snap-mandatory gap-4 pb-4 md:pb-0 px-4 md:px-0 md:grid md:grid-cols-3 md:gap-6 scrollbar-hide">`;
 
             related.forEach(post => {
@@ -370,12 +454,10 @@
                 </div>
                 `;
             });
-
             html += `</div></div>`;
             return html;
         }
 
-        // --- FITUR BARU: Copy to Clipboard ---
         function copyShareLink(url, btnElement) {
             const textArea = document.createElement("textarea");
             textArea.value = url;
@@ -398,14 +480,12 @@
             document.body.removeChild(textArea);
         }
 
-        // FUNGSI DIUBAH: Tambahan parameter updateUrl
         function openArticle(index, updateUrl = true) {
             const post = allArticles[index];
             if(!post) return;
 
             const safeSlug = createSafeSlug(post.title);
 
-            // Mengubah URL tanpa reload halaman (History API)
             if (updateUrl) {
                 const newUrl = window.location.pathname + "?artikel=" + safeSlug;
                 window.history.pushState({ articleIndex: index }, post.title, newUrl);
@@ -417,11 +497,30 @@
             document.getElementById('detail-date').innerText = new Date(post.date).toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'});
             document.getElementById('detail-author').innerText = post.author || 'Admin';
             
+            // --- Reset & Tampilkan Audio Player ---
+            const audioWrapper = document.getElementById('audio-player-wrapper');
+            const audioEl = document.getElementById('article-audio');
+            const playIcon = document.getElementById('audio-play-icon');
+            const waveIcon = document.getElementById('audio-wave-icon');
+            
+            audioEl.pause(); // Matikan audio sblmnya
+            playIcon.classList.remove('fa-pause');
+            playIcon.classList.add('fa-play', 'ml-1');
+            waveIcon.classList.add('hidden');
+            document.getElementById('audio-progress-bar').style.width = '0%';
+            document.getElementById('audio-time').innerText = '00:00 / 00:00';
+
+            if (post.audio && post.audio.trim() !== "") {
+                audioEl.src = post.audio.startsWith('/') ? '..' + post.audio : post.audio;
+                audioWrapper.classList.remove('hidden');
+            } else {
+                audioEl.src = "";
+                audioWrapper.classList.add('hidden');
+            }
+
             let content = post.content || "";
             content = content.replace(/\]\(\/assets\/uploads\//g, '](../assets/uploads/');
-            
             let contentHtml = marked.parse(content);
-            
             const inlineRelatedHtml = generateInlineRelatedArticles(index);
             contentHtml = contentHtml.replace(/<p>\s*\[BACA_JUGA\]\s*<\/p>|\[BACA_JUGA\]/gi, inlineRelatedHtml);
             
@@ -439,14 +538,13 @@
                 });
             }
 
-            // FITUR BARU: Render Tombol Share
             let baseUrlShare = window.location.origin;
             if (baseUrlShare === "null" || baseUrlShare.startsWith("file://")) {
                 baseUrlShare = "https://kelasngaji.web.id"; 
             }
             let pathShare = window.location.pathname;
             if (!pathShare.endsWith('/')) pathShare += '/';
-            pathShare = pathShare.replace(/index\.html$/, ''); // Bersihkan jika ada index.html
+            pathShare = pathShare.replace(/index\.html$/, ''); 
             
             const absoluteShareUrl = baseUrlShare + pathShare + safeSlug + ".html";
             const encodedShareUrl = encodeURIComponent(absoluteShareUrl);
@@ -475,8 +573,6 @@
             `;
 
             const relatedContainer = document.getElementById('related-articles-grid');
-            
-            // Bikin rekomendasi artikel bagian Bawah jadi Random (Acak) juga!
             const otherPosts = allArticles.filter((_, i) => i !== index);
             const shuffledPosts = [...otherPosts].sort(() => 0.5 - Math.random());
             const relatedPosts = shuffledPosts.slice(0, 4);
@@ -548,12 +644,13 @@
             }, 500);
         }
 
-        // FUNGSI DIUBAH: Tambahan parameter updateUrl
         function closeArticle(updateUrl = true) {
             document.getElementById('blog-detail-view').classList.add('hidden');
             document.getElementById('blog-list-view').classList.remove('hidden');
             
-            // Kembalikan URL ke path aslinya (tanpa parameter ?artikel=)
+            // Matikan audio saat tutup artikel
+            document.getElementById('article-audio').pause();
+            
             if (updateUrl) {
                 window.history.pushState({ articleIndex: null }, 'Blog', window.location.pathname);
             }
@@ -567,20 +664,17 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // FITUR BARU: Menangani ketika user menekan tombol 'Back' atau 'Forward' di Browser
         window.addEventListener('popstate', function(event) {
             const urlParams = new URLSearchParams(window.location.search);
             const artikelSlug = urlParams.get('artikel');
 
             if (artikelSlug) {
-                // Jika URL berubah dan punya parameter artikel, buka artikel tersebut
                 const index = allArticles.findIndex(post => createSafeSlug(post.title) === artikelSlug);
                 if (index !== -1) {
-                    openArticle(index, false); // false = jangan push history lagi
+                    openArticle(index, false);
                 }
             } else {
-                // Jika URL kembali ke halaman list utama, tutup artikel
-                closeArticle(false); // false = jangan push history lagi
+                closeArticle(false);
             }
         });
 
@@ -592,30 +686,25 @@
             else { p.classList.remove('translate-x-full'); o.classList.remove('hidden'); }
         }
 
-        // --- FITUR BARU: Toggle Animasi Dropdown Kategori ---
         function toggleTocCategory(btn) {
             const item = btn.parentElement;
             const content = item.querySelector('.toc-category-content');
             const isOpen = item.classList.contains('active');
 
-            // Tutup semua kategori lain terlebih dahulu
             document.querySelectorAll('.toc-category-item').forEach(other => {
                 other.classList.remove('active');
                 other.querySelector('.toc-category-content').style.maxHeight = null;
             });
 
-            // Buka yang di-klik jika sebelumnya tertutup
             if (!isOpen) {
                 item.classList.add('active');
                 content.style.maxHeight = content.scrollHeight + "px";
             }
         }
 
-        // --- FITUR BARU: Render Daftar Isi dengan Dropdown (Accordion) Berdasarkan Kategori ---
         function renderTOC() {
             document.getElementById('toc-count').innerText = allArticles.length;
             
-            // 1. Mengelompokkan artikel berdasarkan kategori
             const groupedArticles = {};
             allArticles.forEach((post, index) => {
                 const cat = post.category || "Lain-Lain";
@@ -625,22 +714,18 @@
 
             let html = '';
             
-            // 2. Merakit HTML Dropdown untuk setiap kategori
             for (const cat in groupedArticles) {
                 const articles = groupedArticles[cat];
                 if (articles.length === 0) continue;
 
                 html += `
                 <div class="toc-category-item mb-2 bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden transition-all">
-                    <!-- Tombol Judul Kategori -->
                     <button onclick="toggleTocCategory(this)" class="w-full flex justify-between items-center p-4 text-left hover:bg-emerald-50 transition-colors focus:outline-none">
                         <span class="font-bold text-emerald-800 text-sm uppercase tracking-wider">
                             ${cat} <span class="text-gray-400 text-xs ml-1 font-normal">(${articles.length})</span>
                         </span>
                         <i class="fas fa-chevron-down text-emerald-500 text-sm toc-icon"></i>
                     </button>
-                    
-                    <!-- Isi Dropdown (Daftar Judul Artikel) -->
                     <div class="toc-category-content bg-emerald-50/30">
                         <div class="p-2 border-t border-gray-50 space-y-1">
                 `;
