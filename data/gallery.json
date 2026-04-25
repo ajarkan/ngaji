@@ -29,6 +29,16 @@
       "label": "Peserta Program Takhassus",
       "image": "/assets/uploads/muro.png",
       "alt": "Muraja'ah Bareng"
+    },
+    {
+      "label": "Peserta Daurah",
+      "image": "/assets/uploads/muro.png",
+      "alt": "Duduk Bareng"
+    },
+    {
+      "label": "Peserta Daurah",
+      "image": "/assets/uploads/muro.png",
+      "alt": "Makan bareng"
     }
   ]
 }
