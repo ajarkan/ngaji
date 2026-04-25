@@ -228,12 +228,12 @@
                             <button onclick="execCmd('underline')" class="w-8 h-8 rounded hover:bg-gray-200 text-gray-700 underline" title="Garis Bawah (Ctrl+U)">U</button>
                             <div class="w-px h-6 bg-gray-300 mx-1"></div>
                             
-                            <!-- PERBAIKAN: Menambahkan onmousedown untuk amankan kursor, dan oninput agar ganti warna langsung jadi -->
+                            <!-- PERBAIKAN: Fungsi ubah warna kustom agar tidak hilang fokus -->
                             <div class="relative flex items-center">
                                 <label for="textColor" onmousedown="saveSelection()" class="cursor-pointer w-8 h-8 rounded hover:bg-gray-200 flex items-center justify-center text-gray-700" title="Warna Teks">
                                     <i class="fas fa-font"></i>
                                 </label>
-                                <input type="color" id="textColor" class="opacity-0 absolute w-0 h-0" oninput="restoreSelection(); execCmd('foreColor', this.value);">
+                                <input type="color" id="textColor" class="opacity-0 absolute w-0 h-0" oninput="changeTextColor(this.value)">
                             </div>
                             
                             <div class="w-px h-6 bg-gray-300 mx-1"></div>
@@ -457,12 +457,16 @@
 
         // --- EDITOR WYSIWYG & MANAJEMEN KURSOR ---
         function execCmd(command, value = null) {
-            // PERBAIKAN: Memaksa editor pakai <span> style ketimbang tag <font> kuno untuk mewarnai teks
-            if (command === 'foreColor') {
-                document.execCommand('styleWithCSS', false, true);
-            }
             document.execCommand(command, false, value);
             document.getElementById('editor').focus();
+        }
+
+        // PERBAIKAN: Fungsi khusus untuk pewarnaan agar blok teks tidak hilang saat digeser
+        function changeTextColor(color) {
+            restoreSelection(); // Kembalikan ke posisi teks yang diblok
+            document.execCommand('styleWithCSS', false, true);
+            document.execCommand('foreColor', false, color);
+            saveSelection(); // Amankan kembali blok yang baru agar siap digeser lagi
         }
 
         function insertLink() {
