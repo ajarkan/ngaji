@@ -796,8 +796,12 @@
 
             const btn = document.getElementById('btn-publish');
             const originalBtnHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Memproses...';
+            
+            // PERBAIKAN: Sisipkan span ber-ID agar tidak error saat di-reset
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> <span id="publish-text">Memproses...</span>';
             btn.disabled = true;
+
+            let isSuccess = false;
 
             try {
                 const slug = createSafeSlug(title);
@@ -850,13 +854,19 @@
 
                 // --- Selesai ---
                 showToast(editingOriginalSlug ? 'Artikel berhasil diperbarui!' : 'Artikel berhasil dipublikasi!', 'success');
+                isSuccess = true;
                 cancelEdit(); // Reset form
 
             } catch (error) {
                 console.error(error);
                 showToast(`Gagal publikasi: ${error.message}`, 'error');
             } finally {
-                btn.innerHTML = originalBtnHtml;
+                // PERBAIKAN: Reset tombol dengan benar berdasarkan status keberhasilan
+                if (isSuccess) {
+                    btn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> <span id="publish-text">Simpan & Publikasikan</span>';
+                } else {
+                    btn.innerHTML = originalBtnHtml;
+                }
                 btn.disabled = false;
             }
         }
