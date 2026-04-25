@@ -129,7 +129,7 @@
             <header class="h-16 flex items-center justify-between px-8 border-b border-gray-200 bg-white shadow-sm z-10 flex-shrink-0">
                 <div class="flex items-center gap-4">
                     <h1 class="text-xl font-bold text-gray-800" id="page-title">Tulis Artikel Baru</h1>
-                    <!-- Tombol Batal Edit (Hanya Muncul Saat Mode Edit) -->
+                    <!-- Tombol Batal Edit -->
                     <button id="btn-cancel-edit" onclick="cancelEdit()" class="hidden bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1.5 rounded-lg transition-colors items-center">
                         <i class="fas fa-times mr-1.5"></i> Batal Edit
                     </button>
@@ -228,12 +228,12 @@
                             <button onclick="execCmd('underline')" class="w-8 h-8 rounded hover:bg-gray-200 text-gray-700 underline" title="Garis Bawah (Ctrl+U)">U</button>
                             <div class="w-px h-6 bg-gray-300 mx-1"></div>
                             
-                            <!-- Text Color -->
+                            <!-- PERBAIKAN: Menambahkan onmousedown untuk amankan kursor, dan oninput agar ganti warna langsung jadi -->
                             <div class="relative flex items-center">
-                                <label for="textColor" class="cursor-pointer w-8 h-8 rounded hover:bg-gray-200 flex items-center justify-center text-gray-700" title="Warna Teks">
+                                <label for="textColor" onmousedown="saveSelection()" class="cursor-pointer w-8 h-8 rounded hover:bg-gray-200 flex items-center justify-center text-gray-700" title="Warna Teks">
                                     <i class="fas fa-font"></i>
                                 </label>
-                                <input type="color" id="textColor" class="opacity-0 absolute w-0 h-0" onchange="execCmd('foreColor', this.value)">
+                                <input type="color" id="textColor" class="opacity-0 absolute w-0 h-0" oninput="restoreSelection(); execCmd('foreColor', this.value);">
                             </div>
                             
                             <div class="w-px h-6 bg-gray-300 mx-1"></div>
@@ -457,6 +457,10 @@
 
         // --- EDITOR WYSIWYG & MANAJEMEN KURSOR ---
         function execCmd(command, value = null) {
+            // PERBAIKAN: Memaksa editor pakai <span> style ketimbang tag <font> kuno untuk mewarnai teks
+            if (command === 'foreColor') {
+                document.execCommand('styleWithCSS', false, true);
+            }
             document.execCommand(command, false, value);
             document.getElementById('editor').focus();
         }
@@ -473,7 +477,7 @@
             }
         });
 
-        // Menyimpan posisi kursor saat modal pop-up terbuka
+        // Menyimpan posisi kursor saat modal pop-up / color picker terbuka
         function saveSelection() {
             if (window.getSelection) {
                 const sel = window.getSelection();
@@ -483,7 +487,7 @@
             }
         }
 
-        // Mengembalikan posisi kursor
+        // Mengembalikan posisi kursor ke tempat terakhir kali di-blok
         function restoreSelection() {
             if (savedEditorSelection) {
                 if (window.getSelection) {
@@ -668,7 +672,6 @@
             box.classList.add('scale-95', 'opacity-0');
             setTimeout(() => {
                 modal.classList.add('hidden');
-                // PERBAIKAN: Reset tombol ke kondisi awal saat ditutup
                 const btn = document.getElementById('btn-insert-image-confirm');
                 if (btn) {
                     btn.innerHTML = '<i class="fas fa-plus mr-2"></i> Sisipkan Sekarang';
@@ -739,7 +742,6 @@
             
             showToast('Gambar berhasil disisipkan!', 'success');
             
-            // PERBAIKAN: Reset tombol agar siap digunakan lagi
             btn.innerHTML = originalBtnText;
             btn.disabled = false;
         }
