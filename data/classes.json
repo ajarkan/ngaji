@@ -34,6 +34,23 @@
         "Makanan bergizi",
         "MBG yang nikmat dan tidak nikmat"
       ]
+    },
+    {
+      "id": "fiqih",
+      "title": "Fiqih Ibadah",
+      "isOpen": false,
+      "badge": "Offline",
+      "img": "/assets/uploads/photo-1519817650390-64a93db51149.jpg",
+      "desc": "Coba dulu tes",
+      "price": "Rp. 30.000 / Bulan",
+      "brosurLink": "https://kelasngaji.web.id/quran/",
+      "formLink": "https://form.kelasngaji.web.id/?kategori=Baca%20Al-Quran",
+      "syllabus": [
+        "Yang penting Hepi",
+        "Seru-seruan",
+        "Makanan bergizi",
+        "MBG yang nikmat dan tidak nikmat"
+      ]
     }
   ]
 }
