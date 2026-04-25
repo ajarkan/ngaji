@@ -666,7 +666,15 @@
             const box = document.getElementById('insert-image-box');
             box.classList.remove('scale-100', 'opacity-100');
             box.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 200);
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                // PERBAIKAN: Reset tombol ke kondisi awal saat ditutup
+                const btn = document.getElementById('btn-insert-image-confirm');
+                if (btn) {
+                    btn.innerHTML = '<i class="fas fa-plus mr-2"></i> Sisipkan Sekarang';
+                    btn.disabled = false;
+                }
+            }, 200);
         }
 
         async function processInsertImage() {
@@ -674,6 +682,7 @@
             let imgUrl = document.getElementById('inline-image-url').value.trim();
             const altText = document.getElementById('inline-image-alt').value.trim() || 'Gambar Artikel';
             const btn = document.getElementById('btn-insert-image-confirm');
+            const originalBtnText = '<i class="fas fa-plus mr-2"></i> Sisipkan Sekarang';
 
             // Cek apakah user mengupload file baru
             if (fileInput.files && fileInput.files.length > 0) {
@@ -681,7 +690,6 @@
                 let path = localStorage.getItem('gh_path') || '';
                 const file = fileInput.files[0];
 
-                const originalBtnText = btn.innerHTML;
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengunggah...';
                 btn.disabled = true;
 
@@ -716,6 +724,7 @@
 
             if (!imgUrl) {
                 showToast('Pilih file gambar atau masukkan URL!', 'error');
+                btn.innerHTML = originalBtnText; btn.disabled = false;
                 return;
             }
 
@@ -729,6 +738,10 @@
             document.execCommand('insertHTML', false, imgHtml);
             
             showToast('Gambar berhasil disisipkan!', 'success');
+            
+            // PERBAIKAN: Reset tombol agar siap digunakan lagi
+            btn.innerHTML = originalBtnText;
+            btn.disabled = false;
         }
 
         // --- FITUR DAFTAR ARTIKEL (FETCH & RENDER) ---
