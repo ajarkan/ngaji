@@ -642,7 +642,7 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                 `;
             }
 
-            // ---> C. UBAH TESTIMONI (SEKARANG DINAMIS BISA 2 ATAU 3) <---
+            // ---> C. UBAH TESTIMONI <---
             const testiTitle1El = document.querySelector('section.bg-gray-50 h2.text-xl');
             if (testiTitle1El && cmsData.testiTitle1) testiTitle1El.innerText = cmsData.testiTitle1;
 
@@ -667,14 +667,13 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
 
                 testiHTML += createCard(cmsData.testiName1, cmsData.testiRole1, cmsData.testiQuote1, cmsData.testiImage1);
                 testiHTML += createCard(cmsData.testiName2, cmsData.testiRole2, cmsData.testiQuote2, cmsData.testiImage2);
-                
                 if (cmsData.showTesti3) {
                     testiHTML += createCard(cmsData.testiName3, cmsData.testiRole3, cmsData.testiQuote3, cmsData.testiImage3);
                 }
                 testiContainer.innerHTML = testiHTML;
             }
 
-            // ---> D. UBAH BAGIAN "MEMPERKENALKAN" & GAMBAR <---
+            // ---> D. UBAH BAGIAN "MEMPERKENALKAN" <---
             const introSubEl = document.querySelector('section.bg-secondary span.tracking-widest');
             if (introSubEl && cmsData.introSub) introSubEl.innerText = cmsData.introSub;
 
@@ -688,18 +687,17 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
             const introImageEl = document.querySelector('section.bg-secondary img[alt="Mockup Buku Tahsin Qarana"]');
             if (introImageEl && cmsData.introImage) introImageEl.src = cmsData.introImage;
 
-            // ---> E. UBAH BAGIAN "UNTUK SIAPA SAJA" <---
-            const forWhoTitleEl = document.querySelector('h2.text-secondary:nth-of-type(1)'); // Mencari H2 "Untuk siapa saja?"
-            // Kita gunakan seleksi yang lebih spesifik karena ada banyak h2
-            const allH2s = document.querySelectorAll('h2.text-secondary');
+            // FUNGSI PENCARI ELEMEN H2
+            const allH2s = document.querySelectorAll('h2.text-2xl.font-bold.text-secondary');
+
+            // ---> E. UBAH "UNTUK SIAPA SAJA" <---
             let forWhoSectionH2 = null;
-            allH2s.forEach(h2 => { if(h2.innerText.includes('Untuk siapa saja')) forWhoSectionH2 = h2; });
+            allH2s.forEach(h2 => { if(h2.innerText.includes('Untuk siapa saja') || h2.innerText === cmsData.forWhoTitle) forWhoSectionH2 = h2; });
             
             if(forWhoSectionH2 && cmsData.forWhoTitle) {
                 forWhoSectionH2.innerText = cmsData.forWhoTitle;
                 const forWhoContainer = forWhoSectionH2.nextElementSibling;
                 if(forWhoContainer && forWhoContainer.classList.contains('space-y-6')) {
-                    // Update konten di dalam container "Untuk siapa saja"
                     const createForWhoItem = (target, desc, icon, colorClass, textClass) => {
                         if(!target && !desc) return '';
                         return `
@@ -713,19 +711,29 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                             </div>
                         </div>`;
                     };
-                    
+                    const forWhoArray = cmsData.forWhoList || [
+                        {target: cmsData.fwTarget1, icon: cmsData.fwIcon1, desc: cmsData.fwDesc1},
+                        {target: cmsData.fwTarget2, icon: cmsData.fwIcon2, desc: cmsData.fwDesc2},
+                        {target: cmsData.fwTarget3, icon: cmsData.fwIcon3, desc: cmsData.fwDesc3}
+                    ].filter(item => item && (item.target || item.desc));
+
+                    const colorThemes = [
+                        {bg: 'bg-blue-100', text: 'text-blue-600'},
+                        {bg: 'bg-orange-100', text: 'text-orange-600'},
+                        {bg: 'bg-primary/20', text: 'text-primary'}
+                    ];
                     let forWhoHTML = '';
-                    forWhoHTML += createForWhoItem(cmsData.fwTarget1, cmsData.fwDesc1, cmsData.fwIcon1, 'bg-blue-100', 'text-blue-600');
-                    forWhoHTML += createForWhoItem(cmsData.fwTarget2, cmsData.fwDesc2, cmsData.fwIcon2, 'bg-orange-100', 'text-orange-600');
-                    forWhoHTML += createForWhoItem(cmsData.fwTarget3, cmsData.fwDesc3, cmsData.fwIcon3, 'bg-primary/20', 'text-primary');
-                    
+                    forWhoArray.forEach((item, index) => {
+                        const theme = colorThemes[index % colorThemes.length];
+                        forWhoHTML += createForWhoItem(item.target, item.desc, item.icon, theme.bg, theme.text);
+                    });
                     forWhoContainer.innerHTML = forWhoHTML;
                 }
             }
 
-            // ---> F. UBAH BAGIAN "APA YANG DIDAPATKAN" <---
+            // ---> F. UBAH "APA YANG DIDAPATKAN" <---
             let benefitsSectionH2 = null;
-            allH2s.forEach(h2 => { if(h2.innerText.includes('Dapatkan Dari Kelas Ini')) benefitsSectionH2 = h2; });
+            allH2s.forEach(h2 => { if(h2.innerText.includes('Dapatkan Dari Kelas Ini') || h2.innerText === cmsData.benefitsTitle) benefitsSectionH2 = h2; });
 
             if(benefitsSectionH2 && cmsData.benefitsTitle) {
                 benefitsSectionH2.innerText = cmsData.benefitsTitle;
@@ -740,17 +748,130 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                             <p class="text-gray-500 text-sm">${desc}</p>
                         </div>`;
                     };
+                    const benefitsArray = cmsData.benefitsList || [
+                        {title: cmsData.benTitle1, desc: cmsData.benDesc1},
+                        {title: cmsData.benTitle2, desc: cmsData.benDesc2},
+                        {title: cmsData.benTitle3, desc: cmsData.benDesc3}
+                    ].filter(item => item && (item.title || item.desc));
 
                     let benHTML = '';
-                    benHTML += createBenefitItem(cmsData.benTitle1, cmsData.benDesc1);
-                    benHTML += createBenefitItem(cmsData.benTitle2, cmsData.benDesc2);
-                    benHTML += createBenefitItem(cmsData.benTitle3, cmsData.benDesc3);
-                    
+                    benefitsArray.forEach(item => { benHTML += createBenefitItem(item.title, item.desc); });
                     benefitsContainer.innerHTML = benHTML;
                 }
             }
 
-            // ---> G. UBAH BAGIAN PROMO KELAS LAINNYA <---
+            // ---> G. UBAH "MANFAAT MENGIKUTI KELAS" (BARU) <---\
+            let manfaatSectionH2 = null;
+            allH2s.forEach(h2 => { if(h2.innerText.includes('Manfaat Mengikuti Kelas') || h2.innerText === cmsData.manfaatTitle) manfaatSectionH2 = h2; });
+
+            if(manfaatSectionH2 && cmsData.manfaatTitle) {
+                manfaatSectionH2.innerText = cmsData.manfaatTitle;
+                const manfaatContainer = manfaatSectionH2.nextElementSibling; // div grid grid-cols-1
+                if(manfaatContainer && manfaatContainer.classList.contains('grid')) {
+                    const createManfaatItem = (title, icon, colorClass, textClass) => {
+                        if(!title) return '';
+                        return `
+                        <div class="bg-white p-5 rounded-xl shadow-md flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full ${colorClass} ${textClass} flex items-center justify-center">
+                                <i data-lucide="${icon || 'check'}" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-semibold text-gray-700">${title}</span>
+                        </div>`;
+                    };
+
+                    const colorThemes = [
+                        {bg: 'bg-blue-50', text: 'text-blue-500'},
+                        {bg: 'bg-emerald-50', text: 'text-emerald-500'},
+                        {bg: 'bg-orange-50', text: 'text-orange-500'},
+                        {bg: 'bg-purple-50', text: 'text-purple-500'}
+                    ];
+
+                    let mfHTML = '';
+                    if(cmsData.manfaatList) {
+                        cmsData.manfaatList.forEach((item, index) => {
+                            const theme = colorThemes[index % colorThemes.length];
+                            mfHTML += createManfaatItem(item.title, item.icon, theme.bg, theme.text);
+                        });
+                        manfaatContainer.innerHTML = mfHTML;
+                    }
+                }
+            }
+
+            // ---> H. UBAH "BONUS KELAS KURSUS" (BARU) <---\
+            let bonusSectionH2 = null;
+            allH2s.forEach(h2 => { if(h2.innerText.includes('Bonus Kelas Kursus') || h2.innerText === cmsData.bonusTitle) bonusSectionH2 = h2; });
+
+            if(bonusSectionH2 && cmsData.bonusTitle) {
+                bonusSectionH2.innerText = cmsData.bonusTitle;
+                // Update Sub Title ("Bonus Bagi Anda")
+                const bonusSubEl = bonusSectionH2.previousElementSibling;
+                if(bonusSubEl && bonusSubEl.tagName === 'P' && cmsData.bonusSub) {
+                    bonusSubEl.innerText = cmsData.bonusSub;
+                }
+
+                const bonusContainer = bonusSectionH2.nextElementSibling; // space-y-4
+                if(bonusContainer && bonusContainer.classList.contains('space-y-4')) {
+                    const createBonusItem = (title, desc, icon) => {
+                        if(!title) return '';
+                        return `
+                        <div class="bg-white rounded-xl shadow-sm p-4 flex gap-4">
+                            <div class="w-16 h-16 bg-gray-100 rounded-lg flex-shrink-0 flex items-center justify-center">
+                                <i data-lucide="${icon || 'gift'}" class="text-primary w-8 h-8"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-secondary">${title}</h3>
+                                <p class="text-xs text-gray-500 mt-1">${desc}</p>
+                            </div>
+                        </div>`;
+                    };
+
+                    let bnHTML = '';
+                    if(cmsData.bonusList) {
+                        cmsData.bonusList.forEach(item => {
+                            bnHTML += createBonusItem(item.title, item.desc, item.icon);
+                        });
+                        bonusContainer.innerHTML = bnHTML;
+                    }
+                }
+            }
+
+            // ---> I. UBAH "PRICING (BERAPA BIAYANYA?)" (BARU) <---\
+            const pricingSection = document.getElementById('daftar');
+            if(pricingSection) {
+                const pricingTitleEl = pricingSection.querySelector('h2');
+                if(pricingTitleEl && cmsData.priceTitle) pricingTitleEl.innerText = cmsData.priceTitle;
+
+                const pricingDescEl = pricingSection.querySelector('p.max-w-xs');
+                if(pricingDescEl && cmsData.priceDesc) pricingDescEl.innerText = cmsData.priceDesc;
+
+                const card = pricingSection.querySelector('.bg-white.border-2.border-primary');
+                if(card) {
+                    const badgeEl = card.querySelector('.bg-red-500');
+                    if(badgeEl && cmsData.priceBadge) badgeEl.innerText = cmsData.priceBadge;
+
+                    const originalPriceEl = card.querySelector('p.line-through');
+                    if(originalPriceEl && cmsData.priceOriginal) originalPriceEl.innerText = cmsData.priceOriginal;
+
+                    const currentPriceContainer = card.querySelector('.text-4xl');
+                    if(currentPriceContainer && cmsData.priceCurrent) {
+                        currentPriceContainer.innerHTML = `<span class="text-sm align-top text-gray-500 font-normal">Rp</span> ${cmsData.priceCurrent} <span class="text-sm text-gray-500 font-normal">${cmsData.priceUnit || ''}</span>`;
+                    }
+
+                    const noteEl = card.querySelector('p.text-xs.mb-6');
+                    if(noteEl && cmsData.priceNote) noteEl.innerText = cmsData.priceNote;
+
+                    const btnEl = card.querySelector('a');
+                    if(btnEl) {
+                        if(cmsData.priceBtnText) btnEl.innerText = cmsData.priceBtnText;
+                        if(cmsData.priceBtnLink) btnEl.href = cmsData.priceBtnLink;
+                    }
+
+                    const footerEl = card.querySelector('p.text-\\[10px\\]');
+                    if(footerEl && cmsData.priceFooter) footerEl.innerText = cmsData.priceFooter;
+                }
+            }
+
+            // ---> J. UBAH BAGIAN PROMO KELAS LAINNYA <---
             const promoSection = document.querySelector('section.bg-secondary.text-white.text-center');
             if(promoSection) {
                 const promoTitleEl = promoSection.querySelector('h2');
@@ -773,6 +894,5 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
         }
     });
 </script>
- 
 </body>
 </html>
