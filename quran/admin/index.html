@@ -15,7 +15,9 @@
 </head>
 <body class="bg-gray-100 text-slate-800 h-screen overflow-hidden">
 
-    <!-- HALAMAN LOGIN -->
+    <!-- ========================================== -->
+    <!-- 1. HALAMAN LOGIN -->
+    <!-- ========================================== -->
     <div id="login-screen" class="flex items-center justify-center h-full fade-in">
         <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border-t-4 border-emerald-500">
             <div class="text-center mb-8">
@@ -25,198 +27,480 @@
                 <h1 class="text-2xl font-bold text-slate-800">Login Administrator</h1>
                 <p class="text-sm text-gray-500 mt-1">CMS Website Pondok Pesantren</p>
             </div>
+
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-slate-700 mb-1">Username</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i data-lucide="user" class="w-5 h-5 text-gray-400"></i></div>
-                        <input type="text" id="username" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="Masukkan username" required>
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-lucide="user" class="w-5 h-5 text-gray-400"></i>
+                        </div>
+                        <input type="text" id="username" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Masukkan username" required>
                     </div>
                 </div>
+
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i data-lucide="lock" class="w-5 h-5 text-gray-400"></i></div>
-                        <input type="password" id="password" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="Masukkan password" required>
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-lucide="lock" class="w-5 h-5 text-gray-400"></i>
+                        </div>
+                        <input type="password" id="password" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Masukkan password" required>
                     </div>
                     <p id="login-error" class="text-red-500 text-xs mt-2 hidden">Username atau password salah!</p>
                 </div>
-                <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-emerald-700 transition">Masuk ke CMS</button>
+
+                <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-emerald-700 transition duration-200">
+                    Masuk ke CMS
+                </button>
             </form>
             <p class="text-center text-xs text-gray-400 mt-8">© 2026 Sistem Pengelola Konten Pesantren</p>
         </div>
     </div>
 
-    <!-- HALAMAN DASHBOARD CMS -->
+
+    <!-- ========================================== -->
+    <!-- 2. HALAMAN DASHBOARD CMS -->
+    <!-- ========================================== -->
     <div id="dashboard-screen" class="hidden h-full flex bg-gray-50 fade-in">
+        
         <!-- Sidebar -->
         <aside class="w-64 bg-slate-800 text-white flex flex-col h-full shadow-lg z-10">
             <div class="p-6 border-b border-slate-700 flex items-center gap-3">
                 <i data-lucide="layout-dashboard" class="w-6 h-6 text-emerald-400"></i>
                 <h2 class="text-lg font-bold">CMS Panel</h2>
             </div>
+            
             <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
                 <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 mt-4 px-2">Menu Utama</p>
-                <button onclick="switchTab('tab-umum')" id="btn-tab-umum" class="w-full flex items-center gap-3 px-4 py-3 bg-emerald-600 rounded-lg text-sm font-medium transition tab-btn"><i data-lucide="palette" class="w-4 h-4"></i> Tampilan Dasar</button>
-                <button onclick="switchTab('tab-hero')" id="btn-tab-hero" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700 rounded-lg text-sm font-medium text-slate-300 transition tab-btn"><i data-lucide="image" class="w-4 h-4"></i> Hero & Video</button>
-                <button onclick="switchTab('tab-testi')" id="btn-tab-testi" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700 rounded-lg text-sm font-medium text-slate-300 transition tab-btn"><i data-lucide="message-square" class="w-4 h-4"></i> Testimoni & Intro</button>
-                <button onclick="switchTab('tab-faq')" id="btn-tab-faq" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700 rounded-lg text-sm font-medium text-slate-300 transition tab-btn"><i data-lucide="help-circle" class="w-4 h-4"></i> FAQ & Info Tambahan</button>
+                
+                <button onclick="switchTab('tab-umum')" id="btn-tab-umum" class="w-full flex items-center gap-3 px-4 py-3 bg-emerald-600 rounded-lg text-sm font-medium transition tab-btn">
+                    <i data-lucide="palette" class="w-4 h-4"></i> Tampilan Dasar
+                </button>
+                
+                <button onclick="switchTab('tab-hero')" id="btn-tab-hero" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700 rounded-lg text-sm font-medium transition text-slate-300 tab-btn">
+                    <i data-lucide="image" class="w-4 h-4"></i> Hero & Video
+                </button>
+
+                <button onclick="switchTab('tab-testi')" id="btn-tab-testi" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700 rounded-lg text-sm font-medium transition text-slate-300 tab-btn">
+                    <i data-lucide="message-square" class="w-4 h-4"></i> Testimoni & Intro
+                </button>
+
+                <button onclick="switchTab('tab-faq')" id="btn-tab-faq" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700 rounded-lg text-sm font-medium transition text-slate-300 tab-btn">
+                    <i data-lucide="help-circle" class="w-4 h-4"></i> FAQ & Info Tambahan
+                </button>
+
                 <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 mt-6 px-2">Sistem</p>
-                <button onclick="switchTab('tab-github')" id="btn-tab-github" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700 rounded-lg text-sm font-medium text-slate-300 transition tab-btn border border-slate-700"><i data-lucide="github" class="w-4 h-4"></i> Pengaturan GitHub</button>
+
+                <!-- PENGATURAN GITHUB -->
+                <button onclick="switchTab('tab-github')" id="btn-tab-github" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-700 rounded-lg text-sm font-medium transition text-slate-300 tab-btn border border-slate-700">
+                    <i data-lucide="github" class="w-4 h-4"></i> Pengaturan GitHub
+                </button>
             </nav>
+
             <div class="p-4 border-t border-slate-700">
-                <button onclick="logout()" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-red-500/20 text-red-400 rounded-lg text-sm font-medium transition"><i data-lucide="log-out" class="w-4 h-4"></i> Keluar</button>
+                <button onclick="logout()" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-red-500/20 text-red-400 rounded-lg text-sm font-medium transition">
+                    <i data-lucide="log-out" class="w-4 h-4"></i> Keluar
+                </button>
             </div>
         </aside>
 
         <!-- Main Content Area -->
         <main class="flex-1 flex flex-col h-full overflow-hidden">
+            <!-- Header Topbar -->
             <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-0">
                 <h2 class="text-xl font-bold text-slate-800" id="page-title">Tampilan Dasar</h2>
-                <a href="../" target="_blank" class="flex items-center gap-2 text-sm text-emerald-600 hover:text-emerald-700 font-medium bg-emerald-50 px-4 py-2 rounded-lg transition"><i data-lucide="external-link" class="w-4 h-4"></i> Lihat Website</a>
+                <div class="flex gap-4">
+                    <a href="../" target="_blank" class="flex items-center gap-2 text-sm text-emerald-600 hover:text-emerald-700 font-medium bg-emerald-50 px-4 py-2 rounded-lg transition">
+                        <i data-lucide="external-link" class="w-4 h-4"></i> Lihat Website
+                    </a>
+                </div>
             </header>
 
+            <!-- Formulir Konten (Bisa di-scroll) -->
             <div class="flex-1 overflow-y-auto p-8">
                 <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-gray-100 p-6 relative">
-                    <div id="toast-success" class="absolute top-4 right-4 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-lg text-sm font-bold hidden flex items-center gap-2 z-50"><i data-lucide="check-circle" class="w-4 h-4"></i> Disimpan!</div>
+                    
+                    <div id="toast-success" class="absolute top-4 right-4 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-lg text-sm font-bold hidden flex items-center gap-2 z-50">
+                        <i data-lucide="check-circle" class="w-4 h-4"></i> Disimpan!
+                    </div>
 
-                    <!-- TAB 1: TAMPILAN DASAR -->
+                    <!-- TAB 1: PENGATURAN UMUM -->
                     <div id="tab-umum" class="tab-content block">
                         <h3 class="text-lg font-bold mb-6 pb-2 border-b">Warna & Tampilan Dasar</h3>
+                        
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-2">Warna Utama (Primary)</label>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Warna Utama (Primary Color)</label>
+                                <p class="text-xs text-gray-500 mb-3">Warna dominan tombol & aksen.</p>
                                 <div class="flex items-center gap-4">
                                     <input type="color" id="primaryColor" class="w-14 h-14 p-1 rounded cursor-pointer border border-gray-300">
                                     <span class="text-sm font-mono text-gray-500 bg-gray-100 px-3 py-1 rounded" id="colorHexCode"></span>
                                 </div>
                             </div>
+
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-2">Warna Sekunder</label>
+                                <p class="text-xs text-gray-500 mb-3">Warna background gelap & footer.</p>
                                 <div class="flex items-center gap-4">
                                     <input type="color" id="secondaryColor" class="w-14 h-14 p-1 rounded cursor-pointer border border-gray-300">
                                     <span class="text-sm font-mono text-gray-500 bg-gray-100 px-3 py-1 rounded" id="secondaryColorHexCode"></span>
                                 </div>
                             </div>
                         </div>
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 border-t border-gray-100 pt-6">
                             <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-2">Warna Latar Utama (Putih)</label>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Warna Latar Utama</label>
+                                <p class="text-xs text-gray-500 mb-3">Menggantikan warna putih pada area background.</p>
                                 <div class="flex items-center gap-4">
                                     <input type="color" id="bgColor" class="w-14 h-14 p-1 rounded cursor-pointer border border-gray-300">
                                     <span class="text-sm font-mono text-gray-500 bg-gray-100 px-3 py-1 rounded" id="bgColorHexCode"></span>
                                 </div>
                             </div>
+
                             <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-2">Warna Latar Kombinasi (Abu)</label>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Warna Latar Kombinasi</label>
+                                <p class="text-xs text-gray-500 mb-3">Menggantikan warna abu muda (Testimoni, FAQ).</p>
                                 <div class="flex items-center gap-4">
                                     <input type="color" id="accentColor" class="w-14 h-14 p-1 rounded cursor-pointer border border-gray-300">
                                     <span class="text-sm font-mono text-gray-500 bg-gray-100 px-3 py-1 rounded" id="accentColorHexCode"></span>
                                 </div>
                             </div>
                         </div>
+
                         <div class="mt-8 flex justify-end gap-3">
-                            <button onclick="resetColors()" class="bg-gray-100 text-slate-600 border border-gray-300 px-6 py-2 rounded-lg font-bold hover:bg-gray-200 transition flex items-center gap-2"><i data-lucide="refresh-cw" class="w-4 h-4"></i> Reset Default</button>
-                            <button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-emerald-700 transition flex items-center gap-2"><i data-lucide="save" class="w-4 h-4"></i> Simpan Perubahan</button>
+                            <button onclick="resetColors()" class="bg-gray-100 text-slate-600 border border-gray-300 px-6 py-2 rounded-lg font-bold hover:bg-gray-200 transition flex items-center gap-2">
+                                <i data-lucide="refresh-cw" class="w-4 h-4"></i> Reset Default
+                            </button>
+                            <button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-emerald-700 transition flex items-center gap-2">
+                                <i data-lucide="save" class="w-4 h-4"></i> Simpan Perubahan
+                            </button>
                         </div>
                     </div>
 
                     <!-- TAB 2: HERO & VIDEO -->
                     <div id="tab-hero" class="tab-content hidden">
                         <h3 class="text-lg font-bold mb-6 pb-2 border-b">Bagian Atas (Hero) & Video</h3>
-                        <div class="mb-5"><label class="block text-sm font-medium mb-1">Judul Utama</label><textarea id="heroTitle" rows="3" class="w-full p-3 border rounded-lg focus:ring-emerald-500"></textarea></div>
-                        <div class="mb-5"><label class="block text-sm font-medium mb-1">Deskripsi Pendek</label><textarea id="heroDesc" rows="3" class="w-full p-3 border rounded-lg focus:ring-emerald-500"></textarea></div>
-                        <div class="mb-5 bg-gray-50 p-4 rounded-lg border">
-                            <label class="block text-sm font-medium mb-1">ID Video YouTube</label>
-                            <div class="flex items-center gap-3"><div class="bg-red-100 p-2 rounded"><i data-lucide="youtube" class="w-5 h-5 text-red-600"></i></div><input type="text" id="videoId" class="flex-1 p-2 border rounded-lg"></div>
+                        
+                        <div class="mb-5">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Judul Utama</label>
+                            <p class="text-xs text-gray-500 mb-2">Gunakan tag <code>&lt;br&gt;</code> untuk garis baru, dan <code>&lt;span class="text-primary"&gt;</code> untuk mewarnai teks.</p>
+                            <textarea id="heroTitle" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500"></textarea>
                         </div>
-                        <div class="mt-8 flex justify-end"><button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-emerald-700 transition flex items-center gap-2"><i data-lucide="save" class="w-4 h-4"></i> Simpan Perubahan</button></div>
+
+                        <div class="mb-5">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Deskripsi Pendek</label>
+                            <textarea id="heroDesc" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500"></textarea>
+                        </div>
+
+                        <div class="mb-5 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">ID Video YouTube</label>
+                            <p class="text-xs text-gray-500 mb-2">Ambil kode acak di URL YouTube setelah "v=". Contoh: youtube.com/watch?v=<strong class="text-red-500">oXZxB8ABsh0</strong></p>
+                            <div class="flex items-center gap-3">
+                                <div class="bg-red-100 p-2 rounded">
+                                    <i data-lucide="youtube" class="w-5 h-5 text-red-600"></i>
+                                </div>
+                                <input type="text" id="videoId" class="flex-1 p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+                            </div>
+                        </div>
+
+                        <div class="mt-8 flex justify-end">
+                            <button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-emerald-700 transition flex items-center gap-2">
+                                <i data-lucide="save" class="w-4 h-4"></i> Simpan Perubahan
+                            </button>
+                        </div>
                     </div>
 
                     <!-- TAB 3: TESTIMONI & INTRO -->
                     <div id="tab-testi" class="tab-content hidden">
                         <h3 class="text-lg font-bold mb-6 pb-2 border-b">Bagian Testimoni</h3>
+                        
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <div><label class="block text-sm font-medium mb-1">Judul Atas</label><input type="text" id="testiTitle1" class="w-full p-2 border rounded-lg"></div>
-                            <div><label class="block text-sm font-medium mb-1">Judul Bawah</label><input type="text" id="testiTitle2" class="w-full p-2 border rounded-lg"></div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Judul Atas Testimoni</label>
+                                <input type="text" id="testiTitle1" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Judul Bawah Testimoni</label>
+                                <input type="text" id="testiTitle2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+                            </div>
                         </div>
 
-                        <!-- Testi Blok 1-3 -->
-                        <script>
-                            // Mini template engine for Testi HTML block to reduce repetition
-                            function buildTesti(num, isHidden) {
-                                document.write(`
-                                <div id="testi-block-${num}" class="${isHidden ? 'hidden ' : ''}mb-5 bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                    <div class="flex justify-between items-center mb-3 border-b pb-1">
-                                        <h4 class="font-bold text-sm text-emerald-600">Testimoni ${num}</h4>
-                                        ${isHidden ? `<button onclick="removeTesti3()" class="text-red-500 hover:text-red-700 text-xs font-bold flex gap-1"><i data-lucide="trash-2" class="w-3 h-3"></i> Hapus</button>` : ''}
-                                    </div>
-                                    <div class="mb-3 p-3 bg-white border border-gray-200 rounded text-xs">
-                                        <label class="block font-medium mb-2">Foto / Avatar URL</label>
-                                        <div class="flex gap-2 mb-2">
-                                            <input type="file" id="uploadT${num}" accept="image/*" class="flex-1 file:py-1 file:px-3 file:bg-emerald-50 file:text-emerald-700 border rounded cursor-pointer">
-                                            <button onclick="uploadImg('uploadT${num}', 'testiImage${num}', this)" class="bg-blue-600 text-white font-bold py-1 px-3 rounded">Upload</button>
-                                        </div>
-                                        <input type="text" id="testiImage${num}" class="w-full p-1.5 border rounded font-mono" placeholder="URL Foto...">
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-4 mb-3">
-                                        <div><label class="block text-xs font-medium mb-1">Nama</label><input type="text" id="testiName${num}" class="w-full p-2 border rounded text-sm"></div>
-                                        <div><label class="block text-xs font-medium mb-1">Profesi</label><input type="text" id="testiRole${num}" class="w-full p-2 border rounded text-sm"></div>
-                                    </div>
-                                    <div><label class="block text-xs font-medium mb-1">Kutipan</label><textarea id="testiQuote${num}" rows="2" class="w-full p-2 border rounded text-sm"></textarea></div>
-                                </div>`);
-                            }
-                            buildTesti(1, false); buildTesti(2, false); buildTesti(3, true);
-                        </script>
+                        <!-- Data Testimoni 1 -->
+                        <div id="testi-block-1" class="mb-5 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex justify-between items-center mb-3 border-b pb-1">
+                                <h4 class="font-bold text-sm text-emerald-600">Testimoni 1</h4>
+                            </div>
+                            
+                            <div class="mb-3 p-3 bg-white border border-gray-200 rounded text-xs">
+                                <label class="block font-medium text-slate-700 mb-2">Foto / Avatar (Opsional)</label>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <input type="file" id="uploadT1" accept="image/*" class="flex-1 file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:bg-emerald-50 file:text-emerald-700 cursor-pointer border border-gray-200 rounded">
+                                    <button onclick="uploadImageToGitHub('uploadT1', 'testiImage1', 'btn-up-t1')" id="btn-up-t1" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded shadow-sm transition">Upload</button>
+                                </div>
+                                <input type="text" id="testiImage1" class="w-full p-1.5 border border-gray-300 rounded focus:ring-emerald-500 text-xs font-mono" placeholder="Atau paste URL gambar di sini...">
+                            </div>
 
-                        <button id="btn-add-testi" onclick="showTesti3()" class="mb-8 w-full border-2 border-dashed border-emerald-300 text-emerald-600 bg-emerald-50 hover:bg-emerald-100 font-bold py-2 rounded-lg text-sm transition flex justify-center gap-2"><i data-lucide="plus-circle" class="w-4 h-4"></i> Tambah Testimoni ke-3</button>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Nama</label>
+                                    <input type="text" id="testiName1" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Profesi/Status</label>
+                                    <input type="text" id="testiRole1" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Kutipan Testimoni</label>
+                                <textarea id="testiQuote1" rows="2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Data Testimoni 2 -->
+                        <div id="testi-block-2" class="mb-5 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex justify-between items-center mb-3 border-b pb-1">
+                                <h4 class="font-bold text-sm text-emerald-600">Testimoni 2</h4>
+                            </div>
+                            
+                            <div class="mb-3 p-3 bg-white border border-gray-200 rounded text-xs">
+                                <label class="block font-medium text-slate-700 mb-2">Foto / Avatar (Opsional)</label>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <input type="file" id="uploadT2" accept="image/*" class="flex-1 file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:bg-emerald-50 file:text-emerald-700 cursor-pointer border border-gray-200 rounded">
+                                    <button onclick="uploadImageToGitHub('uploadT2', 'testiImage2', 'btn-up-t2')" id="btn-up-t2" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded shadow-sm transition">Upload</button>
+                                </div>
+                                <input type="text" id="testiImage2" class="w-full p-1.5 border border-gray-300 rounded focus:ring-emerald-500 text-xs font-mono" placeholder="Atau paste URL gambar di sini...">
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Nama</label>
+                                    <input type="text" id="testiName2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Profesi/Status</label>
+                                    <input type="text" id="testiRole2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Kutipan Testimoni</label>
+                                <textarea id="testiQuote2" rows="2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Data Testimoni 3 (Dinamis) -->
+                        <div id="testi-block-3" class="hidden mb-5 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex justify-between items-center mb-3 border-b pb-1">
+                                <h4 class="font-bold text-sm text-emerald-600">Testimoni 3 (Tambahan)</h4>
+                                <button onclick="removeTesti3()" class="text-red-500 hover:text-red-700 text-xs font-bold flex items-center gap-1">
+                                    <i data-lucide="trash-2" class="w-3 h-3"></i> Hapus
+                                </button>
+                            </div>
+                            
+                            <div class="mb-3 p-3 bg-white border border-gray-200 rounded text-xs">
+                                <label class="block font-medium text-slate-700 mb-2">Foto / Avatar (Opsional)</label>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <input type="file" id="uploadT3" accept="image/*" class="flex-1 file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:bg-emerald-50 file:text-emerald-700 cursor-pointer border border-gray-200 rounded">
+                                    <button onclick="uploadImageToGitHub('uploadT3', 'testiImage3', 'btn-up-t3')" id="btn-up-t3" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded shadow-sm transition">Upload</button>
+                                </div>
+                                <input type="text" id="testiImage3" class="w-full p-1.5 border border-gray-300 rounded focus:ring-emerald-500 text-xs font-mono" placeholder="Atau paste URL gambar di sini...">
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Nama</label>
+                                    <input type="text" id="testiName3" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-slate-700 mb-1">Profesi/Status</label>
+                                    <input type="text" id="testiRole3" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Kutipan Testimoni</label>
+                                <textarea id="testiQuote3" rows="2" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Tombol Tambah Testimoni 3 -->
+                        <button id="btn-add-testi" onclick="showTesti3()" class="mb-8 w-full border-2 border-dashed border-emerald-300 text-emerald-600 bg-emerald-50 hover:bg-emerald-100 font-bold py-2 rounded-lg text-sm transition flex items-center justify-center gap-2">
+                            <i data-lucide="plus-circle" class="w-4 h-4"></i> Tambah Testimoni ke-3
+                        </button>
+
 
                         <h3 class="text-lg font-bold mb-6 pb-2 border-b">Bagian "Memperkenalkan"</h3>
-                        <div class="mb-5 bg-white p-5 rounded-lg border-l-4 border-l-blue-500 shadow-sm">
-                            <label class="block text-sm font-bold mb-2">Gambar Produk/Buku URL</label>
-                            <div class="flex gap-3 mb-4"><input type="file" id="introImageUpload" accept="image/*" class="w-full text-sm border rounded-lg file:py-2 file:px-4 file:bg-slate-100 cursor-pointer"><button onclick="uploadImg('introImageUpload', 'introImage', this)" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg flex gap-2"><i data-lucide="cloud-upload" class="w-4 h-4"></i> Upload</button></div>
-                            <input type="text" id="introImage" class="w-full p-2 border rounded-lg text-xs font-mono" placeholder="https://...">
+                        
+                        <div class="mb-5 bg-white p-5 rounded-lg border border-blue-100 shadow-sm border-l-4 border-l-blue-500 relative">
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Gambar Produk/Buku</label>
+                            
+                            <div class="mb-4">
+                                <p class="text-xs text-gray-500 mb-2">Pilih foto dari komputermu, lalu klik tombol biru untuk mengunggahnya langsung ke folder <code>assets</code> di GitHub-mu.</p>
+                                
+                                <div class="flex items-center gap-3">
+                                    <input type="file" id="introImageUpload" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 cursor-pointer border border-gray-200 rounded-lg">
+                                    
+                                    <button onclick="uploadImageToGitHub('introImageUpload', 'introImage', 'btn-upload-intro')" id="btn-upload-intro" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded-lg flex items-center gap-2 whitespace-nowrap transition">
+                                        <i data-lucide="cloud-upload" class="w-4 h-4"></i> Upload ke GitHub
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center gap-4 my-3">
+                                <hr class="flex-1 border-gray-200">
+                                <span class="text-xs text-gray-400 font-medium">HASIL LINK</span>
+                                <hr class="flex-1 border-gray-200">
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-gray-500 mb-2">Setelah upload sukses, link otomatis muncul di sini. (Kamu juga bisa paste link gambar manual di sini).</p>
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-slate-100 p-2 rounded">
+                                        <i data-lucide="link" class="w-4 h-4 text-slate-500"></i>
+                                    </div>
+                                    <input type="text" id="introImage" class="flex-1 p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-xs font-mono" placeholder="https://raw.githubusercontent.com/.../gambar.png">
+                                </div>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-4 mb-5">
-                            <div><label class="block text-sm font-medium mb-1">Sub-Judul</label><input type="text" id="introSub" class="w-full p-2 border rounded-lg"></div>
-                            <div><label class="block text-sm font-medium mb-1">Judul Utama</label><input type="text" id="introTitle" class="w-full p-2 border rounded-lg"></div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Teks Kecil (Sub-Judul)</label>
+                                <input type="text" id="introSub" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Judul Utama</label>
+                                <input type="text" id="introTitle" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500">
+                            </div>
                         </div>
-                        <div class="mb-5"><label class="block text-sm font-medium mb-2">Deskripsi 1</label><textarea id="introDesc1" rows="3" class="w-full p-3 border rounded-lg"></textarea></div>
-                        <div class="mb-5"><label class="block text-sm font-medium mb-2">Deskripsi 2</label><textarea id="introDesc2" rows="3" class="w-full p-3 border rounded-lg"></textarea></div>
-                        <div class="mt-8 flex justify-end"><button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold transition flex gap-2"><i data-lucide="save" class="w-4 h-4"></i> Simpan Perubahan</button></div>
+
+                        <div class="mb-5">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Paragraf Deskripsi 1</label>
+                            <textarea id="introDesc1" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 text-sm"></textarea>
+                        </div>
+
+                        <div class="mb-5">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Paragraf Deskripsi 2</label>
+                            <textarea id="introDesc2" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 text-sm"></textarea>
+                        </div>
+
+                        <div class="mt-8 flex justify-end">
+                            <button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-emerald-700 transition flex items-center gap-2">
+                                <i data-lucide="save" class="w-4 h-4"></i> Simpan Perubahan
+                            </button>
+                        </div>
                     </div>
 
                     <!-- TAB 4: FAQ & INFO TAMBAHAN -->
                     <div id="tab-faq" class="tab-content hidden">
+                        
+                        <!-- ========================== -->
+                        <!-- UNTUK SIAPA SAJA (DINAMIS) -->
+                        <!-- ========================== -->
                         <h3 class="text-lg font-bold mb-6 pb-2 border-b">Untuk Siapa Saja?</h3>
-                        <div class="mb-6"><label class="block text-sm font-medium mb-1">Judul Bagian</label><input type="text" id="forWhoTitle" class="w-full p-2 border rounded-lg"></div>
-                        <div id="forWhoContainer" class="space-y-4 mb-4"></div>
-                        <button onclick="addForWho()" class="mb-8 w-full border-2 border-dashed border-emerald-300 text-emerald-600 bg-emerald-50 hover:bg-emerald-100 font-bold py-2 rounded-lg flex justify-center gap-2"><i data-lucide="plus-circle" class="w-4 h-4"></i> Tambah Peserta</button>
-
-                        <h3 class="text-lg font-bold mb-6 pb-2 border-b mt-8">Apa Yang Akan Didapatkan?</h3>
-                        <div class="mb-6"><label class="block text-sm font-medium mb-1">Judul Bagian</label><input type="text" id="benefitsTitle" class="w-full p-2 border rounded-lg"></div>
-                        <div id="benefitsContainer" class="space-y-4 mb-4"></div>
-                        <button onclick="addBenefit()" class="mb-8 w-full border-2 border-dashed border-emerald-300 text-emerald-600 bg-emerald-50 hover:bg-emerald-100 font-bold py-2 rounded-lg flex justify-center gap-2"><i data-lucide="plus-circle" class="w-4 h-4"></i> Tambah Manfaat</button>
-
-                        <h3 class="text-lg font-bold mb-6 pb-2 border-b mt-8">Promo Kelas Lainnya</h3>
-                        <div class="mb-4"><label class="block text-sm font-medium mb-1">Judul Promo</label><input type="text" id="promoTitle" class="w-full p-2 border rounded-lg"></div>
-                        <div class="mb-4"><label class="block text-sm font-medium mb-1">Deskripsi Singkat</label><textarea id="promoDesc" rows="3" class="w-full p-2 border rounded-lg"></textarea></div>
-                        <div class="grid grid-cols-2 gap-4 mb-8">
-                            <div><label class="block text-sm font-medium mb-1">Teks Tombol</label><input type="text" id="promoBtnText" class="w-full p-2 border rounded-lg"></div>
-                            <div><label class="block text-sm font-medium mb-1">Link URL</label><input type="text" id="promoBtnLink" class="w-full p-2 border rounded-lg"></div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Judul Bagian</label>
+                            <input type="text" id="forWhoTitle" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
                         </div>
-                        <div class="mt-8 flex justify-end"><button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold flex gap-2"><i data-lucide="save" class="w-4 h-4"></i> Simpan Perubahan</button></div>
+
+                        <div id="forWhoContainer" class="space-y-4 mb-4">
+                            <!-- List Tipe Peserta di-generate oleh JS di sini -->
+                        </div>
+                        
+                        <button onclick="addForWho()" class="mb-8 w-full border-2 border-dashed border-emerald-300 text-emerald-600 bg-emerald-50 hover:bg-emerald-100 font-bold py-2 rounded-lg text-sm transition flex items-center justify-center gap-2">
+                            <i data-lucide="plus-circle" class="w-4 h-4"></i> Tambahkan Tipe Peserta
+                        </button>
+
+
+                        <!-- ========================== -->
+                        <!-- APA YANG DIDAPATKAN (DINAMIS) -->
+                        <!-- ========================== -->
+                        <h3 class="text-lg font-bold mb-6 pb-2 border-b mt-12">Apa Yang Akan Didapatkan?</h3>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Judul Bagian</label>
+                            <input type="text" id="benefitsTitle" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                        </div>
+                        
+                        <div id="benefitsContainer" class="space-y-4 mb-4">
+                            <!-- List Manfaat/Poin di-generate oleh JS di sini -->
+                        </div>
+
+                        <button onclick="addBenefit()" class="mb-8 w-full border-2 border-dashed border-emerald-300 text-emerald-600 bg-emerald-50 hover:bg-emerald-100 font-bold py-2 rounded-lg text-sm transition flex items-center justify-center gap-2">
+                            <i data-lucide="plus-circle" class="w-4 h-4"></i> Tambahkan Poin Manfaat
+                        </button>
+
+
+                        <!-- ========================== -->
+                        <!-- KELAS LAINNYA -->
+                        <!-- ========================== -->
+                        <h3 class="text-lg font-bold mb-6 pb-2 border-b mt-12">Promo Kelas Lainnya</h3>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Judul Promo</label>
+                            <input type="text" id="promoTitle" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Deskripsi Singkat</label>
+                            <textarea id="promoDesc" rows="3" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm"></textarea>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Teks Tombol</label>
+                                <input type="text" id="promoBtnText" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Link Tujuan (URL)</label>
+                                <input type="text" id="promoBtnLink" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">
+                            </div>
+                        </div>
+
+                        <div class="mt-8 flex justify-end">
+                            <button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-emerald-700 transition flex items-center gap-2">
+                                <i data-lucide="save" class="w-4 h-4"></i> Simpan Perubahan
+                            </button>
+                        </div>
                     </div>
 
-                    <!-- TAB 5: GITHUB -->
+
+                    <!-- TAB 5: PENGATURAN GITHUB -->
                     <div id="tab-github" class="tab-content hidden">
                         <h3 class="text-lg font-bold mb-2">Koneksi API GitHub</h3>
-                        <p class="text-sm text-gray-500 mb-6 pb-2 border-b">Konfigurasi ini aman tersimpan lokal di browsermu.</p>
-                        <div class="mb-4"><label class="block text-sm mb-1">Username GitHub</label><input type="text" id="ghUsername" class="w-full p-2 border rounded-lg"></div>
-                        <div class="mb-4"><label class="block text-sm mb-1">Nama Repositori</label><input type="text" id="ghRepo" class="w-full p-2 border rounded-lg"></div>
-                        <div class="mb-4"><label class="block text-sm mb-1">Folder Upload (Path)</label><input type="text" id="ghPath" class="w-full p-2 border rounded-lg" value="assets"></div>
-                        <div class="mb-6"><label class="block text-sm mb-1">Personal Access Token (PAT)</label><input type="password" id="ghToken" class="w-full p-2 border rounded-lg font-mono text-sm"></div>
-                        <div class="flex justify-end"><button onclick="saveGHSets()" class="bg-slate-800 text-white px-6 py-2 rounded-lg font-bold flex gap-2"><i data-lucide="key" class="w-4 h-4"></i> Simpan Akses GitHub</button></div>
+                        <p class="text-sm text-gray-500 mb-6 pb-2 border-b">Konfigurasi ini disimpan lokal di browsermu dan tidak akan ter-publish ke internet. Aman 100%.</p>
+                        
+                        <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg mb-6">
+                            <h4 class="font-bold text-yellow-800 text-sm mb-1 flex items-center gap-2">
+                                <i data-lucide="info" class="w-4 h-4"></i> Info Token
+                            </h4>
+                            <p class="text-xs text-yellow-700">Pastikan Personal Access Token (Classic) kamu memiliki centang (permission) pada bagian <strong>"repo"</strong> agar bisa mengupload file.</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Username GitHub</label>
+                            <input type="text" id="ghUsername" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500" placeholder="contoh: ajarkan">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Nama Repositori</label>
+                            <input type="text" id="ghRepo" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500" placeholder="contoh: kelasngaji.github.io atau ngaji">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Folder Upload (Path)</label>
+                            <input type="text" id="ghPath" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500" placeholder="contoh: assets" value="assets">
+                            <p class="text-xs text-gray-500 mt-1">Kosongkan jika ingin diupload di folder utama.</p>
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Personal Access Token</label>
+                            <div class="relative">
+                                <input type="password" id="ghToken" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-sm" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button onclick="saveGitHubSettings()" class="bg-slate-800 text-white px-6 py-2 rounded-lg font-bold hover:bg-slate-900 transition flex items-center gap-2">
+                                <i data-lucide="key" class="w-4 h-4"></i> Simpan Akses GitHub
+                            </button>
+                        </div>
                     </div>
 
                 </div>
@@ -224,142 +508,481 @@
         </main>
     </div>
 
+    <!-- LOGIKA JAVASCRIPT CMS -->
     <script>
         lucide.createIcons();
-        let fwList = [], benList = [], isTesti3 = false;
 
-        // JS Helpers untuk memangkas baris kode
-        const el = id => document.getElementById(id);
-        const val = id => el(id) ? el(id).value : '';
-        const setVal = (id, v) => { if(el(id)) el(id).value = v; };
+        // Variabel Penyimpan List Dinamis
+        let forWhoList = [];
+        let benefitsList = [];
+        let isTesti3Visible = false;
 
+        // ==========================================
         // 1. SISTEM LOGIN & MENU
+        // ==========================================
         function handleLogin(e) {
             e.preventDefault();
-            if (val('username') === 'admin' && val('password') === 'admin123') {
-                el('login-screen').classList.add('hidden'); el('dashboard-screen').classList.remove('hidden');
-                loadData(); loadGHSets();
-            } else el('login-error').classList.remove('hidden');
-        }
-        function logout() { location.reload(); }
-        function switchTab(tId) {
-            document.querySelectorAll('.tab-content').forEach(e => e.classList.add('hidden'));
-            el(tId).classList.remove('hidden');
-            document.querySelectorAll('.tab-btn').forEach(b => {
-                b.classList.remove('bg-emerald-600', 'text-white', 'border-slate-700');
-                b.classList.add('hover:bg-slate-700', 'text-slate-300', b.id==='btn-tab-github'?'border-slate-700':'border-transparent');
-            });
-            el('btn-' + tId).classList.add('bg-emerald-600', 'text-white');
-            el('btn-' + tId).classList.remove('hover:bg-slate-700', 'text-slate-300');
-            const titles = {'tab-umum':'Tampilan Dasar', 'tab-hero':'Hero & Video', 'tab-testi':'Testimoni & Pengenalan', 'tab-faq':'FAQ & Info', 'tab-github':'Pengaturan GitHub'};
-            el('page-title').innerText = titles[tId];
-        }
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
 
-        // 2. LOGIKA TESTIMONI & WARNA
-        function showTesti3() { el('testi-block-3').classList.remove('hidden'); el('btn-add-testi').classList.add('hidden'); isTesti3 = true; }
-        function removeTesti3() {
-            if(confirm("Hapus Testimoni 3?")) {
-                el('testi-block-3').classList.add('hidden'); el('btn-add-testi').classList.remove('hidden');
-                ['Name3','Role3','Quote3','Image3'].forEach(k => setVal('testi'+k, '')); isTesti3 = false;
+            if (user === 'admin' && pass === 'admin123') {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('dashboard-screen').classList.remove('hidden');
+                loadData();
+                loadGitHubSettings();
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
             }
         }
-        ['primaryColor','secondaryColor','bgColor','accentColor'].forEach(id => {
-            if(el(id)) el(id).addEventListener('input', e => el(id+'HexCode').innerText = e.target.value);
-        });
 
-        // 3. RENDER LIST DINAMIS (Peserta & Manfaat)
-        function renderFW() {
-            el('forWhoContainer').innerHTML = fwList.map((item, i) => `
-                <div class="p-4 bg-gray-50 border rounded-lg fw-item">
-                    <div class="flex justify-between items-center mb-3 border-b pb-1"><h4 class="font-bold text-sm text-emerald-600">Peserta ${i+1}</h4><button onclick="fwList.splice(${i},1); renderFW()" class="text-red-500 text-xs font-bold"><i data-lucide="trash-2" class="w-3 h-3 inline"></i> Hapus</button></div>
-                    <div class="grid grid-cols-2 gap-4 mb-3">
-                        <div><label class="block text-xs mb-1">Tipe</label><input type="text" class="fw-target w-full p-2 border rounded" value="${item.t}"></div>
-                        <div><label class="block text-xs mb-1">Ikon</label><input type="text" class="fw-icon w-full p-2 border rounded" value="${item.i}"></div>
-                    </div>
-                    <label class="block text-xs mb-1">Ket</label><textarea class="fw-desc w-full p-2 border rounded">${item.d}</textarea>
-                </div>`).join(''); lucide.createIcons();
-        }
-        function renderBen() {
-            el('benefitsContainer').innerHTML = benList.map((item, i) => `
-                <div class="p-4 bg-gray-50 border rounded-lg ben-item">
-                    <div class="flex justify-between items-center mb-3 border-b pb-1"><h4 class="font-bold text-sm text-emerald-600">Poin ${i+1}</h4><button onclick="benList.splice(${i},1); renderBen()" class="text-red-500 text-xs font-bold"><i data-lucide="trash-2" class="w-3 h-3 inline"></i> Hapus</button></div>
-                    <div class="mb-2"><label class="block text-xs mb-1">Judul</label><input type="text" class="ben-title w-full p-2 border rounded" value="${item.t}"></div>
-                    <div><label class="block text-xs mb-1">Penjelasan</label><input type="text" class="ben-desc w-full p-2 border rounded" value="${item.d}"></div>
-                </div>`).join(''); lucide.createIcons();
-        }
-        function addForWho() { syncList(); fwList.push({t:'', i:'users', d:''}); renderFW(); }
-        function addBenefit() { syncList(); benList.push({t:'', d:''}); renderBen(); }
-        function syncList() {
-            fwList = Array.from(document.querySelectorAll('.fw-item')).map(e => ({ t: e.querySelector('.fw-target').value, i: e.querySelector('.fw-icon').value, d: e.querySelector('.fw-desc').value }));
-            benList = Array.from(document.querySelectorAll('.ben-item')).map(e => ({ t: e.querySelector('.ben-title').value, d: e.querySelector('.ben-desc').value }));
+        function logout() {
+            document.getElementById('dashboard-screen').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            location.reload();
         }
 
-        // 4. API GITHUB
-        function saveGHSets() {
-            localStorage.setItem('ghAPI', JSON.stringify({u:val('ghUsername'), r:val('ghRepo'), p:val('ghPath'), t:val('ghToken')})); alert("Akses disimpan!");
-        }
-        function loadGHSets() {
-            const s = JSON.parse(localStorage.getItem('ghAPI')) || {}; setVal('ghUsername',s.u||''); setVal('ghRepo',s.r||''); setVal('ghPath',s.p||'assets'); setVal('ghToken',s.t||'');
-        }
-        async function uploadImg(inId, outId, btn) {
-            const file = el(inId).files[0]; if(!file) return alert("Pilih file dulu!");
-            const s = JSON.parse(localStorage.getItem('ghAPI')); if(!s||!s.t||!s.r||!s.u) return alert("Atur GitHub API dulu!");
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-emerald-600', 'text-white', 'border-transparent');
+                if(btn.id !== 'btn-tab-github') {
+                    btn.classList.add('hover:bg-slate-700', 'text-slate-300');
+                } else {
+                    btn.classList.add('hover:bg-slate-700', 'text-slate-300', 'border-slate-700');
+                }
+            });
+
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.add('bg-emerald-600', 'text-white');
+            activeBtn.classList.remove('hover:bg-slate-700', 'text-slate-300');
+
+            let judul = '';
+            if(tabId === 'tab-umum') judul = 'Tampilan Dasar';
+            else if(tabId === 'tab-hero') judul = 'Bagian Atas (Hero) & Video';
+            else if(tabId === 'tab-testi') judul = 'Testimoni & Pengenalan';
+            else if(tabId === 'tab-faq') judul = 'FAQ & Info Tambahan';
+            else if(tabId === 'tab-github') judul = 'Sistem - Pengaturan GitHub';
             
-            const orig = btn.innerHTML; btn.innerHTML = "Upload..."; btn.disabled = true;
-            const reader = new FileReader();
-            reader.onload = async e => {
-                try {
-                    const res = await fetch(`https://api.github.com/repos/${s.u}/${s.r}/contents/${s.p?s.p+'/':''}${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g,'-')}`, {
-                        method: 'PUT', headers: {'Authorization': `token ${s.t}`, 'Content-Type': 'application/json'},
-                        body: JSON.stringify({message: 'Upload img', content: e.target.result.split(',')[1]})
-                    });
-                    const d = await res.json();
-                    if(res.ok) { setVal(outId, d.content.download_url); alert("Sukses!"); } else alert("Gagal: " + d.message);
-                } catch(err) { alert("Error jaringan: " + err.message); } finally { btn.innerHTML = orig; btn.disabled = false; }
-            }; reader.readAsDataURL(file);
+            document.getElementById('page-title').innerText = judul;
         }
 
-        // 5. PENYIMPANAN DATA UTAMA
-        const defD = {
-            primaryColor:'#10b981', secondaryColor:'#1e293b', bgColor:'#ffffff', accentColor:'#f9fafb',
-            heroTitle:'Kelas Belajar <br> <span class="text-primary">Al-Quran</span> <br> Kampoeng Quran Cendekia', heroDesc:'Kabar gembira bagi untuk semua, Kampoeng Quran Cendekia membuka kelas belajar Al-Quran intensif dan menyenangkan.', videoId:'oXZxB8ABsh0',
-            testiTitle1:'Apa Kata Mereka Tentang', testiTitle2:'Kampoeng Quran?', 
-            testiName1:'Ahmad Zahir', testiRole1:'Engineer dan Motivator', testiQuote1:'"Metode pengajarannya sangat mudah dipahami. Alhamdulillah sekarang bacaan saya jauh lebih baik."', testiImage1:'https://lh3.googleusercontent.com/pw/AP1GczPH8qVEV3CFCyAoAOnuDqkPGsPm1eOEdtoMjivGCPAfarZLxcLiEvJWF8CSok1yr_sK25cY3R-Ru0lJi-DxC625HOuQzEJPbJKtPN1Z3VjE19lcwlvbcir0c5-NqQE0xL7AGIyQi2AXsZy4W5lSpIZ5=w128-h128-s-no-gm?authuser=0',
-            testiName2:'Azizah', testiRole2:'Ibu Rumah Tangga', testiQuote2:'"Sangat membantu bagi saya ibu rumah tangga yang ingin memperbaiki bacaan di sela kesibukan."', testiImage2:'https://lh3.googleusercontent.com/pw/AP1GczPgxKK3jbnzRXRuMcilB_czCl394aKR7wM9XihqQIALzvVIzTNnjXIQ4R2uiUdW9w_Em0SwpBj01YjXEjn1dAuTrGhZHp5H8vPH_UYQDr_lE4oZQeCxuZfS1Y4T5Idle3V4lhgnPHGrFsQQomJZOK9s=w128-h128-s-no-gm?authuser=0',
-            introImage:'https://lh3.googleusercontent.com/pw/AP1GczNZBk_yCNYajkf4BWsp6Ehy2XbOB-e97w_eCghQQpNSgsMahVlhfeNEQAIlv_SYL12ww93loTWCyyIlna5lDpKLG_UZj1nl6Kby68JLp7Ohv05U19LvGDt-DG7fyXAEYtzoERgJ-Y1_3wJghEK1xn66=w241-h264-s-no-gm?authuser=0', introSub:'MEMPERKENALKAN', introTitle:'Kelas Belajar Al-Quran', introDesc1:'<strong class="text-white">Tahsin Qarana</strong> adalah buku panduan yang digunakan di kelas ini. Ciri khas buku ini, sesuai namanya, ada pada <em class="text-primary">talqin</em> (pemberian contoh) dari asatiz untuk disimak kemudian diikuti.', introDesc2:'Penyesuaian dengan jenis kesalahan, jika kesalahan lebih banyak pada panjang pendek maka pelajaran dimulai dari Qoro\'na 2, dst.',
-            forWhoTitle:'Untuk siapa saja?', benefitsTitle:'Apa Yang Akan Kamu Dapatkan Dari Kelas Ini?', promoTitle:'Apakah ada kelas lainnya?', promoDesc:'Ya ada, namun untuk saat ini, kelas yang dibuka baru kelas belajar Al-Quran. In syaa Allah kelas bahasa arab akan dibuka dalam waktu dekat.', promoBtnText:'Cek Program Lainnya', promoBtnLink:'https://kelasngaji.web.id/'
+        // ==========================================
+        // 2. SISTEM TESTIMONI 3 & WARNA
+        // ==========================================
+        function showTesti3() {
+            document.getElementById('testi-block-3').classList.remove('hidden');
+            document.getElementById('btn-add-testi').classList.add('hidden');
+            isTesti3Visible = true;
+            saveData();
+        }
+
+        function removeTesti3() {
+            if(confirm("Hapus Testimoni 3?")) {
+                document.getElementById('testi-block-3').classList.add('hidden');
+                document.getElementById('btn-add-testi').classList.remove('hidden');
+                // Kosongkan isi
+                document.getElementById('testiName3').value = '';
+                document.getElementById('testiRole3').value = '';
+                document.getElementById('testiQuote3').value = '';
+                document.getElementById('testiImage3').value = '';
+                isTesti3Visible = false;
+                saveData();
+            }
+        }
+
+        // Real-time color updates
+        document.getElementById('primaryColor').addEventListener('input', function(e) { document.getElementById('colorHexCode').innerText = e.target.value; });
+        document.getElementById('secondaryColor').addEventListener('input', function(e) { document.getElementById('secondaryColorHexCode').innerText = e.target.value; });
+        document.getElementById('bgColor').addEventListener('input', function(e) { document.getElementById('bgColorHexCode').innerText = e.target.value; });
+        document.getElementById('accentColor').addEventListener('input', function(e) { document.getElementById('accentColorHexCode').innerText = e.target.value; });
+
+        // ==========================================
+        // 3. SISTEM LIST DINAMIS (UNTUK SIAPA & MANFAAT)
+        // ==========================================
+        
+        function syncForWhoArray() {
+            forWhoList = [];
+            document.querySelectorAll('.for-who-item').forEach(el => {
+                forWhoList.push({
+                    target: el.querySelector('.fw-target').value,
+                    icon: el.querySelector('.fw-icon').value,
+                    desc: el.querySelector('.fw-desc').value
+                });
+            });
+        }
+
+        function renderForWho() {
+            const container = document.getElementById('forWhoContainer');
+            container.innerHTML = '';
+            forWhoList.forEach((item, index) => {
+                container.innerHTML += `
+                <div class="p-4 bg-gray-50 border border-gray-200 rounded-lg for-who-item">
+                    <div class="flex justify-between items-center mb-3 border-b pb-1">
+                        <h4 class="font-bold text-sm text-emerald-600">Peserta ${index + 1}</h4>
+                        <button type="button" onclick="removeForWho(${index})" class="text-red-500 hover:text-red-700 text-xs font-bold flex items-center gap-1">
+                            <i data-lucide="trash-2" class="w-3 h-3"></i> Hapus
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Tipe Peserta</label>
+                            <input type="text" class="fw-target w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm" value="${item.target}">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Ikon (Lucide)</label>
+                            <input type="text" class="fw-icon w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm" placeholder="users, mic, smile..." value="${item.icon}">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Keterangan</label>
+                        <textarea rows="2" class="fw-desc w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm">${item.desc}</textarea>
+                    </div>
+                </div>`;
+            });
+            lucide.createIcons();
+        }
+
+        function addForWho() {
+            syncForWhoArray();
+            forWhoList.push({ target: '', icon: 'users', desc: '' });
+            renderForWho();
+        }
+
+        function removeForWho(index) {
+            if(confirm("Hapus tipe peserta ini?")) {
+                syncForWhoArray();
+                forWhoList.splice(index, 1);
+                renderForWho();
+            }
+        }
+
+        function syncBenefitsArray() {
+            benefitsList = [];
+            document.querySelectorAll('.benefit-item').forEach(el => {
+                benefitsList.push({
+                    title: el.querySelector('.ben-title').value,
+                    desc: el.querySelector('.ben-desc').value
+                });
+            });
+        }
+
+        function renderBenefits() {
+            const container = document.getElementById('benefitsContainer');
+            container.innerHTML = '';
+            benefitsList.forEach((item, index) => {
+                container.innerHTML += `
+                <div class="p-4 bg-gray-50 border border-gray-200 rounded-lg benefit-item">
+                    <div class="flex justify-between items-center mb-3 border-b pb-1">
+                        <h4 class="font-bold text-sm text-emerald-600">Poin Manfaat ${index + 1}</h4>
+                        <button type="button" onclick="removeBenefit(${index})" class="text-red-500 hover:text-red-700 text-xs font-bold flex items-center gap-1">
+                            <i data-lucide="trash-2" class="w-3 h-3"></i> Hapus
+                        </button>
+                    </div>
+                    <div class="mb-2">
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Judul Poin</label>
+                        <input type="text" class="ben-title w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm" value="${item.title}">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Penjelasan Singkat</label>
+                        <input type="text" class="ben-desc w-full p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-sm" value="${item.desc}">
+                    </div>
+                </div>`;
+            });
+            lucide.createIcons();
+        }
+
+        function addBenefit() {
+            syncBenefitsArray();
+            benefitsList.push({ title: '', desc: '' });
+            renderBenefits();
+        }
+
+        function removeBenefit(index) {
+            if(confirm("Hapus poin manfaat ini?")) {
+                syncBenefitsArray();
+                benefitsList.splice(index, 1);
+                renderBenefits();
+            }
+        }
+
+        // ==========================================
+        // 4. SISTEM API UPLOAD GITHUB
+        // ==========================================
+        function saveGitHubSettings() {
+            const settings = {
+                username: document.getElementById('ghUsername').value,
+                repo: document.getElementById('ghRepo').value,
+                path: document.getElementById('ghPath').value,
+                token: document.getElementById('ghToken').value
+            };
+            localStorage.setItem('githubApiSettings', JSON.stringify(settings));
+            alert("Pengaturan GitHub berhasil disimpan di browser ini!");
+        }
+
+        function loadGitHubSettings() {
+            const settings = JSON.parse(localStorage.getItem('githubApiSettings'));
+            if(settings) {
+                document.getElementById('ghUsername').value = settings.username || '';
+                document.getElementById('ghRepo').value = settings.repo || '';
+                document.getElementById('ghPath').value = settings.path || 'assets';
+                document.getElementById('ghToken').value = settings.token || '';
+            }
+        }
+
+        async function uploadImageToGitHub(inputId, targetId, btnId) {
+            const fileInput = document.getElementById(inputId);
+            const file = fileInput.files[0];
+            const btn = document.getElementById(btnId);
+            
+            if (!file) return alert("Pilih file gambar dulu!");
+
+            const ghSettings = JSON.parse(localStorage.getItem('githubApiSettings'));
+            if (!ghSettings || !ghSettings.token || !ghSettings.repo || !ghSettings.username) {
+                return alert("Pengaturan GitHub belum lengkap! Silakan ke menu 'Pengaturan GitHub' terlebih dahulu.");
+            }
+
+            const originalBtnText = btn.innerHTML;
+            btn.innerHTML = "Uploading...";
+            btn.disabled = true;
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const base64Content = e.target.result.split(',')[1];
+                const cleanFileName = file.name.replace(/[^a-zA-Z0-9.]/g, '-');
+                const filename = Date.now() + '_' + cleanFileName;
+                
+                let folderPath = ghSettings.path ? ghSettings.path + '/' : '';
+                const apiUrl = `https://api.github.com/repos/${ghSettings.username}/${ghSettings.repo}/contents/${folderPath}${filename}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${ghSettings.token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: `Upload gambar ${filename} via CMS Admin`,
+                            content: base64Content
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        document.getElementById(targetId).value = data.content.download_url;
+                        alert("Berhasil! Gambar terunggah.");
+                        saveData();
+                    } else {
+                        alert("Gagal mengunggah: " + data.message);
+                    }
+                } catch (err) {
+                    alert("Terjadi kesalahan jaringan: " + err.message);
+                } finally {
+                    btn.innerHTML = originalBtnText;
+                    btn.disabled = false;
+                }
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        // ==========================================
+        // 5. DATA DEFAULT & SAVE LOAD (FULL DUMMY CONTENT)
+        // ==========================================
+        const defaultData = {
+            primaryColor: '#10b981',
+            secondaryColor: '#1e293b', 
+            bgColor: '#ffffff',
+            accentColor: '#f9fafb',
+            
+            heroTitle: 'Kelas Belajar <br> <span class="text-primary">Al-Quran</span> <br> Kampoeng Quran Cendekia',
+            heroDesc: 'Kabar gembira bagi untuk semua, Kampoeng Quran Cendekia membuka kelas belajar Al-Quran intensif dan menyenangkan.',
+            videoId: 'oXZxB8ABsh0',
+            
+            testiTitle1: 'Apa Kata Mereka Tentang',
+            testiTitle2: 'Kampoeng Quran?',
+            
+            testiName1: 'Ahmad Zahir',
+            testiRole1: 'Engineer dan Motivator',
+            testiQuote1: '"Metode pengajarannya sangat mudah dipahami. Alhamdulillah sekarang bacaan saya jauh lebih baik."',
+            testiImage1: 'https://lh3.googleusercontent.com/pw/AP1GczPH8qVEV3CFCyAoAOnuDqkPGsPm1eOEdtoMjivGCPAfarZLxcLiEvJWF8CSok1yr_sK25cY3R-Ru0lJi-DxC625HOuQzEJPbJKtPN1Z3VjE19lcwlvbcir0c5-NqQE0xL7AGIyQi2AXsZy4W5lSpIZ5=w128-h128-s-no-gm?authuser=0',
+            
+            testiName2: 'Azizah',
+            testiRole2: 'Ibu Rumah Tangga',
+            testiQuote2: '"Sangat membantu bagi saya ibu rumah tangga yang ingin memperbaiki bacaan di sela kesibukan."',
+            testiImage2: 'https://lh3.googleusercontent.com/pw/AP1GczPgxKK3jbnzRXRuMcilB_czCl394aKR7wM9XihqQIALzvVIzTNnjXIQ4R2uiUdW9w_Em0SwpBj01YjXEjn1dAuTrGhZHp5H8vPH_UYQDr_lE4oZQeCxuZfS1Y4T5Idle3V4lhgnPHGrFsQQomJZOK9s=w128-h128-s-no-gm?authuser=0',
+            
+            showTesti3: false,
+            testiName3: '',
+            testiRole3: '',
+            testiQuote3: '',
+            testiImage3: '',
+
+            introImage: 'https://lh3.googleusercontent.com/pw/AP1GczNZBk_yCNYajkf4BWsp6Ehy2XbOB-e97w_eCghQQpNSgsMahVlhfeNEQAIlv_SYL12ww93loTWCyyIlna5lDpKLG_UZj1nl6Kby68JLp7Ohv05U19LvGDt-DG7fyXAEYtzoERgJ-Y1_3wJghEK1xn66=w241-h264-s-no-gm?authuser=0',
+            introSub: 'MEMPERKENALKAN',
+            introTitle: 'Kelas Belajar Al-Quran',
+            introDesc1: '<strong class="text-white">Tahsin Qarana</strong> adalah buku panduan yang digunakan di kelas ini. Ciri khas buku ini, sesuai namanya, ada pada <em class="text-primary">talqin</em> (pemberian contoh) dari asatiz untuk disimak kemudian diikuti.',
+            introDesc2: 'Penyesuaian dengan jenis kesalahan, jika kesalahan lebih banyak pada panjang pendek maka pelajaran dimulai dari Qoro\'na 2, dst.',
+            
+            forWhoTitle: 'Untuk siapa saja?',
+            forWhoList: [
+                { target: 'Peserta Pemula', icon: 'users', desc: 'Yaitu peserta yang belum bisa membaca Al-Quran sama sekali.' },
+                { target: 'Belum Lancar', icon: 'mic', desc: 'Peserta yang tajwidnya masih kurang, atau masih terbata-bata.' },
+                { target: 'Berbagai Usia', icon: 'smile', desc: 'Diperuntukkan untuk berbagai usia, namun diprioritaskan minimal usia SMP.' }
+            ],
+
+            benefitsTitle: 'Apa Yang Akan Kamu Dapatkan Dari Kelas Ini?',
+            benefitsList: [
+                { title: 'Buku Paket Ebook Qara\'na Gratis', desc: 'Kamu akan diberikan secara gratis buku panduan qarana (PDF).' },
+                { title: 'Bimbingan Dari Asatiz Berpengalaman', desc: 'Dibimbing 2x dalam sepekan oleh para asatiz berpengalaman.' },
+                { title: 'Pilihan Kelas Online atau Offline', desc: 'Pilih kelas sesuai hari dan waktu yang tersedia.' }
+            ],
+
+            promoTitle: 'Apakah ada kelas lainnya?',
+            promoDesc: 'Ya ada, namun untuk saat ini, kelas yang dibuka baru kelas belajar Al-Quran. In syaa Allah kelas bahasa arab akan dibuka dalam waktu dekat.',
+            promoBtnText: 'Cek Program Lainnya',
+            promoBtnLink: 'https://kelasngaji.web.id/'
         };
 
         function loadData() {
-            const d = JSON.parse(localStorage.getItem('cmsData')) || defD;
-            ['primaryColor','secondaryColor','bgColor','accentColor','heroTitle','heroDesc','videoId','testiTitle1','testiTitle2',
-             'testiName1','testiRole1','testiQuote1','testiImage1','testiName2','testiRole2','testiQuote2','testiImage2','testiName3','testiRole3','testiQuote3','testiImage3',
-             'introImage','introSub','introTitle','introDesc1','introDesc2','forWhoTitle','benefitsTitle','promoTitle','promoDesc','promoBtnText','promoBtnLink'].forEach(k => {
-                setVal(k, d[k] !== undefined ? d[k] : defD[k] || '');
-                if(k.includes('Color')) el(k+'HexCode').innerText = d[k] || defD[k];
-            });
-            isTesti3 = d.showTesti3 || false; if(isTesti3) showTesti3();
+            const savedData = JSON.parse(localStorage.getItem('cmsData')) || defaultData;
             
-            fwList = d.forWhoList || [
-                {t:'Peserta Pemula', i:'users', d:'Yaitu peserta yang belum bisa membaca Al-Quran sama sekali.'},
-                {t:'Belum Lancar', i:'mic', d:'Peserta yang tajwidnya masih kurang, atau masih terbata-bata.'},
-                {t:'Berbagai Usia', i:'smile', d:'Diperuntukkan untuk berbagai usia, namun diprioritaskan minimal usia SMP.'}
-            ];
-            benList = d.benefitsList || [
-                {t:'Buku Paket Ebook Qara\'na Gratis', d:'Kamu akan diberikan secara gratis buku panduan qarana (PDF).'},
-                {t:'Bimbingan Dari Asatiz Berpengalaman', d:'Dibimbing 2x dalam sepekan oleh para asatiz berpengalaman.'},
-                {t:'Pilihan Kelas Online atau Offline', d:'Pilih kelas sesuai hari dan waktu yang tersedia.'}
-            ];
-            renderFW(); renderBen();
+            document.getElementById('primaryColor').value = savedData.primaryColor || defaultData.primaryColor;
+            document.getElementById('colorHexCode').innerText = savedData.primaryColor || defaultData.primaryColor;
+            document.getElementById('secondaryColor').value = savedData.secondaryColor || defaultData.secondaryColor;
+            document.getElementById('secondaryColorHexCode').innerText = savedData.secondaryColor || defaultData.secondaryColor;
+            document.getElementById('bgColor').value = savedData.bgColor || defaultData.bgColor;
+            document.getElementById('bgColorHexCode').innerText = savedData.bgColor || defaultData.bgColor;
+            document.getElementById('accentColor').value = savedData.accentColor || defaultData.accentColor;
+            document.getElementById('accentColorHexCode').innerText = savedData.accentColor || defaultData.accentColor;
+
+            document.getElementById('heroTitle').value = savedData.heroTitle || defaultData.heroTitle;
+            document.getElementById('heroDesc').value = savedData.heroDesc || defaultData.heroDesc;
+            document.getElementById('videoId').value = savedData.videoId || defaultData.videoId;
+
+            document.getElementById('testiTitle1').value = savedData.testiTitle1 || defaultData.testiTitle1;
+            document.getElementById('testiTitle2').value = savedData.testiTitle2 || defaultData.testiTitle2;
+            
+            document.getElementById('testiName1').value = savedData.testiName1 || defaultData.testiName1;
+            document.getElementById('testiRole1').value = savedData.testiRole1 || defaultData.testiRole1;
+            document.getElementById('testiQuote1').value = savedData.testiQuote1 || defaultData.testiQuote1;
+            document.getElementById('testiImage1').value = savedData.testiImage1 || defaultData.testiImage1;
+
+            document.getElementById('testiName2').value = savedData.testiName2 || defaultData.testiName2;
+            document.getElementById('testiRole2').value = savedData.testiRole2 || defaultData.testiRole2;
+            document.getElementById('testiQuote2').value = savedData.testiQuote2 || defaultData.testiQuote2;
+            document.getElementById('testiImage2').value = savedData.testiImage2 || defaultData.testiImage2;
+
+            // Load Testi 3
+            isTesti3Visible = savedData.showTesti3 || false;
+            if (isTesti3Visible) {
+                document.getElementById('testi-block-3').classList.remove('hidden');
+                document.getElementById('btn-add-testi').classList.add('hidden');
+            } else {
+                document.getElementById('testi-block-3').classList.add('hidden');
+                document.getElementById('btn-add-testi').classList.remove('hidden');
+            }
+            document.getElementById('testiName3').value = savedData.testiName3 || '';
+            document.getElementById('testiRole3').value = savedData.testiRole3 || '';
+            document.getElementById('testiQuote3').value = savedData.testiQuote3 || '';
+            document.getElementById('testiImage3').value = savedData.testiImage3 || '';
+
+            document.getElementById('introImage').value = savedData.introImage || defaultData.introImage; 
+            document.getElementById('introSub').value = savedData.introSub || defaultData.introSub;
+            document.getElementById('introTitle').value = savedData.introTitle || defaultData.introTitle;
+            document.getElementById('introDesc1').value = savedData.introDesc1 || defaultData.introDesc1;
+            document.getElementById('introDesc2').value = savedData.introDesc2 || defaultData.introDesc2;
+
+            // Load Dynamic Lists
+            document.getElementById('forWhoTitle').value = savedData.forWhoTitle || defaultData.forWhoTitle;
+            forWhoList = savedData.forWhoList || defaultData.forWhoList;
+            renderForWho();
+
+            document.getElementById('benefitsTitle').value = savedData.benefitsTitle || defaultData.benefitsTitle;
+            benefitsList = savedData.benefitsList || defaultData.benefitsList;
+            renderBenefits();
+
+            document.getElementById('promoTitle').value = savedData.promoTitle || defaultData.promoTitle;
+            document.getElementById('promoDesc').value = savedData.promoDesc || defaultData.promoDesc;
+            document.getElementById('promoBtnText').value = savedData.promoBtnText || defaultData.promoBtnText;
+            document.getElementById('promoBtnLink').value = savedData.promoBtnLink || defaultData.promoBtnLink;
         }
-        
-        function resetColors() { if(confirm("Reset warna bawaan?")) { ['primary','secondary','bg','accent'].forEach(k => { setVal(k+'Color', defD[k+'Color']); el(k+'ColorHexCode').innerText=defD[k+'Color']; }); } }
-        
+
+        function resetColors() {
+            if(confirm("Kembalikan warna ke pengaturan asli bawaan?")) {
+                document.getElementById('primaryColor').value = defaultData.primaryColor;
+                document.getElementById('colorHexCode').innerText = defaultData.primaryColor;
+                document.getElementById('secondaryColor').value = defaultData.secondaryColor;
+                document.getElementById('secondaryColorHexCode').innerText = defaultData.secondaryColor;
+                document.getElementById('bgColor').value = defaultData.bgColor;
+                document.getElementById('bgColorHexCode').innerText = defaultData.bgColor;
+                document.getElementById('accentColor').value = defaultData.accentColor;
+                document.getElementById('accentColorHexCode').innerText = defaultData.accentColor;
+                saveData();
+            }
+        }
+
         function saveData() {
-            syncList(); const d = { showTesti3: isTesti3, forWhoList: fwList, benefitsList: benList };
-            document.querySelectorAll('input[type="text"], input[type="color"], textarea').forEach(e => d[e.id] = e.value);
-            localStorage.setItem('cmsData', JSON.stringify(d));
-            el('toast-success').classList.remove('hidden'); setTimeout(()=>el('toast-success').classList.add('hidden'), 3000);
+            syncForWhoArray();
+            syncBenefitsArray();
+
+            const newData = {
+                primaryColor: document.getElementById('primaryColor').value,
+                secondaryColor: document.getElementById('secondaryColor').value,
+                bgColor: document.getElementById('bgColor').value,
+                accentColor: document.getElementById('accentColor').value,
+                
+                heroTitle: document.getElementById('heroTitle').value,
+                heroDesc: document.getElementById('heroDesc').value,
+                videoId: document.getElementById('videoId').value,
+                
+                testiTitle1: document.getElementById('testiTitle1').value,
+                testiTitle2: document.getElementById('testiTitle2').value,
+                
+                testiName1: document.getElementById('testiName1').value,
+                testiRole1: document.getElementById('testiRole1').value,
+                testiQuote1: document.getElementById('testiQuote1').value,
+                testiImage1: document.getElementById('testiImage1').value,
+
+                testiName2: document.getElementById('testiName2').value,
+                testiRole2: document.getElementById('testiRole2').value,
+                testiQuote2: document.getElementById('testiQuote2').value,
+                testiImage2: document.getElementById('testiImage2').value,
+
+                showTesti3: isTesti3Visible,
+                testiName3: document.getElementById('testiName3').value,
+                testiRole3: document.getElementById('testiRole3').value,
+                testiQuote3: document.getElementById('testiQuote3').value,
+                testiImage3: document.getElementById('testiImage3').value,
+                
+                introImage: document.getElementById('introImage').value, 
+                introSub: document.getElementById('introSub').value,
+                introTitle: document.getElementById('introTitle').value,
+                introDesc1: document.getElementById('introDesc1').value,
+                introDesc2: document.getElementById('introDesc2').value,
+
+                forWhoTitle: document.getElementById('forWhoTitle').value,
+                forWhoList: forWhoList,
+                
+                benefitsTitle: document.getElementById('benefitsTitle').value,
+                benefitsList: benefitsList,
+
+                promoTitle: document.getElementById('promoTitle').value,
+                promoDesc: document.getElementById('promoDesc').value,
+                promoBtnText: document.getElementById('promoBtnText').value,
+                promoBtnLink: document.getElementById('promoBtnLink').value
+            };
+
+            localStorage.setItem('cmsData', JSON.stringify(newData));
+
+            const toast = document.getElementById('toast-success');
+            toast.classList.remove('hidden');
+            setTimeout(() => { toast.classList.add('hidden'); }, 3000);
         }
     </script>
 </body>
