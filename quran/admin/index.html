@@ -322,12 +322,12 @@
         // 5. PENYIMPANAN DATA UTAMA
         const defD = {
             primaryColor:'#10b981', secondaryColor:'#1e293b', bgColor:'#ffffff', accentColor:'#f9fafb',
-            heroTitle:'Kelas Belajar <br> <span class="text-primary">Al-Quran</span> <br> KQC', heroDesc:'Kabar gembira, KQC membuka kelas...', videoId:'oXZxB8ABsh0',
-            testiTitle1:'Apa Kata Mereka', testiTitle2:'Kampoeng Quran?', 
-            testiName1:'Ahmad', testiRole1:'Eng', testiQuote1:'Bagus.', testiImage1:'',
-            testiName2:'Azizah', testiRole2:'IRT', testiQuote2:'Membantu.', testiImage2:'',
-            introImage:'', introSub:'MEMPERKENALKAN', introTitle:'Kelas Al-Quran', introDesc1:'Buku Tahsin...', introDesc2:'Sesuai level...',
-            forWhoTitle:'Untuk Siapa?', benefitsTitle:'Manfaat?', promoTitle:'Kelas Lain?', promoDesc:'Ada kelas baru', promoBtnText:'Cek', promoBtnLink:'#'
+            heroTitle:'Kelas Belajar <br> <span class="text-primary">Al-Quran</span> <br> Kampoeng Quran Cendekia', heroDesc:'Kabar gembira bagi untuk semua, Kampoeng Quran Cendekia membuka kelas belajar Al-Quran intensif dan menyenangkan.', videoId:'oXZxB8ABsh0',
+            testiTitle1:'Apa Kata Mereka Tentang', testiTitle2:'Kampoeng Quran?', 
+            testiName1:'Ahmad Zahir', testiRole1:'Engineer dan Motivator', testiQuote1:'"Metode pengajarannya sangat mudah dipahami. Alhamdulillah sekarang bacaan saya jauh lebih baik."', testiImage1:'https://lh3.googleusercontent.com/pw/AP1GczPH8qVEV3CFCyAoAOnuDqkPGsPm1eOEdtoMjivGCPAfarZLxcLiEvJWF8CSok1yr_sK25cY3R-Ru0lJi-DxC625HOuQzEJPbJKtPN1Z3VjE19lcwlvbcir0c5-NqQE0xL7AGIyQi2AXsZy4W5lSpIZ5=w128-h128-s-no-gm?authuser=0',
+            testiName2:'Azizah', testiRole2:'Ibu Rumah Tangga', testiQuote2:'"Sangat membantu bagi saya ibu rumah tangga yang ingin memperbaiki bacaan di sela kesibukan."', testiImage2:'https://lh3.googleusercontent.com/pw/AP1GczPgxKK3jbnzRXRuMcilB_czCl394aKR7wM9XihqQIALzvVIzTNnjXIQ4R2uiUdW9w_Em0SwpBj01YjXEjn1dAuTrGhZHp5H8vPH_UYQDr_lE4oZQeCxuZfS1Y4T5Idle3V4lhgnPHGrFsQQomJZOK9s=w128-h128-s-no-gm?authuser=0',
+            introImage:'https://lh3.googleusercontent.com/pw/AP1GczNZBk_yCNYajkf4BWsp6Ehy2XbOB-e97w_eCghQQpNSgsMahVlhfeNEQAIlv_SYL12ww93loTWCyyIlna5lDpKLG_UZj1nl6Kby68JLp7Ohv05U19LvGDt-DG7fyXAEYtzoERgJ-Y1_3wJghEK1xn66=w241-h264-s-no-gm?authuser=0', introSub:'MEMPERKENALKAN', introTitle:'Kelas Belajar Al-Quran', introDesc1:'<strong class="text-white">Tahsin Qarana</strong> adalah buku panduan yang digunakan di kelas ini. Ciri khas buku ini, sesuai namanya, ada pada <em class="text-primary">talqin</em> (pemberian contoh) dari asatiz untuk disimak kemudian diikuti.', introDesc2:'Penyesuaian dengan jenis kesalahan, jika kesalahan lebih banyak pada panjang pendek maka pelajaran dimulai dari Qoro\'na 2, dst.',
+            forWhoTitle:'Untuk siapa saja?', benefitsTitle:'Apa Yang Akan Kamu Dapatkan Dari Kelas Ini?', promoTitle:'Apakah ada kelas lainnya?', promoDesc:'Ya ada, namun untuk saat ini, kelas yang dibuka baru kelas belajar Al-Quran. In syaa Allah kelas bahasa arab akan dibuka dalam waktu dekat.', promoBtnText:'Cek Program Lainnya', promoBtnLink:'https://kelasngaji.web.id/'
         };
 
         function loadData() {
@@ -340,8 +340,16 @@
             });
             isTesti3 = d.showTesti3 || false; if(isTesti3) showTesti3();
             
-            fwList = d.forWhoList || [{t:'Pemula', i:'users', d:'Belum bisa baca'},{t:'Belum Lancar', i:'mic', d:'Tajwid kurang'}];
-            benList = d.benefitsList || [{t:'Buku Gratis', d:'Ebook panduan.'}];
+            fwList = d.forWhoList || [
+                {t:'Peserta Pemula', i:'users', d:'Yaitu peserta yang belum bisa membaca Al-Quran sama sekali.'},
+                {t:'Belum Lancar', i:'mic', d:'Peserta yang tajwidnya masih kurang, atau masih terbata-bata.'},
+                {t:'Berbagai Usia', i:'smile', d:'Diperuntukkan untuk berbagai usia, namun diprioritaskan minimal usia SMP.'}
+            ];
+            benList = d.benefitsList || [
+                {t:'Buku Paket Ebook Qara\'na Gratis', d:'Kamu akan diberikan secara gratis buku panduan qarana (PDF).'},
+                {t:'Bimbingan Dari Asatiz Berpengalaman', d:'Dibimbing 2x dalam sepekan oleh para asatiz berpengalaman.'},
+                {t:'Pilihan Kelas Online atau Offline', d:'Pilih kelas sesuai hari dan waktu yang tersedia.'}
+            ];
             renderFW(); renderBen();
         }
         
