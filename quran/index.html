@@ -88,7 +88,7 @@
     <main class="max-w-md mx-auto bg-white shadow-xl min-h-screen overflow-hidden">
         
         <!-- Hero Section -->
-        <header class="relative pt-10 pb-16 px-6 text-center">
+        <header id="section-hero" class="relative pt-10 pb-16 px-6 text-center">
             <div class="absolute inset-0 hero-pattern opacity-20 z-0"></div>
             <div class="absolute inset-0 hero-overlay z-10"></div>
             
@@ -140,7 +140,7 @@
         </header>
 
         <!-- Testimonials -->
-        <section class="bg-gray-50 py-12 px-6">
+        <section id="section-testi" class="bg-gray-50 py-12 px-6">
             <h2 class="text-xl font-bold text-center text-secondary mb-2">Apa Kata Mereka Tentang</h2>
             <h3 class="text-xl font-bold text-center text-primary mb-8">Kampoeng Quran?</h3>
 
@@ -174,7 +174,7 @@
         </section>
 
         <!-- Product Introduction (The Book) -->
-        <section class="bg-secondary text-white py-16 px-6 text-center relative overflow-hidden">
+        <section id="section-intro" class="bg-secondary text-white py-16 px-6 text-center relative overflow-hidden">
             <div class="relative z-10">
                 <span class="text-primary font-semibold text-sm uppercase tracking-widest mb-2 block">Memperkenalkan</span>
                 <h2 class="text-3xl font-bold mb-8">Kelas Belajar Al-Quran</h2>
@@ -201,7 +201,7 @@
         </section>
 
         <!-- Target Audience -->
-        <section class="py-12 px-6">
+        <section id="section-forwho" class="py-12 px-6">
             <h2 class="text-2xl font-bold text-secondary mb-8">Untuk siapa saja?</h2>
             
             <div class="space-y-6">
@@ -241,7 +241,7 @@
         </section>
 
         <!-- Features/What You Get -->
-        <section class="bg-gray-50 py-12 px-6">
+        <section id="section-benefits" class="bg-gray-50 py-12 px-6">
             <h2 class="text-2xl font-bold text-secondary mb-8 leading-tight">Apa Yang Akan Kamu Dapatkan Dari Kelas Ini?</h2>
 
             <div class="space-y-8">
@@ -269,7 +269,7 @@
         </section>
 
         <!-- Other Classes Promo -->
-        <section class="py-12 px-6 bg-secondary text-white relative overflow-hidden text-center">
+        <section id="section-promo" class="py-12 px-6 bg-secondary text-white relative overflow-hidden text-center">
             <div class="absolute top-0 right-0 w-32 h-32 bg-primary rounded-full filter blur-3xl opacity-20"></div>
             
             <h2 class="text-xl font-bold mb-4">Apakah ada kelas lainnya?</h2>
@@ -282,7 +282,7 @@
         </section>
 
         <!-- Benefits Grid -->
-        <section class="py-12 px-6">
+        <section id="section-manfaat" class="py-12 px-6">
             <h2 class="text-2xl font-bold text-secondary mb-8">Manfaat Mengikuti Kelas</h2>
             
             <div class="grid grid-cols-1 gap-4">
@@ -308,7 +308,7 @@
         </section>
 
         <!-- Bonuses -->
-        <section class="bg-gray-50 py-12 px-6">
+        <section id="section-bonus" class="bg-gray-50 py-12 px-6">
             <p class="text-primary text-sm font-bold uppercase tracking-wider mb-2">Bonus Bagi Anda</p>
             <h2 class="text-2xl font-bold text-secondary mb-8">Bonus Kelas Kursus</h2>
 
@@ -364,7 +364,7 @@
         </section>
 
         <!-- FAQ Accordion -->
-        <section class="bg-gray-50 py-12 px-6">
+        <section id="section-faq" class="bg-gray-50 py-12 px-6">
             <h2 class="text-2xl font-bold text-secondary mb-8">Pertanyaan Seputar Program</h2>
 
             <div class="space-y-3">
@@ -620,7 +620,36 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
         const cmsData = JSON.parse(localStorage.getItem('cmsData'));
         
         if (cmsData) {
-            // ---> A. UBAH WARNA TAILWIND <---
+
+            // ---> A. VISIBILITAS BAGIAN (TOGGLE ON/OFF DARI CMS) <---
+            const visibilityMap = {
+                'showHero': 'section-hero',
+                'showTesti': 'section-testi',
+                'showIntro': 'section-intro',
+                'showForWho': 'section-forwho',
+                'showBenefits': 'section-benefits',
+                'showPromo': 'section-promo',
+                'showManfaat': 'section-manfaat',
+                'showBonus': 'section-bonus',
+                'showPricing': 'daftar',
+                'showFaq': 'section-faq'
+            };
+
+            for (const key in visibilityMap) {
+                const sectionEl = document.getElementById(visibilityMap[key]);
+                if (sectionEl) {
+                    // Jika di CMS nilainya explicitly false, sembunyikan. 
+                    // Jika undefined atau true, tampilkan (fallback aman)
+                    if (cmsData[key] === false) {
+                        sectionEl.style.display = 'none';
+                    } else {
+                        sectionEl.style.display = '';
+                    }
+                }
+            }
+
+
+            // ---> B. UBAH WARNA TAILWIND <---
             if (cmsData.primaryColor) tailwind.config.theme.extend.colors.primary = cmsData.primaryColor;
             if (cmsData.secondaryColor) tailwind.config.theme.extend.colors.secondary = cmsData.secondaryColor;
             if (cmsData.bgColor) tailwind.config.theme.extend.colors.white = cmsData.bgColor; 
@@ -629,7 +658,7 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                 tailwind.config.theme.extend.colors.gray[50] = cmsData.accentColor; 
             }
             
-            // ---> B. UBAH TEKS HERO & VIDEO <---
+            // ---> C. UBAH TEKS HERO & VIDEO <---
             const heroTitleEl = document.querySelector('h1.font-heading');
             if (heroTitleEl && cmsData.heroTitle) heroTitleEl.innerHTML = cmsData.heroTitle;
             
@@ -642,7 +671,7 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                 `;
             }
 
-            // ---> C. UBAH TESTIMONI <---
+            // ---> D. UBAH TESTIMONI <---
             const testiTitle1El = document.querySelector('section.bg-gray-50 h2.text-xl');
             if (testiTitle1El && cmsData.testiTitle1) testiTitle1El.innerText = cmsData.testiTitle1;
 
@@ -673,7 +702,7 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                 testiContainer.innerHTML = testiHTML;
             }
 
-            // ---> D. UBAH BAGIAN "MEMPERKENALKAN" <---
+            // ---> E. UBAH BAGIAN "MEMPERKENALKAN" <---
             const introSubEl = document.querySelector('section.bg-secondary span.tracking-widest');
             if (introSubEl && cmsData.introSub) introSubEl.innerText = cmsData.introSub;
 
@@ -690,7 +719,7 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
             // FUNGSI PENCARI ELEMEN H2
             const allH2s = document.querySelectorAll('h2.text-2xl.font-bold.text-secondary');
 
-            // ---> E. UBAH "UNTUK SIAPA SAJA" <---
+            // ---> F. UBAH "UNTUK SIAPA SAJA" <---
             let forWhoSectionH2 = null;
             allH2s.forEach(h2 => { if(h2.innerText.includes('Untuk siapa saja') || h2.innerText === cmsData.forWhoTitle) forWhoSectionH2 = h2; });
             
@@ -721,7 +750,7 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                 }
             }
 
-            // ---> F. UBAH "APA YANG DIDAPATKAN" <---
+            // ---> G. UBAH "APA YANG DIDAPATKAN" <---
             let benefitsSectionH2 = null;
             allH2s.forEach(h2 => { if(h2.innerText.includes('Dapatkan Dari Kelas Ini') || h2.innerText === cmsData.benefitsTitle) benefitsSectionH2 = h2; });
 
@@ -744,7 +773,7 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                 }
             }
 
-            // ---> G. UBAH "MANFAAT MENGIKUTI KELAS" <---
+            // ---> H. UBAH "MANFAAT MENGIKUTI KELAS" <---
             let manfaatSectionH2 = null;
             allH2s.forEach(h2 => { if(h2.innerText.includes('Manfaat Mengikuti Kelas') || h2.innerText === cmsData.manfaatTitle) manfaatSectionH2 = h2; });
 
@@ -772,7 +801,7 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                 }
             }
 
-            // ---> H. UBAH "BONUS KELAS KURSUS" <---
+            // ---> I. UBAH "BONUS KELAS KURSUS" <---
             let bonusSectionH2 = null;
             allH2s.forEach(h2 => { if(h2.innerText.includes('Bonus Kelas Kursus') || h2.innerText === cmsData.bonusTitle) bonusSectionH2 = h2; });
 
@@ -803,7 +832,7 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                 }
             }
 
-            // ---> I. UBAH "FAQ / PERTANYAAN" (BARU) <---
+            // ---> J. UBAH "FAQ / PERTANYAAN" <---
             let faqSectionH2 = null;
             allH2s.forEach(h2 => { if(h2.innerText.includes('Pertanyaan Seputar Program') || h2.innerText === cmsData.faqTitle) faqSectionH2 = h2; });
 
@@ -831,7 +860,7 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                 }
             }
 
-            // ---> J. UBAH "PRICING" <---
+            // ---> K. UBAH "PRICING" <---
             const pricingSection = document.getElementById('daftar');
             if(pricingSection) {
                 const pricingTitleEl = pricingSection.querySelector('h2');
@@ -867,8 +896,8 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                 }
             }
 
-            // ---> K. UBAH BAGIAN PROMO KELAS LAINNYA <---
-            const promoSection = document.querySelector('section.bg-secondary.text-white.text-center');
+            // ---> L. UBAH BAGIAN PROMO KELAS LAINNYA <---
+            const promoSection = document.getElementById('section-promo');
             if(promoSection) {
                 const promoTitleEl = promoSection.querySelector('h2');
                 if(promoTitleEl && cmsData.promoTitle) promoTitleEl.innerText = cmsData.promoTitle;
