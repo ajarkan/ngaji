@@ -108,7 +108,7 @@
     }
   ],
   "username": "admin",
-  "primaryColor": "#10b4b7",
+  "primaryColor": "#10b981",
   "secondaryColor": "#1e293b",
   "bgColor": "#ffffff",
   "accentColor": "#f9fafb",
@@ -158,7 +158,7 @@
   "ghRepo": "ngaji",
   "ghPath": "arab",
   "showHero": true,
-  "showTesti": false,
+  "showTesti": true,
   "showIntro": true,
   "showForWho": true,
   "showBenefits": true,
