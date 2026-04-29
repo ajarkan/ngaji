@@ -129,10 +129,10 @@
                     if(r.ok){
                         let o=await r.json();
                         d=JSON.parse(decodeURIComponent(escape(atob(o.content))));
-                        localStorage.setItem('cmsData',JSON.stringify(d)); // Backup ke lokal
-                    }else{d=JSON.parse(localStorage.getItem('cmsData'))||dDef;}
-                }catch(e){d=JSON.parse(localStorage.getItem('cmsData'))||dDef;}
-            }else{ d=JSON.parse(localStorage.getItem('cmsData'))||dDef; }
+                        localStorage.setItem('cmsQuranData',JSON.stringify(d)); // Backup ke lokal
+                    }else{d=JSON.parse(localStorage.getItem('cmsQuranData'))||dDef;}
+                }catch(e){d=JSON.parse(localStorage.getItem('cmsQuranData'))||dDef;}
+            }else{ d=JSON.parse(localStorage.getItem('cmsQuranData'))||dDef; }
 
             ['primaryColor','secondaryColor','bgColor','accentColor','heroTitle','heroDesc','videoId','testiTitle1','testiTitle2','testiName1','testiRole1','testiQuote1','testiImage1','testiName2','testiRole2','testiQuote2','testiImage2','testiName3','testiRole3','testiQuote3','testiImage3','introImage','introSub','introTitle','introDesc1','introDesc2','forWhoTitle','benefitsTitle','promoTitle','promoDesc','promoBtnText','promoBtnLink','manfaatTitle','bonusSub','bonusTitle','priceTitle','priceDesc','priceBadge','priceOriginal','priceCurrent','priceUnit','priceNote','priceBtnText','priceBtnLink','priceFooter','faqTitle'].forEach(k=>{setV(k,d[k]!==undefined?d[k]:dDef[k]||'');if(k.includes('Color')&&el(k+'HexCode'))el(k+'HexCode').innerText=d[k]||dDef[k];});
             ['showHero','showTesti','showIntro','showForWho','showBenefits','showPromo','showManfaat','showBonus','showPricing','showFaq'].forEach(k=>{if(el(k))el(k).checked=d[k]!==undefined?d[k]:dDef[k];});
@@ -147,7 +147,7 @@
             document.querySelectorAll('.toggle-cb').forEach(i=>{if(i.id)n[i.id]=i.checked;});
             
             // Selalu simpan lokal
-            localStorage.setItem('cmsData',JSON.stringify(n));
+            localStorage.setItem('cmsQuranData',JSON.stringify(n));
             let msg="Tersimpan di Lokal!";
             
             // Proses Lempar ke GitHub Cloud
