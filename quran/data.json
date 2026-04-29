@@ -166,5 +166,5 @@
   "showManfaat": true,
   "showBonus": true,
   "showPricing": true,
-  "showFaq": true
+  "showFaq": false
 }
