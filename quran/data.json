@@ -1,0 +1,170 @@
+{
+  "showTesti3": false,
+  "forWhoList": [
+    {
+      "target": "Peserta Pemula",
+      "icon": "users",
+      "desc": "Yaitu peserta yang belum bisa membaca Al-Quran sama sekali."
+    },
+    {
+      "target": "Belum Lancar",
+      "icon": "mic",
+      "desc": "Peserta yang tajwidnya masih kurang, atau masih terbata-bata."
+    },
+    {
+      "target": "Berbagai Usia",
+      "icon": "smile",
+      "desc": "Diperuntukkan untuk berbagai usia, namun diprioritaskan minimal usia SMP."
+    }
+  ],
+  "benefitsList": [
+    {
+      "title": "Buku Paket Ebook Qara'na Gratis",
+      "desc": "Kamu akan diberikan secara gratis buku panduan qarana (PDF)."
+    },
+    {
+      "title": "Bimbingan Dari Asatiz Berpengalaman",
+      "desc": "Dibimbing 2x dalam sepekan oleh para asatiz berpengalaman."
+    },
+    {
+      "title": "Pilihan Kelas Online atau Offline",
+      "desc": "Pilih kelas sesuai hari dan waktu yang tersedia."
+    }
+  ],
+  "manfaatList": [
+    {
+      "title": "Melancarkan Bacaan",
+      "icon": "zap"
+    },
+    {
+      "title": "Lingkungan Orang Shaleh",
+      "icon": "users"
+    },
+    {
+      "title": "Menambah Pemahaman",
+      "icon": "lightbulb"
+    }
+  ],
+  "bonusList": [
+    {
+      "title": "Akses Gratis Ebook Islami",
+      "icon": "library",
+      "desc": "Akses kurang lebih 2700 koleksi buku islami dengan berbagai tema."
+    },
+    {
+      "title": "Free Ebook Panduan",
+      "icon": "book-open-check",
+      "desc": "Buku panduan diberikan secara cuma-cuma (PDF)."
+    }
+  ],
+  "faqList": [
+    {
+      "q": "Berapa batas maksimal per kelas?",
+      "a": "Batas maksimal satu kelas berisi 15 peserta."
+    },
+    {
+      "q": "Apakah harus menunggu sampai 15 orang baru mulai?",
+      "a": "Tidak, kelas baru dapat dimulai jika memenuhi kuota minimal 8 peserta, baik online maupun offline."
+    },
+    {
+      "q": "Apakah kelas bisa ditutup atau dibubarkan jika peserta tinggal sedikit?",
+      "a": "Kelas dinyatakan berjalan normal apabila jumlah peserta aktif minimal 4 orang.\n\nKelas dengan jumlah peserta 3 orang dapat berjalan sementara dengan masa evaluasi maksimal 1 bulan.\n\nApabila dalam masa tersebut tidak terjadi penambahan peserta, kelas akan digabung, ditutup atau dibubarkan, namun kelas dengan jumlah peserta 3 orang dapat tetap berjalan jika disetujui asatiz bersangkutan."
+    },
+    {
+      "q": "Bagaimana ketentuan biaya kelas online, offline dan privat perorangan atau institusi?",
+      "a": "Biaya Online dan Offline disamakan, yaitu Rp. 75.000 / bulan, kecuali weekend (Kelas Sabtu – Ahad), biayanya Rp. 100.000 / bulan.\n\nBiaya Privat Online 150.000 / pertemuan (Jumlah pertemuan dalam sebulan disepakati antara ustadz pengajar dan peserta).\n\nBiaya Privat Offline 200.000 / pertemuan (Jumlah pertemuan dalam sebulan disepakati antara ustadz pengajar dan peserta).\n\nBiaya privat institusi (masjid, kantor) dengan jumlah maksimal 25 orang (untuk semua program) Rp. 1000.000."
+    },
+    {
+      "q": "Kapan biaya pendidikan (non privat) paling lambat ditunaikan, dan apa konsekuensi jika terlambat?",
+      "a": "Biaya Pendidikan (non privat) ditunaikan paling lambat tanggal 10 setiap bulannya.\n\nPeserta yang belum menunaikan biaya pendidikan lebih dari tanggal 10 tetap dibolehkan belajar dengan konfirmasi terlebih dahulu kepada admin mengenai alasan penundaan pembayaran.\n\nPeserta yang tidak mengkonfirmasi alasan penundaan pembayaran biaya Pendidikan sampai akhir bulan dianggap mengundurkan diri dan dikeluarkan dari grup.\n\nPeserta yang telah mengundurkan diri boleh kembali bergabung dengan mendaftar ulang."
+    },
+    {
+      "q": "Apakah ada buku panduannya?",
+      "a": "Ya, ada, buku panduan berupa ebook boleh diprint masing-masing. Buku cetak dapat dipesan dengan cara PO."
+    },
+    {
+      "q": "Apakah pengajar ikhwan dan akhwat dibedakan?",
+      "a": "Pengajar Ikhwan adalah Ikhwan, dan pengajar akhwat adalah akhwat atau Ikhwan yang sudah menikah. (Berlaku untuk offline maupun online)"
+    },
+    {
+      "q": "Apakah peserta yang sudah bisa baca Al-Quran mesti mengulang dari dasar?",
+      "a": "Tidak, peserta yang sudah bisa membaca Al-Quran memulai pembelajaran dari jilid yang ditentukan asatiz/ustadzahnya (bisa langsung loncat ke jilid 3, 4, dst., tidak mesti dari awal), setelah tes membaca ayat-ayat yang ditentukan.\n\nPerlu diketahui, ini bukan iqro, jadi turun jilid maksudnya untuk melatih lisan secara bertahap, mulai dari teks-teks arab yang singkat sampai kompleks (Al-Quran) dengan harapan ketika sudah kembali ke Al-Quran, bacaan sudah berbeda sebelum (before) dan setelahnya (after).\n\nPeserta dinyatakan selesai mengikuti kelas baca Al-Quran setelah menuntaskan jilid 6 buku Qoro’na.\n\nPeserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (Training For Trainer) yang diadakan Kampoeng Quran Cendekia (KQC) untuk menjadi pengajar Buku Qorona, baik offline di KQC, maupun online di tempat masing-masing."
+    },
+    {
+      "q": "Media apa yang digunakan untuk online",
+      "a": "Media online kelas baca Al-Quran menggunakan google meet premium yang tidak terbatas durasi 60 menit (batasan sekali online bisa sampai 24 jam). Jadi pembelajaran tidak akan putus koneksi."
+    },
+    {
+      "q": "Dimana kelas Offline dilaksanakan?",
+      "a": "Kelas Offline dilaksanakan di kelas-kelas atau ruangan-ruangan Kawasan Pesantren Tahfizh Kampoeng Quran Cendekia Cihanjuang, Bandung Barat."
+    },
+    {
+      "q": "Jika Ustadz/ah berhalangan, apakah bisa meminta ganti hari kelas yang diliburkan?",
+      "a": "Bisa, hari libur lembaga (Hari Jumat) atau hari lainnya dapat dipakai untuk badal (pengganti) kelas yang diliburkan karena asatiz terkendala (sakit, izin, dll) jika terjadi kesepakatan."
+    },
+    {
+      "q": "Apakah peserta boleh mengundurkan diri di tengah jalan?",
+      "a": "Peserta yang akan mengundurkan mengabarkan asatiznya masing-masing minimal sepekan sebelum masuk ke bulan berikutnya."
+    }
+  ],
+  "username": "admin",
+  "primaryColor": "#130a94",
+  "secondaryColor": "#1e293b",
+  "bgColor": "#ffffff",
+  "accentColor": "#f9fafb",
+  "heroTitle": "Kelas Belajar <br> <span class=\"text-primary\">Al-Quran</span> <br> Kampoeng Quran Cendekia",
+  "heroDesc": "Kabar gembira bagi untuk semua, Kampoeng Quran Cendekia membuka kelas belajar Al-Quran intensif dan menyenangkan.",
+  "videoId": "oXZxB8ABsh0",
+  "testiTitle1": "Apa Kata Mereka Tentang",
+  "testiTitle2": "Kampoeng Quran?",
+  "testiImage1": "https://lh3.googleusercontent.com/pw/AP1GczPH8qVEV3CFCyAoAOnuDqkPGsPm1eOEdtoMjivGCPAfarZLxcLiEvJWF8CSok1yr_sK25cY3R-Ru0lJi-DxC625HOuQzEJPbJKtPN1Z3VjE19lcwlvbcir0c5-NqQE0xL7AGIyQi2AXsZy4W5lSpIZ5=w128-h128-s-no-gm?authuser=0",
+  "testiName1": "Ahmad Zahir",
+  "testiRole1": "Engineer dan Motivator",
+  "testiQuote1": "\"Metode pengajarannya sangat mudah dipahami. Alhamdulillah sekarang bacaan saya jauh lebih baik.\"",
+  "testiImage2": "https://lh3.googleusercontent.com/pw/AP1GczPgxKK3jbnzRXRuMcilB_czCl394aKR7wM9XihqQIALzvVIzTNnjXIQ4R2uiUdW9w_Em0SwpBj01YjXEjn1dAuTrGhZHp5H8vPH_UYQDr_lE4oZQeCxuZfS1Y4T5Idle3V4lhgnPHGrFsQQomJZOK9s=w128-h128-s-no-gm?authuser=0",
+  "testiName2": "Azizah",
+  "testiRole2": "Ibu Rumah Tangga",
+  "testiQuote2": "\"Sangat membantu bagi saya ibu rumah tangga yang ingin memperbaiki bacaan di sela kesibukan.\"",
+  "testiImage3": "",
+  "testiName3": "",
+  "testiRole3": "",
+  "testiQuote3": "",
+  "introImage": "https://lh3.googleusercontent.com/pw/AP1GczNZBk_yCNYajkf4BWsp6Ehy2XbOB-e97w_eCghQQpNSgsMahVlhfeNEQAIlv_SYL12ww93loTWCyyIlna5lDpKLG_UZj1nl6Kby68JLp7Ohv05U19LvGDt-DG7fyXAEYtzoERgJ-Y1_3wJghEK1xn66=w241-h264-s-no-gm?authuser=0",
+  "introSub": "MEMPERKENALKAN",
+  "introTitle": "Kelas Belajar Al-Quran",
+  "introDesc1": "<strong class=\"text-white\">Tahsin Qarana</strong> adalah buku panduan yang digunakan di kelas ini. Ciri khas buku ini, sesuai namanya, ada pada <em class=\"text-primary\">talqin</em> (pemberian contoh) dari asatiz untuk disimak kemudian diikuti.",
+  "introDesc2": "Penyesuaian dengan jenis kesalahan, jika kesalahan lebih banyak pada panjang pendek maka pelajaran dimulai dari Qoro'na 2, dst.",
+  "forWhoTitle": "Untuk siapa saja?",
+  "benefitsTitle": "Apa Yang Akan Kamu Dapatkan Dari Kelas Ini?",
+  "promoTitle": "Apakah ada kelas lainnya?",
+  "promoDesc": "Ya ada, namun untuk saat ini, kelas yang dibuka baru kelas belajar Al-Quran. In syaa Allah kelas bahasa arab akan dibuka dalam waktu dekat.",
+  "promoBtnText": "Cek Program Lainnya",
+  "promoBtnLink": "https://kelasngaji.web.id/",
+  "manfaatTitle": "Manfaat Mengikuti Kelas",
+  "bonusSub": "Bonus Bagi Anda",
+  "bonusTitle": "Bonus Kelas Kursus",
+  "priceTitle": "Berapa Biayanya?",
+  "priceDesc": "In syaa Allah kami berusaha memberikan yang terbaik dengan biaya terjangkau.",
+  "priceBadge": "PROMO",
+  "priceNote": "Minimal 15 peserta per kelas",
+  "priceOriginal": "Rp 200.000",
+  "priceCurrent": "75.000",
+  "priceUnit": "/bulan",
+  "priceBtnText": "Daftar Sekarang",
+  "priceBtnLink": "https://form.kelasngaji.web.id/?kategori=Baca%20Al-Quran",
+  "priceFooter": "*Biaya weekend berbeda (Rp. 100.000)",
+  "faqTitle": "Pertanyaan Seputar Program",
+  "ghUsername": "ajarkan",
+  "ghRepo": "ngaji",
+  "ghPath": "quran",
+  "showHero": true,
+  "showTesti": true,
+  "showIntro": true,
+  "showForWho": true,
+  "showBenefits": true,
+  "showPromo": true,
+  "showManfaat": true,
+  "showBonus": true,
+  "showPricing": true,
+  "showFaq": true
+}
