@@ -15,8 +15,8 @@
         </aside>
         <main class="flex-1 flex flex-col h-full overflow-hidden"><header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center z-0"><h2 class="text-xl font-bold text-slate-800" id="page-title">Tampilan Dasar</h2><a href="../" target="_blank" class="flex items-center gap-2 text-sm text-emerald-600 hover:text-emerald-700 font-medium bg-emerald-50 px-4 py-2 rounded-lg transition"><i data-lucide="external-link" class="w-4 h-4"></i> Lihat Website</a></header>
             <div class="flex-1 overflow-y-auto p-8 relative">
-                <!-- NOTIFIKASI TOAST DI POJOK KANAN BAWAH -->
-                <div id="toast-success" class="fixed bottom-10 right-10 bg-emerald-600 text-white px-5 py-3 rounded-lg shadow-2xl text-sm font-bold hidden flex items-center gap-2 z-[100] transition-opacity duration-300"><i data-lucide="check-circle" class="w-5 h-5"></i> Berhasil Disimpan!</div>
+                <!-- NOTIFIKASI TOAST DI POJOK KANAN BAWAH DENGAN SPAN DINAMIS -->
+                <div id="toast-success" class="fixed bottom-10 right-10 bg-emerald-600 text-white px-5 py-3 rounded-lg shadow-2xl text-sm font-bold hidden flex items-center gap-2 z-[100] transition-opacity duration-300"><i data-lucide="check-circle" class="w-5 h-5"></i> <span id="toast-msg">Berhasil Disimpan!</span></div>
                 
                 <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-gray-100 p-6 relative">
                 
@@ -68,7 +68,7 @@
                     <div class="mb-6 flex justify-between items-center bg-emerald-50/50 p-3 border border-emerald-100 rounded-lg"><div class="text-sm font-bold text-emerald-800">Tampilkan Bagian Ini di Website</div><label class="cursor-pointer relative"><input type="checkbox" id="showFaq" class="sr-only toggle-cb"><div class="block bg-gray-300 w-10 h-6 rounded-full transition-colors"></div><div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform"></div></label></div>
                     <div class="mb-6"><label class="block text-sm font-medium mb-1">Judul Bagian</label><input type="text" id="faqTitle" class="w-full p-2 border rounded-lg"></div><div id="faqContainer" class="space-y-4 mb-4"></div><button onclick="addFaq()" class="mb-8 w-full border-2 border-dashed text-emerald-600 bg-emerald-50 font-bold py-2 rounded-lg text-sm flex justify-center gap-2"><i data-lucide="plus-circle" class="w-4 h-4"></i> Tambah Pertanyaan</button><div class="mt-8 flex justify-end"><button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold flex gap-2"><i data-lucide="save" class="w-4 h-4"></i> Simpan</button></div></div>
 
-                <div id="tab-github" class="tab-content hidden"><h3 class="text-lg font-bold mb-2">Koneksi API GitHub</h3><p class="text-sm text-gray-500 mb-6 pb-2 border-b">Konfigurasi aman tersimpan lokal.</p><div class="mb-4"><label class="block text-sm mb-1">Username GitHub</label><input type="text" id="ghUsername" class="w-full p-2 border rounded-lg"></div><div class="mb-4"><label class="block text-sm mb-1">Nama Repositori</label><input type="text" id="ghRepo" class="w-full p-2 border rounded-lg"></div><div class="mb-4"><label class="block text-sm mb-1">Folder Upload (Path)</label><input type="text" id="ghPath" class="w-full p-2 border rounded-lg" value="assets"></div><div class="mb-6"><label class="block text-sm mb-1">Personal Access Token</label><input type="password" id="ghToken" class="w-full p-2 border rounded-lg font-mono"></div><div class="flex justify-end"><button onclick="saveGH()" class="bg-slate-800 text-white px-6 py-2 rounded-lg font-bold flex gap-2"><i data-lucide="key" class="w-4 h-4"></i> Simpan Akses</button></div></div>
+                <div id="tab-github" class="tab-content hidden"><h3 class="text-lg font-bold mb-2">Koneksi API GitHub</h3><p class="text-sm text-gray-500 mb-6 pb-2 border-b">Konfigurasi aman tersimpan lokal. Fitur Database Cloud Aktif!</p><div class="mb-4"><label class="block text-sm mb-1">Username GitHub</label><input type="text" id="ghUsername" class="w-full p-2 border rounded-lg"></div><div class="mb-4"><label class="block text-sm mb-1">Nama Repositori</label><input type="text" id="ghRepo" class="w-full p-2 border rounded-lg"></div><div class="mb-4"><label class="block text-sm mb-1">Folder Upload (Path)</label><input type="text" id="ghPath" class="w-full p-2 border rounded-lg" value="quran"></div><div class="mb-6"><label class="block text-sm mb-1">Personal Access Token</label><input type="password" id="ghToken" class="w-full p-2 border rounded-lg font-mono"></div><div class="flex justify-end"><button onclick="saveGH()" class="bg-slate-800 text-white px-6 py-2 rounded-lg font-bold flex gap-2"><i data-lucide="key" class="w-4 h-4"></i> Simpan Akses</button></div></div>
             </div></div>
         </main>
     </div>
@@ -101,10 +101,8 @@
 
         const dDef = {
             primaryColor:'#10b981',secondaryColor:'#1e293b',bgColor:'#ffffff',accentColor:'#f9fafb',
-            
             showHero:true, showTesti:true, showIntro:true, showForWho:true, showBenefits:true, 
             showPromo:true, showManfaat:true, showBonus:true, showPricing:true, showFaq:true,
-
             heroTitle:'Kelas Belajar <br> <span class="text-primary">Al-Quran</span> <br> Kampoeng Quran Cendekia',heroDesc:'Kabar gembira bagi untuk semua, Kampoeng Quran Cendekia membuka kelas belajar Al-Quran intensif dan menyenangkan.',videoId:'oXZxB8ABsh0',
             testiTitle1:'Apa Kata Mereka Tentang',testiTitle2:'Kampoeng Quran?',
             testiName1:'Ahmad Zahir',testiRole1:'Engineer dan Motivator',testiQuote1:'"Metode pengajarannya sangat mudah dipahami. Alhamdulillah sekarang bacaan saya jauh lebih baik."',testiImage1:'https://lh3.googleusercontent.com/pw/AP1GczPH8qVEV3CFCyAoAOnuDqkPGsPm1eOEdtoMjivGCPAfarZLxcLiEvJWF8CSok1yr_sK25cY3R-Ru0lJi-DxC625HOuQzEJPbJKtPN1Z3VjE19lcwlvbcir0c5-NqQE0xL7AGIyQi2AXsZy4W5lSpIZ5=w128-h128-s-no-gm?authuser=0',
@@ -120,28 +118,57 @@
             faqTitle:'Pertanyaan Seputar Program',faqList:[{q:'Berapa batas maksimal per kelas?',a:'Batas maksimal satu kelas berisi 15 peserta.'},{q:'Apakah harus menunggu sampai 15 orang baru mulai?',a:'Tidak, kelas baru dapat dimulai jika memenuhi kuota minimal 8 peserta, baik online maupun offline.'},{q:'Apakah kelas bisa ditutup atau dibubarkan jika peserta tinggal sedikit?',a:'Kelas dinyatakan berjalan normal apabila jumlah peserta aktif minimal 4 orang.\n\nKelas dengan jumlah peserta 3 orang dapat berjalan sementara dengan masa evaluasi maksimal 1 bulan.\n\nApabila dalam masa tersebut tidak terjadi penambahan peserta, kelas akan digabung, ditutup atau dibubarkan, namun kelas dengan jumlah peserta 3 orang dapat tetap berjalan jika disetujui asatiz bersangkutan.'},{q:'Bagaimana ketentuan biaya kelas online, offline dan privat perorangan atau institusi?',a:'Biaya Online dan Offline disamakan, yaitu Rp. 75.000 / bulan, kecuali weekend (Kelas Sabtu – Ahad), biayanya Rp. 100.000 / bulan.\n\nBiaya Privat Online 150.000 / pertemuan (Jumlah pertemuan dalam sebulan disepakati antara ustadz pengajar dan peserta).\n\nBiaya Privat Offline 200.000 / pertemuan (Jumlah pertemuan dalam sebulan disepakati antara ustadz pengajar dan peserta).\n\nBiaya privat institusi (masjid, kantor) dengan jumlah maksimal 25 orang (untuk semua program) Rp. 1000.000.'},{q:'Kapan biaya pendidikan (non privat) paling lambat ditunaikan, dan apa konsekuensi jika terlambat?',a:'Biaya Pendidikan (non privat) ditunaikan paling lambat tanggal 10 setiap bulannya.\n\nPeserta yang belum menunaikan biaya pendidikan lebih dari tanggal 10 tetap dibolehkan belajar dengan konfirmasi terlebih dahulu kepada admin mengenai alasan penundaan pembayaran.\n\nPeserta yang tidak mengkonfirmasi alasan penundaan pembayaran biaya Pendidikan sampai akhir bulan dianggap mengundurkan diri dan dikeluarkan dari grup.\n\nPeserta yang telah mengundurkan diri boleh kembali bergabung dengan mendaftar ulang.'},{q:'Apakah ada buku panduannya?',a:'Ya, ada, buku panduan berupa ebook boleh diprint masing-masing. Buku cetak dapat dipesan dengan cara PO.'},{q:'Apakah pengajar ikhwan dan akhwat dibedakan?',a:'Pengajar Ikhwan adalah Ikhwan, dan pengajar akhwat adalah akhwat atau Ikhwan yang sudah menikah. (Berlaku untuk offline maupun online)'},{q:'Apakah peserta yang sudah bisa baca Al-Quran mesti mengulang dari dasar?',a:'Tidak, peserta yang sudah bisa membaca Al-Quran memulai pembelajaran dari jilid yang ditentukan asatiz/ustadzahnya (bisa langsung loncat ke jilid 3, 4, dst., tidak mesti dari awal), setelah tes membaca ayat-ayat yang ditentukan.\n\nPerlu diketahui, ini bukan iqro, jadi turun jilid maksudnya untuk melatih lisan secara bertahap, mulai dari teks-teks arab yang singkat sampai kompleks (Al-Quran) dengan harapan ketika sudah kembali ke Al-Quran, bacaan sudah berbeda sebelum (before) dan setelahnya (after).\n\nPeserta dinyatakan selesai mengikuti kelas baca Al-Quran setelah menuntaskan jilid 6 buku Qoro’na.\n\nPeserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (Training For Trainer) yang diadakan Kampoeng Quran Cendekia (KQC) untuk menjadi pengajar Buku Qorona, baik offline di KQC, maupun online di tempat masing-masing.'},{q:'Media apa yang digunakan untuk online',a:'Media online kelas baca Al-Quran menggunakan google meet premium yang tidak terbatas durasi 60 menit (batasan sekali online bisa sampai 24 jam). Jadi pembelajaran tidak akan putus koneksi.'},{q:'Dimana kelas Offline dilaksanakan?',a:'Kelas Offline dilaksanakan di kelas-kelas atau ruangan-ruangan Kawasan Pesantren Tahfizh Kampoeng Quran Cendekia Cihanjuang, Bandung Barat.'},{q:'Jika Ustadz/ah berhalangan, apakah bisa meminta ganti hari kelas yang diliburkan?',a:'Bisa, hari libur lembaga (Hari Jumat) atau hari lainnya dapat dipakai untuk badal (pengganti) kelas yang diliburkan karena asatiz terkendala (sakit, izin, dll) jika terjadi kesepakatan.'},{q:'Apakah peserta boleh mengundurkan diri di tengah jalan?',a:'Peserta yang akan mengundurkan mengabarkan asatiznya masing-masing minimal sepekan sebelum masuk ke bulan berikutnya.'}]
         };
 
-        function loadData() {
-            let d=JSON.parse(localStorage.getItem('cmsData'))||dDef;
-            ['primaryColor','secondaryColor','bgColor','accentColor','heroTitle','heroDesc','videoId','testiTitle1','testiTitle2','testiName1','testiRole1','testiQuote1','testiImage1','testiName2','testiRole2','testiQuote2','testiImage2','testiName3','testiRole3','testiQuote3','testiImage3','introImage','introSub','introTitle','introDesc1','introDesc2','forWhoTitle','benefitsTitle','promoTitle','promoDesc','promoBtnText','promoBtnLink','manfaatTitle','bonusSub','bonusTitle','priceTitle','priceDesc','priceBadge','priceOriginal','priceCurrent','priceUnit','priceNote','priceBtnText','priceBtnLink','priceFooter','faqTitle'].forEach(k=>{setV(k,d[k]!==undefined?d[k]:dDef[k]||'');if(k.includes('Color')&&el(k+'HexCode'))el(k+'HexCode').innerText=d[k]||dDef[k];});
+        async function loadData() {
+            let d=dDef, s=JSON.parse(localStorage.getItem('ghAPI'));
             
+            // Coba Load Data Dari Cloud GitHub Terlebih Dahulu (Bukan cuma dari LocalStorage)
+            if(s&&s.t&&s.r&&s.u){
+                try{
+                    let u=`https://api.github.com/repos/${s.u}/${s.r}/contents/${s.p?s.p+'/':''}data.json`;
+                    let r=await fetch(u,{headers:{'Authorization':`token ${s.t}`}});
+                    if(r.ok){
+                        let o=await r.json();
+                        d=JSON.parse(decodeURIComponent(escape(atob(o.content))));
+                        localStorage.setItem('cmsData',JSON.stringify(d)); // Backup ke lokal
+                    }else{d=JSON.parse(localStorage.getItem('cmsData'))||dDef;}
+                }catch(e){d=JSON.parse(localStorage.getItem('cmsData'))||dDef;}
+            }else{ d=JSON.parse(localStorage.getItem('cmsData'))||dDef; }
+
+            ['primaryColor','secondaryColor','bgColor','accentColor','heroTitle','heroDesc','videoId','testiTitle1','testiTitle2','testiName1','testiRole1','testiQuote1','testiImage1','testiName2','testiRole2','testiQuote2','testiImage2','testiName3','testiRole3','testiQuote3','testiImage3','introImage','introSub','introTitle','introDesc1','introDesc2','forWhoTitle','benefitsTitle','promoTitle','promoDesc','promoBtnText','promoBtnLink','manfaatTitle','bonusSub','bonusTitle','priceTitle','priceDesc','priceBadge','priceOriginal','priceCurrent','priceUnit','priceNote','priceBtnText','priceBtnLink','priceFooter','faqTitle'].forEach(k=>{setV(k,d[k]!==undefined?d[k]:dDef[k]||'');if(k.includes('Color')&&el(k+'HexCode'))el(k+'HexCode').innerText=d[k]||dDef[k];});
             ['showHero','showTesti','showIntro','showForWho','showBenefits','showPromo','showManfaat','showBonus','showPricing','showFaq'].forEach(k=>{if(el(k))el(k).checked=d[k]!==undefined?d[k]:dDef[k];});
 
             isT3=d.showTesti3||false;if(isT3){el('testi-block-3').classList.remove('hidden');el('btn-add-testi').classList.add('hidden');}else{el('testi-block-3').classList.add('hidden');el('btn-add-testi').classList.remove('hidden');}
             fwL=d.forWhoList||dDef.forWhoList;benL=d.benefitsList||dDef.benefitsList;mfL=d.manfaatList||dDef.manfaatList;bnL=d.bonusList||dDef.bonusList;faqL=d.faqList||dDef.faqList;rAll();
         }
-        function resetColors(){if(confirm("Reset warna?")){['primaryColor','secondaryColor','bgColor','accentColor'].forEach(k=>{setV(k,dDef[k]);if(el(k+'HexCode'))el(k+'HexCode').innerText=dDef[k];});saveData();}}
-        function saveData() {
+
+        async function saveData() {
             syncL();let n={showTesti3:isT3,forWhoList:fwL,benefitsList:benL,manfaatList:mfL,bonusList:bnL,faqList:faqL};
             document.querySelectorAll('input[type="text"], input[type="color"], textarea, input[type="url"]').forEach(i=>{if(i.id&&!i.className.match(/fw-|ben-|mf-|bn-|faq-/))n[i.id]=i.value;});
             document.querySelectorAll('.toggle-cb').forEach(i=>{if(i.id)n[i.id]=i.checked;});
             
+            // Selalu simpan lokal
             localStorage.setItem('cmsData',JSON.stringify(n));
+            let msg="Tersimpan di Lokal!";
             
-            const toast = el('toast-success');
-            toast.classList.remove('hidden');
-            void toast.offsetWidth;
-            toast.style.opacity = '1';
-            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => { toast.classList.add('hidden'); }, 300); }, 3000);
+            // Proses Lempar ke GitHub Cloud
+            let s=JSON.parse(localStorage.getItem('ghAPI'));
+            if(s&&s.t&&s.r&&s.u){
+                let btns=document.querySelectorAll('button[onclick="saveData()"]'), oT=[];
+                btns.forEach((b,i)=>{oT[i]=b.innerHTML;b.innerHTML="Mengupload...";b.disabled=true;});
+                try{
+                    let u=`https://api.github.com/repos/${s.u}/${s.r}/contents/${s.p?s.p+'/':''}data.json`;
+                    let g=await fetch(u,{headers:{'Authorization':`token ${s.t}`}});
+                    let sha=g.ok?(await g.json()).sha:null;
+                    let p=await fetch(u,{method:'PUT',headers:{'Authorization':`token ${s.t}`,'Content-Type':'application/json'},body:JSON.stringify({message:"Update CMS Database",content:btoa(unescape(encodeURIComponent(JSON.stringify(n,null,2)))),...(sha&&{sha})})});
+                    if(p.ok) msg="Tersimpan di Cloud! (Tunggu 1-3 mnt)"; else alert("Gagal Cloud: "+(await p.json()).message);
+                }catch(e){alert("Error Cloud: "+e.message);}
+                finally{btns.forEach((b,i)=>{b.innerHTML=oT[i];b.disabled=false;});}
+            }
+
+            // Munculkan Notifikasi
+            el('toast-msg').innerText=msg;
+            const t=el('toast-success');t.classList.remove('hidden');void t.offsetWidth;t.style.opacity='1';
+            setTimeout(()=>{t.style.opacity='0';setTimeout(()=>{t.classList.add('hidden');},300);},3000);
         }
     </script>
 </body>
