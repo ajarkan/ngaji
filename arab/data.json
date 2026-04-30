@@ -149,7 +149,7 @@
   "ghRepo": "ngaji",
   "ghPath": "arab",
   "showHero": true,
-  "showTesti": false,
+  "showTesti": true,
   "showIntro": true,
   "showForWho": true,
   "showBenefits": true,
