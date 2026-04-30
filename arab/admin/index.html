@@ -77,7 +77,43 @@
         lucide.createIcons();
         let fwL=[], benL=[], mfL=[], bnL=[], faqL=[], isT3=0;
         const el=i=>document.getElementById(i), val=i=>el(i)?.value||'', setV=(i,v)=>{if(el(i))el(i).value=v;};
-        function handleLogin(e){e.preventDefault();if(val('username')==='admin'&&val('password')==='admin123'){el('login-screen').classList.add('hidden');el('dashboard-screen').classList.remove('hidden');loadData();loadGH();}else el('login-error').classList.remove('hidden');}
+        
+        async function handleLogin(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = "Memeriksa...";
+            btn.disabled = true;
+            el('login-error').classList.add('hidden');
+            
+            const u = encodeURIComponent(val('username'));
+            const p = encodeURIComponent(val('password'));
+            // URL Google Apps Script yang baru saja kamu berikan
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzkqZP8W9rjUnZszasDNhPkF8Wp5pEQH1gi_UHExuM909rgszlh0IYaHxjd0WjL2uiEwA/exec';
+            
+            try {
+                const res = await fetch(`${scriptUrl}?username=${u}&password=${p}`);
+                const data = await res.json();
+                
+                if (data.status === "success") {
+                    el('login-screen').classList.add('hidden');
+                    el('dashboard-screen').classList.remove('hidden');
+                    loadData();
+                    loadGH();
+                } else {
+                    el('login-error').innerText = "Username atau password salah!";
+                    el('login-error').classList.remove('hidden');
+                }
+            } catch (err) {
+                // Berjaga-jaga jika internet terputus atau URL salah
+                el('login-error').innerText = "Gagal terkoneksi ke server login!";
+                el('login-error').classList.remove('hidden');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+        
         function logout(){location.reload();}
         function switchTab(id){document.querySelectorAll('.tab-content').forEach(e=>e.classList.add('hidden'));el(id).classList.remove('hidden');document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('bg-emerald-600','text-white','border-slate-700');b.classList.add('hover:bg-slate-700','text-slate-300',b.id==='btn-tab-github'?'border-slate-700':'border-transparent');});el('btn-'+id).classList.add('bg-emerald-600','text-white');el('btn-'+id).classList.remove('hover:bg-slate-700','text-slate-300');el('page-title').innerText={'tab-umum':'Tampilan Dasar','tab-hero':'Hero & Video','tab-testi':'Testimoni & Pengenalan','tab-faq':'Target & Info Promo','tab-fitur-harga':'Fitur, Bonus & Harga','tab-sop':'SOP & Pertanyaan','tab-github':'Pengaturan GitHub'}[id];}
         function shTesti3(){el('testi-block-3').classList.remove('hidden');el('btn-add-testi').classList.add('hidden');isT3=1;saveData();}
