@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelas Bahasa Arab - Kampoeng Quran Cendekia</title>
+    <title>Kelas Belajar Al-Quran - Kampoeng Quran Cendekia</title>
 
     <!-- META TAGS -->
-    <meta property="og:title" content="Kelas Mengaji - Kelas Bahasa Arab">
-    <meta property="og:description" content="Kelas ini cocok bagi mereka yang ingin memahami Islam langsung ke sumbernya.">
+    <meta property="og:title" content="Kelas Belajar - Kelas Belajar Al-Quran">
+    <meta property="og:description" content="Kelas ini cocok untuk yang belum bisa dan sudah bisa (ingin lancar membaca Al-Quran).">
     <meta property="og:image" content="https://lh3.googleusercontent.com/pw/AP1GczOId51_Y4tdoPZYNuWjslKeqypxLYgRHqeWivft_KTYI7y_UFX3ZFq9-K1L_nqM213Q5cC0p1WZFmXKHAfcElEjhDRZjrjw8lUa-jZIHtxpLuWTqpkEMdc8q87_u4yyPQzjd1tDtiEe1m0P2N4m_px3=w512-h512-s-no-gm?authuser=0">
     <meta property="og:type" content="website">
 
     <!-- FAVICON -->
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/pw/AP1GczPA9jXgztdoCCCKqYeoymeBj8Iu6edy4bCVqWV1bG00BlmrfgPfKi0WcAiLwTfbwiFZT4wzN-Tf6Gwn4pRVsruyyez4zzmV1Cgxe4232rKbxcch1W0mtL_JjFwW38Vfg66YuUdKRz-xuC0XnhCzXBRP=w512-h512-s-no-gm?authuser=0">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -191,11 +189,14 @@
                     />
                 </div>
 
-                <div class="text-left bg-secondary/50 backdrop-blur-sm p-4 rounded-xl border border-white/10">
-                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                <!-- Di sini padding p-4 dirubah menjadi p-6 sm:p-8 agar lebih lega -->
+                <div class="text-left bg-secondary/50 backdrop-blur-sm p-6 sm:p-8 rounded-xl border border-white/10">
+                    <!-- Deskripsi 1 tunggal dengan text-gray-300 yang mengizinkan baris baru dari CMS -->
+                    <p class="text-gray-300 text-sm leading-relaxed">
                         <strong class="text-white">Tahsin Qarana</strong> adalah buku panduan yang digunakan di kelas ini. Ciri khas buku ini, sesuai namanya, ada pada <em class="text-primary">talqin</em> (pemberian contoh) dari asatiz untuk disimak kemudian diikuti.
+                        <br><br>
+                        Penyesuaian dengan jenis kesalahan, jika kesalahan lebih banyak pada panjang pendek maka pelajaran dimulai dari Qoro'na 2, dst.
                     </p>
-                    
                 </div>
             </div>
         </section>
@@ -560,7 +561,7 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                 </a>
             </div>
 
-            <div class="mb-8">
+        <div class="mb-8">
                 <p class="text-[#1c9ad9] text-sm font-semibold mb-4 uppercase tracking-wider">Ikuti Kami</p>
                 <div class="flex justify-center gap-4">
                     <a href="https://www.instagram.com/kampoengquran.id/" target="_blank" aria-label="Instagram" class="w-10 h-10 rounded-full bg-[#1c9ad9] flex items-center justify-center hover:bg-[#1682b8] hover:-translate-y-1 transition-all duration-300 border border-[#1c9ad9]/50 shadow-sm">
@@ -580,7 +581,7 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
                     </a>
                 </div>
             </div>
-
+            
             <h3 class="font-bold text-lg mb-2">Tentang Kampoeng Quran Cendekia</h3>
             <p class="text-gray-400 text-xs mb-8">
                 Kawasan Qurani yang meliputi Lembaga pendidikan formal dan non formal (kursus dan pelatihan).
@@ -589,7 +590,6 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
             <div class="border-t border-slate-700 pt-6">
                 <p class="text-xs text-gray-500">© 2026 Kelas Mengaji. All Rights Reserved.</p>
             </div>
-        </footer>
         </footer>
 
     </main>
@@ -654,7 +654,7 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
 
         // 2. Fallback: Jika data.json gagal diambil, gunakan localStorage (Untuk tes lokal / belum pernah upload)
         if (!cmsData) {
-            cmsData = JSON.parse(localStorage.getItem('cmsArabData'));
+            cmsData = JSON.parse(localStorage.getItem('cmsData'));
         }
         
         if (cmsData) {
@@ -747,9 +747,8 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
             const introTitleEl = document.querySelector('section.bg-secondary h2.text-3xl');
             if (introTitleEl && cmsData.introTitle) introTitleEl.innerText = cmsData.introTitle;
 
-            const introDescs = document.querySelectorAll('section.bg-secondary div.text-left p');
-            if(introDescs[0] && cmsData.introDesc1) introDescs[0].innerHTML = cmsData.introDesc1;
-            if(introDescs[1] && cmsData.introDesc2) introDescs[1].innerHTML = cmsData.introDesc2;
+            const introDescEl = document.querySelector('section.bg-secondary div.text-left p');
+            if(introDescEl && cmsData.introDesc1) introDescEl.innerHTML = cmsData.introDesc1;
 
             const introImageEl = document.querySelector('section.bg-secondary img[alt="Mockup Buku Tahsin Qarana"]');
             if (introImageEl && cmsData.introImage) introImageEl.src = cmsData.introImage;
