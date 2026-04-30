@@ -68,7 +68,7 @@
                     <div class="mb-6 flex justify-between items-center bg-emerald-50/50 p-3 border border-emerald-100 rounded-lg"><div class="text-sm font-bold text-emerald-800">Tampilkan Bagian Ini di Website</div><label class="cursor-pointer relative"><input type="checkbox" id="showFaq" class="sr-only toggle-cb"><div class="block bg-gray-300 w-10 h-6 rounded-full transition-colors"></div><div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform"></div></label></div>
                     <div class="mb-6"><label class="block text-sm font-medium mb-1">Judul Bagian</label><input type="text" id="faqTitle" class="w-full p-2 border rounded-lg"></div><div id="faqContainer" class="space-y-4 mb-4"></div><button onclick="addFaq()" class="mb-8 w-full border-2 border-dashed text-emerald-600 bg-emerald-50 font-bold py-2 rounded-lg text-sm flex justify-center gap-2"><i data-lucide="plus-circle" class="w-4 h-4"></i> Tambah Pertanyaan</button><div class="mt-8 flex justify-end"><button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold flex gap-2"><i data-lucide="save" class="w-4 h-4"></i> Simpan</button></div></div>
 
-                <div id="tab-github" class="tab-content hidden"><h3 class="text-lg font-bold mb-2">Koneksi API GitHub</h3><p class="text-sm text-gray-500 mb-6 pb-2 border-b">Konfigurasi aman tersimpan lokal. Fitur Database Cloud Aktif!</p><div class="mb-4"><label class="block text-sm mb-1">Username GitHub</label><input type="text" id="ghUsername" class="w-full p-2 border rounded-lg"></div><div class="mb-4"><label class="block text-sm mb-1">Nama Repositori</label><input type="text" id="ghRepo" class="w-full p-2 border rounded-lg"></div><div class="mb-4"><label class="block text-sm mb-1">Folder Upload (Path)</label><input type="text" id="ghPath" class="w-full p-2 border rounded-lg" value="quran"></div><div class="mb-6"><label class="block text-sm mb-1">Personal Access Token</label><input type="password" id="ghToken" class="w-full p-2 border rounded-lg font-mono"></div><div class="flex justify-end"><button onclick="saveGH()" class="bg-slate-800 text-white px-6 py-2 rounded-lg font-bold flex gap-2"><i data-lucide="key" class="w-4 h-4"></i> Simpan Akses</button></div></div>
+                <div id="tab-github" class="tab-content hidden"><h3 class="text-lg font-bold mb-2">Koneksi API GitHub</h3><p class="text-sm text-gray-500 mb-6 pb-2 border-b">Konfigurasi aman tersimpan lokal. Fitur Database Cloud Aktif!</p><div class="mb-4"><label class="block text-sm mb-1">Username GitHub</label><input type="text" id="ghUsername" class="w-full p-2 border rounded-lg"></div><div class="mb-4"><label class="block text-sm mb-1">Nama Repositori</label><input type="text" id="ghRepo" class="w-full p-2 border rounded-lg"></div><div class="mb-4"><label class="block text-sm mb-1">Folder Upload (Path)</label><input type="text" id="ghPath" class="w-full p-2 border rounded-lg" value="arab"></div><div class="mb-6"><label class="block text-sm mb-1">Personal Access Token</label><input type="password" id="ghToken" class="w-full p-2 border rounded-lg font-mono"></div><div class="flex justify-end"><button onclick="saveGH()" class="bg-slate-800 text-white px-6 py-2 rounded-lg font-bold flex gap-2"><i data-lucide="key" class="w-4 h-4"></i> Simpan Akses</button></div></div>
             </div></div>
         </main>
     </div>
@@ -129,10 +129,10 @@
                     if(r.ok){
                         let o=await r.json();
                         d=JSON.parse(decodeURIComponent(escape(atob(o.content))));
-                        localStorage.setItem('cmsData',JSON.stringify(d)); // Backup ke lokal
-                    }else{d=JSON.parse(localStorage.getItem('cmsData'))||dDef;}
-                }catch(e){d=JSON.parse(localStorage.getItem('cmsData'))||dDef;}
-            }else{ d=JSON.parse(localStorage.getItem('cmsData'))||dDef; }
+                        localStorage.setItem('cmsArabData',JSON.stringify(d)); // Backup ke lokal
+                    }else{d=JSON.parse(localStorage.getItem('cmsArabData'))||dDef;}
+                }catch(e){d=JSON.parse(localStorage.getItem('cmsArabData'))||dDef;}
+            }else{ d=JSON.parse(localStorage.getItem('cmsArabData'))||dDef; }
 
             ['primaryColor','secondaryColor','bgColor','accentColor','heroTitle','heroDesc','videoId','testiTitle1','testiTitle2','testiName1','testiRole1','testiQuote1','testiImage1','testiName2','testiRole2','testiQuote2','testiImage2','testiName3','testiRole3','testiQuote3','testiImage3','introImage','introSub','introTitle','introDesc1','forWhoTitle','benefitsTitle','promoTitle','promoDesc','promoBtnText','promoBtnLink','manfaatTitle','bonusSub','bonusTitle','priceTitle','priceDesc','priceBadge','priceOriginal','priceCurrent','priceUnit','priceNote','priceBtnText','priceBtnLink','priceFooter','faqTitle'].forEach(k=>{setV(k,d[k]!==undefined?d[k]:dDef[k]||'');if(k.includes('Color')&&el(k+'HexCode'))el(k+'HexCode').innerText=d[k]||dDef[k];});
             ['showHero','showTesti','showIntro','showForWho','showBenefits','showPromo','showManfaat','showBonus','showPricing','showFaq'].forEach(k=>{if(el(k))el(k).checked=d[k]!==undefined?d[k]:dDef[k];});
@@ -147,7 +147,7 @@
             document.querySelectorAll('.toggle-cb').forEach(i=>{if(i.id)n[i.id]=i.checked;});
             
             // Selalu simpan lokal
-            localStorage.setItem('cmsData',JSON.stringify(n));
+            localStorage.setItem('cmsArabData',JSON.stringify(n));
             let msg="Tersimpan di Lokal!";
             
             // Proses Lempar ke GitHub Cloud
