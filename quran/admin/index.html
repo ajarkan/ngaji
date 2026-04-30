@@ -35,7 +35,7 @@
                     
                     <h3 class="text-lg font-bold mb-4 pb-2 border-b mt-8">Memperkenalkan (Intro)</h3>
                     <div class="mb-6 flex justify-between items-center bg-emerald-50/50 p-3 border border-emerald-100 rounded-lg"><div class="text-sm font-bold text-emerald-800">Tampilkan Bagian Ini di Website</div><label class="cursor-pointer relative"><input type="checkbox" id="showIntro" class="sr-only toggle-cb"><div class="block bg-gray-300 w-10 h-6 rounded-full transition-colors"></div><div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform"></div></label></div>
-                    <div class="mb-5 bg-white p-5 rounded-lg border-l-4 border-l-blue-500 shadow-sm"><label class="block text-sm font-bold mb-2">Gambar Produk/Buku</label><div class="flex items-center gap-3 mb-4"><input type="file" id="introUp" accept="image/*" class="w-full text-sm border rounded-lg file:py-2 file:px-4 file:bg-slate-100 cursor-pointer"><button onclick="upImg('introUp', 'introImage', this)" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg flex gap-2"><i data-lucide="cloud-upload" class="w-4 h-4"></i> Upload</button></div><input type="text" id="introImage" class="w-full p-2 border rounded-lg text-xs font-mono" placeholder="URL Link Gambar..."></div><div class="grid grid-cols-2 gap-4 mb-5"><div><label class="block text-sm font-medium mb-1">Sub-Judul</label><input type="text" id="introSub" class="w-full p-2 border rounded-lg"></div><div><label class="block text-sm font-medium mb-1">Judul Utama</label><input type="text" id="introTitle" class="w-full p-2 border rounded-lg"></div></div><div class="mb-5"><label class="block text-sm font-medium mb-2">Deskripsi 1</label><textarea id="introDesc1" rows="3" class="w-full p-3 border rounded-lg"></textarea></div><div class="mb-5"><label class="block text-sm font-medium mb-2">Deskripsi 2</label><textarea id="introDesc2" rows="3" class="w-full p-3 border rounded-lg"></textarea></div><div class="mt-8 flex justify-end"><button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-emerald-700 transition flex items-center gap-2"><i data-lucide="save" class="w-4 h-4"></i> Simpan</button></div></div>
+                    <div class="mb-5 bg-white p-5 rounded-lg border-l-4 border-l-blue-500 shadow-sm"><label class="block text-sm font-bold mb-2">Gambar Produk/Buku</label><div class="flex items-center gap-3 mb-4"><input type="file" id="introUp" accept="image/*" class="w-full text-sm border rounded-lg file:py-2 file:px-4 file:bg-slate-100 cursor-pointer"><button onclick="upImg('introUp', 'introImage', this)" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg flex gap-2"><i data-lucide="cloud-upload" class="w-4 h-4"></i> Upload</button></div><input type="text" id="introImage" class="w-full p-2 border rounded-lg text-xs font-mono" placeholder="URL Link Gambar..."></div><div class="grid grid-cols-2 gap-4 mb-5"><div><label class="block text-sm font-medium mb-1">Sub-Judul</label><input type="text" id="introSub" class="w-full p-2 border rounded-lg"></div><div><label class="block text-sm font-medium mb-1">Judul Utama</label><input type="text" id="introTitle" class="w-full p-2 border rounded-lg"></div></div><div class="mb-5"><label class="block text-sm font-medium mb-2">Deskripsi Lengkap</label><textarea id="introDesc1" rows="5" class="w-full p-3 border rounded-lg" placeholder="Gunakan <br><br> untuk membuat paragraf baru..."></textarea></div><div class="mt-8 flex justify-end"><button onclick="saveData()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-emerald-700 transition flex items-center gap-2"><i data-lucide="save" class="w-4 h-4"></i> Simpan</button></div></div>
                 
                 <!-- TAB FAQ & PROMO -->
                 <div id="tab-faq" class="tab-content hidden"><h3 class="text-lg font-bold mb-4 pb-2 border-b">Untuk Siapa Saja?</h3>
@@ -77,7 +77,43 @@
         lucide.createIcons();
         let fwL=[], benL=[], mfL=[], bnL=[], faqL=[], isT3=0;
         const el=i=>document.getElementById(i), val=i=>el(i)?.value||'', setV=(i,v)=>{if(el(i))el(i).value=v;};
-        function handleLogin(e){e.preventDefault();if(val('username')==='admin'&&val('password')==='admin123'){el('login-screen').classList.add('hidden');el('dashboard-screen').classList.remove('hidden');loadData();loadGH();}else el('login-error').classList.remove('hidden');}
+        
+        async function handleLogin(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = "Memeriksa...";
+            btn.disabled = true;
+            el('login-error').classList.add('hidden');
+            
+            const u = encodeURIComponent(val('username'));
+            const p = encodeURIComponent(val('password'));
+            // URL Google Apps Script yang baru saja kamu berikan
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzkqZP8W9rjUnZszasDNhPkF8Wp5pEQH1gi_UHExuM909rgszlh0IYaHxjd0WjL2uiEwA/exec';
+            
+            try {
+                const res = await fetch(`${scriptUrl}?username=${u}&password=${p}`);
+                const data = await res.json();
+                
+                if (data.status === "success") {
+                    el('login-screen').classList.add('hidden');
+                    el('dashboard-screen').classList.remove('hidden');
+                    loadData();
+                    loadGH();
+                } else {
+                    el('login-error').innerText = "Username atau password salah!";
+                    el('login-error').classList.remove('hidden');
+                }
+            } catch (err) {
+                // Berjaga-jaga jika internet terputus atau URL salah
+                el('login-error').innerText = "Gagal terkoneksi ke server login!";
+                el('login-error').classList.remove('hidden');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+        
         function logout(){location.reload();}
         function switchTab(id){document.querySelectorAll('.tab-content').forEach(e=>e.classList.add('hidden'));el(id).classList.remove('hidden');document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('bg-emerald-600','text-white','border-slate-700');b.classList.add('hover:bg-slate-700','text-slate-300',b.id==='btn-tab-github'?'border-slate-700':'border-transparent');});el('btn-'+id).classList.add('bg-emerald-600','text-white');el('btn-'+id).classList.remove('hover:bg-slate-700','text-slate-300');el('page-title').innerText={'tab-umum':'Tampilan Dasar','tab-hero':'Hero & Video','tab-testi':'Testimoni & Pengenalan','tab-faq':'Target & Info Promo','tab-fitur-harga':'Fitur, Bonus & Harga','tab-sop':'SOP & Pertanyaan','tab-github':'Pengaturan GitHub'}[id];}
         function shTesti3(){el('testi-block-3').classList.remove('hidden');el('btn-add-testi').classList.add('hidden');isT3=1;saveData();}
@@ -108,7 +144,7 @@
             testiName1:'Ahmad Zahir',testiRole1:'Engineer dan Motivator',testiQuote1:'"Metode pengajarannya sangat mudah dipahami. Alhamdulillah sekarang bacaan saya jauh lebih baik."',testiImage1:'https://lh3.googleusercontent.com/pw/AP1GczPH8qVEV3CFCyAoAOnuDqkPGsPm1eOEdtoMjivGCPAfarZLxcLiEvJWF8CSok1yr_sK25cY3R-Ru0lJi-DxC625HOuQzEJPbJKtPN1Z3VjE19lcwlvbcir0c5-NqQE0xL7AGIyQi2AXsZy4W5lSpIZ5=w128-h128-s-no-gm?authuser=0',
             testiName2:'Azizah',testiRole2:'Ibu Rumah Tangga',testiQuote2:'"Sangat membantu bagi saya ibu rumah tangga yang ingin memperbaiki bacaan di sela kesibukan."',testiImage2:'https://lh3.googleusercontent.com/pw/AP1GczPgxKK3jbnzRXRuMcilB_czCl394aKR7wM9XihqQIALzvVIzTNnjXIQ4R2uiUdW9w_Em0SwpBj01YjXEjn1dAuTrGhZHp5H8vPH_UYQDr_lE4oZQeCxuZfS1Y4T5Idle3V4lhgnPHGrFsQQomJZOK9s=w128-h128-s-no-gm?authuser=0',
             showTesti3:false,testiName3:'',testiRole3:'',testiQuote3:'',testiImage3:'',
-            introImage:'https://lh3.googleusercontent.com/pw/AP1GczNZBk_yCNYajkf4BWsp6Ehy2XbOB-e97w_eCghQQpNSgsMahVlhfeNEQAIlv_SYL12ww93loTWCyyIlna5lDpKLG_UZj1nl6Kby68JLp7Ohv05U19LvGDt-DG7fyXAEYtzoERgJ-Y1_3wJghEK1xn66=w241-h264-s-no-gm?authuser=0',introSub:'MEMPERKENALKAN',introTitle:'Kelas Belajar Al-Quran',introDesc1:'<strong class="text-white">Tahsin Qarana</strong> adalah buku panduan yang digunakan di kelas ini. Ciri khas buku ini, sesuai namanya, ada pada <em class="text-primary">talqin</em> (pemberian contoh) dari asatiz untuk disimak kemudian diikuti.',introDesc2:'Penyesuaian dengan jenis kesalahan, jika kesalahan lebih banyak pada panjang pendek maka pelajaran dimulai dari Qoro\'na 2, dst.',
+            introImage:'https://lh3.googleusercontent.com/pw/AP1GczNZBk_yCNYajkf4BWsp6Ehy2XbOB-e97w_eCghQQpNSgsMahVlhfeNEQAIlv_SYL12ww93loTWCyyIlna5lDpKLG_UZj1nl6Kby68JLp7Ohv05U19LvGDt-DG7fyXAEYtzoERgJ-Y1_3wJghEK1xn66=w241-h264-s-no-gm?authuser=0',introSub:'MEMPERKENALKAN',introTitle:'Kelas Belajar Al-Quran',introDesc1:'<strong class="text-white">Tahsin Qarana</strong> adalah buku panduan yang digunakan di kelas ini. Ciri khas buku ini, sesuai namanya, ada pada <em class="text-primary">talqin</em> (pemberian contoh) dari asatiz untuk disimak kemudian diikuti.<br><br>Penyesuaian dengan jenis kesalahan, jika kesalahan lebih banyak pada panjang pendek maka pelajaran dimulai dari Qoro\'na 2, dst.',
             forWhoTitle:'Untuk siapa saja?',forWhoList:[{target:'Peserta Pemula',icon:'users',desc:'Yaitu peserta yang belum bisa membaca Al-Quran sama sekali.'},{target:'Belum Lancar',icon:'mic',desc:'Peserta yang tajwidnya masih kurang, atau masih terbata-bata.'},{target:'Berbagai Usia',icon:'smile',desc:'Diperuntukkan untuk berbagai usia, namun diprioritaskan minimal usia SMP.'}],
             benefitsTitle:'Apa Yang Akan Kamu Dapatkan Dari Kelas Ini?',benefitsList:[{title:'Buku Paket Ebook Qara\'na Gratis',desc:'Kamu akan diberikan secara gratis buku panduan qarana (PDF).'},{title:'Bimbingan Dari Asatiz Berpengalaman',desc:'Dibimbing 2x dalam sepekan oleh para asatiz berpengalaman.'},{title:'Pilihan Kelas Online atau Offline',desc:'Pilih kelas sesuai hari dan waktu yang tersedia.'}],
             promoTitle:'Apakah ada kelas lainnya?',promoDesc:'Ya ada, namun untuk saat ini, kelas yang dibuka baru kelas belajar Al-Quran. In syaa Allah kelas bahasa arab akan dibuka dalam waktu dekat.',promoBtnText:'Cek Program Lainnya',promoBtnLink:'https://kelasngaji.web.id/',
@@ -134,7 +170,7 @@
                 }catch(e){d=JSON.parse(localStorage.getItem('cmsQuranData'))||dDef;}
             }else{ d=JSON.parse(localStorage.getItem('cmsQuranData'))||dDef; }
 
-            ['primaryColor','secondaryColor','bgColor','accentColor','heroTitle','heroDesc','videoId','testiTitle1','testiTitle2','testiName1','testiRole1','testiQuote1','testiImage1','testiName2','testiRole2','testiQuote2','testiImage2','testiName3','testiRole3','testiQuote3','testiImage3','introImage','introSub','introTitle','introDesc1','introDesc2','forWhoTitle','benefitsTitle','promoTitle','promoDesc','promoBtnText','promoBtnLink','manfaatTitle','bonusSub','bonusTitle','priceTitle','priceDesc','priceBadge','priceOriginal','priceCurrent','priceUnit','priceNote','priceBtnText','priceBtnLink','priceFooter','faqTitle'].forEach(k=>{setV(k,d[k]!==undefined?d[k]:dDef[k]||'');if(k.includes('Color')&&el(k+'HexCode'))el(k+'HexCode').innerText=d[k]||dDef[k];});
+            ['primaryColor','secondaryColor','bgColor','accentColor','heroTitle','heroDesc','videoId','testiTitle1','testiTitle2','testiName1','testiRole1','testiQuote1','testiImage1','testiName2','testiRole2','testiQuote2','testiImage2','testiName3','testiRole3','testiQuote3','testiImage3','introImage','introSub','introTitle','introDesc1','forWhoTitle','benefitsTitle','promoTitle','promoDesc','promoBtnText','promoBtnLink','manfaatTitle','bonusSub','bonusTitle','priceTitle','priceDesc','priceBadge','priceOriginal','priceCurrent','priceUnit','priceNote','priceBtnText','priceBtnLink','priceFooter','faqTitle'].forEach(k=>{setV(k,d[k]!==undefined?d[k]:dDef[k]||'');if(k.includes('Color')&&el(k+'HexCode'))el(k+'HexCode').innerText=d[k]||dDef[k];});
             ['showHero','showTesti','showIntro','showForWho','showBenefits','showPromo','showManfaat','showBonus','showPricing','showFaq'].forEach(k=>{if(el(k))el(k).checked=d[k]!==undefined?d[k]:dDef[k];});
 
             isT3=d.showTesti3||false;if(isT3){el('testi-block-3').classList.remove('hidden');el('btn-add-testi').classList.add('hidden');}else{el('testi-block-3').classList.add('hidden');el('btn-add-testi').classList.remove('hidden');}
