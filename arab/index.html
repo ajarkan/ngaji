@@ -656,7 +656,7 @@ Peserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (
 
         // 2. Fallback: Jika data.json gagal diambil, gunakan localStorage (Untuk tes lokal / belum pernah upload)
         if (!cmsData) {
-            cmsData = JSON.parse(localStorage.getItem('cmsData'));
+            cmsData = JSON.parse(localStorage.getItem('cmsArabData'));
         }
         
         if (cmsData) {
