@@ -107,11 +107,14 @@
       "a": "Peserta yang akan mengundurkan mengabarkan asatiznya masing-masing minimal sepekan sebelum masuk ke bulan berikutnya."
     }
   ],
-  "username": "admin3",
+  "username": "admin1",
   "primaryColor": "#ac9f11",
   "secondaryColor": "#4b4502",
   "bgColor": "#ffffff",
   "accentColor": "#f9fafb",
+  "buttonHoverColor": "#059669",
+  "buttonShadowColor": "#e6e1a7",
+  "footerBoxColor": "#4b4502",
   "heroTitle": "Kelas Belajar <br> <span class=\"text-primary\">Al-Quran</span> <br> Kampoeng Quran Cendekia",
   "heroDesc": "Kabar gembira bagi untuk semua, Kampoeng Quran Cendekia membuka kelas belajar Al-Quran intensif dan menyenangkan.",
   "videoId": "oXZxB8ABsh0",
