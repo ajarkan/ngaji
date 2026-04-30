@@ -33,28 +33,24 @@
   ],
   "manfaatList": [
     {
-      "title": "Melancarkan Bacaan",
-      "icon": "zap"
+      "title": "Menambah wawasan",
+      "icon": "book-search"
     },
     {
       "title": "Lingkungan Orang Shaleh",
-      "icon": "users"
-    },
-    {
-      "title": "Menambah Pemahaman",
-      "icon": "lightbulb"
+      "icon": "smile-plus"
     }
   ],
   "bonusList": [
     {
       "title": "Akses Gratis Ebook Islami",
-      "icon": "library",
+      "icon": "square-library",
       "desc": "Akses kurang lebih 2700 koleksi buku islami dengan berbagai tema."
     },
     {
-      "title": "Free Ebook Panduan",
+      "title": "Free Ebook Kaidah",
       "icon": "book-open-check",
-      "desc": "Buku panduan diberikan secara cuma-cuma (PDF)."
+      "desc": "Buku panduan kaidah bahasa arab diberikan cuma-cuma (PDF)."
     }
   ],
   "faqList": [
@@ -146,7 +142,7 @@
   "priceCurrent": "100.000",
   "priceUnit": "/bulan",
   "priceBtnText": "Daftar Sekarang",
-  "priceBtnLink": "https://ajarkan.github.io/form/?kategori=Baca%20Al-Quran",
+  "priceBtnLink": "https://form.kelasngaji.web.id/?kategori=Bahasa%20Arab",
   "priceFooter": "*Biaya weekend Rp. 125.000",
   "faqTitle": "Pertanyaan Seputar Program",
   "ghUsername": "ajarkan",
