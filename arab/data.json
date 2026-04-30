@@ -99,11 +99,14 @@
       "a": "Peserta yang akan mengundurkan mengabarkan asatiznya masing-masing minimal sepekan sebelum masuk ke bulan berikutnya."
     }
   ],
-  "username": "admin2",
+  "username": "admin1",
   "primaryColor": "#1c9ad9",
-  "secondaryColor": "#1e293b",
+  "secondaryColor": "#0a557b",
   "bgColor": "#ffffff",
   "accentColor": "#f9fafb",
+  "buttonHoverColor": "#177db0",
+  "buttonShadowColor": "#b1d8ec",
+  "footerBoxColor": "#0a557b",
   "heroTitle": "Kelas Belajar <br> <span class=\"text-primary\">Bahasa Arab</span> <br> Kelas Mengaji",
   "heroDesc": "Kabar gembira bagi untuk semua, Kelas Mengaji membuka kelas belajar Bahasa Arab intensif dan menyenangkan.",
   "videoId": "oXZxB8ABsh0",
