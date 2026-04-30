@@ -2,29 +2,29 @@
   "showTesti3": false,
   "forWhoList": [
     {
-      "target": "Peserta Pemula",
+      "target": "Peserta Lancar Al-Quran",
       "icon": "users",
-      "desc": "Yaitu peserta yang belum bisa membaca Al-Quran sama sekali."
+      "desc": "Peserta yang sudah lancar baca Al-Quran bisa mengikuti kelas ini."
     },
     {
-      "target": "Belum Lancar",
+      "target": "Ingin Memahami Teks ",
       "icon": "mic",
-      "desc": "Peserta yang tajwidnya masih kurang, atau masih terbata-bata."
+      "desc": "Peserta yang ingin bisa membaca buku berbahasa arab dan meresapi makna Al-Quran"
     },
     {
       "target": "Berbagai Usia",
       "icon": "smile",
-      "desc": "Diperuntukkan untuk berbagai usia, namun diprioritaskan minimal usia SMP."
+      "desc": "Kelas ini diperuntukan untuk usia dewasa (minimal usia SMA)"
     }
   ],
   "benefitsList": [
     {
-      "title": "Buku Paket Ebook Qara'na Gratis",
-      "desc": "Kamu akan diberikan secara gratis buku panduan qarana (PDF)."
+      "title": "Ebook Gratis",
+      "desc": "Kamu akan diberikan secara gratis buku panduan (PDF)."
     },
     {
       "title": "Bimbingan Dari Asatiz Berpengalaman",
-      "desc": "Dibimbing 2x dalam sepekan oleh para asatiz berpengalaman."
+      "desc": "Dibimbing 1x dalam sepekan oleh para asatiz berpengalaman."
     },
     {
       "title": "Pilihan Kelas Online atau Offline",
@@ -134,10 +134,10 @@
   "introTitle": "Kelas Belajar Al-Quran",
   "introDesc1": "<strong class=\"text-white\">Tahsin Qarana</strong> adalah buku panduan yang digunakan di kelas ini. Ciri khas buku ini, sesuai namanya, ada pada <em class=\"text-primary\">talqin</em> (pemberian contoh) dari asatiz untuk disimak kemudian diikuti.",
   "introDesc2": "Penyesuaian dengan jenis kesalahan, jika kesalahan lebih banyak pada panjang pendek maka pelajaran dimulai dari Qoro'na 2, dst.",
-  "forWhoTitle": "Untuk siapa saja?",
-  "benefitsTitle": "Apa Yang Akan Kamu Dapatkan Dari Kelas Ini?",
+  "forWhoTitle": "Untuk siapa kelas ini?",
+  "benefitsTitle": "Dapat Apa Dari Kelas Ini?",
   "promoTitle": "Apakah ada kelas lainnya?",
-  "promoDesc": "Ya ada, namun untuk saat ini, kelas yang dibuka baru kelas belajar Al-Quran. In syaa Allah kelas bahasa arab akan dibuka dalam waktu dekat.",
+  "promoDesc": "Ya ada, namun untuk saat ini, kelas yang dibuka baru kelas belajar Al-Quran, dan Bahasa Arab. In syaa Allah Kelas Fiqih Sirah buka dalam waktu dekat.",
   "promoBtnText": "Cek Program Lainnya",
   "promoBtnLink": "https://kelasngaji.web.id/",
   "manfaatTitle": "Manfaat Mengikuti Kelas",
