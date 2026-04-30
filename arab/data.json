@@ -60,19 +60,19 @@
   "faqList": [
     {
       "q": "Berapa batas maksimal per kelas?",
-      "a": "Batas maksimal satu kelas berisi 15 peserta."
+      "a": "Batas maksimal satu kelas berisi 20 peserta."
     },
     {
-      "q": "Apakah harus menunggu sampai 15 orang baru mulai?",
-      "a": "Tidak, kelas baru dapat dimulai jika memenuhi kuota minimal 8 peserta, baik online maupun offline."
+      "q": "Apakah harus menunggu sampai 20 orang baru mulai?",
+      "a": "Kelas bisa disepakati untuk dimulai setelah terkumpul 10 atau 15 peserta."
     },
     {
       "q": "Apakah kelas bisa ditutup atau dibubarkan jika peserta tinggal sedikit?",
-      "a": "Kelas dinyatakan berjalan normal apabila jumlah peserta aktif minimal 4 orang.\n\nKelas dengan jumlah peserta 3 orang dapat berjalan sementara dengan masa evaluasi maksimal 1 bulan.\n\nApabila dalam masa tersebut tidak terjadi penambahan peserta, kelas akan digabung, ditutup atau dibubarkan, namun kelas dengan jumlah peserta 3 orang dapat tetap berjalan jika disetujui asatiz bersangkutan."
+      "a": "Kelas dinyatakan berjalan normal apabila jumlah peserta aktif minimal 4 orang.\n\nKelas dengan jumlah peserta 3 orang akan digabung dengan jadwal lain yang satu level, atau tetap dilanjutkan jika asatiz setuju."
     },
     {
       "q": "Bagaimana ketentuan biaya kelas online, offline dan privat perorangan atau institusi?",
-      "a": "Biaya Online dan Offline disamakan, yaitu Rp. 75.000 / bulan, kecuali weekend (Kelas Sabtu – Ahad), biayanya Rp. 100.000 / bulan.\n\nBiaya Privat Online 150.000 / pertemuan (Jumlah pertemuan dalam sebulan disepakati antara ustadz pengajar dan peserta).\n\nBiaya Privat Offline 200.000 / pertemuan (Jumlah pertemuan dalam sebulan disepakati antara ustadz pengajar dan peserta).\n\nBiaya privat institusi (masjid, kantor) dengan jumlah maksimal 25 orang (untuk semua program) Rp. 1000.000."
+      "a": "Biaya Online dan Offline disamakan, yaitu Rp. 100.000 / bulan, kecuali weekend (Kelas Sabtu – Ahad), biayanya Rp. 125.000 / bulan.\n\nBiaya Privat Online 150.000 / pertemuan (Jumlah pertemuan dalam sebulan disepakati antara ustadz pengajar dan peserta).\n\nBiaya Privat Offline 200.000 / pertemuan (Jumlah pertemuan dalam sebulan disepakati antara ustadz pengajar dan peserta).\n\nBiaya privat institusi (masjid, kantor) dengan jumlah maksimal 25 orang (untuk semua program) Rp. 1000.000."
     },
     {
       "q": "Kapan biaya pendidikan (non privat) paling lambat ditunaikan, dan apa konsekuensi jika terlambat?",
@@ -80,19 +80,15 @@
     },
     {
       "q": "Apakah ada buku panduannya?",
-      "a": "Ya, ada, buku panduan berupa ebook boleh diprint masing-masing. Buku cetak dapat dipesan dengan cara PO."
+      "a": "Buku panduan Durusul Lughah dijual bebas di toko online (tidak ada di toko buku biasa), atau asatiz in syaa Allah akan membagikan ebooknya."
     },
     {
       "q": "Apakah pengajar ikhwan dan akhwat dibedakan?",
       "a": "Pengajar Ikhwan adalah Ikhwan, dan pengajar akhwat adalah akhwat atau Ikhwan yang sudah menikah. (Berlaku untuk offline maupun online)"
     },
     {
-      "q": "Apakah peserta yang sudah bisa baca Al-Quran mesti mengulang dari dasar?",
-      "a": "Tidak, peserta yang sudah bisa membaca Al-Quran memulai pembelajaran dari jilid yang ditentukan asatiz/ustadzahnya (bisa langsung loncat ke jilid 3, 4, dst., tidak mesti dari awal), setelah tes membaca ayat-ayat yang ditentukan.\n\nPerlu diketahui, ini bukan iqro, jadi turun jilid maksudnya untuk melatih lisan secara bertahap, mulai dari teks-teks arab yang singkat sampai kompleks (Al-Quran) dengan harapan ketika sudah kembali ke Al-Quran, bacaan sudah berbeda sebelum (before) dan setelahnya (after).\n\nPeserta dinyatakan selesai mengikuti kelas baca Al-Quran setelah menuntaskan jilid 6 buku Qoro’na.\n\nPeserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (Training For Trainer) yang diadakan Kampoeng Quran Cendekia (KQC) untuk menjadi pengajar Buku Qorona, baik offline di KQC, maupun online di tempat masing-masing."
-    },
-    {
       "q": "Media apa yang digunakan untuk online",
-      "a": "Media online kelas baca Al-Quran menggunakan google meet premium yang tidak terbatas durasi 60 menit (batasan sekali online bisa sampai 24 jam). Jadi pembelajaran tidak akan putus koneksi."
+      "a": "Media online kelas baca Al-Quran menggunakan google zoom atau google meet premium yang tidak terbatas durasi 60 menit (batasan sekali online bisa sampai 24 jam). Jadi pembelajaran tidak akan putus koneksi."
     },
     {
       "q": "Dimana kelas Offline dilaksanakan?",
@@ -165,5 +161,5 @@
   "showManfaat": true,
   "showBonus": true,
   "showPricing": true,
-  "showFaq": false
+  "showFaq": true
 }
