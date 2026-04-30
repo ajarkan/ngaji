@@ -135,7 +135,7 @@
   "introImage": "https://raw.githubusercontent.com/ajarkan/ngaji/main/sirah/1777548332075_fiqihsirahbut.png",
   "introSub": "MEMPERKENALKAN",
   "introTitle": "Kelas Belajar Al-Quran",
-  "introDesc1": "<strong class=\"text-white\">Fiqih Sirah</strong> karya Syekh Dr. Said Ramadhan al-Buthi (judul asli: Fiqh as-Sirah an-Nabawiyyah ma'a Mujaz Litarikh al-Khilafah) adalah salah satu kitab sirah terbaik yang menggabungkan riwayat hidup Nabi Muhammad SAW dengan analisis hukum fikih, hikmah, dan ibrah (pelajaran). Kitab ini menonjol karena berfokus pada analisis mendalam, bukan sekadar kronologi sejarah.",
+  "introDesc1": "<p class=\"text-gray-300 text-sm leading-relaxed mb-4\"><b>Fiqih Sirah</b> karya Syekh Dr. Said Ramadhan al-Buthi (judul asli: <i><font color=\"#f2ff8f\">Fiqh as-Sirah an-Nabawiyyah ma'a Mujaz Litarikh al-Khilafah</font></i>) adalah salah satu kitab sirah terbaik yang menggabungkan riwayat hidup Nabi Muhammad SAW dengan analisis hukum fikih, hikmah, dan ibrah (pelajaran). Kitab ini menonjol karena berfokus pada analisis mendalam, bukan sekadar kronologi sejarah.</p>",
   "forWhoTitle": "Untuk siapa saja?",
   "benefitsTitle": "Apa Yang Akan Kamu Dapatkan Dari Kelas Ini?",
   "promoTitle": "Apakah ada kelas lainnya?",
