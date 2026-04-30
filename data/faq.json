@@ -1,16 +1,20 @@
 {
   "items": [
     {
-      "question": "Ada apa aja programnya?",
-      "answer": "Untuk program kelas mengaji, program saat ini yang dibuka meliputi kelas baca Al-Quran, Bahasa Arab, Fiqih Ibadah, dan Tafsir & Tadabbur."
+      "question": "Ada program apa saja?",
+      "answer": "Untuk program kelas mengaji, program saat ini yang dibuka meliputi kelas baca Al-Quran, Bahasa Arab (Memahami teks), dan Fiqih Sirah (12 Sesi), in syaa Allah kedepannya, akan dibuka banyak kelas, baik onlne maupun offline."
     },
     {
       "question": "Berapa biaya bulanannya?",
-      "answer": "Biaya bulanan berbeda setiap program atau kelasnya."
+      "answer": "Biaya bulanan berbeda setiap program atau kelasnya, ada yang perbulan seperti kelas Baca Al-Quran dan Bahasa Arab, dan ada yang perlevel (1 level 12 sesi seperti Kelas Fiqih Sirah)."
     },
     {
-      "question": "Apakah ada hantunya?",
-      "answer": "Biaya bulanan berbeda setiap program atau kelasnya."
+      "question": "Kampoeng Quran itu apa?",
+      "answer": "Kampoeng Quran itu pesantren, dan kelasngaji.web.id awalnya merupakan salah satu program, kini menjadi salah satu mitra dari kampoeng quran. Sebagian besar asatiznya merupakan pengajar kampoeng quran."
+    },
+    {
+      "question": "Apakah ada kelas beasiswa?",
+      "answer": "Untuk saat ini beasiswa ditiadakan, namun kami terus berusaha untuk memberikan yang terbaik untuk kedua pihak, untuk asatiz yang mengajar dan untuk para pelajar."
     }
   ]
 }
