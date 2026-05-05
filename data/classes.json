@@ -60,6 +60,56 @@
         "Hunain & Tabuk",
         "Haji Wada’ & Wafat"
       ]
+    },
+    {
+      "id": "Fiqih",
+      "title": "Kelas Fiqih Ibadah",
+      "isOpen": false,
+      "badge": "Online",
+      "img": "/assets/uploads/fiqihiba.jpg",
+      "desc": "Kitab Fathul Qorib (Syarah Matan Abi Syuja') karya Syekh Muhammad bin Qasim al-Ghazi adalah referensi utama fiqih ibadah mazhab Syafi'i di pesantren Indonesia. Kitab ini membahas rukun Islam secara rinci, mencakup thaharah (bersuci), shalat, zakat, puasa, dan haji secara sistematis dan terstruktur.</br></br>\n\n<b>Target Pembelajaran:</b></br>\nPeserta diharapkan mampu memahami fase-fase penting kehidupan Nabi ﷺ secara sistematis, serta mampu menarik relevansi antara perjuangan dakwah Rasulullah dengan tantangan hidup di zaman modern.</br></br>\n\n<b>Fokus Utama:</b></br>\nBagi peserta pemula, fokusnya adalah membangun landasan berpikir yang benar dalam memahami Sirah, mulai dari validitas riwayat hingga metodologi Syekh Al-Buthi dalam menyaring intisari hukum dari perjalanan hidup Baginda Nabi ﷺ.",
+      "price": "Rp. 175.000 / Level",
+      "brosurLink": "https://kelasngaji.web.id/quran/",
+      "formLink": "https://form.kelasngaji.web.id/?kategori=Baca%20Al-Quran",
+      "syllabus": [
+        "Pengantar Fikih Sirah",
+        "Pra-Kenabian & Awal Wahyu:",
+        "Dakwah Sirriyah & Jahriyyah",
+        "Ujian & Boikot",
+        "Hijrah (Habasyah & Madinah)",
+        "Piagam Madinah",
+        "Badar & Uhud",
+        "Khandaq & Bani Quraizhah",
+        "Hudaibiyah",
+        "Khaibar & Fathu Makkah",
+        "Hunain & Tabuk",
+        "Haji Wada’ & Wafat"
+      ]
+    },
+    {
+      "id": "Tafsir",
+      "title": "Kelas Tadabbur & Tafsir",
+      "isOpen": false,
+      "badge": "Online",
+      "img": "/assets/uploads/tafsirqq.jpg",
+      "desc": "Tafsir Al-Wasit li Al-Qur’an Al-Karim adalah karya monumental Syaikh Muhammad Sayyid Tantawi, mantan Grand Syaikh al-Azhar. Tafsir ini menonjol karena pendekatan bahasa yang mudah dipahami, kontekstual, dan fokus pada kejelasan makna ayat (tafsir tahlili), serta pemikiran moderat dalam menyikapi persoalan keagamaan kontemporer.</br></br>\n\n<b>Target Pembelajaran:</b></br>\nPeserta diharapkan mampu memahami fase-fase penting kehidupan Nabi ﷺ secara sistematis, serta mampu menarik relevansi antara perjuangan dakwah Rasulullah dengan tantangan hidup di zaman modern.</br></br>\n\n<b>Fokus Utama:</b></br>\nBagi peserta pemula, fokusnya adalah membangun landasan berpikir yang benar dalam memahami Sirah, mulai dari validitas riwayat hingga metodologi Syekh Al-Buthi dalam menyaring intisari hukum dari perjalanan hidup Baginda Nabi ﷺ.",
+      "price": "Rp. 175.000 / Level",
+      "brosurLink": "https://kelasngaji.web.id/quran/",
+      "formLink": "https://form.kelasngaji.web.id/?kategori=Baca%20Al-Quran",
+      "syllabus": [
+        "Pengantar Fikih Sirah",
+        "Pra-Kenabian & Awal Wahyu:",
+        "Dakwah Sirriyah & Jahriyyah",
+        "Ujian & Boikot",
+        "Hijrah (Habasyah & Madinah)",
+        "Piagam Madinah",
+        "Badar & Uhud",
+        "Khandaq & Bani Quraizhah",
+        "Hudaibiyah",
+        "Khaibar & Fathu Makkah",
+        "Hunain & Tabuk",
+        "Haji Wada’ & Wafat"
+      ]
     }
   ]
 }
