@@ -2,19 +2,14 @@
   "showTesti3": false,
   "forWhoList": [
     {
-      "target": "Peserta Pemula",
+      "target": "Semua Kalangan",
       "icon": "users",
-      "desc": "Yaitu peserta yang belum bisa membaca Al-Quran sama sekali."
+      "desc": "Kelas Fiqih Sirah diperuntukan untuk semua kalangan, minimal usia SMA."
     },
     {
-      "target": "Belum Lancar",
+      "target": "Calon Peserta Daurah Fardhu Ain",
       "icon": "mic",
-      "desc": "Peserta yang tajwidnya masih kurang, atau masih terbata-bata."
-    },
-    {
-      "target": "Berbagai Usia",
-      "icon": "smile",
-      "desc": "Diperuntukkan untuk berbagai usia, namun diprioritaskan minimal usia SMP."
+      "desc": "Fiqih sirah adalah gerbang awal untuk mempelajari ilmu keislaman secara utuh pada program kelas daurah fardhu ain."
     }
   ],
   "benefitsList": [
