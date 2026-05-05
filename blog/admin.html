@@ -19,6 +19,9 @@
     </script>
     <style>
         #editor{min-height:400px;outline:none}#editor p{margin-bottom:1em;line-height:1.6}#editor h2{font-size:1.5em;font-weight:bold;margin-top:1em;margin-bottom:.5em}#editor blockquote{border-left:4px solid #cbd5e1;padding-left:1rem;color:#64748b;font-style:italic}#editor img{max-width:100%;height:auto;border-radius:.5rem;margin:1.5rem auto;display:block}
+        /* PERBAIKAN: Memunculkan kembali bullet dan numbering di editor */
+        #editor ul{list-style-type:disc;padding-left:1.5rem;margin-bottom:1em}#editor ol{list-style-type:decimal;padding-left:1.5rem;margin-bottom:1em}#editor li{margin-bottom:.25em}
+        
         .toast{transition:all .3s ease;transform:translateY(100%);opacity:0}.toast.show{transform:translateY(0);opacity:1}
         .custom-scroll::-webkit-scrollbar{width:4px;height:4px}.custom-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}aside .custom-scroll::-webkit-scrollbar-thumb{background:#334155}
     </style>
@@ -125,7 +128,6 @@
                         </div>
                     </div>
                     
-                    <!-- Cover & Audio Section (Side by side) -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Cover Image -->
                         <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
@@ -277,7 +279,6 @@
         </div>
     </div>
 
-    <!-- INSERT YOUTUBE MODAL -->
     <div id="insert-youtube-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
         <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl transform transition-all scale-95 opacity-0" id="insert-youtube-box">
             <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-100">
