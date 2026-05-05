@@ -11,8 +11,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -51,6 +49,11 @@
         .prose p { margin-bottom: 1.25rem; line-height: 1.8; color: #4b5563; }
         .prose img { border-radius: 0.75rem; margin: 2rem auto; max-width: 100%; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
         .prose blockquote { border-left: 4px solid var(--c-accent, #f59e0b); padding-left: 1rem; font-style: italic; color: #6b7280; background: var(--c-light, #f9fafb); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.25rem;}
+        
+        /* PERBAIKAN: Memunculkan bullet dan numbering di halaman baca */
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; color: #4b5563; }
+        .prose ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1.25rem; color: #4b5563; }
+        .prose li { margin-bottom: 0.5rem; line-height: 1.8; }
         
         .toc-scrollbar::-webkit-scrollbar { width: 6px; }
         .toc-scrollbar::-webkit-scrollbar-thumb { background: var(--c-primary, #10b981); border-radius: 10px; }
@@ -137,7 +140,7 @@
                     </div>
                 </div>
 
-                <!-- FITUR BARU: AUDIO PLAYER PANEL (Hidden by default) -->
+                <!-- AUDIO PLAYER PANEL (Hidden by default) -->
                 <div id="audio-player-wrapper" class="hidden px-5 pt-8 md:px-12 md:pt-10">
                     <div class="bg-emerald-50/60 border border-emerald-100 rounded-2xl p-4 flex items-center shadow-sm relative overflow-hidden">
                         <!-- Ornamen Latar -->
