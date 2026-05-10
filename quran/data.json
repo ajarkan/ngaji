@@ -59,12 +59,20 @@
   ],
   "faqList": [
     {
-      "q": "Berapa batas maksimal per kelas?",
+      "q": "Batas Maksimal Peserta Perkelas",
       "a": "<b>Batas Maksimal:</b> Untuk menjaga efektivitas pembelajaran, setiap kelas dibatasi maksimal berisi <b>15 peserta</b>."
     },
     {
-      "q": "Kapan kelas dimulai? Lalu bagaimana jika gabung di tengah-tengah?",
-      "a": "<p><b>Pembukaan Kelas Baru:</b> Kelas akan diaktifkan apabila telah memenuhi ambang batas minimal <b>5 peserta</b> (berlaku untuk moda Online maupun Offline).</p>\n\n<p>Peserta yang bergabung di tengah periode bulan berjalan akan mendapatkan penyesuaian Biaya berdasarkan sisa pertemuan yang diikuti.</p>"
+      "q": "Kelas Baru & Peserta Bergabung di Tengah-Tengah Pelajaran",
+      "a": "<b>Pembukaan Kelas Baru:</b> Kelas akan diaktifkan apabila telah memenuhi ambang batas minimal <b>5 peserta</b> (berlaku untuk moda Online maupun Offline).</br></br>\nPeserta yang bergabung di tengah periode bulan berjalan akan mendapatkan penyesuaian iuran berdasarkan sisa pertemuan yang diikuti.</br></br>"
+    },
+    {
+      "q": "Batas Minimal Kelas Sehat",
+      "a": "<b>Kelas dinyatakan berjalan normal</b> dan stabil apabila memiliki minimal <b>3 peserta aktif</b>.<br>\n<b>Evaluasi Kelas:</b> Kelas dengan jumlah <b>2 peserta</b> masuk dalam kategori \"Kelas Kritis\" dan akan menjalani <b>Masa Observasi selama 1 bulan</b>.<br>\n<b>Pasca-Evaluasi:</b> Jika kuota tidak bertambah setelah masa evaluasi, lembaga akan mengambil langkah strategis berupa penggabungan ke jadwal lain, konversi ke kelas semi-privat, atau penonaktifan kelas.<br>\n<b>Kebijakan Asatiz:</b> Kelas dengan jumlah 1-2 peserta dapat tetap berjalan dengan catatan asatiz pengampu menyatakan kesediaannya untuk tetap mengajar dengan konsekuensi yang sudah disepakati.<br><br>"
+    },
+    {
+      "q": "Ketentuan Biaya & Keterlambatan",
+      "a": "<b>1. Biaya Pendaftaran:</b> Setiap peserta baru dikenakan biaya pendaftaran sebesar <b>Rp15.000</b> (berlaku satu kali selama masa kepesertaan aktif).</br>\n<b>2. Iuran Kelas Reguler:</b><br>\n- <b>Hari Kerja (Senin–Jumat):</b> <b>Rp75.000 / bulan</b>.<br>\n- <b>Akhir Pekan (Sabtu–Minggu):</b> <b>Rp100.000 / bulan</b>.<br>\n<b>3. Biaya Privat Perorangan:</b><br>\n- <b>Privat Online:</b> <b>Rp150.000 / pertemuan</b>.</br>\n- <b>Privat Offline (Tatap Muka):</b> <b>Rp200.000 / pertemuan</b></br>\n- <b>Biaya di atas belum termasuk transportasi.</b> Biaya transport disepakati di awal berdasarkan jarak tempuh dan diberikan langsung kepada Asatiz pada setiap sesi.</br>\n<b>4. Biaya Privat Institusi (Kantor/Masjid/Komunitas):</b><br>\n- <b>Online:</b> <b>Rp1.000.000 / bulan</b> (Fasilitas 4 sesi, maks. 20 orang).</br>\n- <b>Offline:</b> <b>Rp1.200.000 / bulan</b> (Fasilitas 4 sesi, maks. 20 orang. </br>\n- <b>Biaya transportasi</b> diserahkan kepada pihak institusi.</br>\n<b>6. Tenggat Pembayaran:</b> Iuran pendidikan ditunaikan selambat-lambatnya <b>tanggal 10</b> pada bulan berjalan.<br>\n<b>7. Ketentuan Keterlambatan:</b> Peserta yang memerlukan waktu tambahan pembayaran diwajibkan melapor kepada Admin. Tanpa konfirmasi hingga akhir bulan, status kepesertaan akan <b>Nonaktif Secara Otomatis</b> dari sistem dan ruang belajar.<br>\n<b>8. Pendaftaran Kembali:</b> Peserta yang telah nonaktif dapat bergabung kembali dengan mengikuti prosedur pendaftaran dari awal dan <u>memperbarui biaya pendaftaran</u>.<br><br>"
     }
   ],
   "username": "admin1",
