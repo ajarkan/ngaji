@@ -28,16 +28,16 @@
   ],
   "manfaatList": [
     {
-      "title": "Melancarkan Bacaan",
-      "icon": "zap"
+      "title": "Menambah Pemahaman",
+      "icon": "sparkle"
     },
     {
-      "title": "Lingkungan Orang Shaleh",
+      "title": "Komunitas Orang Shaleh",
       "icon": "users"
     },
     {
-      "title": "Menambah Pemahaman",
-      "icon": "lightbulb"
+      "title": "Mengenal Nabi Muhammad",
+      "icon": "book-search"
     }
   ],
   "bonusList": [
