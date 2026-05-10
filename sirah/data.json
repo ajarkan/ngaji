@@ -14,16 +14,16 @@
   ],
   "benefitsList": [
     {
-      "title": "Buku Paket Ebook Qara'na Gratis",
-      "desc": "Kamu akan diberikan secara gratis buku panduan qarana (PDF)."
+      "title": "Slide & Referensi",
+      "desc": "Kamu akan mendapat slide materi dan rekomendasi buku lanjutan dari ustadz"
     },
     {
-      "title": "Bimbingan Dari Asatiz Berpengalaman",
-      "desc": "Dibimbing 2x dalam sepekan oleh para asatiz berpengalaman."
+      "title": "Bimbingan Dari Ustadz Ahli",
+      "desc": "Dibimbing secara intensif 12 pertemuan"
     },
     {
-      "title": "Pilihan Kelas Online atau Offline",
-      "desc": "Pilih kelas sesuai hari dan waktu yang tersedia."
+      "title": "Sertifikat Digital",
+      "desc": "Peserta berhak mendapatkan E-Sertifikat sebagai tanda apresiasi keikutsertaan program."
     }
   ],
   "manfaatList": [
@@ -113,11 +113,11 @@
   "priceBadge": "PROMO",
   "priceNote": "Maksimal 25 peserta per kelas",
   "priceOriginal": "Rp 250.000",
-  "priceCurrent": "125.000",
+  "priceCurrent": "150.000",
   "priceUnit": "/12 Sesi",
   "priceBtnText": "Daftar Sekarang",
   "priceBtnLink": "https://form.kelasngaji.web.id/?kategori=Fiqih%20Sirah",
-  "priceFooter": "*Kelas weekend Rp. 175.000",
+  "priceFooter": "*Pendaftar susulan maks sebelum pertemuan ke-5",
   "faqTitle": "Pertanyaan Seputar Program",
   "ghUsername": "ajarkan",
   "ghRepo": "ngaji",
