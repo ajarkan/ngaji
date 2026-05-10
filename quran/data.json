@@ -60,7 +60,7 @@
   "faqList": [
     {
       "q": "Berapa batas maksimal per kelas?",
-      "a": "Batas maksimal satu kelas berisi 15 peserta."
+      "a": "<ol>\n  <li><b>Batas Maksimal:</b> Untuk menjaga efektivitas pembelajaran, setiap kelas dibatasi maksimal berisi <b>15 peserta</b>.</li>\n  <li><b>Pembukaan Kelas Baru:</b> Kelas akan diaktifkan apabila telah memenuhi ambang batas minimal <b>5 peserta</b> (berlaku untuk moda Online maupun Offline).</li>\n  <li><b>Kemandirian Operasional:</b> Kelas dinyatakan berjalan normal dan stabil apabila memiliki minimal <b>3 peserta aktif</b>.</li>\n  <li><b>Evaluasi Ruang Belajar:</b> Kelas dengan jumlah <b>1–2 peserta</b> masuk dalam kategori \"Kelas Kritis\" dan akan menjalani <b>Masa Observasi selama 1 bulan</b>.</li>\n  <li><b>Opsi Pasca-Evaluasi:</b> Jika kuota tidak bertambah setelah masa observasi, manajemen akan mengambil langkah strategis berupa penggabungan ke jadwal lain, konversi ke kelas semi-privat, atau penonaktifan kelas.</li>\n  <li><b>Kebijakan Asatiz:</b> Kelas dengan kuota minim tetap dapat berjalan secara khusus apabila Asatiz pengampu memberikan persetujuan berdasarkan pertimbangan dakwah dan kemaslahatan.</li>\n</ol>"
     },
     {
       "q": "Kapan kelas dimulai, bolehkah bergabung di tengah-tengah?",
