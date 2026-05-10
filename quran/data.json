@@ -63,16 +63,16 @@
       "a": "Batas maksimal satu kelas berisi 15 peserta."
     },
     {
-      "q": "Apakah harus menunggu sampai 15 orang baru mulai?",
-      "a": "Tidak, kelas baru dapat dimulai jika memenuhi kuota minimal 8 peserta, baik online maupun offline."
+      "q": "Kapan kelas dimulai, bolehkah bergabung di tengah-tengah?",
+      "a": "Untuk kelas Baca Al-Quran, kelas sudah bisa dimulai dengan jumlah peserta minimal 5 orang. Kelas in syaa Allah akan di Mulai awal Juni 2026 (Senin 1 Juni 2026).\n\nUntuk kelas Al-Quran, pendaftaran terus dibuka sepanjang tahun, selama peserta belum mencapai maksimal (15 peserta)."
     },
     {
       "q": "Apakah kelas bisa ditutup atau dibubarkan jika peserta tinggal sedikit?",
-      "a": "Kelas dinyatakan berjalan normal apabila jumlah peserta aktif minimal 4 orang.\n\nKelas dengan jumlah peserta 3 orang dapat berjalan sementara dengan masa evaluasi maksimal 1 bulan.\n\nApabila dalam masa tersebut tidak terjadi penambahan peserta, kelas akan digabung, ditutup atau dibubarkan, namun kelas dengan jumlah peserta 3 orang dapat tetap berjalan jika disetujui asatiz bersangkutan."
+      "a": "Untuk Program Baca Al-Quran, kelas dinyatakan berjalan normal apabila jumlah peserta aktif minimal 3 orang.\n\nKelas dengan jumlah peserta 2 orang dapat berjalan sementara dengan masa evaluasi maksimal 1 bulan. Apabila dalam masa tersebut tidak terjadi penambahan peserta, kelas akan digabung, ditutup atau dibubarkan, namun kelas dengan jumlah peserta 2 orang dapat tetap berjalan jika ada kesepakatan antara peserta dan asatiz bersangkutan."
     },
     {
       "q": "Bagaimana ketentuan biaya kelas online, offline dan privat perorangan atau institusi?",
-      "a": "Biaya Online dan Offline disamakan, yaitu Rp. 65.000 / bulan, kecuali weekend (Kelas Sabtu – Ahad), biayanya Rp. 75.000 / bulan.\n\nBiaya Privat Online 150.000 / pertemuan (Jumlah pertemuan dalam sebulan disepakati antara ustadz pengajar dan peserta).\n\nBiaya Privat Offline 200.000 / pertemuan (Jumlah pertemuan dalam sebulan disepakati antara ustadz pengajar dan peserta).\n\nBiaya privat institusi (masjid, kantor) dengan jumlah disarankan maksimal 20 orang (untuk semua program) Rp. 1000.000."
+      "a": "Biaya Online dan Offline disamakan, yaitu Rp. 75.000 / bulan, kecuali weekend (Kelas Sabtu – Ahad), biayanya Rp. 100.000 / bulan.\n\nBiaya Privat Online 150.000 / pertemuan (Jumlah pertemuan dalam sebulan disepakati antara ustadz pengajar dan peserta).\n\nBiaya Privat Offline 200.000 / pertemuan (Jumlah pertemuan dalam sebulan disepakati antara ustadz pengajar dan peserta).\n\nBiaya privat institusi (masjid, kantor) dengan jumlah disarankan maksimal 20 orang (untuk semua program) Rp. 1000.000."
     },
     {
       "q": "Kapan biaya pendidikan (non privat) paling lambat ditunaikan, dan apa konsekuensi jika terlambat?",
@@ -147,7 +147,7 @@
   "priceBadge": "PROMO",
   "priceNote": "Minimal 15 peserta per kelas",
   "priceOriginal": "Rp 200.000",
-  "priceCurrent": "65.000",
+  "priceCurrent": "75.000",
   "priceUnit": "/bulan",
   "priceBtnText": "Daftar Sekarang",
   "priceBtnLink": "https://form.kelasngaji.web.id/?kategori=Baca%20Al-Quran",
