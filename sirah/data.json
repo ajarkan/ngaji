@@ -54,52 +54,20 @@
   ],
   "faqList": [
     {
-      "q": "Berapa batas maksimal per kelas?",
-      "a": "Batas maksimal satu kelas berisi 15 peserta."
+      "q": "Batas Maksimal Peserta Perkelas",
+      "a": "<b>Batas Maksimal:</b> Untuk menjaga efektivitas pembelajaran, setiap kelas dibatasi maksimal berisi <b>25 peserta</b>."
     },
     {
-      "q": "Apakah harus menunggu sampai 15 orang baru mulai?",
-      "a": "Tidak, kelas baru dapat dimulai jika memenuhi kuota minimal 8 peserta, baik online maupun offline."
+      "q": "Biaya Pendidikan",
+      "a": "<b>1. Investasi Program:</b> <b>Rp150.000 / paket</b> (untuk 1 jenjang/Level berisi 12 pertemuan).<br>\n<b>2. Pelunasan:</b> Peserta diperbolehkan mengikuti 2 pertemuan awal sebagai masa pengenalan. Investasi wajib dilunasi selambat-lambatnya <b>sebelum pertemuan ke-3</b> berlangsung.<br>\n<b>3. Kebijakan Pembatalan:</b> Mengingat komitmen jadwal dan materi, investasi yang telah dibayarkan <b>tidak dapat ditarik kembali (Non-refundable)</b> apabila kelas telah berjalan, namun posisi belajar dapat dialihkan kepada pihak lain.<br>\n<b>4. Administrasi:</b> Biaya pendaftaran sebesar Rp15.000 tetap berlaku bagi peserta baru saat melakukan pendaftaran untuk pertama kali."
     },
     {
-      "q": "Apakah kelas bisa ditutup atau dibubarkan jika peserta tinggal sedikit?",
-      "a": "Kelas dinyatakan berjalan normal apabila jumlah peserta aktif minimal 4 orang.\n\nKelas dengan jumlah peserta 3 orang dapat berjalan sementara dengan masa evaluasi maksimal 1 bulan.\n\nApabila dalam masa tersebut tidak terjadi penambahan peserta, kelas akan digabung, ditutup atau dibubarkan, namun kelas dengan jumlah peserta 3 orang dapat tetap berjalan jika disetujui asatiz bersangkutan."
+      "q": "Kurikulum & Pembelajaran",
+      "a": "<b>1. Moda Pembelajaran:</b> Program dilaksanakan secara <b>Eksklusif Online</b> dengan kapasitas maksimal 25 peserta per ruang belajar.<br>\n<b>2. Kebijakan Peserta Susulan:</b> Pendaftaran masih dibuka hingga maksimal <b>pertemuan ke-5</b>. Peserta susulan tetap diwajibkan membayar investasi penuh (100%) dan akan mendapatkan akses rekaman sesi yang telah terlewati.<br>\n<b>3. Fasilitas Rekaman:</b> Lembaga menyediakan rekaman sesi belajar yang dapat diakses secara permanen oleh peserta yang telah menyelesaikan administrasi sebagai sarana murajaah.<br>\n<b>7. Sertifikat Digital:</b> Peserta yang menyelesaikan seluruh rangkaian pertemuan berhak mendapatkan <b>E-Sertifikat</b> sebagai tanda apresiasi keikutsertaan program.<br>"
     },
     {
-      "q": "Bagaimana ketentuan biaya kelas online, offline dan privat perorangan atau institusi?",
-      "a": "Untuk saat ini kelas daurah sirah belum membuka kelas untuk privat institusi atau perorangan."
-    },
-    {
-      "q": "Kapan biaya pendidikan (non privat) paling lambat ditunaikan, dan apa konsekuensi jika terlambat?",
-      "a": "Khusus kelas Fiqih Sirah biaya ditunaikan maksimal sebelum pertemuan ke 5. Peserta yang belum menunaikan masih tetap boleh belajar dengan konfirmasi terlebih dahulu kepada admin mengenai alasan penundaan pembayaran."
-    },
-    {
-      "q": "Apakah ada buku panduannya?",
-      "a": "Ya, ada, buku panduan berupa ebook boleh diprint masing-masing. Buku cetak dapat dipesan dengan cara PO."
-    },
-    {
-      "q": "Apakah pengajar ikhwan dan akhwat dibedakan?",
-      "a": "Pengajar Ikhwan adalah Ikhwan, dan pengajar akhwat adalah akhwat atau Ikhwan yang sudah menikah. (Berlaku untuk offline maupun online)"
-    },
-    {
-      "q": "Apakah peserta yang sudah bisa baca Al-Quran mesti mengulang dari dasar?",
-      "a": "Tidak, peserta yang sudah bisa membaca Al-Quran memulai pembelajaran dari jilid yang ditentukan asatiz/ustadzahnya (bisa langsung loncat ke jilid 3, 4, dst., tidak mesti dari awal), setelah tes membaca ayat-ayat yang ditentukan.\n\nPerlu diketahui, ini bukan iqro, jadi turun jilid maksudnya untuk melatih lisan secara bertahap, mulai dari teks-teks arab yang singkat sampai kompleks (Al-Quran) dengan harapan ketika sudah kembali ke Al-Quran, bacaan sudah berbeda sebelum (before) dan setelahnya (after).\n\nPeserta dinyatakan selesai mengikuti kelas baca Al-Quran setelah menuntaskan jilid 6 buku Qoro’na.\n\nPeserta yang tuntas sampai jilid 6 dengan baik, boleh (opsional) mengikuti TFT (Training For Trainer) yang diadakan Kampoeng Quran Cendekia (KQC) untuk menjadi pengajar Buku Qorona, baik offline di KQC, maupun online di tempat masing-masing."
-    },
-    {
-      "q": "Media apa yang digunakan untuk online",
-      "a": "Media online kelas baca Al-Quran menggunakan google meet premium yang tidak terbatas durasi 60 menit (batasan sekali online bisa sampai 24 jam). Jadi pembelajaran tidak akan putus koneksi."
-    },
-    {
-      "q": "Dimana kelas Offline dilaksanakan?",
-      "a": "Kelas Offline dilaksanakan di kelas-kelas atau ruangan-ruangan Kawasan Pesantren Tahfizh Kampoeng Quran Cendekia Cihanjuang, Bandung Barat."
-    },
-    {
-      "q": "Jika Ustadz/ah berhalangan, apakah bisa meminta ganti hari kelas yang diliburkan?",
-      "a": "Bisa, hari libur lembaga (Hari Jumat) atau hari lainnya dapat dipakai untuk badal (pengganti) kelas yang diliburkan karena asatiz terkendala (sakit, izin, dll) jika terjadi kesepakatan."
-    },
-    {
-      "q": "Apakah peserta boleh mengundurkan diri di tengah jalan?",
-      "a": "Peserta yang akan mengundurkan mengabarkan asatiznya masing-masing minimal sepekan sebelum masuk ke bulan berikutnya."
+      "q": "Kelas Lainnya",
+      "a": "<b><i>Kelas Baca Al-Quran</i></b>\n- Hari Kerja (Senin–Jumat): <b>Rp75.000 / bulan</b>.\n- Akhir Pekan (Sabtu–Minggu): <b>Rp100.000 / bulan</b>.<br>\n<b><i>Kelas Bahasa Arab</i></b>\n- Hari Kerja (Senin–Jumat): <b>Rp100.000 / bulan</b>.\n- Akhir Pekan (Sabtu–Minggu): <b>Rp125.000 / bulan</b>."
     }
   ],
   "username": "admin1",
