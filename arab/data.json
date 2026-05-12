@@ -1,5 +1,5 @@
 {
-  "showTesti3": false,
+  "showTesti3": 1,
   "forWhoList": [
     {
       "target": "Peserta Lancar Al-Quran",
@@ -89,13 +89,13 @@
   "testiTitle1": "Apa Kata Mereka Tentang",
   "testiTitle2": "Kelas Belajar Teks Arab?",
   "testiImage1": "https://lh3.googleusercontent.com/pw/AP1GczPH8qVEV3CFCyAoAOnuDqkPGsPm1eOEdtoMjivGCPAfarZLxcLiEvJWF8CSok1yr_sK25cY3R-Ru0lJi-DxC625HOuQzEJPbJKtPN1Z3VjE19lcwlvbcir0c5-NqQE0xL7AGIyQi2AXsZy4W5lSpIZ5=w128-h128-s-no-gm?authuser=0",
-  "testiName1": "Ahmad Zahir",
-  "testiRole1": "Engineer dan Motivator",
-  "testiQuote1": "\"Metode pengajarannya sangat mudah dipahami. Alhamdulillah sekarang bacaan saya jauh lebih baik.\"",
+  "testiName1": "Alfi",
+  "testiRole1": "Santri SMA",
+  "testiQuote1": "\"Alhamdulillah pembelajaran durusul lughoh yg seru dan mudah di fahami. Buat saya yg pemula kitab durusul lughoh itu kita belajar dri mendasar banget.\"",
   "testiImage2": "https://lh3.googleusercontent.com/pw/AP1GczPgxKK3jbnzRXRuMcilB_czCl394aKR7wM9XihqQIALzvVIzTNnjXIQ4R2uiUdW9w_Em0SwpBj01YjXEjn1dAuTrGhZHp5H8vPH_UYQDr_lE4oZQeCxuZfS1Y4T5Idle3V4lhgnPHGrFsQQomJZOK9s=w128-h128-s-no-gm?authuser=0",
-  "testiName2": "Azizah",
-  "testiRole2": "Ibu Rumah Tangga",
-  "testiQuote2": "\"Sangat membantu bagi saya ibu rumah tangga yang ingin memperbaiki bacaan di sela kesibukan.\"",
+  "testiName2": "Marsa",
+  "testiRole2": "Santri Program Takhassus",
+  "testiQuote2": "\"Mudah, praktis, mudah difahami.\"",
   "testiImage3": "",
   "testiName3": "",
   "testiRole3": "",
